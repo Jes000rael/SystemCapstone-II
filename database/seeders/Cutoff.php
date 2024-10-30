@@ -15,7 +15,7 @@ class Cutoff extends Seeder
      */
     public function run(): void
     {
-        DB::table('Cutoffs')->insert([
+        DB::table('cutoffs')->insert([
             [
               
                 'Date_start'=> now(),
