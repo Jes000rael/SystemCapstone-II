@@ -1,15 +1,4 @@
 
-<<<<<<< HEAD
-
-<div>
-    
-       <div class="account-pages my-5 pt-sm-5">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-8 col-lg-6 col-xl-5">
-                        <div class="card overflow-hidden">
-                            <div class="bg-primary bg-soft">
-=======
 @push('styles')
 <style>
     .password-container {
@@ -77,7 +66,6 @@ input[type="text"] {
                     <div class="col-md-8 col-lg-6 col-xl-5 ">
                         <div class="card overflow-hidden transparent-card ">
                             <div >
->>>>>>> f3b6019d1650b4d934ee67fcbaf30ade3b33077d
                                 <div class="row">
                                     <!-- <div class="col-7">
                                         <div class="text-primary p-4">
