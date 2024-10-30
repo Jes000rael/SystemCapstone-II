@@ -20,7 +20,7 @@
                                         <div class="row">
                                             <div class="col-7">
                                                 <div class="text-primary p-3">
-                                                    <h5 class="text-primary">Hello !</h5>
+                                                    <h5 class="text-primary">Hello  world!</h5>
                                                     <p>Skote Dashboard</p>
                                                 </div>
                                             </div>
