@@ -12,6 +12,12 @@
 <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
 <!-- App Css-->
 <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+
+@stack('styles')
     
     @livewireStyles
     
@@ -37,6 +43,8 @@
 
 
 <script src="assets/js/app.js"></script>
+
+@stack('scripts')
 
     @livewireScripts
    
