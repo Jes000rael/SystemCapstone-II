@@ -15,7 +15,7 @@ class Payslip extends Seeder
      */
     public function run(): void
     {
-        DB::table('Payslips')->insert([
+        DB::table('payslips')->insert([
             [
                 
                 'Employee_id' => '1',
