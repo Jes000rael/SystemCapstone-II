@@ -15,7 +15,7 @@ class Handbooks extends Seeder
      */
     public function run(): void
     {
-        DB::table('Handbooks')->insert([
+        DB::table('handbooks')->insert([
             [
                 
                 'Description'=> 'sss',

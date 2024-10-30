@@ -15,7 +15,7 @@ class Department extends Seeder
      */
     public function run(): void
     {
-        DB::table('Departments')->insert([
+        DB::table('departments')->insert([
             [
                 'Description' => 'Sales',
                

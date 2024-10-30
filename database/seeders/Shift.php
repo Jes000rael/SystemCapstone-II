@@ -14,7 +14,7 @@ class Shift extends Seeder
      */
     public function run(): void
     {
-        DB::table('Shifts')->insert([
+        DB::table('shifts')->insert([
             [
                 'description' => 'ilike',
                
