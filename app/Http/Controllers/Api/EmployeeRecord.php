@@ -19,7 +19,7 @@ class EmployeeRecord extends Controller
 {
     public function index()
     {
-        $EmployeeRecords = EmployeeRecords::with('work_sched','deduction','meritLog','absence')->get();
+        $EmployeeRecords = EmployeeRecords::with('work_sched','deduction','meritLog','absence','shift','department','jobtitle','seniorityLevel','employmentStatus')->get();
 
         return response()->json([
             'employees' => $EmployeeRecords
@@ -28,7 +28,7 @@ class EmployeeRecord extends Controller
 
     public function show($id)
     {
-        $EmployeeRecords = EmployeeRecords::with('work_sched','deduction')->where('employee_id', $id)->first();
+        $EmployeeRecords = EmployeeRecords::with('work_sched','deduction','meritLog','absence','shift','department','jobtitle','seniorityLevel','employmentStatus')->find($id);
 
         if (!$EmployeeRecords) {
             return response()->json(['message' => 'Log not found'], 404);
@@ -61,13 +61,20 @@ class EmployeeRecord extends Controller
     public function destroy($id)
     {
         
-        $EmployeeRecords = EmployeeRecords::where('employee_id', $id)->first();
+        $EmployeeRecords = EmployeeRecords::with('work_sched','deduction','meritLog','absence','attendance','slip')->where('employee_id', $id)->first();
 
         if (!$EmployeeRecords) {
             return response()->json(['message' => 'Log not found'], 404);
         }
 
         $EmployeeRecords->delete();
+        $EmployeeRecords->work_sched()->delete();
+        $EmployeeRecords->deduction()->delete();
+        $EmployeeRecords->meritLog()->delete();
+        $EmployeeRecords->absence()->delete();
+        $EmployeeRecords->attendance()->delete();
+        $EmployeeRecords->slip()->delete();
+   
 
         return response()->json(['message' => 'Log deleted successfully'], 200);
     }

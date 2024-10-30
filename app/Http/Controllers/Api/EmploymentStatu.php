@@ -16,7 +16,7 @@ class EmploymentStatu extends Controller
 
     public function show($id)
     {
-        $EmploymentStatus = EmploymentStatus::where('Employment_status_id', $id)->first();
+        $EmploymentStatus = EmploymentStatus::where('employment_status_id', $id)->first();
 
     if (!$EmploymentStatus) {
         return response()->json(['message' => 'Log not found'], 404);

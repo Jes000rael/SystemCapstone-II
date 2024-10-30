@@ -240,9 +240,9 @@ abstract class Factory
      */
     public function createMany(int|iterable|null $records = null)
     {
-        $records ??= ($this->count ?? 1);
-
-        $this->count = null;
+        if (is_null($records)) {
+            $records = $this->count ?? 1;
+        }
 
         if (is_numeric($records)) {
             $records = array_fill(0, $records, []);
@@ -676,7 +676,7 @@ abstract class Factory
     /**
      * Add a new "after creating" callback to the model definition.
      *
-     * @param  \Closure(\Illuminate\Database\Eloquent\Model|TModel): mixed  $callback
+     * @param  \Closure(\Illuminate\Database\Eloquent\Model|TModel, \Illuminate\Database\Eloquent\Model|null): mixed  $callback
      * @return static
      */
     public function afterCreating(Closure $callback)

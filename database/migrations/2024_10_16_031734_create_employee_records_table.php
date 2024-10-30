@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('suffix')->nullable();
             $table->string('blood_type')->nullable();
             $table->string('address')->nullable();
-            $table->foreignId('seniority_level'); 
+            $table->foreignId('seniority_level_id'); 
             $table->foreignId('employment_status_id'); 
             $table->foreignId('job_title_id'); 
-            $table->foreignId('department_title'); 
+            $table->foreignId('department_id'); 
             $table->date('date_of_birth'); 
             $table->date('date_hired'); 
             $table->date('date_start'); 

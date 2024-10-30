@@ -27,6 +27,10 @@ class WorkSchedule extends Model
         'updated_by','update_on',
     ];
 
+    public function employee()
+{
+    return $this->belongsTo(EmployeeRecords::class, 'employee_id');
+} 
     public $timestamps = false;
     protected $primaryKey = 'work_schedule_id';
 

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->Time('duty_start');
             $table->timestamp('time_in')->nullable();
             $table->timestamp('time_out')->nullable();
-            $table->String('status');
+            $table->foreignId('status_id');
             $table->Boolean('has_night_diff');
         });
     }

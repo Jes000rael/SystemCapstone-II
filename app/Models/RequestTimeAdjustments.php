@@ -20,7 +20,12 @@ class RequestTimeAdjustments extends Model
 
     public function requestTimetype()
 {
-    return $this->hasmany(RequestTimeType::class, 'request_type_id');
+    return $this->belongsTo(RequestTimeType::class, 'request_type_id');
+} 
+
+public function attendance()
+{
+    return $this->belongsTo(AttendanceRecord::class, 'attendance_id');
 } 
 
     public $timestamps = false;

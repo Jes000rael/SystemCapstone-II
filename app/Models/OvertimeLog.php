@@ -12,6 +12,8 @@ class OvertimeLog extends Model
     'start_time',
     'end_time',
     'total_hours','field',];
+
+  
     public $timestamps = false;
     protected $primaryKey = 'Overtime_id';
 

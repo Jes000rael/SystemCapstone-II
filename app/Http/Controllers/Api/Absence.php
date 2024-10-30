@@ -16,7 +16,7 @@ class Absence extends Controller
 
     public function show($id)
     {
-        $Absences = Absences::where('Absent_id', $id)->first();
+        $Absences = Absences::where('absent_id', $id)->first();
 
     if (!$Absences) {
         return response()->json(['message' => 'Log not found'], 404);

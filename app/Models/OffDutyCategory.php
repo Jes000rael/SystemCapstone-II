@@ -9,6 +9,7 @@ class OffDutyCategory extends Model
 {
     use HasFactory;
     protected $fillable = ['description'];
+    
     public $timestamps = false;
     protected $primaryKey = 'category_id';
 

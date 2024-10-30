@@ -28,7 +28,7 @@ class AttendanceRecord extends Seeder
    'Duty_start'=> now(),
     'Time_in'=> now(),
     'Time_out'=> now(),
-    'Status'=> '22',
+    'status_id'=> '1',
     'Has_night_diff'=> '1',
                
             ],

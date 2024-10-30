@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class OffDutyDates extends Model
 {
     use HasFactory;
-    protected $fillable = ['field','description','date','percentage',];
+    protected $fillable = ['category_id','description','date','percentage',];
+
+    public function OffDuty()
+    {
+        return $this->belongsTo(OffDutyCategory::class, 'category_id');
+    } 
     public $timestamps = false;
     protected $primaryKey = 'holiday_id';
 
