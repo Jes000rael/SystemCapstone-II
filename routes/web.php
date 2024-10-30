@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Livewire\Dashboard;
+use App\Livewire\Auth\Login;
 
 use Illuminate\Http\Request;
 
@@ -10,4 +10,4 @@ use Illuminate\Http\Request;
 //     return view('welcome');
 // });
 
-Route::get('/', Dashboard::class)->name('dashboard');
+Route::get('/', Login::class)->name('login');
