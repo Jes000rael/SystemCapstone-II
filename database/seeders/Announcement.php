@@ -15,7 +15,7 @@ class Announcement extends Seeder
      */
     public function run(): void
     {
-        DB::table('Announcements')->insert([
+        DB::table('announcements')->insert([
             [
                 'Description' => 'yeah',
                 'Date'=>now(),
