@@ -73,7 +73,7 @@ input[type="text"] {
                                             <p>Sign in to continue to Skote.</p>
                                         </div>
                                     </div> -->
-                                    <div class="col-12 align-self-end py-4 px-4">
+                                    <div class="col-12 align-self-end py-3 px-5">
                                         <img  src="https://cdn.shopify.com/s/files/1/0636/4479/5108/files/Prime_Retail_fall_logo.png?v=1727795811" alt="" class="img-fluid">
                                     </div>
                                 </div>
@@ -81,21 +81,25 @@ input[type="text"] {
                             <div class="card-body pt-0"> 
                                
                                 <div class="p-2">
-                                    <form class="form-horizontal" action="index.html">
-        
+                                    <form wire:submit="login" action="#" method="POST" role="form text-left">
+                                    @error('errors') <span class="text-danger error fw-bold" style="font-size: 14px;">{{ $message }}</span> @enderror
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Username</label>
-                                            <input type="text" class="form-control" id="username" placeholder="Enter username">
+                                            <div class=" @error('errors')border border-danger rounded-3 @enderror @error('username')border border-danger rounded-3 @enderror">
+                                            <input wire:model.live="username" id="username" type="text" class="form-control"  placeholder="Enter username">
+                                        </div>
+                                        @error('username') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                         </div>
                 
                                         <div class="mb-3">
                                             <label class="form-label">Password</label>
-                                            <div class="password-container">
-                                                <input id="password" type="password" class="form-control" placeholder="Enter password" aria-label="Password" aria-describedby="password-addon">
+                                            <div class="@error('errors')border border-danger rounded-3 @enderror @error('password')border border-danger rounded-3 @enderror  password-container">
+                                                <input wire:model.live="password" id="password" type="password" class="form-control" placeholder="Enter password" aria-label="Password" aria-describedby="password-addon">
                                                 <span id="togglePassword" class="toggle-password" onclick="togglePassword()">
             <i class="fas fa-eye"></i>
         </span>
                                             </div>
+                                            @error('password') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                         </div>
 
                                        
@@ -108,7 +112,7 @@ input[type="text"] {
                             
                             
                                 
-                                <p>© <script>document.write(new Date().getFullYear())</script> Design & Develop <i class="mdi mdi-heart text-danger"></i> by Enopoly Team </p>
+                                <p>© <script>document.write(new Date().getFullYear());</script> Design & Develop <i class="mdi mdi-heart text-danger"></i> by Enopoly Team </p>
                            
                         </div>
             

@@ -8,6 +8,7 @@ class Dashboard extends Component
 {
     public function render()
     {
+        \Log::info('Rendering dashboard view.');
         return view('livewire.dashboard');
     }
 }

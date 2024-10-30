@@ -160,9 +160,9 @@
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="#">Month</a>
                                                     </li>
-                                                    <li class="nav-item">
+                                                    <!-- <li class="nav-item">
                                                         <a class="nav-link active" href="#">Year</a>
-                                                    </li>
+                                                    </li> -->
                                                 </ul>
                                             </div>
                                         </div>
@@ -659,7 +659,7 @@
                 <!-- end modal -->
 
                 <!-- subscribeModal -->
-                <div class="modal fade" id="subscribeModal" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
+                <!-- <div class="modal fade" id="subscribeModal" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header border-bottom-0">
@@ -693,18 +693,54 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- end modal -->
 
-                @include('components.layouts.footers.footer')
             </div>
             <!-- end main content-->
 
         </div>
         <!-- END layout-wrapper -->
 
-        @include('components.layouts.navbars.right-sidebar')
+  
 
         
+
+       
   
 </div>
+
+
+
+
+
+
+@push('scripts')
+@if (session('success'))
+    <script>
+        Swal.fire({
+          title: '<span style="color:#000;" class="text-center">Login  <span>Successfully</span></span> ',
+          icon:'success', 
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true, 
+            width: '280px', 
+            height: '100px',
+            backdrop: true,
+            position: 'top-end', 
+            toast: true,
+
+            
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp', 
+            },
+            
+           
+         
+            
+        });
+    </script>
+@endif
+@endpush
+
+
