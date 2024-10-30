@@ -14,7 +14,7 @@ class Deductions extends Seeder
      */
     public function run(): void
     {
-        DB::table('Deductions')->insert([
+        DB::table('deductions')->insert([
             [
              
                 'employee_id' => '1',
