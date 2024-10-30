@@ -16,7 +16,7 @@ class RequestTimeTypes extends Controller
 
     public function show($id)
     {
-        $RequestTimeType = RequestTimeType::where('Request_type_id', $id)->first();
+        $RequestTimeType = RequestTimeType::where('request_type_id', $id)->first();
 
         if (!$RequestTimeType) {
             return response()->json(['message' => 'Log not found'], 404);

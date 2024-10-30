@@ -1,10 +1,8 @@
 <div>
-<a class="btn bg-gradient-dark w-100 {{ in_array(request()->route()->getName(),['profile', 'my-profile']) ? 'text-white' : '' }}" onclick="confirmLogout()"
-target="_blank"> <i class="fa fa-sign-out me-sm-1 {{ in_array(request()->route()->getName(),['profile', 'my-profile']) ? 'text-white' : '' }}"></i> Sign Out</a>
-    
-    <!-- <span class="d-sm-inline d-none {{ in_array(request()->route()->getName(),['profile', 'my-profile']) ? 'text-white' : '' }}" onclick="confirmLogout()">Sign Out</span> -->
+<a class="dropdown-item text-danger"onclick="confirmLogout()"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Logout</span></a>
 
-    <script>
+
+<script>
     function confirmLogout() {
         Swal.fire({
             title: '<strong>Are you sure?</strong>',
@@ -25,4 +23,6 @@ target="_blank"> <i class="fa fa-sign-out me-sm-1 {{ in_array(request()->route()
         });
     }
 </script>
+
+
 </div>

@@ -24,6 +24,11 @@ public function cutoff()
 {
     return $this->hasmany(Cutoff::class, 'cutoff_id');
 } 
+
+public function employeeRec()
+{
+    return $this->hasmany(EmployeeRecords::class, 'employee_id');
+} 
     public $timestamps = false;
     protected $primaryKey = 'payslip_id';
 

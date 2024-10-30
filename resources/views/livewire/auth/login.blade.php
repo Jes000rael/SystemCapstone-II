@@ -21,77 +21,114 @@ input[type="text"] {
     transform: translateY(-50%);
     cursor: pointer;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+.background-image {
+    background-image: url('https://preview.redd.it/snow-capped-4k-3840x2160-by-a-i-v0-npeh96ogvkea1.jpg?width=1080&crop=smart&auto=webp&s=a29fc17ba5671e1788319a763ed492f1c2afa2cf'); /* Replace with your image URL */
+    background-size: cover; /* Cover the entire div */
+    background-position: center; /* Center the image */
+    height: 100vh; /* Full height of the viewport */
+    width: 100%; /* Full width */
+    display: flex; /* Center content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+  
+    
+}
+
+
+.transparent-card {
+        background-color: rgba(255, 255, 255, 0.5); /* White background with 50% opacity */
+        border: none; /* Remove default border */
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow */
+        backdrop-filter: blur(5px); /* Optional: Apply a blur effect to the background */
+    }
+
+    .card-body {
+        color: #000; /* Set text color for better visibility */
+    }
 </style>
+
 
 @endpush
 
-
-<section>
-    <div class="page-header section-height-75">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
-                    <div class="card card-plain mt-8">
-                        <div class="card-header pb-0 text-left bg-transparent">
-                            <stong class="font-weight-bolder text-info text-gradient fs-3">Login Sourcerer</strong>
-                            <!-- <p class="mb-0">{{ __('Create a new acount')}}<br></p>
-                            <p class="mb-0">{{__('OR Sign in with these credentials:') }}</p>
-                            <p class="mb-0">{{ __('username ') }}<b>{{ __('admin@softui.com') }}</b></p>
-                            <p class="mb-0">{{ __('Password ') }}<b>{{ __('secret') }}</b></p> -->
-                        </div>
-                        <div class="card-body">
-                            <form wire:submit="login" action="#" method="POST" role="form text-left">
-                            @error('errors') <span class="text-danger error fw-bold" style="font-size: 14px;">{{ $message }}</span> @enderror
-                                <div class="mb-3">
-                                    <label for="username" class="fw-bold fs-6">{{ __('Username') }}</label>
-                                    <div class="@error('username')border border-danger rounded-3 @enderror">
-                                        <input style="height: 40px;" wire:model.live="username" id="username" type="text" class="form-control"
-                                            placeholder="Username" aria-label="username" aria-describedby="username-addon">
+<div class="background-image">
+       <div class="account-pages  pt-sm-4 ">
+            <div class="container ">
+                <div class="row justify-content-center ">
+                    <div class="col-md-8 col-lg-6 col-xl-5 ">
+                        <div class="card overflow-hidden transparent-card ">
+                            <div >
+                                <div class="row">
+                                    <!-- <div class="col-7">
+                                        <div class="text-primary p-4">
+                                            <h5 class="text-primary">Welcome Back !</h5>
+                                            <p>Sign in to continue to Skote.</p>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-12 align-self-end py-3 px-5">
+                                        <img  src="https://cdn.shopify.com/s/files/1/0636/4479/5108/files/Prime_Retail_fall_logo.png?v=1727795811" alt="" class="img-fluid">
                                     </div>
-                                    @error('username') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                 </div>
-                                <div class="mb-3">
-                                    <label for="password" class="fw-bold fs-6">{{ __('Password') }}</label>
-                                    <div class="@error('password')border border-danger rounded-3 @enderror  password-container">
-                                        <input style="height: 40px;" wire:model.live="password" id="password" type="password" class="form-control"
-                                            placeholder="Password" aria-label="Password"
-                                            aria-describedby="password-addon">
-                                            <span id="togglePassword" class="toggle-password" onclick="togglePassword()">
+                            </div>
+                            <div class="card-body pt-0"> 
+                               
+                                <div class="p-2">
+                                    <form wire:submit="login" action="#" method="POST" role="form text-left">
+                                    @error('errors') <span class="text-danger error fw-bold" style="font-size: 14px;">{{ $message }}</span> @enderror
+                                        <div class="mb-3">
+                                            <label for="username" class="form-label">Username</label>
+                                            <div class=" @error('errors')border border-danger rounded-3 @enderror @error('username')border border-danger rounded-3 @enderror">
+                                            <input wire:model.live="username" id="username" type="text" class="form-control"  placeholder="Enter username">
+                                        </div>
+                                        @error('username') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                        </div>
+                
+                                        <div class="mb-3">
+                                            <label class="form-label">Password</label>
+                                            <div class="@error('errors')border border-danger rounded-3 @enderror @error('password')border border-danger rounded-3 @enderror  password-container">
+                                                <input wire:model.live="password" id="password" type="password" class="form-control" placeholder="Enter password" aria-label="Password" aria-describedby="password-addon">
+                                                <span id="togglePassword" class="toggle-password" onclick="togglePassword()">
             <i class="fas fa-eye"></i>
         </span>
-                                           
-                                    </div>
-                                    @error('password') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
-                                </div>
+                                            </div>
+                                            @error('password') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                        </div>
+
+                                       
+                                        
+                                        <div class="mt-3 d-grid ">
+                                            <button class="btn btn-primary waves-effect waves-light rounded-pill" type="submit">Log In</button>
+                                        </div>
+
+                                        <div class="mt-5 text-center">
+                            
+                            
                                 
-                                <div class="text-center">
-                                    <button  type="submit"
-                                        class="btn bg-gradient-info w-100 mt-4 mb-0">{{ __('Sign in') }}</button>
+                                <p>© <script>document.write(new Date().getFullYear());</script> Design & Develop <i class="mdi mdi-heart text-danger"></i> by Enopoly Team </p>
+                           
+                        </div>
+            
+                                        
+                                    </form>
                                 </div>
-                            </form>
+            
+                            </div>
                         </div>
-                        <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                            <small class="text-muted">{{ __('Forgot you password? Reset you password') }} <a
-                            wire:navigate  href="{{ route('forgot-password') }}"
-                                    class="text-info text-gradient font-weight-bold">{{ __('here') }}</a></small>
-                            <p class="mb-4 text-sm mx-auto">
-                                {{ __(' Don\'t have an account?') }}
-                                <a wire:navigate  href="{{ route('sign-up') }}"
-                                    class="text-info text-gradient font-weight-bold">{{ __('Sign up') }}</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="oblique position-absolute top-0 h-100 d-md-block d-none me-n8">
-                        <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6"
-                            style="background-image:url('../assets/img/curved-images/curved6.jpg')"></div>
+                       
+
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+</div>
 
 @push('scripts')
 <script>
@@ -112,3 +149,4 @@ input[type="text"] {
 
 </script>
 @endpush
+

@@ -11,7 +11,7 @@ class RequestTimeAdjustment extends Controller
 {
     public function index()
     {
-        $RequestTimeAdjustments = RequestTimeAdjustments::with('requestTimetype')->get();
+        $RequestTimeAdjustments = RequestTimeAdjustments::with('requestTimetype','attendance')->get();
 
         return response()->json([
             'request_time_adjustments' => $RequestTimeAdjustments
@@ -20,10 +20,10 @@ class RequestTimeAdjustment extends Controller
 
     public function show($id)
     {
-        $RequestTimeAdjustments = RequestTimeAdjustments::where('Time_adjusment_id', $id)->first();
+        $RequestTimeAdjustments = RequestTimeAdjustments::with('requestTimetype','attendance')->find($id);
 
         if (!$RequestTimeAdjustments) {
-            return response()->json(['message' => 'Log not found'], 404);
+            return response()->json(['message' => 'Opps not found'], 404);
         }
     
         return response()->json($RequestTimeAdjustments);

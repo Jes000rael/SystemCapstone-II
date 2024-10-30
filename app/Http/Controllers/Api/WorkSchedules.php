@@ -10,18 +10,21 @@ class WorkSchedules extends Controller
 {
     public function index()
     {
-        $WorkSchedule = WorkSchedule::where('work_schedule_id', $id)->first();
+        $WorkSchedule = WorkSchedule::with('employee')->get();
 
+        return response()->json([
+            'work_schedules' => $WorkSchedule
+        ]);
+    }
+
+    public function show($id)
+    {
+        $WorkSchedule = WorkSchedule::with('employee')->find($id);
         if (!$WorkSchedule) {
             return response()->json(['message' => 'Log not found'], 404);
         }
     
         return response()->json($WorkSchedule);
-    }
-
-    public function show($id)
-    {
-        return WorkSchedule::findOrFail($id);
     }
 
     public function store(Request $request)

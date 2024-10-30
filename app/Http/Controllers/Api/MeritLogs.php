@@ -21,7 +21,7 @@ class MeritLogs extends Controller
 
     public function show($id)
     {
-        $MeritLog = MeritLog::where('Merit_id', $id)->first();
+        $MeritLog = MeritLog::with('meritCategory','meritType')->find($id);
 
         if (!$MeritLog) {
             return response()->json(['message' => 'Log not found'], 404);

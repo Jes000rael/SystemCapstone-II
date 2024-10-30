@@ -28,7 +28,7 @@ class EmployeeRecords extends Authenticatable
         'suffix',
         'blood_type',
         'address',
-        'seniority_level',
+        'seniority_level_id',
         'employment_status_id',
         'job_title_id',
         'department_title',
@@ -68,8 +68,41 @@ public function absence()
     return $this->hasmany(Absences::class, 'employee_id');
 } 
 
-    
+public function attendance()
+{
+    return $this->hasmany(AttendanceRecord::class, 'employee_id');
+} 
 
+public function slip()
+{
+    return $this->hasmany(Payslip::class, 'employee_id');
+} 
+
+
+
+public function shift()
+{
+    return $this->belongsTo(Shift::class, 'shift_id');
+} 
+    
+public function department()
+{
+    return $this->belongsTo(Department::class, 'department_id');
+} 
+public function jobtitle()
+{
+    return $this->belongsTo(JobTitle::class, 'job_title_id');
+} 
+
+public function employmentStatus()
+{
+    return $this->belongsTo(EmploymentStatus::class, 'employment_status_id');
+} 
+
+public function seniorityLevel()
+{
+    return $this->belongsTo(SeniorityLevel::class, 'seniority_level_id');
+} 
     public $timestamps = false;
 
 

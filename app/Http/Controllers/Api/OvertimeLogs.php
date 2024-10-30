@@ -11,13 +11,7 @@ class OvertimeLogs extends Controller
 {
     public function index()
     {
-        $OvertimeLog = OvertimeLog::where('Overtime_id', $id)->first();
-
-    if (!$OvertimeLog) {
-        return response()->json(['message' => 'Log not found'], 404);
-    }
-
-    return response()->json($OvertimeLog);
+        return OvertimeLog::all();
     }
 
     public function show($id)
