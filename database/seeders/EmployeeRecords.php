@@ -21,7 +21,7 @@ class EmployeeRecords extends Seeder
             [
               
                 'company_id'=> 1,
-                'first_name'=> 'jesrael',
+                'first_name'=> 'Jesrael',
                 'last_name'=> 'Escaran',
                 'middle_name'=> 'D.',
                 'suffix'=> '1',
@@ -36,8 +36,8 @@ class EmployeeRecords extends Seeder
                 'date_start'=> now(),
                 'hourly_rate'=> 1,
                 'has_night_diff'=> 1,
-                'username'=> 'jes2kim6@gmail.com1',
-                'password'=> Hash::make('jes2kim6@gmail.com1'),
+                'username'=> 'jes2kim6@gmail.com',
+                'password'=> Hash::make('jes2kim6@gmail.com'),
                 'password_string'=> 'jes2kim6@gmail.com',
                 'contact_number'=> 123123123,
                 'emergency_contact'=> 123123123,

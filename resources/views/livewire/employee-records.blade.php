@@ -44,72 +44,82 @@
                                             </tbody>
                                         </table>
 
-                                        <script>
-
+                                        
+<script>
     const apiUrl = 'http://localhost:8000/api/employee-records';
-
 
     async function fetchEmployeeRecords() {
         try {
-         
             const response = await fetch(apiUrl);
-
-        
             if (!response.ok) throw new Error('Network response was not ok');
 
-
             const data = await response.json();
-
-          
             const tableBody = document.getElementById('employee-records');
-
-          
             tableBody.innerHTML = '';
 
             if (data.employees && data.employees.length > 0) {
-            
                 data.employees.forEach(employee => {
                     const row = document.createElement('tr');
-
-                
                     row.innerHTML = `
-                       <td>${employee.company ? employee.company.description : 'N/A'}</td>
-                                                <td>${ employee.first_name}</td>
-                                                <td>${ employee.last_name }</td>
-                                                <td>${ employee.middle_name }</td>
-                                                <td>${ employee.suffix }</td>
-                                                <td>${ employee.blood_type }</td>
-                                                <td>${ employee.address }</td>
-                                                <td>${ employee.contact_number }</td>
-                                                <td class="text-center">
-                                                  <a class="btn btn-outline-secondary btn-sm view" data-bs-toggle="modal" data-bs-target=".transaction-detailModal" title="View">
-                                                    <i class="fas fa-eye"></i>
-                                                  </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                  </a>
-                                                  <a class="btn btn-outline-secondary btn-sm delete" title="Delete">
-                                                    <i class="fas fa-trash"></i>
-                                                  </a>
-                                                </td>
+                        <td>${employee.company ? employee.company.description : 'N/A'}</td>
+                        <td>${employee.first_name}</td>
+                        <td>${employee.last_name}</td>
+                        <td>${employee.middle_name}</td>
+                        <td>${employee.suffix}</td>
+                        <td>${employee.blood_type}</td>
+                        <td>${employee.address}</td>
+                        <td>${employee.contact_number}</td>
+                        <td class="text-center">
+                            <a class="btn btn-outline-secondary btn-sm view" data-id="${employee.employee_id}" data-bs-toggle="modal" data-bs-target="#empView" title="View">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <a class="btn btn-outline-secondary btn-sm delete" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
                     `;
 
-                
                     tableBody.appendChild(row);
                 });
             } else {
-               
-                tableBody.innerHTML = '<tr><td colspan="4">No employee records found.</td></tr>';
+                tableBody.innerHTML = '<tr><td colspan="9">No employee records found.</td></tr>'; // Adjust colspan if needed
             }
         } catch (error) {
             console.error('Error fetching data:', error);
-            document.getElementById('employee-records').innerHTML = '<tr><td colspan="4">Failed to load employee records.</td></tr>';
+            document.getElementById('employee-records').innerHTML = '<tr><td colspan="9">Failed to load employee records.</td></tr>'; // Adjust colspan if needed
         }
     }
 
- 
+    async function fetchEmployeeDetails(id) {
+        const response = await fetch(`http://localhost:8000/api/employee-records/${id}`);
+        if (!response.ok) throw new Error('Network response was not ok');
+
+        const employee = await response.json();
+        // Populate the modal with employee details
+        document.getElementById('modal-first-name').textContent = employee.first_name;
+        document.getElementById('modal-last-name').textContent = employee.last_name;
+        document.getElementById('modal-middle-name').textContent = employee.middle_name;
+        document.getElementById('modal-suffix').textContent = employee.suffix;
+        document.getElementById('modal-blood-type').textContent = employee.blood_type;
+        document.getElementById('modal-address').textContent = employee.address;
+        document.getElementById('modal-contact-number').textContent = employee.contact_number;
+        // Add more fields as necessary
+    }
+
+    // Event delegation to handle dynamic elements
+    document.addEventListener('click', function (event) {
+        if (event.target.closest('.view')) {
+            const id = event.target.closest('.view').getAttribute('data-id');
+            fetchEmployeeDetails(id);
+        }
+    });
+
     fetchEmployeeRecords();
 </script>
+
         
                                     </div>
                                 </div>
@@ -122,82 +132,19 @@
                 </div>
                 <!-- End Page-content -->
                  <!-- modal-view -->
-                 <div class="modal modal-xl fade transaction-detailModal" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
+                 <div class="modal modal-xl fade empView" id="empView" tabindex="-1" role="dialog" aria-labelledby="empViewLabel" aria-hidden="true">
                     <div class=" modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="transaction-detailModalLabel">Order Details</h5>
+                                <h5 class="modal-title" id="empViewLabel">Order Details</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p class="mb-2">Product id: <span class="text-primary">#SK2540</span></p>
-                                <p class="mb-4">Billing Name: <span class="text-primary">Neal Matthews</span></p>
 
-                                <div class="table-responsive">
-                                    <table class="table align-middle table-nowrap">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Product</th>
-                                                <th scope="col">Product Name</th>
-                                                <th scope="col">Price</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">
-                                                    <div>
-                                                        <img src="assets/images/product/img-7.png" alt="" class="avatar-sm">
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    <div>
-                                                        <h5 class="text-truncate font-size-14">Wireless Headphone (Black)</h5>
-                                                        <p class="text-muted mb-0">$ 225 x 1</p>
-                                                    </div>
-                                                </td>
-                                                <td>$ 255</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">
-                                                    <div>
-                                                        <img src="assets/images/product/img-4.png" alt="" class="avatar-sm">
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    <div>
-                                                        <h5 class="text-truncate font-size-14">Phone patterned cases</h5>
-                                                        <p class="text-muted mb-0">$ 145 x 1</p>
-                                                    </div>
-                                                </td>
-                                                <td>$ 145</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <h6 class="m-0 text-right">Sub Total:</h6>
-                                                </td>
-                                                <td>
-                                                    $ 400
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <h6 class="m-0 text-right">Shipping:</h6>
-                                                </td>
-                                                <td>
-                                                    Free
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <h6 class="m-0 text-right">Total:</h6>
-                                                </td>
-                                                <td>
-                                                    $ 400
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+
+                            <p class="fs-6"><strong>Name:</strong> <span id="modal-last-name"> </span> <span id="modal-suffix"></span> <span id="modal-first-name"> </span> <span id="modal-middle-name"></span> <span id="modal-suffix"></span> </p>
+
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
