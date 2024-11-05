@@ -115,7 +115,7 @@ $(document).ready(function() {
 
 <script>
 
-    // Immediately apply dark mode and set icon based on stored theme preference
+    
 if (localStorage.getItem('theme') === 'dark') {
     document.documentElement.classList.add('dark');
     document.getElementById("darkIcon").style.display = "inline";
@@ -126,13 +126,13 @@ if (localStorage.getItem('theme') === 'dark') {
 }
 
 function toggleDarkMode() {
-    // Toggle dark mode on the <html> element
+   
     const isDarkMode = document.documentElement.classList.toggle('dark');
 
-    // Update localStorage to remember theme preference
+    
     localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
 
-    // Toggle icon visibility
+  
     const darkIcon = document.getElementById("darkIcon");
     const lightIcon = document.getElementById("lightIcon");
 
@@ -144,17 +144,49 @@ function toggleDarkMode() {
         lightIcon.style.display = "inline";
     }
 
-    // Add animation to the visible icon
+  
     const activeIcon = isDarkMode ? darkIcon : lightIcon;
     activeIcon.classList.add("active");
 
-    // Remove the animation class after it ends
+    
     activeIcon.addEventListener("animationend", () => {
         activeIcon.classList.remove("active");
     }, { once: true });
 }
 
     </script>
+
+
+<script>
+        // Check sidebar state on page load
+        if (localStorage.getItem('sidebar-collapsed') === 'true') {
+            document.body.classList.add('vertical-collpsed');
+            document.body.classList.remove('sidebar-enable');
+        } else {
+            document.body.classList.add('sidebar-enable');
+            document.body.classList.remove('vertical-collpsed');
+        }
+
+        // Function to toggle sidebar state
+        function toggleSidebar() {
+            const isCurrentlyCollapsed = document.body.classList.toggle('vertical-collpsed');
+            document.body.classList.toggle('sidebar-enable', !isCurrentlyCollapsed); // Ensure the other class is removed/added correctly
+            
+            // Save the current state to localStorage
+            localStorage.setItem('sidebar-collapsed', isCurrentlyCollapsed);
+
+            // Optional: Update UI elements or run animations here
+        }
+
+        // Attach click event to toggle button
+        document.getElementById('vertical-menu-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+            toggleSidebar();
+        });
+    </script>
+
+
+
 @stack('scripts')
 
     @livewireScripts
