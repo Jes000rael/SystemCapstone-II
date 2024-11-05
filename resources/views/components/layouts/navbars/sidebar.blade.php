@@ -10,72 +10,45 @@
                 <li class="menu-title" key="t-menu">Menu</li>
 
                 <li class="{{ Route::currentRouteName() == 'dashboard' ? 'mm-active' : 'text-light fw-bold' }}">
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <a wire:navigate href="{{ route('dashboard') }}">
                         <i class="bx bx-home-circle"></i>
                         <span key="t-dashboards">Dashboards</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a wire:navigate href="{{ route('dashboard') }}" >Dashboard</a></li>
-                        <li><a href="dashboard-saas.html" key="t-saas">Saas</a></li>
-                        <li><a href="dashboard-crypto.html" key="t-crypto">Crypto</a></li>
-                        <li><a href="dashboard-blog.html" key="t-blog">Blog</a></li>
-                        <li><a href="dashboard-job.html"><span class="badge rounded-pill text-bg-success float-end" key="t-new">New</span> <span key="t-jobs">Jobs</span></a></li>
-                    </ul>
+                 
                 </li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-layout"></i>
-                        <span key="t-layouts">Layouts</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="true">
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow" key="t-vertical">Vertical</a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="layouts-light-sidebar.html" key="t-light-sidebar">Light Sidebar</a></li>
-                                <li><a href="layouts-compact-sidebar.html" key="t-compact-sidebar">Compact Sidebar</a></li>
-                                <li><a href="layouts-icon-sidebar.html" key="t-icon-sidebar">Icon Sidebar</a></li>
-                                <li><a href="layouts-boxed.html" key="t-boxed-width">Boxed Width</a></li>
-                                <li><a href="layouts-preloader.html" key="t-preloader">Preloader</a></li>
-                                <li><a href="layouts-colored-sidebar.html" key="t-colored-sidebar">Colored Sidebar</a></li>
-                                <li><a href="layouts-scrollable.html" key="t-scrollable">Scrollable</a></li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow" key="t-horizontal">Horizontal</a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="layouts-horizontal.html" key="t-horizontal">Horizontal</a></li>
-                                <li><a href="layouts-hori-topbar-light.html" key="t-topbar-light">Topbar light</a></li>
-                                <li><a href="layouts-hori-boxed-width.html" key="t-boxed-width">Boxed width</a></li>
-                                <li><a href="layouts-hori-preloader.html" key="t-preloader">Preloader</a></li>
-                                <li><a href="layouts-hori-colored-header.html" key="t-colored-topbar">Colored Header</a></li>
-                                <li><a href="layouts-hori-scrollable.html" key="t-scrollable">Scrollable</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="menu-title" key="t-apps">Apps</li>
 
                 
 
-                <li>
+                <li class="menu-title" key="t-apps">Records</li>
+
+                <li class="{{ Route::currentRouteName() === 'employee-records' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-calendar"></i>
-                        <span key="t-dashboards">Calendars</span>
+                        <i class="bx bx-group"></i>
+                        <span key="t-employee-records">Employee</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="calendar.html" key="t-tui-calendar">TUI Calendar</a></li>
-                        <li><a href="calendar-full.html" key="t-full-calendar">Full Calendar</a></li>
+                    <ul class="sub-menu" aria-expanded="{{ Route::currentRouteName() === 'employee-records' ? 'true' : 'false' }}">
+                        <li><a wire:navigate href="{{ route('employee-records') }}" key="t-employee-records">Employee Records</a></li>
+                        <li><a href="employee-product-detail.html" key="t-product-detail">Add Employee</a></li>
+                   
                     </ul>
                 </li>
+                
 
                 <li>
-                    <a href="chat.html" class="waves-effect">
-                        <i class="bx bx-chat"></i>
-                        <span key="t-chat">Chat</span>
+                    <a href="#" class="waves-effect">
+                        <i class="bx bx-calendar"></i>
+                        <span key="t-calendar">Attendance</span>
                     </a>
+                </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx-time"></i>
+                        <span key="t-time">Work Schedule</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="calendar.html" key="t-tui-calendar">Schedule Record</a></li>
+                        <li><a href="calendar-full.html" key="t-full-calendar">Add Schedule</a></li>
+                    </ul>
                 </li>
 
                 <li>
@@ -85,22 +58,7 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-store"></i>
-                        <span key="t-ecommerce">Ecommerce</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="ecommerce-products.html" key="t-products">Products</a></li>
-                        <li><a href="ecommerce-product-detail.html" key="t-product-detail">Product Detail</a></li>
-                        <li><a href="ecommerce-orders.html" key="t-orders">Orders</a></li>
-                        <li><a href="ecommerce-customers.html" key="t-customers">Customers</a></li>
-                        <li><a href="ecommerce-cart.html" key="t-cart">Cart</a></li>
-                        <li><a href="ecommerce-checkout.html" key="t-checkout">Checkout</a></li>
-                        <li><a href="ecommerce-shops.html" key="t-shops">Shops</a></li>
-                        <li><a href="ecommerce-add-product.html" key="t-add-product">Add Product</a></li>
-                    </ul>
-                </li>
+                
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">

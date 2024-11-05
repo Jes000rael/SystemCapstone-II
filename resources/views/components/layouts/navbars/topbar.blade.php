@@ -5,19 +5,19 @@
             <div class="navbar-brand-box">
                 <a wire:navigate href="dashboard" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="assets/images/logo.svg" alt="" height="22">
+                        <img src="https://app.enopolyautomation.com/assets/images/logo.png" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="assets/images/logo-dark.png" alt="" height="17">
+                        <img src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="" height="17">
                     </span>
                 </a>
 
                 <a wire:navigate href="dashboard" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="assets/images/logo-light.svg" alt="" height="22">
+                        <img src="https://app.enopolyautomation.com/assets/images/logo.png" alt="" height="22">
                     </span>
                     <span class="logo-lg">
-                        <img src="assets/images/logo-light.png" alt="" height="19">
+                        <img src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="" height="19">
                     </span>
                 </a>
             </div>
@@ -27,103 +27,18 @@
             </button>
 
             <!-- App Search-->
-            <form class="app-search d-none d-lg-block">
+            <!-- <form class="app-search d-none d-lg-block">
                 <div class="position-relative">
                     <input type="text" class="form-control" placeholder="Search...">
                     <span class="bx bx-search-alt"></span>
                 </div>
-            </form>
+            </form> -->
 
             <div class="dropdown dropdown-mega d-none d-lg-block ms-2">
-                <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
-                    <span key="t-megamenu">Mega Menu</span>
-                    <i class="mdi mdi-chevron-down"></i> 
-                </button>
+             
                 <div class="dropdown-menu dropdown-megamenu">
                     <div class="row">
-                        <div class="col-sm-8">
-    
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <h5 class="font-size-14" key="t-ui-components">UI Components</h5>
-                                    <ul class="list-unstyled megamenu-list">
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-lightbox">Lightbox</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-range-slider">Range Slider</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-sweet-alert">Sweet Alert</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-rating">Rating</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-forms">Forms</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-tables">Tables</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-charts">Charts</a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <h5 class="font-size-14" key="t-applications">Applications</h5>
-                                    <ul class="list-unstyled megamenu-list">
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-ecommerce">Ecommerce</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-calendar">Calendar</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-email">Email</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-projects">Projects</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-tasks">Tasks</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-contacts">Contacts</a>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <h5 class="font-size-14" key="t-extra-pages">Extra Pages</h5>
-                                    <ul class="list-unstyled megamenu-list">
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-light-sidebar">Light Sidebar</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-compact-sidebar">Compact Sidebar</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-horizontal">Horizontal layout</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-maintenance">Maintenance</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-coming-soon">Coming Soon</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-timeline">Timeline</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0);" key="t-faqs">FAQs</a>
-                                        </li>
-                            
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="col-sm-4">
                             <div class="row">
                                 <div class="col-sm-6">
@@ -274,22 +189,16 @@
                 </div>
             </div>
             
-    <div class="dropdown d-none d-lg-inline-block ms-1">
-    
-  
-    <div class="form-check form-switch mb-3 header-item noti-icon waves-effect">
-        <input class="form-check-input theme-choice" type="checkbox" id="theme-toggle">
-        <label class="form-check-label" for="theme-toggle">
-            <i id="lightIcon" class="fas fa-sun" style="display: inline;"></i>
-            <i id="darkIcon" class="fas fa-moon" style="display: none;"></i> 
-        </label>
-    </div>
-   
 
-
-
-
-</div>
+            <div class="dropdown  d-inline-block ">
+            <button onclick="toggleDarkMode()" type="button"  class="btn header-item noti-icon ">
+            <i class="bx bx-moon icon-animation" id="darkIcon" style="display: none;"></i>
+        <!-- Sun icon for light mode -->
+        <i class="bx bx-sun icon-animation" id="lightIcon"></i>
+                </button>
+            </div>
+           
+ 
 
             <div class="dropdown d-none d-lg-inline-block ms-1">
                 <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">
@@ -387,10 +296,9 @@
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg"
-                        alt="Header Avatar">
-                    <span class="d-none d-xl-inline-block ms-1" key="t-henry">Henry</span>
-                    <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                   
+                        <livewire:auth.username />
+                   
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->

@@ -86,7 +86,7 @@ input[type="text"] {
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Username</label>
                                             <div class=" @error('errors')border border-danger rounded-3 @enderror @error('username')border border-danger rounded-3 @enderror">
-                                            <input wire:model.live="username" id="username" type="text" class="form-control"  placeholder="Enter username">
+                                            <input  wire:model.live="username" id="username" type="text" class="form-control bg-white border-white "  style="color:#000;" placeholder="Enter username">
                                         </div>
                                         @error('username') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                         </div>
@@ -94,7 +94,7 @@ input[type="text"] {
                                         <div class="mb-3">
                                             <label class="form-label">Password</label>
                                             <div class="@error('errors')border border-danger rounded-3 @enderror @error('password')border border-danger rounded-3 @enderror  password-container">
-                                                <input wire:model.live="password" id="password" type="password" class="form-control" placeholder="Enter password" aria-label="Password" aria-describedby="password-addon">
+                                                <input wire:model.live="password" id="password" type="password" class="form-control bg-white border-white"  style="color:#000;" placeholder="Enter password" aria-label="Password" aria-describedby="password-addon">
                                                 <span id="togglePassword" class="toggle-password" onclick="togglePassword()">
             <i class="fas fa-eye"></i>
         </span>

@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <title>  Dashboards  | Enopoly Commerce</title>
 <!-- App favicon -->
-<link rel="shortcut icon" href="assets/images/favicon.ico">
+<link rel="shortcut icon" href="https://app.enopolyautomation.com/assets/images/favicon.ico">
+<link href="assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+<!-- Responsive datatable examples -->
+<link href="assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
   <!-- Bootstrap Css -->
 <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
 <!-- Icons Css -->
@@ -15,22 +20,23 @@
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-<style> 
-  /* Basic body styles */
-body {
-    background-color: white; /* Default background */
-    color: black; /* Default text color */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
-}
-
-/* Dark mode styles */
-body[data-layout-mode="dark"] {
-    background-color: #121212; /* Dark background */
-    color: white; /* Light text color */
-}
-
+<style>
+  .dataTables_length {
+          margin-bottom: -1.5%;
+        }
+  .dataTables_info {
+   
+    margin-bottom: -1.8%;
+}     
 </style>
+<script>
+        // Immediately apply dark mode if preferred
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+    <link href="assets/css/apas.css" rel="stylesheet">
+
 
 
 
@@ -60,60 +66,95 @@ body[data-layout-mode="dark"] {
 
 <script src="assets/js/pages/dashboard.init.js"></script>
 
+<!-- Required datatable js -->
+<script src="assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<!-- Buttons examples -->
+<script src="assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="assets/libs/jszip/jszip.min.js"></script>
+<script src="assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="assets/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="assets/libs/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+        
+<!-- Responsive examples -->
+<script src="assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
+<!-- Datatable init js -->
+<script src="assets/js/pages/datatables.init.js"></script> 
+
+<script>
+$(document).ready(function() {
+    $('#akontable').DataTable({
+      pageLength: 10,
+        dom: 'lfBrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print' 
+        ],
+        paging: true,
+        searching: true,
+        ordering: true,
+        lengthMenu: [ 
+                    [5, 10, 15, 25, 50, 100],
+                    [5, 10, 15, 25, 50, 100]
+                ]
+    });
+});
+</script>
+
 
 <script src="assets/js/app.js"></script>
 
 
+
+ 
+
+
 <script>
- function initSettings() {
-    const themeToggle = document.getElementById("theme-toggle");
-    const lightIcon = document.getElementById("lightIcon");
-    const darkIcon = document.getElementById("darkIcon");
-    const body = document.body;
 
-    // Check for user's preference in sessionStorage
-    const alreadyVisited = sessionStorage.getItem("is_visited");
-
-    if (alreadyVisited === "dark-mode") {
-        // Apply dark mode
-        themeToggle.checked = true; // Set toggle to checked for dark mode
-        darkIcon.style.display = "inline"; // Show dark icon
-        lightIcon.style.display = "none"; // Hide light icon
-        body.classList.add("dark-mode"); // Add dark mode class to body
-        body.setAttribute("data-layout-mode", "dark"); // Update layout mode to dark
-    } else {
-        // Default to light mode
-        themeToggle.checked = false; // Set toggle to unchecked for light mode
-        darkIcon.style.display = "none"; // Hide dark icon
-        lightIcon.style.display = "inline"; // Show light icon
-        body.classList.remove("dark-mode"); // Remove dark mode class from body
-        body.setAttribute("data-layout-mode", "light"); // Update layout mode to light
-    }
-
-    themeToggle.addEventListener("change", function() {
-        if (this.checked) {
-            // Dark Mode
-            darkIcon.style.display = "inline"; // Show dark icon
-            lightIcon.style.display = "none"; // Hide light icon
-            body.classList.add("dark-mode"); // Add dark mode class to body
-            body.setAttribute("data-layout-mode", "dark"); // Update layout mode to dark
-            sessionStorage.setItem("is_visited", "dark-mode"); // Store preference
-        } else {
-            // Light Mode
-            darkIcon.style.display = "none"; // Hide dark icon
-            lightIcon.style.display = "inline"; // Show light icon
-            body.classList.remove("dark-mode"); // Remove dark mode class from body
-            body.setAttribute("data-layout-mode", "light"); // Update layout mode to light
-            sessionStorage.setItem("is_visited", "light-mode"); // Store preference
-        }
-    });
+    // Immediately apply dark mode and set icon based on stored theme preference
+if (localStorage.getItem('theme') === 'dark') {
+    document.documentElement.classList.add('dark');
+    document.getElementById("darkIcon").style.display = "inline";
+    document.getElementById("lightIcon").style.display = "none";
+} else {
+    document.getElementById("darkIcon").style.display = "none";
+    document.getElementById("lightIcon").style.display = "inline";
 }
 
-// Initialize settings on page load
-document.addEventListener("DOMContentLoaded", initSettings);
+function toggleDarkMode() {
+    // Toggle dark mode on the <html> element
+    const isDarkMode = document.documentElement.classList.toggle('dark');
 
+    // Update localStorage to remember theme preference
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
 
-</script>
+    // Toggle icon visibility
+    const darkIcon = document.getElementById("darkIcon");
+    const lightIcon = document.getElementById("lightIcon");
+
+    if (isDarkMode) {
+        darkIcon.style.display = "inline";
+        lightIcon.style.display = "none";
+    } else {
+        darkIcon.style.display = "none";
+        lightIcon.style.display = "inline";
+    }
+
+    // Add animation to the visible icon
+    const activeIcon = isDarkMode ? darkIcon : lightIcon;
+    activeIcon.classList.add("active");
+
+    // Remove the animation class after it ends
+    activeIcon.addEventListener("animationend", () => {
+        activeIcon.classList.remove("active");
+    }, { once: true });
+}
+
+    </script>
 @stack('scripts')
 
     @livewireScripts
