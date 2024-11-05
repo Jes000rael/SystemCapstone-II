@@ -103,6 +103,11 @@ public function seniorityLevel()
 {
     return $this->belongsTo(SeniorityLevel::class, 'seniority_level_id');
 } 
+
+public function company()
+{
+    return $this->belongsTo(Company::class, 'company_id');
+} 
     public $timestamps = false;
 
 

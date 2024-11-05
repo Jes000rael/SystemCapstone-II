@@ -27,7 +27,7 @@
                         <span key="t-employee-records">Employee</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="{{ Route::currentRouteName() === 'employee-records' ? 'true' : 'false' }}">
-                        <li><a wire:navigate href="{{ route('employee-records') }}" key="t-employee-records">Employee Records</a></li>
+                        <li><a  href="{{ route('employee-records') }}" key="t-employee-records">Employee Records</a></li>
                         <li><a href="employee-product-detail.html" key="t-product-detail">Add Employee</a></li>
                    
                     </ul>

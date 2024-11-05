@@ -4,6 +4,7 @@
 
 <div id="layout-wrapper">
             <div class="main-content">
+     
 
                 <div class="page-content">
                     <div class="container-fluid">
@@ -19,25 +20,67 @@
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
+                                                <th>Company</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Middle Name</th>
+                                                <th>Suffix</th>
+                                                <th>Blood Type</th>
+                                                <th>Address</th>
+                                                <th>Contact Number</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
         
         
-                                            <tbody>
-                                            <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
+                                            <tbody id="employee-records">
+
+                                     
+                                          
+
+                                           
+                                            
+                                            
+                                            </tbody>
+                                        </table>
+
+                                        <script>
+
+    const apiUrl = 'http://localhost:8000/api/employee-records';
+
+
+    async function fetchEmployeeRecords() {
+        try {
+         
+            const response = await fetch(apiUrl);
+
+        
+            if (!response.ok) throw new Error('Network response was not ok');
+
+
+            const data = await response.json();
+
+          
+            const tableBody = document.getElementById('employee-records');
+
+          
+            tableBody.innerHTML = '';
+
+            if (data.employees && data.employees.length > 0) {
+            
+                data.employees.forEach(employee => {
+                    const row = document.createElement('tr');
+
+                
+                    row.innerHTML = `
+                       <td>${employee.company ? employee.company.description : 'N/A'}</td>
+                                                <td>${ employee.first_name}</td>
+                                                <td>${ employee.last_name }</td>
+                                                <td>${ employee.middle_name }</td>
+                                                <td>${ employee.suffix }</td>
+                                                <td>${ employee.blood_type }</td>
+                                                <td>${ employee.address }</td>
+                                                <td>${ employee.contact_number }</td>
                                                 <td class="text-center">
                                                   <a class="btn btn-outline-secondary btn-sm view" data-bs-toggle="modal" data-bs-target=".transaction-detailModal" title="View">
                                                     <i class="fas fa-eye"></i>
@@ -49,11 +92,24 @@
                                                     <i class="fas fa-trash"></i>
                                                   </a>
                                                 </td>
-                                            </tr>
-                                            
-                                            
-                                            </tbody>
-                                        </table>
+                    `;
+
+                
+                    tableBody.appendChild(row);
+                });
+            } else {
+               
+                tableBody.innerHTML = '<tr><td colspan="4">No employee records found.</td></tr>';
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            document.getElementById('employee-records').innerHTML = '<tr><td colspan="4">Failed to load employee records.</td></tr>';
+        }
+    }
+
+ 
+    fetchEmployeeRecords();
+</script>
         
                                     </div>
                                 </div>
