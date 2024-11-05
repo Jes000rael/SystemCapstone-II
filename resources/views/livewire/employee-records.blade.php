@@ -99,6 +99,7 @@
 
         const employee = await response.json();
         // Populate the modal with employee details
+        document.getElementById('modal-company-name').textContent = employee.company ? employee.company.description : 'N/A';
         document.getElementById('modal-first-name').textContent = employee.first_name;
         document.getElementById('modal-last-name').textContent = employee.last_name;
         document.getElementById('modal-middle-name').textContent = employee.middle_name;
@@ -106,6 +107,7 @@
         document.getElementById('modal-blood-type').textContent = employee.blood_type;
         document.getElementById('modal-address').textContent = employee.address;
         document.getElementById('modal-contact-number').textContent = employee.contact_number;
+    
         // Add more fields as necessary
     }
 
@@ -141,13 +143,16 @@
                             </div>
                             <div class="modal-body">
 
-
+                            <p class="mb-2"><strong class="fs-5">Company:</strong> <span class="text-danger fw-bold fs-5" id="modal-company-name"></span></p>
                             <div class="container">
                             <div class="row row-cols-3">
+                    
+
                                <div class="col text-start mt-3 mb-3"><strong>Name:</strong> <span id="modal-first-name"></span>  <span id="modal-middle-name"></span> <span id="modal-last-name"></span>  <span id="modal-suffix"></span> </div>
-                               <div class="col text-start mt-3 mb-3"><strong>Blood Type:</strong> <span>AB</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Address:</strong> <span>Tamiao, Bantayan, Cebu</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Seniority Level:</strong> <span>Manager 999</span></div>
+                               <div class="col text-start mt-3 mb-3"><strong>Blood Type:</strong> <span id="modal-blood-type"></span></div>
+                               <div class="col text-start mt-3 mb-3"><strong>Address:</strong> <span id="modal-address"></span></div>
+                               <div class="col text-start mt-3 mb-3"><strong>Contact Number:</strong > <span id="modal-contact-number"></span></div>
+                          
                                <div class="col text-start mt-3 mb-3"><strong>Employee Status:</strong> <span>Active</span></div>
                                <div class="col text-start mt-3 mb-3"><strong>Job Title:</strong> <span>Sourcerer</span></div>
                                <div class="col text-start mt-3 mb-3"><strong>Department Title:</strong> <span>Sale Dept.</span></div>

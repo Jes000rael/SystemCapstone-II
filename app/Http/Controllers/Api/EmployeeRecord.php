@@ -28,7 +28,7 @@ class EmployeeRecord extends Controller
 
     public function show($id)
     {
-        $EmployeeRecords = EmployeeRecords::with('work_sched','deduction','meritLog','absence','shift','department','jobtitle','seniorityLevel','employmentStatus')->find($id);
+        $EmployeeRecords = EmployeeRecords::with('company','work_sched','deduction','meritLog','absence','shift','department','jobtitle','seniorityLevel','employmentStatus')->find($id);
 
         if (!$EmployeeRecords) {
             return response()->json(['message' => 'Log not found'], 404);

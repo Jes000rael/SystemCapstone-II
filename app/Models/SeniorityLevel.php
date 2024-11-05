@@ -9,6 +9,10 @@ class SeniorityLevel extends Model
 {
     use HasFactory;
     protected $fillable = ['description'];
+
+    
+
+    
     public $timestamps = false;
     protected $primaryKey = 'seniority_level_id';
 
