@@ -21,13 +21,13 @@
 
                 <li class="menu-title" key="t-apps">Records</li>
 
-                <li class="{{ Route::currentRouteName() === 'employee-records' ? 'mm-active' : 'text-light fw-bold' }}">
+                <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-group"></i>
                         <span key="t-employee-records">Employee</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="{{ Route::currentRouteName() === 'employee-records' ? 'true' : 'false' }}">
-                        <li><a wire:navigate href="{{ route('employee-records') }}" key="t-employee-records">Employee Records</a></li>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a wire:navigate href="{{ route('employee-record') }}" key="t-employee-record">Employee Records</a></li>
                         <li><a wire:navigate href="{{ route('add-employee') }}" key="t-add-employee">Add Employee</a></li>
                    
                     </ul>
@@ -35,7 +35,7 @@
                 
 
                 <li>
-                    <a wire:navigate href="{{ route('attendance-records') }}" class="waves-effect">
+                    <a wire:navigate href="{{ route('attendance-records') }}">
                         <i class="bx bx-calendar"></i>
                         <span key="t-calendar">Attendance</span>
                     </a>

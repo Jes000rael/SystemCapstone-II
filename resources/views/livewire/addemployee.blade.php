@@ -1,120 +1,132 @@
 
 
-<div>
 
-<div id="layout-wrapper">
-            <div class="main-content">
-     
 
-                <div class="page-content">
-                    <div class="container-fluid">
 
-@include('components.layouts.navbars.page-title')
+
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
         
-                                        <!-- <h4 class="card-title">Add Employee</h4> -->
-                                        <form>
-                                            <!-- <div class="mb-3">
-                                                <label for="formrow-firstname-input" class="form-label">First Name</label>
-                                                <input type="text" class="form-control" id="formrow-firstname-input" placeholder="Enter Your First Name">
-                                            </div> -->
+                                    <form wire:submit.prevent="addemp" method="POST">
+                                            
                                             <div class="row">
                                                 
                                                 <div class="col-md-4">
                                                     <div class="mb-3">
-                                                        <label for="formrow-firstname-input" class="form-label">First name</label>
-                                                        <input type="text" class="form-control" id="formrow-firstname-input" placeholder="Enter First name">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                        <label for="first_name" class="form-label">First name</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('first_name')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="first_name" type="text" class="form-control" id="first_name" placeholder="Enter First name">
                                                     </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-lastname-input" class="form-label">Last name</label>
-                                                        <input type="text" class="form-control" id="formrow-lastname-input" placeholder="Enter Last name">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-middlename-input" class="form-label">Middle name</label>
-                                                        <input type="text" class="form-control" id="formrow-middlename-input" placeholder="Enter Middle name">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
 
+                                                          @error('first_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="mb-3">
+                                                        <label for="last_name" class="form-label">Last name</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('last_name')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="last_name" type="text" class="form-control" id="last_name" placeholder="Enter Last Name">
+                                                    </div>
+
+                                                          @error('last_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="mb-3">
+                                                        <label for="middle_name" class="form-label">Middle name</label>
+                                                    <div class=" @error('errors')border border-danger rounded-2 @enderror @error('middle_name')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="middle_name" type="text" class="form-control" id="middle_name" placeholder="Enter Middle Name">
+                                                    </div>
+
+                                                          @error('middle_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                             </div>
                                             
                                             <div class="row">
-                                                
+                                           
                                                 
                                                 <div class="col-md-3">
                                                     <div class="mb-3">
-                                                    <label for="formrow-inputSuffix" class="form-label">Suffix</label>
-                                                        <select id="formrow-inputSuffix" class="form-select">
+                                                    
+                                                    <label for="suffix" class="form-label">Suffix</label>
+                                                   
+                                                        <select wire:model.live="suffix" id="suffix" class="form-select">
                                                             <option selected>Choose...</option>
-                                                            <option value="">Jr. (Junior).</option>
-                                                            <option value="">Sr. (Senior)</option>
-                                                            <option value="">II (Second)</option>
-                                                            <option value="">III (Third)</option>
-                                                            <option value="">None</option>
+                                                            <option value="Jr.">Jr. (Junior).</option>
+                                                            <option value="Sr.">Sr. (Senior)</option>
+                                                            <option value="II ">II (Second)</option>
+                                                            <option value="III">III (Third)</option>
+                                                            <option>None</option>
                                                         </select>
                                                         <!-- <div class="text-danger">Please fill this field</div> -->
 
                                                     </div>
+                                                   
+                                                    
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="mb-3">
-                                                    <label for="formrow-inputBloodtype" class="form-label">Blood type</label>
-                                                        <select id="formrow-inputBloodtype" class="form-select">
+                                                    <label for="blood_type" class="form-label">Blood type</label>
+                                                    <div class=" @error('errors')border border-danger rounded-2 @enderror @error('blood_type')border border-danger rounded-2 @enderror">
+                                                        <select wire:model.live="blood_type" id="blood_type" class="form-select">
                                                             <option selected>Choose...</option>
-                                                            <option value="">A</option>
-                                                            <option value="">AB</option>
-                                                            <option value="">O</option>
+                                                            <option value="A">A</option>
+                                                            <option value="AB">AB</option>
+                                                            <option value="O">O</option>
+                                                            <option value="N/A">N/A</option>
                                                         </select>
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                        </div>
+                                                        @error('blood_type') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                  
 
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <div class="mb-3">
-                                                    <label for="formrow-inputAddress" class="form-label">Address</label>
-                                                    <input type="text" class="form-control" id="formrow-inputAddress" placeholder="Enter Address">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
-
-                                                        
+                                                   <div class="mb-3">
+                                                        <label for="address" class="form-label">Address</label>
+                                                    <div class=" @error('errors')border border-danger rounded-2 @enderror @error('address')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="address" type="text" class="form-control" id="address" placeholder="Enter Address">
                                                     </div>
-                                                </div>
+
+                                                          @error('address') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                    </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <label for="formrow-inputCity" class="form-label">Company ID</label>
-                                                        <select id="formrow-inputCompany" class="form-select">
+                                                        
+                                                        <label for="company_id" class="form-label">Company ID</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('company_id')border border-danger rounded-2 @enderror">
+                                                        <select wire:model.live="company_id" id="company_id" class="form-select">
                                                             <option selected>Choose...</option>
-                                                            <option value="">Cmpy-001</option>
-                                                            <option value="">Cmpy-002</option>
-                                                            <option value="">Cmpy-003</option>
+                                                            @foreach ($companys as $company)
+                                                                  <option value="{{ $company->company_id}}">{{ $company->description}}</option>
+                                                              @endforeach
                                                         </select>
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                      
+
+                                                    </div>
+                                                    @error('company_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
 
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <label for="formrow-inputSenioritylevel" class="form-label">Seniority level</label>
-                                                        <select id="formrow-inputSenioritylevel" class="form-select">
+                                                        <label for="seniority_level_id" class="form-label">Seniority level</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('seniority_level_id')border border-danger rounded-2 @enderror">
+                                                        <select wire:model.live="seniority_level_id" id="seniority_level_id" class="form-select">
                                                             <option selected>Choose...</option>
-                                                            <option value="">Entry-level</option>
-                                                            <option value="">Mid-level</option>
-                                                            <option value="">Senior-level</option>
-                                                            <option value="">Executive-level</option>
-                                                            <option value="">Board-level</option>
+                                                            @foreach ($senioritylevels as $senioritylevel)
+                                                                  <option value="{{ $senioritylevel->seniority_level_id}}">{{ $senioritylevel->description}}</option>
+                                                              @endforeach
                                                         </select>
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                        </div>
+                                                    @error('seniority_level_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+
 
                                                     </div>
                                                 </div>
@@ -403,7 +415,7 @@
                                                 <button type="submit" class="btn btn-primary w-md">Save</button>
                                             </div>
                                         </form>
-                                        
+                                        </div>
 
                                         
 
@@ -419,63 +431,14 @@
                     <!-- container-fluid -->
                 </div>
                 <!-- End Page-content -->
-                 <!-- modal-view -->
-                 <div class="modal modal-lg fade empView" id="empView" tabindex="-1" role="dialog" aria-labelledby="empViewLabel" aria-hidden="true">
-                    <div class=" modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="empViewLabel">Employee Info.</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-
-
-                            <div class="container">
-                            <div class="row row-cols-3">
-                               <div class="col text-start mt-3 mb-3"><strong>Name:</strong> <span id="modal-first-name"></span>  <span id="modal-middle-name"></span> <span id="modal-last-name"></span>  <span id="modal-suffix"></span> </div>
-                               <div class="col text-start mt-3 mb-3"><strong>Blood Type:</strong> <span>AB</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Address:</strong> <span>Tamiao, Bantayan, Cebu</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Seniority Level:</strong> <span>Manager 999</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Employee Status:</strong> <span>Active</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Job Title:</strong> <span>Sourcerer</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Department Title:</strong> <span>Sale Dept.</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Date of Birth:</strong> <span>Dec. 16 1999</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Date Hired:</strong> <span>Jan 12, 2023</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Date Start:</strong> <span>Jan 30, 2023</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Hourly Rate:</strong> <span>600</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Has Night Diff:</strong> <span>Night Shift</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Username:</strong> <span>Brigiksgwaps</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Contact Number:</strong> <span>0987574857</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Emergency Contact:</strong> <span>0944574775</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Contact Person:</strong> <span>Isagani Aloba Jr</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Relationship:</strong> <span>Employee to Manager</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>TIN:</strong> <span>78888854</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>SSS:</strong> <span>58855574</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Pagibig:</strong> <span>47555225</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Philhealth:</strong> <span>5774444</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Date Added:</strong> <span>Jan 31, 2023</span></div>
-                               <div class="col text-start mt-3 mb-3"><strong>Shift:</strong> <span>Night Shift</span></div>
-
-                             </div>
-                             
-                             
-                             
-                           </div>
- 
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                  <!-- end-modal -->
+                
             </div>
             <!-- end main content-->
         </div>
         <!-- END layout-wrapper -->
 </div>
+
+
 
 
 

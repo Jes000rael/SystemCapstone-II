@@ -185,59 +185,7 @@ function toggleDarkMode() {
         });
     </script>
 
-<script>
-    const apiUrl = 'http://localhost:8000/api/employee-records';
 
-    async function fetchEmployeeRecords() {
-        try {
-            const response = await fetch(apiUrl);
-            if (!response.ok) throw new Error('Network response was not ok');
-
-            const data = await response.json();
-            const tableBody = document.getElementById('employee-records');
-            tableBody.innerHTML = ''; // Clear existing records
-
-            if (data.employees && data.employees.length > 0) {
-                data.employees.forEach(employee => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${employee.company ? employee.company.description : 'N/A'}</td>
-                        <td>${employee.first_name}</td>
-                        <td>${employee.last_name}</td>
-                        <td>${employee.middle_name}</td>
-                        <td>${employee.suffix}</td>
-                        <td>${employee.blood_type}</td>
-                        <td>${employee.address}</td>
-                        <td>${employee.contact_number}</td>
-                        <td class="text-center">
-                            <a class="btn btn-outline-secondary btn-sm view" data-bs-toggle="modal" data-bs-target=".transaction-detailModal" title="View">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a class="btn btn-outline-secondary btn-sm delete" title="Delete">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            } else {
-                tableBody.innerHTML = '<tr><td colspan="9">No employee records found.</td></tr>'; // Adjust colspan if needed
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            document.getElementById('employee-records').innerHTML = '<tr><td colspan="9">Failed to load employee records.</td></tr>'; // Adjust colspan if needed
-        }
-    }
-
-    // Fetch employee records when the Livewire component loads
-    document.addEventListener('livewire:load', fetchEmployeeRecords);
-
-    // Fetch employee records again after the Livewire component updates
-    Livewire.on('componentUpdated', fetchEmployeeRecords);
-</script>
 
 @stack('scripts')
 
