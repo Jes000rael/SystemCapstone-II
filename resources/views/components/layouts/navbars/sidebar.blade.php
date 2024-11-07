@@ -27,15 +27,15 @@
                         <span key="t-employee-records">Employee</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="{{ Route::currentRouteName() === 'employee-records' ? 'true' : 'false' }}">
-                        <li><a  href="{{ route('employee-records') }}" key="t-employee-records">Employee Records</a></li>
-                        <li><a href="employee-product-detail.html" key="t-product-detail">Add Employee</a></li>
+                        <li><a wire:navigate href="{{ route('employee-records') }}" key="t-employee-records">Employee Records</a></li>
+                        <li><a wire:navigate href="{{ route('add-employee') }}" key="t-add-employee">Add Employee</a></li>
                    
                     </ul>
                 </li>
                 
 
                 <li>
-                    <a href="#" class="waves-effect">
+                    <a wire:navigate href="{{ route('attendance-records') }}" class="waves-effect">
                         <i class="bx bx-calendar"></i>
                         <span key="t-calendar">Attendance</span>
                     </a>

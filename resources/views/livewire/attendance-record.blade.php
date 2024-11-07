@@ -15,110 +15,74 @@
                                 <div class="card">
                                     <div class="card-body">
         
-                                        <!-- <h4 class="card-title">Employee Records</h4> -->
+                                        <!-- <h4 class="card-title">Add Employee</h4> -->
                                         <table id="akontable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>
                                             <tr>
-                                                <th>Company</th>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Middle Name</th>
-                                                <th>Suffix</th>
-                                                <th>Blood Type</th>
-                                                <th>Address</th>
-                                                <th>Contact Number</th>
+                                                <th>Employee ID</th>
+                                                <th>Cut Off ID</th>
+                                                <th>Total Hours</th>
+                                                <th>Total Break</th>
+                                                <th>Total OT</th>
+                                                <th>Rate</th>
+                                                <th>Date</th>
+                                                <th>Duty Start</th>
+                                                <th>Time in</th>
+                                                <th>Time out</th>
+                                                <th>Status</th>
+                                                <th>Has night diff</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
         
         
-                                            <tbody id="employee-records">
-
-                                     
-                                          
-
-                                           
+                                            <tbody>
+                                            <tr>
+                                                <td>EM9-30</td>
+                                                <td>CUT903</td>
+                                                <td>8 hours</td>
+                                                <td>Tiger Nixon</td>
+                                                <td>Tiger Nixon</td>
+                                                <td>Tiger Nixon</td>
+                                                <td>Tiger Nixon</td>
+                                                <td>System Architect</td>
+                                                <td>Edinburgh</td>
+                                                <td>61</td>
+                                                <td>2011/04/25</td>
+                                                <td>$320,800</td>
+                                                <td class="text-center">
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View">
+                                                    <i class="fas fa-eye"></i>
+                                                  </a>
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                  </a>
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                                    <i class="fas fa-trash"></i>
+                                                  </a>
+                                                  <div class="dropdown d-inline">
+                                                  <a class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
+                                                  <i class="fas fa-ellipsis-h"></i>
+                                                  </a>
+                                                   
+                                                   <ul class="dropdown-menu" aria-labelledby="moreActions">
+                                                     <li><a class="dropdown-item" href="#">Add work schedule</a></li>
+                                                     <li><a class="dropdown-item" href="#">Archive</a></li>
+                                                     <li><a class="dropdown-item" href="#">Share</a></li>
+                                                   </ul>
+                                                 </div>
+                                                </td>
+                                            </tr>
+                                            
                                             
                                             
                                             </tbody>
                                         </table>
+                                        
 
                                         
-<script>
-    const apiUrl = 'http://localhost:8000/api/employee-records';
 
-    async function fetchEmployeeRecords() {
-        try {
-            const response = await fetch(apiUrl);
-            if (!response.ok) throw new Error('Network response was not ok');
-
-            const data = await response.json();
-            const tableBody = document.getElementById('employee-records');
-            tableBody.innerHTML = '';
-
-            if (data.employees && data.employees.length > 0) {
-                data.employees.forEach(employee => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${employee.company ? employee.company.description : 'N/A'}</td>
-                        <td>${employee.first_name}</td>
-                        <td>${employee.last_name}</td>
-                        <td>${employee.middle_name}</td>
-                        <td>${employee.suffix}</td>
-                        <td>${employee.blood_type}</td>
-                        <td>${employee.address}</td>
-                        <td>${employee.contact_number}</td>
-                        <td class="text-center">
-                            <a class="btn btn-outline-secondary btn-sm view" data-id="${employee.employee_id}" data-bs-toggle="modal" data-bs-target="#empView" title="View">
-                                <i class="fas fa-eye"></i>
-                            </a>
-                            <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
-                                <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a class="btn btn-outline-secondary btn-sm delete" title="Delete">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                    `;
-
-                    tableBody.appendChild(row);
-                });
-            } else {
-                tableBody.innerHTML = '<tr><td colspan="9">No employee records found.</td></tr>'; // Adjust colspan if needed
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            document.getElementById('employee-records').innerHTML = '<tr><td colspan="9">Failed to load employee records.</td></tr>'; // Adjust colspan if needed
-        }
-    }
-
-    async function fetchEmployeeDetails(id) {
-        const response = await fetch(`http://localhost:8000/api/employee-records/${id}`);
-        if (!response.ok) throw new Error('Network response was not ok');
-
-        const employee = await response.json();
-        // Populate the modal with employee details
-        document.getElementById('modal-first-name').textContent = employee.first_name;
-        document.getElementById('modal-last-name').textContent = employee.last_name;
-        document.getElementById('modal-middle-name').textContent = employee.middle_name;
-        document.getElementById('modal-suffix').textContent = employee.suffix;
-        document.getElementById('modal-blood-type').textContent = employee.blood_type;
-        document.getElementById('modal-address').textContent = employee.address;
-        document.getElementById('modal-contact-number').textContent = employee.contact_number;
-        // Add more fields as necessary
-    }
-
-    // Event delegation to handle dynamic elements
-    document.addEventListener('click', function (event) {
-        if (event.target.closest('.view')) {
-            const id = event.target.closest('.view').getAttribute('data-id');
-            fetchEmployeeDetails(id);
-        }
-    });
-
-    fetchEmployeeRecords();
-</script>
 
         
                                     </div>
@@ -188,6 +152,8 @@
         </div>
         <!-- END layout-wrapper -->
 </div>
+
+
 
 
 
