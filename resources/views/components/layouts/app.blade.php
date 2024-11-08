@@ -6,13 +6,7 @@
 @elseif(in_array(request()->route()->getName(),['add-employee'],))
 @include('components.layouts.navbars.sidebar')
 @include('components.layouts.navbars.topbar')
-<div>
-<div id="layout-wrapper">
-            <div class="main-content">
-     
 
-                <div class="page-content">
-                    <div class="container-fluid">
 
 @include('components.layouts.navbars.page-title')
 {{ $slot }}
