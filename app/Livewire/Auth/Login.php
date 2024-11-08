@@ -3,6 +3,7 @@
 namespace App\Livewire\Auth;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
@@ -13,25 +14,46 @@ class Login extends Component
 
     public $username = '';
     public $password = '';
+    public $department_id = '';
 
 
-    protected $rules = [
-        'username' => 'required',
-        'password' => 'required',
-    ];
 
     public function login() {
 
-        $credentials = $this->validate();
-        if(auth()->attempt(['username' => $this->username, 'password' => $this->password])) {
+        $credentials = $this->validate([
+            'username' => 'required',
+            'password' => 'required'
+        ]);
+        $userRecord = EmployeeRecords::where('username', $this->username)->first();
 
-            $user = EmployeeRecords::where(['username' => $this->username])->first();
-            // session(['user_name' => auth()->user()->name]);
-            return redirect()->intended('/dashboard')->with('success', 'Welcome back!');        
+        if (!$userRecord) {
+            
+            return $this->addError('errors', trans('auth.failed'));
         }
-        else{
-            return $this->addError('errors', trans('auth.failed')); 
-        }
+        $departmentiId = $userRecord->department_id;
+        
+
+        
+            if(auth()->attempt(['username' => $this->username, 'password' => $this->password,'department_id' => $departmentiId])) {
+                if($departmentiId === 1){
+
+                $user = EmployeeRecords::where(['username' => $this->username ,'department_id' => $this->department_id])->first();
+             
+                return redirect()->intended('/dashboard')->with('success', 'Welcome back!'); 
+            }
+            else{
+                $user = EmployeeRecords::where(['username' => $this->username ,'department_id' => $this->department_id])->first();
+              
+                return redirect()->intended('hr/dashboard')->with('success', 'Welcome back!');
+                
+            }
+            }
+            else{
+                return $this->addError('errors', trans('auth.failed')); 
+            }
+
+        
+       
     }
 
 

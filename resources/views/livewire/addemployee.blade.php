@@ -1,6 +1,6 @@
 
 
-<div>
+
 <div id="layout-wrapper">
             <div class="main-content">
      
@@ -67,7 +67,7 @@
                                                             <option value="III">III (Third)</option>
                                                             <option>None</option>
                                                         </select>
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                
 
                                                     </div>
                                                    
@@ -105,7 +105,7 @@
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         
-                                                        <label for="company_id" class="form-label">Company ID</label>
+                                                        <label for="company_id" class="form-label">Company</label>
                                                         <div class=" @error('errors')border border-danger rounded-2 @enderror @error('company_id')border border-danger rounded-2 @enderror">
                                                         <select wire:model.live="company_id" id="company_id" class="form-select">
                                                             <option selected>Choose...</option>
@@ -139,38 +139,89 @@
                                                 
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <label for="formrow-inputEmpStatusid" class="form-label">Employment Status ID</label>
-                                                        <select id="formrow-inputEmpStatusid" class="form-select">
+                                                        <label for="employment_status_id" class="form-label">Employment Status</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('employment_status_id')border border-danger rounded-2 @enderror">
+                                                        <select wire:model.live="employment_status_id" id="employment_status_id" class="form-select">
                                                             <option selected>Choose...</option>
-                                                            <option value="">Full-Time Employee</option>
-                                                            <option value="">Part-Time Employee</option>
-                                                            <option value="">Contractor</option>
-                                                            <option value="">Temporary Employee</option>
-                                                            <option value="">Intern</option>
-                                                            <option value="">Freelancer</option>
-                                                            <option value="">Remote Worker</option>
+                                                            @foreach ($employmentstatus as $status)
+                                                            <option value="{{ $status->employment_status_id}}">{{ $status->description}}</option>
+                                                            @endforeach
+                                                       
                                                         </select>
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                
+
+                                                    </div>
+                                                    @error('employment_status_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
 
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <label for="formrow-inputJobtitleID" class="form-label">Job title ID</label>
-                                                        <select id="formrow-inputJobtitleID" class="form-select">
+                                                    <label for="job_title_id" class="form-label">Job title ID</label>
+                                                    <div class=" @error('errors')border border-danger rounded-2 @enderror @error('job_title_id')border border-danger rounded-2 @enderror">
+                                                        
+                                                        <select wire:model.live="job_title_id" id="job_title_id" class="form-select">
                                                             <option selected>Choose...</option>
-                                                            <option value="">Software Engineer</option>
-                                                            <option value="">Data Analyst</option>
-                                                            <option value="">Project Manager</option>
-                                                            <option value="">Marketing Specialist</option>
-                                                            <option value="">Human Resources Manager </option>
-                                                            <option value="">Sales Associate</option>
-                                                            <option value="">Graphic Designer</option>
-                                                            <option value="">Product Manager</option>
-                                                            <option value="">Customer Service Representative </option>
-                                                            <option value="">Financial Analyst</option>
+                                                            @foreach ($jobtitle as $jobtitles)
+                                                            <option value="{{ $jobtitles->job_title_id}}">{{ $jobtitles->description}}</option>
+                                                            @endforeach
+                                                          
                                                         </select>
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                        </div>
+                                                    @error('job_title_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                
+
+                                                 
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label for="department_id" class="form-label">Department</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('department_id')border border-danger rounded-2 @enderror">
+                                                        <select wire:model.live="department_id" id="department_id" class="form-select">
+                                                            <option selected>Choose...</option>
+                                                            @foreach ($department as $departments)
+                                                            <option value="{{ $departments->department_id}}">{{ $departments->description}}</option>
+                                                            @endforeach
+                                                          
+                                                        </select>
+                                                        </div>
+                                                    @error('department_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+
+                                                        <label for="date_of_birth" class="form-label">Date of Birth</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('date_of_birth')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="date_of_birth" type="date" class="form-control" id="date_of_birth" placeholder="Enter Date of Birth">
+                                                        </div>
+                                                    @error('date_of_birth') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label for="date_hired" class="form-label">Date Hired</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('date_hired')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="date_hired" type="date" class="form-control" id="date_hired" placeholder="Enter Date Hired">
+                                                        </div>
+                                                    @error('date_hired') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label for="date_start" class="form-label">Date Start</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('date_start')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="date_start" type="date" class="form-control" id="date_start" placeholder="Enter Date Hired">
+                                                        </div>
+                                                    @error('date_start') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+
 
                                                     </div>
                                                 </div>
@@ -178,51 +229,49 @@
                                             <div class="row">
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <label for="formrow-inputDeptitle" class="form-label">Department title</label>
-                                                        <select id="formrow-inputDeptitle" class="form-select">
-                                                            <option selected>Choose...</option>
-                                                            <option value="">Human Resources</option>
-                                                            <option value="">Finance</option>
-                                                            <option value="">Marketing</option>
-                                                            <option value="">Sales</option>
-                                                            <option value="">Operations</option>
-                                                            <option value="">Information Technology</option>
-                                                            <option value="">Customer Service</option>
-                                                            <option value="">Research and Development </option>
-                                                            <option value="">Product Management</option>
-                                                            <option value="">Legal</option>
-                                                            <option value="">Compliance</option>
-                                                            <option value="">Public Relations</option>
-                                                            <option value="">Supply Chain Management</option>
-                                                            <option value="">Facilities Management</option>
-                                                            <option value="">Business Development</option>
-                                                        </select>
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                        <label for="hourly_rate" class="form-label">Hourly Rate</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('hourly_rate')border border-danger rounded-2 @enderror">
+                                                        <input  wire:model.live="hourly_rate" type="number" class="form-control" id="hourly_rate" placeholder="Enter Hourly Rate">
+                                                        </div>
+                                                    @error('hourly_rate') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+
 
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <label for="formrow-inputDateofbirth" class="form-label">Date of Birth</label>
-                                                        <input type="date" class="form-control" id="formrow-inputDateofbirth" placeholder="Enter Date of Birth">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                        <label for="has_night_diff" class="form-label">Has Night Diff</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('has_night_diff')border border-danger rounded-2 @enderror">
+                                                        <input  wire:model.live="has_night_diff" type="number" class="form-control" id="has_night_diff" placeholder="Enter Hourly Rate">
+                                                        </div>
+                                                    @error('has_night_diff') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+
+                                                
 
                                                     </div>
                                                 </div>
                                                 
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <label for="formrow-inputDatehired" class="form-label">Date Hired</label>
-                                                        <input type="date" class="form-control" id="formrow-inputDatehired" placeholder="Enter Date Hired">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                        <label for="username" class="form-label">Username</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('username')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="username" type="text" class="form-control" id="username" placeholder="Enter Username">
+                                                        </div>
+                                                    @error('username') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+
+                                                
 
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <label for="formrow-inputDatestart" class="form-label">Date Start</label>
-                                                        <input type="date" class="form-control" id="formrow-inputDatestart" placeholder="Enter Date Hired">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                        <label for="password" class="form-label">Password</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('password')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="password" type="password" class="form-control" id="password" placeholder="Enter Password">
+                                                        </div>
+                                                    @error('password') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+
+                                                
 
                                                     </div>
                                                 </div>
@@ -230,179 +279,124 @@
                                             <div class="row">
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <label for="formrow-inputHourlyRate" class="form-label">Hourly Rate</label>
-                                                        <input type="number" class="form-control" id="formrow-inputHourlyRate" placeholder="Enter Hourly Rate">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                        <label for="contact_number" class="form-label">Contact number</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('contact_number')border border-danger rounded-2 @enderror">
+                                                        <input  wire:model.live="contact_number" type="number" class="form-control" id="contact_number" placeholder="Enter Contact">
+                                                        </div>
+                                                    @error('contact_number') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+
+                                                
+                                                
 
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <label for="formrow-inputHasnightdiff" class="form-label">Has Night Diff</label>
-                                                        <select id="formrow-inputHasnightdiff" class="form-select">
-                                                            <option selected>Choose...</option>
-                                                            <option value="">Eligibility</option>
-                                                            <option value="">Percentage Increase</option>
-                                                            <option value="">Defined Hours</option>
-                                                            <option value="">Impact on Benefits</option>
-                                                            <option value="">Union Contracts</option>
-                                                        </select>
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                        <label for="emergency_person" class="form-label">Emergency Person</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('emergency_person')border border-danger rounded-2 @enderror">
+                                                        <input  wire:model.live="emergency_person" type="text" class="form-control" id="emergency_person" placeholder="Enter Emergency Person">
+                                                        </div>
+                                                    @error('emergency_person') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                    <label for="emergency_contact" class="form-label">Emergency Contact</label>
+                                                    <div class=" @error('errors')border border-danger rounded-2 @enderror @error('emergency_contact')border border-danger rounded-2 @enderror">
+                                                    <input wire:model.live="emergency_contact" type="number" class="form-control" id="emergency_contact" placeholder="Enter Emergency Contact">
+                                                    </div>
+                                                    @error('emergency_contact') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+
+                                                
 
                                                     </div>
                                                 </div>
                                                 
+                                              
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <label for="formrow-inputUsername" class="form-label">Username</label>
-                                                        <input type="text" class="form-control" id="formrow-inputUsername" placeholder="Enter Username">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
-
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-inputPassword" class="form-label">Password</label>
-                                                        <input type="password" class="form-control" id="formrow-inputPassword" placeholder="Enter Password">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-inputContactnumber" class="form-label">Contact number</label>
-                                                        <input type="number" class="form-control" id="formrow-inputContactnumber" placeholder="Enter Contact">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
-
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                    <label for="formrow-inputEmergencycontact" class="form-label">Emergency Contact</label>
-                                                    <input type="number" class="form-control" id="formrow-inputEmergencycontact" placeholder="Enter Emergency Contact">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
-
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-inputEmergencyperson" class="form-label">Emergency Person</label>
-                                                        <input type="text" class="form-control" id="formrow-inputEmergencyperson" placeholder="Enter Emergency Person">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
-
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-inputRelationship" class="form-label">Relationship</label>
-                                                        <select id="formrow-inputRelationship" class="form-select">
+                                                        <label for="relationship" class="form-label">Relationship</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('relationship')border border-danger rounded-2 @enderror">
+                                                        <select wire:model.live="relationship" id="relationship" class="form-select">
                                                             <option selected>Choose...</option>
-                                                            <option value="">Manager-Employe</option>
-                                                            <option value="">Colleague</option>
-                                                            <option value="">Employee-Clien</option>
-                                                            <option value="">Supplier</option>
-                                                            <option value="">Human Resources</option>
-                                                            <option value="">Mentorship</option>
+                                                            <option value="Manager-Employe">Manager-Employe</option>
+                                                            <option value="Colleague">Colleague</option>
+                                                            <option value="Employee-Client">Employee-Client</option>
+                                                            <option value="Supplier">Supplier</option>
+                                                            <option value="Human Resources">Human Resources</option>
+                                                            <option value="Mentorship">Mentorship</option>
                                                         </select>
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                        </div>
+                                                        @error('relationship') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                
 
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-inputhourlyRate" class="form-label">Hourly Rate</label>
-                                                        <input type="number" class="form-control" id="formrow-inputhourlyRate" placeholder="Enter Hourly Rate">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
-
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-inputhasnightdiff" class="form-label">Has Night Diff</label>
-                                                        <select id="formrow-inputhasnightdiff" class="form-select">
-                                                            <option selected>Choose...</option>
-                                                            <option value="">Eligibility</option>
-                                                            <option value="">Percentage Increase</option>
-                                                            <option value="">Defined Hours</option>
-                                                            <option value="">Impact on Benefits</option>
-                                                            <option value="">Union Contracts</option>
-                                                        </select>
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
-
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-inputusername" class="form-label">Username</label>
-                                                        <input type="text" class="form-control" id="formrow-inputusername" placeholder="Enter Username">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
-
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-inputpassword" class="form-label">Password</label>
-                                                        <input type="password" class="form-control" id="formrow-inputpassword" placeholder="Enter Password">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
-
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
                                             <div class="row">
                                             <div class="col-lg-4">
                                                     <div class="mb-3">
-                                                        <label for="formrow-inputShiftID" class="form-label">Shift ID</label>
-                                                        <select id="formrow-inputShiftID" class="form-select">
+                                                        <label for="shift_id" class="form-label">Shift</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('shift_id')border border-danger rounded-2 @enderror">
+                                                        <select wire:model.live="shift_id" id="shift_id" class="form-select">
                                                             <option selected>Choose...</option>
-                                                            <option value="">Day Shift</option>
-                                                            <option value="">Night Shift</option>
-                                                            <option value="">Evening Shift</option>
-                                                            <option value="">Weekend Shift</option>
-                                                            <option value="">Split Shift</option>
-                                                            <option value="">Overnight Shift</option>
-                                                            <option value="">Flexible Shift</option>
+                                                            @foreach ($shifts as $shift)
+                                                            <option value="{{ $shift->shift_id}}">{{ $shift->description}}</option>
+                                                            @endforeach
+                                                          
                                                         </select>
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                        </div>
+                                                        @error('shift_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                            
 
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-2">
                                                     <div class="mb-3">
-                                                        <label for="formrow-inputTIN" class="form-label">TIN</label>
-                                                        <input type="text" class="form-control" id="formrow-inputTIN" placeholder="Enter TIN">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                        <label for="tin" class="form-label">TIN</label>
+                                                        <div  class=" @error('errors')border border-danger rounded-2 @enderror @error('tin')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="tin" type="text" class="form-control" id="tin" placeholder="Enter TIN">
+                                                        </div>
+                                                        @error('tin') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                
 
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-2">
                                                     <div class="mb-3">
-                                                    <label for="formrow-inputSSS" class="form-label">SSS</label>
-                                                    <input type="text" class="form-control" id="formrow-inputSSS" placeholder="Enter SSS">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                    <label for="sss" class="form-label">SSS</label>
+                                                    <div  class=" @error('errors')border border-danger rounded-2 @enderror @error('sss')border border-danger rounded-2 @enderror">
+                                                    <input wire:model.live="sss" type="text" class="form-control" id="sss" placeholder="Enter SSS">
+                                                    </div>
+                                                    @error('sss') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                
 
                                                     </div>
                                                 </div>
                                                 
                                                 <div class="col-lg-2">
                                                     <div class="mb-3">
-                                                        <label for="formrow-inputPagibig" class="form-label">Pagibig</label>
-                                                        <input type="text" class="form-control" id="formrow-inputPagibig" placeholder="Enter Pagibig">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                        <label for="pagibig" class="form-label">Pagibig</label>
+                                                        <div  class=" @error('errors')border border-danger rounded-2 @enderror @error('pagibig')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="pagibig"  type="text" class="form-control" id="pagibig" placeholder="Enter Pagibig">
+                                                        </div>
+                                                        @error('pagibig') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                
 
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-2">
                                                     <div class="mb-3">
-                                                        <label for="formrow-inputPhilhealth" class="form-label">Philhealth</label>
-                                                        <input type="text" class="form-control" id="formrow-inputPhilhealth" placeholder="Enter Philhealth">
-                                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                                        <label for="philhealth" class="form-label">Philhealth</label>
+                                                        <div  class=" @error('errors')border border-danger rounded-2 @enderror @error('philhealth')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="philhealth"  type="text" class="form-control" id="philhealth" placeholder="Enter Philhealth">
+                                                        </div>
+                                                        @error('philhealth') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                
 
                                                     </div>
                                                 </div>
@@ -442,11 +436,10 @@
             <!-- end main content-->
         </div>
         <!-- END layout-wrapper -->
-</div>
 
 
 
-
+ 
 
 
 

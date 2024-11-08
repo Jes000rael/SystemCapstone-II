@@ -31,7 +31,7 @@ class EmployeeRecords extends Authenticatable
         'seniority_level_id',
         'employment_status_id',
         'job_title_id',
-        'department_title',
+        'department_id',
         'date_of_birth',
         'date_hired',
         'date_start',

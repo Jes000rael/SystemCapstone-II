@@ -74,7 +74,7 @@ input[type="text"] {
                                         </div>
                                     </div> -->
                                     <div class="col-12 align-self-end py-3 px-5">
-                                        <img  src="https://cdn.shopify.com/s/files/1/0636/4479/5108/files/Prime_Retail_fall_logo.png?v=1727795811" alt="" class="img-fluid">
+                                        <img  src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="" class="img-fluid">
                                     </div>
                                 </div>
                             </div>

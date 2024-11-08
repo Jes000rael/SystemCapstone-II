@@ -1,8 +1,10 @@
 <?php
 namespace App\Livewire;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use App\Models\EmployeeRecords;
+use App\Models\Company;
 
 
 class EmployeeRecord extends Component
@@ -11,7 +13,8 @@ class EmployeeRecord extends Component
 
     public function mount()
     {
-        $this->employees =  EmployeeRecords::with('company','work_sched','deduction','meritLog','absence','shift','department','jobtitle','seniorityLevel','employmentStatus')->get();
+         $companyId = Auth::user()->company_id;
+        $this->employees =  EmployeeRecords::with('company','work_sched','deduction','meritLog','absence','shift','department','jobtitle','seniorityLevel','employmentStatus')->where('company_id', $companyId)->get();
     }
  
     public function render()

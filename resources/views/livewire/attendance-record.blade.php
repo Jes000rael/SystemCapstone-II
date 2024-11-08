@@ -1,6 +1,6 @@
 
 
-<div>
+
 
 <div id="layout-wrapper">
             <div class="main-content">
@@ -150,8 +150,6 @@
             </div>
             <!-- end main content-->
         </div>
-        <!-- END layout-wrapper -->
-</div>
 
 
 
