@@ -52,8 +52,9 @@ class Login extends Component
                     }
 
                 }else{
-                   
-                    
+                    $user = EmployeeRecords::where(['username' => $this->username ,'department_id' => $this->department_id])->first();
+                      
+                    return redirect()->intended('/dashboard')->with('success', 'Welcome back!');
 
                 }
                 

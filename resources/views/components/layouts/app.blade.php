@@ -29,6 +29,87 @@
 </div>
 @include('components.layouts.hrfooters.footer')
 @include('components.layouts.hrnavbars.right-sidebar')
+
+@elseif(in_array(request()->route()->getName(),['seniority-level'],))
+@include('components.layouts.hrnavbars.sidebar')
+@include('components.layouts.hrnavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.hrfooters.footer')
+@include('components.layouts.hrnavbars.right-sidebar')
+
+@elseif(in_array(request()->route()->getName(),['department'],))
+@include('components.layouts.hrnavbars.sidebar')
+@include('components.layouts.hrnavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.hrfooters.footer')
+@include('components.layouts.hrnavbars.right-sidebar')
+
+@elseif(in_array(request()->route()->getName(),['jobtitle'],))
+@include('components.layouts.hrnavbars.sidebar')
+@include('components.layouts.hrnavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.hrfooters.footer')
+@include('components.layouts.hrnavbars.right-sidebar')
+
+@elseif(in_array(request()->route()->getName(),['employee-status'],))
+@include('components.layouts.hrnavbars.sidebar')
+@include('components.layouts.hrnavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.hrfooters.footer')
+@include('components.layouts.hrnavbars.right-sidebar')
+
+@elseif(in_array(request()->route()->getName(),['shifts'],))
+@include('components.layouts.hrnavbars.sidebar')
+@include('components.layouts.hrnavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.hrfooters.footer')
+@include('components.layouts.hrnavbars.right-sidebar')
+
+@elseif(in_array(request()->route()->getName(),['deduction'],))
+@include('components.layouts.hrnavbars.sidebar')
+@include('components.layouts.hrnavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.hrfooters.footer')
+@include('components.layouts.hrnavbars.right-sidebar')
+
+@elseif(in_array(request()->route()->getName(),['off-duty'],))
+@include('components.layouts.hrnavbars.sidebar')
+@include('components.layouts.hrnavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.hrfooters.footer')
+@include('components.layouts.hrnavbars.right-sidebar')
+
+@elseif(in_array(request()->route()->getName(),['hand-book'],))
+@include('components.layouts.hrnavbars.sidebar')
+@include('components.layouts.hrnavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.hrfooters.footer')
+@include('components.layouts.hrnavbars.right-sidebar')
+
+@elseif(in_array(request()->route()->getName(),['anouncements'],))
+@include('components.layouts.hrnavbars.sidebar')
+@include('components.layouts.hrnavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.hrfooters.footer')
+@include('components.layouts.hrnavbars.right-sidebar')
 @endif
 
 

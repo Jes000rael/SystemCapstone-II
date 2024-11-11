@@ -20,7 +20,12 @@
                 
 
                 <li class="menu-title" key="t-apps">Records</li>
-
+                <li>
+                    <a wire:navigate href="{{ route('addcompany') }}">
+                        <i class="bx bx-building"></i>
+                        <span key="t-calendar">Company</span>
+                    </a>
+                </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-group"></i>
@@ -40,16 +45,7 @@
                         <span key="t-calendar">Attendance</span>
                     </a>
                 </li>
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-time"></i>
-                        <span key="t-time">Work Schedule</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="calendar.html" key="t-tui-calendar">Schedule Record</a></li>
-                        <li><a href="calendar-full.html" key="t-full-calendar">Add Schedule</a></li>
-                    </ul>
-                </li>
+                
 
                
 

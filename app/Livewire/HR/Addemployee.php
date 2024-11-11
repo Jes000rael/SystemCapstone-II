@@ -101,6 +101,8 @@ class Addemployee extends Component
                 $this->department = Department::where('department_id', '!=', 1)->get();
             }
 
+        }else{
+            $this->department = Department::where('department_id', '!=', 1)->get(); 
         }
 
     }

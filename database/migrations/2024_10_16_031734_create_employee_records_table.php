@@ -32,8 +32,8 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('password_string')->nullable();
-            $table->integer('contact_number'); 
-            $table->integer('emergency_contact'); 
+            $table->string('contact_number'); 
+            $table->string('emergency_contact'); 
             $table->string('emergency_person'); 
             $table->string('relationship')->nullable();
             $table->string('tin')->nullable();
