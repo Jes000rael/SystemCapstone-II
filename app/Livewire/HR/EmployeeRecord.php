@@ -1,5 +1,5 @@
 <?php
-namespace App\Livewire;
+namespace App\Livewire\HR;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -19,7 +19,7 @@ class EmployeeRecord extends Component
  
     public function render()
     {
-        return view('livewire.employee-record');
+        return view('livewire.h-r.employee-record');
     }
 }
 

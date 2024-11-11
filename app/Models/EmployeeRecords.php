@@ -50,6 +50,8 @@ class EmployeeRecords extends Authenticatable
         'philhealth',
         'shift_id','Date_added',
     ];
+
+   
     public function work_sched()
     {
         return $this->hasmany(WorkSchedule::class, 'employee_id');

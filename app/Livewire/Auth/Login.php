@@ -15,6 +15,7 @@ class Login extends Component
     public $username = '';
     public $password = '';
     public $department_id = '';
+    public $companyId = '';
 
 
 
@@ -31,24 +32,32 @@ class Login extends Component
             return $this->addError('errors', trans('auth.failed'));
         }
         $departmentiId = $userRecord->department_id;
+        $companyId = $userRecord->company_id;
         
 
         
             if(auth()->attempt(['username' => $this->username, 'password' => $this->password,'department_id' => $departmentiId])) {
-                if($departmentiId === 1){
 
-                $user = EmployeeRecords::where(['username' => $this->username ,'department_id' => $this->department_id])->first();
+                if($companyId ===1){
+
+                    if($departmentiId === 1){
+                        $user = EmployeeRecords::where(['username' => $this->username ,'company_id' => $this->companyId])->first();
              
-                return redirect()->intended('/dashboard')->with('success', 'Welcome back!'); 
-            }
-            else{
-                $user = EmployeeRecords::where(['username' => $this->username ,'department_id' => $this->department_id])->first();
-              
-                return redirect()->intended('hr/dashboard')->with('success', 'Welcome back!');
+                        return redirect()->intended('/company')->with('success', 'Welcome back!'); 
+ 
+                    }else{
+                         $user = EmployeeRecords::where(['username' => $this->username ,'department_id' => $this->department_id])->first();
+                      
+                    return redirect()->intended('/dashboard')->with('success', 'Welcome back!');
+                    }
+
+                }else{
+                   
+                    
+
+                }
                 
-            }
-            }
-            else{
+            }else{
                 return $this->addError('errors', trans('auth.failed')); 
             }
 

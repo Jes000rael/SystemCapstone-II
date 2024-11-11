@@ -1,6 +1,6 @@
 
 
-
+<div>
 
 <div id="layout-wrapper">
             <div class="main-content">
@@ -9,94 +9,57 @@
                 <div class="page-content">
                     <div class="container-fluid">
 
-@include('components.layouts.navbars.page-title')
+@include('components.layouts.hrnavbars.page-title')
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
         
-                                        <!-- <h4 class="card-title">Add Employee</h4> -->
+                                        <!-- <h4 class="card-title">Employee Records</h4> -->
                                         <table id="akontable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>
                                             <tr>
-                                                <th>Employee ID</th>
-                                                <th>Cut Off ID</th>
-                                                <th>Total Hours</th>
-                                                <th>Total Break</th>
-                                                <th>Total OT</th>
-                                                <th>Rate</th>
-                                                <th>Date</th>
-                                                <th>Duty Start</th>
-                                                <th>Time in</th>
-                                                <th>Time out</th>
-                                                <th>Status</th>
-                                                <th>Has night diff</th>
+                                                <th>Company</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Middle Name</th>
+                                                <th>Suffix</th>
+                                                <th>Blood Type</th>
+                                                <th>Address</th>
+                                                <th>Contact Number</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
         
         
                                             <tbody>
-                                            <tr>
-                                                <td>EM9-30</td>
-                                                <td>CUT903</td>
-                                                <td>8 hours</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                                <td class="text-center">
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View">
-                                                    <i class="fas fa-eye"></i>
-                                                  </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                  </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                                    <i class="fas fa-trash"></i>
-                                                  </a>
-                                                  <div class="dropdown d-inline">
-                                                  <a class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
-                                                  <i class="fas fa-ellipsis-h"></i>
-                                                  </a>
-                                                   
-                                                   <ul class="dropdown-menu" aria-labelledby="moreActions">
-                                                     <li><a class="dropdown-item" href="#">Add work schedule</a></li>
-                                                     <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                     <li><a class="dropdown-item" href="#">Share</a></li>
-                                                   </ul>
-                                                 </div>
-                                                </td>
-                                            </tr>
+                                                @foreach ($employees as $employee)
                                             
-                                            
-                                            
-                                            </tbody>
-                                        </table>
-                                        
-
-                                        
-
-
-        
-                                    </div>
-                                </div>
-                            </div> <!-- end col -->
-                        </div>
-                        <!-- end row -->
-                        
-                    </div>
-                    <!-- container-fluid -->
-                </div>
-                <!-- End Page-content -->
-                 <!-- modal-view -->
-                 <div class="modal modal-lg fade empView" id="empView" tabindex="-1" role="dialog" aria-labelledby="empViewLabel" aria-hidden="true">
+                                                <tr>
+                                                    <td>{{ $employee->company->description ?? 'N/A'}}</td>
+                                                    <td>{{ $employee->first_name }}</td>
+                                                    <td>{{ $employee->last_name }}</td>
+                                                    <td>{{ $employee->middle_name }}</td>
+                                                    <td>{{ $employee->suffix ?? 'N/A'}}</td>
+                                                    <td>{{ $employee->blood_type }}</td>
+                                                    <td>{{ $employee->address }}</td>
+                                                    <td>{{ $employee->contact_number }}</td>
+                                                    <td class="text-center">
+                            <a class="btn btn-outline-secondary btn-sm view"  data-bs-toggle="modal" data-bs-target="#empView" title="View">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <a class="btn btn-outline-secondary btn-sm delete" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                       
+                                                </tr> 
+                                                    <!-- modal-view -->
+                 <div class="modal modal-lg fade " id="empView" tabindex="-1" role="dialog" aria-labelledby="empViewLabel" aria-hidden="true" >
                     <div class=" modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -105,10 +68,10 @@
                             </div>
                             <div class="modal-body">
 
-
+                            <h4 class=""> <strong class="text-danger">{{ $employeed->company->description ?? 'N/A'}}</strong></h4>
                             <div class="container">
                             <div class="row row-cols-3">
-                               <div class="col text-start mt-3 mb-3"><strong>Name:</strong> <span id="modal-first-name"></span>  <span id="modal-middle-name"></span> <span id="modal-last-name"></span>  <span id="modal-suffix"></span> </div>
+                               <div class="col text-start mt-3 mb-3"><strong>Name:</strong> <span >{{ $employeed->first_name ?? 'N/A' }}</span>  <span>{{ $employeed->middle_name ?? 'N/A' }}</span> <span>{{ $employeed->last_name  ?? 'N/A'}}</span>  <span>{{ $employeed->suffix ?? 'N/A'}}</span> </div>
                                <div class="col text-start mt-3 mb-3"><strong>Blood Type:</strong> <span>AB</span></div>
                                <div class="col text-start mt-3 mb-3"><strong>Address:</strong> <span>Tamiao, Bantayan, Cebu</span></div>
                                <div class="col text-start mt-3 mb-3"><strong>Seniority Level:</strong> <span>Manager 999</span></div>
@@ -146,12 +109,33 @@
                         </div>
                     </div>
                 </div>
-                  <!-- end-modal -->
+                  <!-- end-modal --> 
+
+                                                @endforeach
+
+                                            </tbody>
+                                        </table>
+
+
+        
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end row -->
+                        
+                    </div>
+                    <!-- container-fluid -->
+                </div>
+                <!-- End Page-content -->
+              
             </div>
             <!-- end main content-->
         </div>
+        <!-- END layout-wrapper -->
 
-
+   
+</div>
 
 
 

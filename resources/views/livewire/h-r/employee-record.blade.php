@@ -9,7 +9,7 @@
                 <div class="page-content">
                     <div class="container-fluid">
 
-@include('components.layouts.navbars.page-title')
+@include('components.layouts.hrnavbars.page-title')
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">

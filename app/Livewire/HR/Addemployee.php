@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\HR;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
@@ -80,16 +80,28 @@ class Addemployee extends Component
     public function mount()
     {
         $companyId = Auth::user()->company_id ;
+        $departmentId = Auth::user()->department_id ;
+      
         $this->employees = EmployeeRecords::with(['company'])->get();
 
-        $this->companys = Company::where('company_id', $companyId)->get();
+        $this->companys = Company::where('company_id', $companyId,)->get();
       
-    
         $this->senioritylevels = SeniorityLevel::all();
         $this->employmentstatus = EmploymentStatus::all();
         $this->jobtitle = JobTitle::all();
-        $this->department = Department::all();
+        
         $this->shifts = Shift::all();
+        
+        if($companyId === 1){
+            if($departmentId === 1){
+                $this->department = Department::all();
+                
+            }
+            else{
+                $this->department = Department::where('department_id', '!=', 1)->get();
+            }
+
+        }
 
     }
 
@@ -164,6 +176,6 @@ class Addemployee extends Component
     }
     public function render()
     {
-        return view('livewire.addemployee');
+        return view('livewire.h-r.addemployee');
     }
 }

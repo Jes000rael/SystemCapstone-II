@@ -12,7 +12,7 @@
                 <li class="{{ Route::currentRouteName() == 'dashboard' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a wire:navigate href="{{ route('dashboard') }}">
                         <i class="bx bx-home-circle"></i>
-                        <span key="t-dashboards">Dashboards</span>
+                        <span key="t-dashboard">Dashboard</span>
                     </a>
                  
                 </li>
@@ -24,11 +24,11 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-group"></i>
-                        <span key="t-employee-records">Employee</span>
+                        <span key="t-company.employeerecords">Employee</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a wire:navigate href="{{ route('employee-record') }}" key="t-employee-record">Employee Records</a></li>
-                        <li><a wire:navigate href="{{ route('add-employee') }}" key="t-add-employee">Add Employee</a></li>
+                        <li><a wire:navigate href="{{ route('company.employeerecords') }}" key="t-company.employeerecords">Employee Records</a></li>
+                        <li><a wire:navigate href="{{ route('addemployee') }}" key="t-addemployee">Add Employee</a></li>
                    
                     </ul>
                 </li>
@@ -59,3 +59,5 @@
     </div>
 </div>
 <!-- Left Sidebar End -->
+
+
