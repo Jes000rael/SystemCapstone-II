@@ -17,7 +17,8 @@ class Department extends Seeder
     {
         DB::table('departments')->insert([
             [
-                'Description' => 'Sales',
+                'Description' => 'Super Enopoly',
+                'company_id' => 1,
                
             ],
          ]);

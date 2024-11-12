@@ -45,7 +45,7 @@ class Addemployee extends Component
     public $pagibig='';
     public $philhealth='';
     public $shift_id='';
-    public $employees,$companys,$senioritylevels,$employmentstatus,$jobtitle,$department,$shifts;
+    public $employees,$companys,$senioritylevels,$employmentstatus,$jobtitle,$department=[],$depart=[],$shifts;
 
     protected $rules = [
         'company_id' => 'required',
@@ -84,7 +84,7 @@ class Addemployee extends Component
       
         $this->employees = EmployeeRecords::with(['company'])->get();
 
-        $this->companys = Company::where('company_id', $companyId,)->get();
+        $this->companys = Company::where('company_id', $companyId)->get();
       
         $this->senioritylevels = SeniorityLevel::all();
         $this->employmentstatus = EmploymentStatus::all();
@@ -98,11 +98,17 @@ class Addemployee extends Component
                 
             }
             else{
-                $this->department = Department::where('department_id', '!=', 1)->get();
+               
+                $this->depart = Department::where('company_id', $companyId)
+            ->where('department_id', '!=', 1)
+            ->get();
             }
 
         }else{
-            $this->department = Department::where('department_id', '!=', 1)->get(); 
+            $this->department = Department::where('department_id', 2)->get();
+            $this->depart = Department::where('company_id', $companyId)
+            ->where('department_id', '!=', 2)
+            ->get();
         }
 
     }

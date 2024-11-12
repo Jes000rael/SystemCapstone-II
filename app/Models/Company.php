@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\EmployeeRecords;
 
 class Company extends Model
 {
     use HasFactory;
     protected $fillable = ['description',
-    'employee_count',
     'timezone',];
 
-    public function employee()
+    public function employees()
     {
         return $this->hasmany(EmployeeRecords::class, 'company_id');
     }

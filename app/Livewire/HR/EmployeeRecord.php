@@ -13,8 +13,15 @@ class EmployeeRecord extends Component
 
     public function mount()
     {
-         $companyId = Auth::user()->company_id;
-        $this->employees =  EmployeeRecords::with('company','work_sched','deduction','meritLog','absence','shift','department','jobtitle','seniorityLevel','employmentStatus')->where('company_id', $companyId)->get();
+       
+$companyId = Auth::user()->company_id;
+$this->employees = EmployeeRecords::with(
+    'company', 'work_sched', 'deduction', 'meritLog', 'absence', 
+    'shift', 'department', 'jobtitle', 'seniorityLevel', 'employmentStatus'
+)
+->where('company_id', $companyId)
+->where('department_id', '!=', 1) 
+->get();
     }
  
     public function render()

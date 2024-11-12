@@ -29,10 +29,10 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-group"></i>
-                        <span key="t-company.employeerecords">Employee</span>
+                        <span key="t-company-Employees">Employee</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a wire:navigate href="{{ route('company.employeerecords') }}" key="t-company.employeerecords">Employee Records</a></li>
+                        <li><a wire:navigate href="{{ route('company-Employees') }}" key="t-company-Employees">Employee Records</a></li>
                         <li><a wire:navigate href="{{ route('addemployee') }}" key="t-addemployee">Add Employee</a></li>
                    
                     </ul>

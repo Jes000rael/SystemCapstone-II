@@ -31,17 +31,20 @@
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <form action="">
+                                    <form  wire:submit.prevent="add_department" method="POST">
                                     
                                         <div class="mb-3">
-                                            <label for="formrow-firstname-input" class="form-label">Description</label>
-                                            <textarea class="form-control" rows="3" id="formrow-firstname-input" placeholder="Enter the description" name="" id=""></textarea>
-                                            <!-- <div class="text-danger">Please fill this field</div> -->
+                                            <label for="description" class="form-label">Description</label>
+                                            <div class=" @error('errors')border border-danger rounded-2 @enderror @error('description')border border-danger rounded-2 @enderror">
+                                            <textarea wire:model.live="description"  id="description" class="form-control" rows="3"  placeholder="Enter the description"></textarea>
+                                        </div>
+
+                                            @error('description') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                         </div>
                                         
                                         <div class="mb-3">
                                         <div>
-                                          <button type="submit" class="btn btn-primary w-md">Save</button>
+                                          <button type="submit" class="btn btn-primary w-md">Add</button>
                                         </div>
                                         </div>
 
@@ -52,21 +55,22 @@
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>
                                             <tr>
-                                                <th>Department ID</th>
-                                                <th>Description</th>
+                                                <th>Department Description</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
         
         
                                             <tbody>
-                                            
+                                            @foreach ($department as $departments)
                                            
                                            
 
                                             <tr>
-                                                <td>Dept-001</td>
-                                                <td>Sales Department</td>
+                                             
+                                                <td> 
+                                                {{ $departments->description}}
+                                                </td>
                                                 <td class="text-center">
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="View">
                                                     <i class="fas fa-eye"></i>
@@ -90,6 +94,7 @@
                                                  </div>
                                                 </td>
                                             </tr>
+                                            @endforeach
                                             
                                             </tbody>
                                         </table>

@@ -5,7 +5,7 @@
 {{ $slot }}
 
 
-@elseif(in_array(request()->route()->getName(),['hr.dashboard'],))
+@elseif(in_array(request()->route()->getName(),['hr-Dashboard'],))
 @include('components.layouts.hrnavbars.sidebar')
 @include('components.layouts.hrnavbars.topbar')
 <div>   
@@ -110,6 +110,17 @@
 </div>
 @include('components.layouts.hrfooters.footer')
 @include('components.layouts.hrnavbars.right-sidebar')
+
+@elseif(in_array(request()->route()->getName(),['Employee-Edit'],))
+@include('components.layouts.hrnavbars.sidebar')
+@include('components.layouts.hrnavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.hrfooters.footer')
+@include('components.layouts.hrnavbars.right-sidebar')
+
+
 @endif
 
 
@@ -133,7 +144,7 @@
 @include('components.layouts.superfooters.footer')
 @include('components.layouts.supernavbars.right-sidebar')
 
-@elseif(in_array(request()->route()->getName(),['company.employeerecords'],))
+@elseif(in_array(request()->route()->getName(),['company-Employees'],))
 @include('components.layouts.supernavbars.sidebar')
 @include('components.layouts.supernavbars.topbar')
 <div>   

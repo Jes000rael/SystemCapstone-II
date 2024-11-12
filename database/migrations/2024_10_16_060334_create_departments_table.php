@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id('department_id');
+            $table->foreignId('company_id');
             $table->String('description');
 
   

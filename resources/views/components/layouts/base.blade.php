@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>  Dashboards  | Enopoly Commerce</title>
+    <title>  {{ ucfirst(str_replace('-', ' ', Route::currentRouteName())) }}  | Enopoly Commerce</title>
 <!-- App favicon -->
 <link rel="shortcut icon" href="https://app.enopolyautomation.com/assets/images/favicon.ico">
 <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -105,6 +105,8 @@ $(document).ready(function() {
                 ]
     });
 });
+
+
 </script>
 
 

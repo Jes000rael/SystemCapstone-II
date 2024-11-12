@@ -8,14 +8,17 @@
                 <div class="page-content">
                     <div class="container-fluid">
 
-                    @include('components.layouts.hrnavbars.page-title')
+                   
 
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
+                                        
+                                        
+
         
-                                    <form wire:submit.prevent="addemp" method="POST">
+                                    <form wire:submit.prevent="updateEmployee" method="POST">
                                             
                                             <div class="row">
                                                 

@@ -1,6 +1,5 @@
 
 
-<div>
 
 <div id="layout-wrapper">
             <div class="main-content">
@@ -13,6 +12,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
+                    
                                     <div class="card-body">
         
                                         <!-- <h4 class="card-title">Employee Records</h4> -->
@@ -35,6 +35,10 @@
         
                                             <tbody>
                                                 @foreach ($employees as $employee)
+                                                @php
+                                                     $encryptedEmpID = Crypt::encrypt($employee->employee_id);
+                                               @endphp
+                                             
                                             
                                                 <tr>
                                                     <td>{{ $employee->company->description ?? 'N/A'}}</td>
@@ -46,10 +50,14 @@
                                                     <td>{{ $employee->address }}</td>
                                                     <td>{{ $employee->contact_number }}</td>
                                                     <td class="text-center">
-                            <a class="btn btn-outline-secondary btn-sm view"  data-bs-toggle="modal" data-bs-target="#empView" title="View">
+                            <a class="btn btn-outline-secondary btn-sm view">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                         
+                   
+  
+
+                            <a wire:navigate href="{{ route('Employee-Edit', ['empID' => $encryptedEmpID]) }}" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                             <a class="btn btn-outline-secondary btn-sm delete" title="Delete">
@@ -139,5 +147,28 @@
 
 
 
+@push('scripts')
+@if (session('updateEmployee'))
+    <script>
+        Swal.fire({
+          title: '<strong style="color:#000; font-size:15px;" class="text-center">Update Employee</strong><br><span style="color:#000; font-size:13px;"  class="text-center" >Employee Updated Successfully</span> ',
+          icon:'success', 
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true, 
+            width: '350px', 
+            height: '100px',
+            backdrop: true,
+            position: 'top-end', 
+            toast: true,
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp', 
+            },
+         
+            
+        });
+    </script>
+@endif
+@endpush
 
 

@@ -32,11 +32,15 @@
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <form action="">
+                                    <form wire:submit.prevent="add_company" method="POST">
                                     <div class="mb-3">
-                                        <label for="formrow-companydescription" class="form-label">Description</label>
-                                        <textarea class="form-control" rows="5" id="formrow-companydescription" placeholder="Enter Company Description" name="" id=""></textarea>
-                                        <!-- <div class="text-danger">Please fill this field</div> -->
+                                        <label for="description" class="form-label">Description</label>
+                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('description')border border-danger rounded-2 @enderror">
+                                        <textarea class="form-control" rows="5" id="formrow-companydescription" placeholder="Enter Company Description" wire:model.live="description"  id="description"></textarea>
+                                       
+                                      </div>
+
+                                            @error('description') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                     </div>
                                     
                                     
@@ -50,21 +54,21 @@
                                 </div>
                                   <div class="col-md-8">
                                     <div class="mb-3">
-                                    <table id="datatable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
-                        <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
+                                    <table id="akontable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
+                      
                             <thead>
                             <tr>
-                                <th>Company ID</th>
+                               
                                 <th>Description</th>
-                                <th>Employee Count</th>
                                 <th>Action</th>
+                               
                             </tr>
                             </thead>
                             <tbody>
+                              @foreach($company as $companies)
                             <tr>
-                                <td>CMPY_001</td>
-                                <td>Enopoly</td>
-                                <td>67</td>
+                                <td>{{ $companies->description}}</td>
+                               
                                 <td class="text-center">
                                   <a class="btn btn-outline-secondary btn-sm edit" title="View">
                                     <i class="fas fa-eye"></i>
@@ -87,87 +91,8 @@
                                  </div>
                                 </td>
                             </tr>
-                            <tr>
-                            <td>CMPY_001</td>
-                                <td>Enopoly</td>
-                                <td>67</td>
-                                <td class="text-center">
-                                  <a class="btn btn-outline-secondary btn-sm edit" title="View">
-                                    <i class="fas fa-eye"></i>
-                                  </a>
-                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
-                                    <i class="fas fa-pencil-alt"></i>
-                                  </a>
-                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                    <i class="fas fa-trash"></i>
-                                  </a>
-                                  <div class="dropdown d-inline">
-                                  <a class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
-                                  <i class="fas fa-ellipsis-h"></i>
-                                  </a>
-                                   
-                                   <ul class="dropdown-menu" aria-labelledby="moreActions">
-                                     <li><a class="dropdown-item" href="#">Add work schedule</a></li>
-                                     <li><a class="dropdown-item" href="#">Archive</a></li>
-                                     <li><a class="dropdown-item" href="#">Share</a></li>
-                                   </ul>
-                                 </div>
-                                </td>
-                            </tr>
-                            <tr>
-                            <td>CMPY_001</td>
-                                <td>Enopoly</td>
-                                <td>67</td>
-                                <td class="text-center">
-                                  <a class="btn btn-outline-secondary btn-sm edit" title="View">
-                                    <i class="fas fa-eye"></i>
-                                  </a>
-                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
-                                    <i class="fas fa-pencil-alt"></i>
-                                  </a>
-                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                    <i class="fas fa-trash"></i>
-                                  </a>
-                                  <div class="dropdown d-inline">
-                                  <a class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
-                                  <i class="fas fa-ellipsis-h"></i>
-                                  </a>
-                                   
-                                   <ul class="dropdown-menu" aria-labelledby="moreActions">
-                                     <li><a class="dropdown-item" href="#">Add work schedule</a></li>
-                                     <li><a class="dropdown-item" href="#">Archive</a></li>
-                                     <li><a class="dropdown-item" href="#">Share</a></li>
-                                   </ul>
-                                 </div>
-                                </td>
-                            </tr>
-                            <tr>
-                            <td>CMPY_001</td>
-                                <td>Enopoly</td>
-                                <td>67</td>
-                                <td class="text-center">
-                                  <a class="btn btn-outline-secondary btn-sm edit" title="View">
-                                    <i class="fas fa-eye"></i>
-                                  </a>
-                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
-                                    <i class="fas fa-pencil-alt"></i>
-                                  </a>
-                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                    <i class="fas fa-trash"></i>
-                                  </a>
-                                  <div class="dropdown d-inline">
-                                  <a class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
-                                  <i class="fas fa-ellipsis-h"></i>
-                                  </a>
-                                   
-                                   <ul class="dropdown-menu" aria-labelledby="moreActions">
-                                     <li><a class="dropdown-item" href="#">Add work schedule</a></li>
-                                     <li><a class="dropdown-item" href="#">Archive</a></li>
-                                     <li><a class="dropdown-item" href="#">Share</a></li>
-                                   </ul>
-                                 </div>
-                                </td>
-                            </tr>
+                            
+                            @endforeach
                             
                             </tbody>
                         </table>

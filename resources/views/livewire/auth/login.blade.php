@@ -112,7 +112,7 @@ input[type="text"] {
                             
                             
                                 
-                                <p>© <script>document.write(new Date().getFullYear());</script> Design & Develop <i class="mdi mdi-heart text-danger"></i> by Enopoly Team </p>
+                                <p wire:ignore>© <script>document.write(new Date().getFullYear());</script> Design & Develop <i class="mdi mdi-heart text-danger"></i> by Enopoly Team </p>
                            
                         </div>
             
