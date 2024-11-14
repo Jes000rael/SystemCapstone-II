@@ -32,7 +32,7 @@
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <form wire:submit.prevent="add_company" method="POST">
+                                    <form wire:submit.prevent="add_company" enctype="multipart/form-data">
                                     <div class="mb-3">
                                         <label for="description" class="form-label">Description</label>
                                         <div class=" @error('errors')border border-danger rounded-2 @enderror @error('description')border border-danger rounded-2 @enderror">
@@ -45,8 +45,16 @@
                                     
                                     
                                     <div class="mb-3">
+                                    <label for="image" class="form-label">Image</label>
+                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('image')border border-danger rounded-2 @enderror">
+                                        <input type="file" class="form-control" rows="5" id="image" placeholder="Enter image" wire:model.live="image" ></input>
+                                       
+                                      </div>
+                                      
+
+                                            @error('image') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                     <div>
-                                      <button type="submit" class="btn btn-primary w-md">Save</button>
+                                      <button type="submit" class="btn btn-primary w-md mt-3">Save</button>
                                     </div>
                                     </div>
 
@@ -60,6 +68,7 @@
                             <tr>
                                
                                 <th>Description</th>
+                                <th>image</th>
                                 <th>Action</th>
                                
                             </tr>
@@ -68,6 +77,9 @@
                               @foreach($company as $companies)
                             <tr>
                                 <td>{{ $companies->description}}</td>
+                                <td>
+                                <img src="{{ asset('storage/' . $companies->image) }}" alt="Company Image" width="100">
+                                </td>
                                
                                 <td class="text-center">
                                   <a class="btn btn-outline-secondary btn-sm edit" title="View">

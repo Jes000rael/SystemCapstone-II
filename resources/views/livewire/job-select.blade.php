@@ -61,12 +61,12 @@
         
                                             <tbody>
                                             
-                                           
+                                           @foreach($job as $title)
                                            
 
                                             <tr>
-                                                <td>Job-001</td>
-                                                <td>Sourcing</td>
+                                                <td>{{ $title->company->description ?? 'N/A'}}</td>
+                                                <td>{{ $title->description }}</td>
                                                 <td class="text-center">
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="View">
                                                     <i class="fas fa-eye"></i>
@@ -90,6 +90,7 @@
                                                  </div>
                                                 </td>
                                             </tr>
+                                            @endforeach
                                             
                                             </tbody>
                                         </table>

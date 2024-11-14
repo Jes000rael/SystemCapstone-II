@@ -35,6 +35,9 @@
         
                                             <tbody>
                                                 @foreach ($employees as $employee)
+                                                @php
+                                                     $encryptedEmpID = Crypt::encrypt($employee->employee_id);
+                                               @endphp
                                             
                                                 <tr>
                                                     <td>{{ $employee->company->description ?? 'N/A'}}</td>
@@ -49,7 +52,7 @@
                             <a class="btn btn-outline-secondary btn-sm view"  data-bs-toggle="modal" data-bs-target="#empView" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                            <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                            <a wire:navigate href="{{ route('employee-Edit-Super', ['empID' => $encryptedEmpID]) }}" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
                             <a class="btn btn-outline-secondary btn-sm delete" title="Delete">

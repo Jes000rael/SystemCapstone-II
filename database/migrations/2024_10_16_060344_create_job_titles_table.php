@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('job_titles', function (Blueprint $table) {
             $table->id('job_title_id');
+            $table->foreignId('company_id');
+
             $table->String('description');
         });
     }

@@ -26,34 +26,58 @@
                         <span key="t-calendar">Company</span>
                     </a>
                 </li>
-                <li>
+                <li class="{{ Route::currentRouteName() == 'employee-Edit-Super' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-group"></i>
                         <span key="t-company-Employees">Employee</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a wire:navigate href="{{ route('company-Employees') }}" key="t-company-Employees">Employee Records</a></li>
+                        <li class="{{ Route::currentRouteName() == 'employee-Edit-Super' ? 'mm-active' : 'text-light fw-bold' }}"><a wire:navigate href="{{ route('company-Employees') }}" key="t-company-Employees">Employee Records</a></li>
                         <li><a wire:navigate href="{{ route('addemployee') }}" key="t-addemployee">Add Employee</a></li>
                    
                     </ul>
                 </li>
                 
-
+             
                 <li>
-                    <a wire:navigate href="{{ route('attendance-records') }}">
-                        <i class="bx bx-calendar"></i>
-                        <span key="t-calendar">Attendance</span>
+                    <a wire:navigate href="{{ route('department-Super') }}">
+                        <i class="bx bx-building"></i>
+                        <span key="t-building">Department</span>
                     </a>
                 </li>
+                <li class="{{ Route::currentRouteName() == 'job-Super' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('job-Super') }}" class="waves-effect ">
+                    <i class="bx bx-briefcase"></i>
+                         <span key="t-starter-page"> Job Title</span>
+                     </a>
+                  </li>
+                <li class="{{ Route::currentRouteName() == 'seniority-Super' ? 'mm-active' : 'text-light fw-bold' }}">
+                      <a wire:navigate href="{{ route('seniority-Super') }}" class="waves-effect ">
+                          <i class="bx bx-badge"></i>
+                         <span key="t-starter-page"> Seniority Level</span>
+                      </a>
+                  </li>
+                  <li class="{{ Route::currentRouteName() == 'employment-Super' ? 'mm-active' : 'text-light fw-bold' }}">
+                      <a wire:navigate href="{{ route('employment-Super') }}" class="waves-effect ">
+                      <i class="bx bx-badge-check"></i>
+                         <span key="t-starter-page"> Employment Status </span>
+                      </a>
+                  </li>
+                  <li class="{{ Route::currentRouteName() == 'shift-Super' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('shift-Super') }}" class="waves-effect ">
+                    <i class="bx bx-calendar"></i>
+                         <span key="t-starter-page"> Shifts</span>
+                     </a>
+                  </li>
                 
 
                
 
             </ul>
         </div>
-        <!-- Sidebar -->
+     
     </div>
 </div>
-<!-- Left Sidebar End -->
+
 
 

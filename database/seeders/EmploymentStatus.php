@@ -18,6 +18,7 @@ class EmploymentStatus extends Seeder
         DB::table('employment_statuses')->insert([
             [
                 'Description' => 'Active',
+                'company_id'=> 1
                
             ],
          ]);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\HR;
+namespace App\Livewire;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +14,7 @@ use App\Models\Shift;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
-class EmployeeEdit extends Component
+class EmployeeEditSuper extends Component
 {
     public $employee_id;
     public $company_id = '';
@@ -110,41 +110,39 @@ class EmployeeEdit extends Component
         $this->philhealth = $employee->philhealth;
         $this->shift_id = $employee->shift_id;
 
-        $this->loadDropdownData();
+        $this->loadDropdownData($this->company_id,$this->department_id);
     }
 
-    public function loadDropdownData()
+    public function loadDropdownData($company_id,$department_id)
     {
-        
-        $this->senioritylevels = SeniorityLevel::all();
+        $this->companys = Company::all();
+        $this->senioritylevels = SeniorityLevel::where('company_id', $company_id)->get();
         $this->employmentstatus = EmploymentStatus::all();
         $this->jobtitle = JobTitle::all();
         $this->shifts = Shift::all();
 
-        $companyId = Auth::user()->company_id;
-        $departmentId = Auth::user()->department_id;
 
-        if($companyId === 1){
-            if($departmentId === 1){
-                $this->department = Department::all();
-                
+
+        if($company_id === 1){
+            if($department_id === 1){
+                $this->depart = Department::where('company_id', $company_id)->get();
                 
             }
             else{
                
-                $this->depart = Department::where('company_id', $companyId)
+                $this->depart = Department::where('company_id', $company_id)
             ->where('department_id', '!=', 1)
             ->get();
-            $this->companys = Company::where('company_id', $companyId)->get();
             }
 
         }else{
-            $this->department = Department::where('department_id', 2)->get();
-            $this->depart = Department::where('company_id', $companyId)
-            ->where('department_id', '!=', 2)
-            ->get();
-            $this->companys = Company::where('company_id', $companyId)->get();
+           $this->department = Department::where('department_id', 2)->get();
+         $this->depart = Department::where('company_id', $company_id)->get();
+         
         }
+
+
+        
 
     }
 
@@ -186,11 +184,10 @@ class EmployeeEdit extends Component
         ]);
 
         session()->flash('message', 'Employee updated successfully!');
-        return redirect()->intended('/employee_records')->with('updateEmployee', 'Successfull');
+        return redirect()->intended('/employeerecords')->with('updateEmployee', 'Successfull');
     }
-
     public function render()
     {
-        return view('livewire.h-r.employee-edit');
+        return view('livewire.employee-edit-super');
     }
 }

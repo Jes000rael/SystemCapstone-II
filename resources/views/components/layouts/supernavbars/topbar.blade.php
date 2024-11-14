@@ -166,23 +166,7 @@ body {
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a wire:navigate href="{{ route('dashboard')}}" class="logo logo-dark">
-                    <span class="logo-sm">
-                        <img src="https://app.enopolyautomation.com/assets/images/logo.png" alt="" height="22">
-                    </span>
-                    <span class="logo-lg">
-                        <img src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="" height="17">
-                    </span>
-                </a>
-
-                <a wire:navigate href="{{ route('dashboard')}}" class="logo logo-light">
-                    <span class="logo-sm">
-                        <img src="https://app.enopolyautomation.com/assets/images/logo.png" alt="" height="22">
-                    </span>
-                    <span class="logo-lg">
-                        <img src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="" height="19">
-                    </span>
-                </a>
+            <livewire:auth.company-logo />
             </div>
 
             <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
@@ -259,7 +243,7 @@ body {
                         </a>
                         <a href="javascript: void(0);" class="text-reset notification-item">
                             <div class="d-flex">
-                                <img src="assets/images/users/avatar-3.jpg"
+                                <img src="{{ asset('assets/images/users/avatar-3.jpg') }}"
                                     class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                 <div class="flex-grow-1">
                                     <h6 class="mb-1">James Lemire</h6>
@@ -289,7 +273,7 @@ body {
 
                         <a href="javascript: void(0);" class="text-reset notification-item">
                             <div class="d-flex">
-                                <img src="assets/images/users/avatar-4.jpg"
+                                <img src="{{ asset('assets/images/users/avatar-4.jpg') }}"
                                     class="me-3 rounded-circle avatar-xs" alt="user-pic">
                                 <div class="flex-grow-1">
                                     <h6 class="mb-1">Salena Layfield</h6>

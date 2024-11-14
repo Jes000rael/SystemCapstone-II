@@ -9,7 +9,7 @@ use App\Models\EmployeeRecords;
 class Company extends Model
 {
     use HasFactory;
-    protected $fillable = ['description',
+    protected $fillable = ['description','image',
     'timezone',];
 
     public function employees()
@@ -17,7 +17,7 @@ class Company extends Model
         return $this->hasmany(EmployeeRecords::class, 'company_id');
     }
   
-
+   
     
 
 

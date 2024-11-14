@@ -16,7 +16,8 @@ class Shift extends Seeder
     {
         DB::table('shifts')->insert([
             [
-                'description' => 'ilike',
+                'description' => 'night',
+                'company_id'=> 1
                
             ],
          ]);

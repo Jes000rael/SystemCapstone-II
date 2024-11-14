@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('employment_statuses', function (Blueprint $table) {
             $table->id('employment_status_id');
+            $table->foreignId('company_id');
+
             $table->string('description');
         });
     }

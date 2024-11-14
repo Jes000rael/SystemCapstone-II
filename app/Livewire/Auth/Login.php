@@ -37,24 +37,36 @@ class Login extends Component
 
         
             if(auth()->attempt(['username' => $this->username, 'password' => $this->password,'department_id' => $departmentiId])) {
+                $user = auth()->user();
 
                 if($companyId ===1){
 
                     if($departmentiId === 1){
-                        $user = EmployeeRecords::where(['username' => $this->username ,'company_id' => $this->companyId])->first();
+                       
              
                         return redirect()->intended('/company')->with('success', 'Welcome back!'); 
  
                     }else{
-                         $user = EmployeeRecords::where(['username' => $this->username ,'department_id' => $this->department_id])->first();
-                      
-                    return redirect()->intended('/dashboard')->with('success', 'Welcome back!');
+                        if($departmentiId === 2){
+                           
+                            return redirect()->intended('/dashboard')->with('success', 'Welcome back!');
+                        }else{
+                           
+                        return redirect()->intended('/employee/dashboard')->with('success', 'Welcome back!');
+                        }
                     }
 
                 }else{
-                    $user = EmployeeRecords::where(['username' => $this->username ,'department_id' => $this->department_id])->first();
+                    if($departmentiId === 2)
+                    {
+                       
+                        return redirect()->intended('/dashboard')->with('success', 'Welcome back!');
+                    }else{
+
                       
-                    return redirect()->intended('/dashboard')->with('success', 'Welcome back!');
+                        return redirect()->intended('/employee/dashboard')->with('success', 'Welcome back!');
+                    }
+                  
 
                 }
                 

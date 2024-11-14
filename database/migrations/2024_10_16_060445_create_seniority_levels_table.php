@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('seniority_levels', function (Blueprint $table) {
             $table->id('seniority_level_id');
+            $table->foreignId('company_id');
+
             $table->String('description');
 
         });

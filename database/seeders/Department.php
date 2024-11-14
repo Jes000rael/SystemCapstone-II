@@ -21,6 +21,10 @@ class Department extends Seeder
                 'company_id' => 1,
                
             ],
+            [
+                'Description' => 'Human Resources',
+                'company_id' => 1,
+            ],
          ]);
     }
 }

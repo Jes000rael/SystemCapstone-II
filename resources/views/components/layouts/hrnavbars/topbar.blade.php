@@ -166,23 +166,7 @@ body {
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a wire:navigate href="{{ route('hr-Dashboard') }}" class="logo logo-dark">
-                    <span class="logo-sm">
-                        <img src="https://app.enopolyautomation.com/assets/images/logo.png" alt="" height="22">
-                    </span>
-                    <span class="logo-lg">
-                        <img src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="" height="17">
-                    </span>
-                </a>
-
-                <a wire:navigate href="{{ route('hr-Dashboard') }}" class="logo logo-light">
-                    <span class="logo-sm">
-                        <img src="https://app.enopolyautomation.com/assets/images/logo.png" alt="" height="22">
-                    </span>
-                    <span class="logo-lg">
-                        <img src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="" height="19">
-                    </span>
-                </a>
+            <livewire:auth.company-logo />
             </div>
 
             <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">

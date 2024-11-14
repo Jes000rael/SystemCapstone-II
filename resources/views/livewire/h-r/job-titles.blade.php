@@ -8,12 +8,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">Employment Status</h4>
+                    <h4 class="mb-sm-0 font-size-18">DASHBOARD</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Supper</a></li>
-                            <li class="breadcrumb-item active">Employment Status</li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Job Tiltle</li>
                         </ol>
                     </div>
 
@@ -27,7 +27,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <h4 class="card-title">Add Employment Status</h4>
+                        <h4 class="card-title">Add Job Title</h4>
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-4">
@@ -35,7 +35,7 @@
                                     
                                         <div class="mb-3">
                                             <label for="formrow-firstname-input" class="form-label">Description</label>
-                                            <textarea class="form-control" rows="3" id="formrow-firstname-input" placeholder="Enter the description"></textarea>
+                                            <textarea class="form-control" rows="3" id="formrow-firstname-input" placeholder="Enter the description" name="" id=""></textarea>
                                             <!-- <div class="text-danger">Please fill this field</div> -->
                                         </div>
                                         
@@ -52,7 +52,7 @@
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>
                                             <tr>
-                                                <th>Company</th>
+                                                <th>Job Title ID</th>
                                                 <th>Description</th>
                                                 <th>Action</th>
                                             </tr>
@@ -61,12 +61,12 @@
         
                                             <tbody>
                                             
+                                           @foreach($job as $title)
                                            
-                                           @foreach($employment as $status)
 
                                             <tr>
-                                                <td>{{ $status->company->description ?? 'N/A' }}</td>
-                                                <td>{{ $status->description}}</td>
+                                                <td>{{ $title->company->description ?? 'N/A'}}</td>
+                                                <td>{{ $title->description }}</td>
                                                 <td class="text-center">
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="View">
                                                     <i class="fas fa-eye"></i>
@@ -91,6 +91,7 @@
                                                 </td>
                                             </tr>
                                             @endforeach
+                                            
                                             </tbody>
                                         </table>
                                 </div>

@@ -12,13 +12,12 @@
 <!-- Responsive datatable examples -->
 <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
   <!-- Bootstrap Css -->
-<link href="{{ asset('assets/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/css/bootstrap.min.css') }}"  rel="stylesheet" type="text/css" />
 <!-- Icons Css -->
 <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 <!-- App Css-->
-<link href="{{ asset('assets/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/css/app.min.css') }}"  rel="stylesheet" type="text/css" />
 
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
   .dataTables_length {
@@ -59,8 +58,7 @@
 <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script src="{{ asset('js/app.js') }}"></script>
-
+<script src="{{ asset('assets/js/app.js') }}"></script>
 
 <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
 
@@ -110,7 +108,7 @@ $(document).ready(function() {
 </script>
 
 
-<script src="assets/js/app.js"></script>
+
 
 
 
@@ -118,12 +116,13 @@ $(document).ready(function() {
         document.addEventListener('DOMContentLoaded', function () {
             window.addEventListener('employee-added', event => {
                 Swal.fire({
-                    title: '<span style="color:#000;" class="text-center">Employee Added <span>Successfully</span></span> ',
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Add Employee</strong><br><span style="color:#000; font-size:13px;"  class="text-center" >Employee Added Successfully</span> ',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 5000,
                     timerProgressBar: true,
-                    width: '280px',
+                    width: '300px', 
+                    height: '100px',
                     backdrop: true,
                     position: 'top-end',
                     toast: true,
@@ -181,7 +180,7 @@ function toggleDarkMode() {
 
 
 <script>
-        // Check sidebar state on page load
+      
         if (localStorage.getItem('sidebar-collapsed') === 'true') {
             document.body.classList.add('vertical-collpsed');
             document.body.classList.remove('sidebar-enable');
@@ -190,18 +189,18 @@ function toggleDarkMode() {
             document.body.classList.remove('vertical-collpsed');
         }
 
-        // Function to toggle sidebar state
+  
         function toggleSidebar() {
             const isCurrentlyCollapsed = document.body.classList.toggle('vertical-collpsed');
-            document.body.classList.toggle('sidebar-enable', !isCurrentlyCollapsed); // Ensure the other class is removed/added correctly
+            document.body.classList.toggle('sidebar-enable', !isCurrentlyCollapsed);
             
-            // Save the current state to localStorage
+      
             localStorage.setItem('sidebar-collapsed', isCurrentlyCollapsed);
 
-            // Optional: Update UI elements or run animations here
+        
         }
 
-        // Attach click event to toggle button
+       
         document.getElementById('vertical-menu-btn').addEventListener('click', function(event) {
             event.preventDefault();
             toggleSidebar();

@@ -3,9 +3,7 @@
 
 @if (in_array(request()->route()->getName(),['login'],))
 {{ $slot }}
-
-
-@elseif(in_array(request()->route()->getName(),['hr-Dashboard'],))
+@elseif(in_array(request()->route()->getName(),['admin-Dashboard'],))
 @include('components.layouts.hrnavbars.sidebar')
 @include('components.layouts.hrnavbars.topbar')
 <div>   
@@ -119,8 +117,6 @@
 </div>
 @include('components.layouts.hrfooters.footer')
 @include('components.layouts.hrnavbars.right-sidebar')
-
-
 @endif
 
 
@@ -163,10 +159,76 @@
 @include('components.layouts.supernavbars.right-sidebar')
 
 
+@elseif(in_array(request()->route()->getName(),['department-Super'],))
+@include('components.layouts.supernavbars.sidebar')
+@include('components.layouts.supernavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.superfooters.footer')
+@include('components.layouts.supernavbars.right-sidebar')
+
+
+
+@elseif(in_array(request()->route()->getName(),['seniority-Super'],))
+@include('components.layouts.supernavbars.sidebar')
+@include('components.layouts.supernavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.superfooters.footer')
+@include('components.layouts.supernavbars.right-sidebar')
+
+
+@elseif(in_array(request()->route()->getName(),['employment-Super'],))
+@include('components.layouts.supernavbars.sidebar')
+@include('components.layouts.supernavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.superfooters.footer')
+@include('components.layouts.supernavbars.right-sidebar')
+
+@elseif(in_array(request()->route()->getName(),['job-Super'],))
+@include('components.layouts.supernavbars.sidebar')
+@include('components.layouts.supernavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.superfooters.footer')
+@include('components.layouts.supernavbars.right-sidebar')
+
+@elseif(in_array(request()->route()->getName(),['shift-Super'],))
+@include('components.layouts.supernavbars.sidebar')
+@include('components.layouts.supernavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.superfooters.footer')
+@include('components.layouts.supernavbars.right-sidebar')
+
+@elseif(in_array(request()->route()->getName(),['employee-Edit-Super'],))
+@include('components.layouts.supernavbars.sidebar')
+@include('components.layouts.supernavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.superfooters.footer')
+@include('components.layouts.supernavbars.right-sidebar')
+
 @endif
 
 
+@if(in_array(request()->route()->getName(),['employee-Dashboard'],))
+@include('components.layouts.empnavbars.sidebar')
+@include('components.layouts.empnavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.empfooters.footer')
+@include('components.layouts.empnavbars.right-sidebar')
 
+@endif
 
 
 

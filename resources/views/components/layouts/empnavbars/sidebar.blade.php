@@ -9,8 +9,8 @@
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title" key="t-menu">Menu</li>
 
-                <li class="{{ Route::currentRouteName() == 'dashboard' ? 'mm-active' : 'text-light fw-bold' }}">
-                    <a wire:navigate href="{{ route('dashboard') }}">
+                <li class="{{ Route::currentRouteName() == 'employee-Dashboard' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('employee-Dashboard') }}">
                         <i class="bx bx-home-circle"></i>
                         <span key="t-dashboard">Dashboard</span>
                     </a>

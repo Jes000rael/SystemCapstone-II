@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('shifts', function (Blueprint $table) {
             $table->id('shift_id');
+            $table->foreignId('company_id');
+
             $table->String('description');
         });
     }

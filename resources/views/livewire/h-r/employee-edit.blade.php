@@ -81,7 +81,7 @@
                                                     <label for="blood_type" class="form-label">Blood type</label>
                                                     <div class=" @error('errors')border border-danger rounded-2 @enderror @error('blood_type')border border-danger rounded-2 @enderror">
                                                         <select wire:model.live="blood_type" id="blood_type" class="form-select">
-                                                            <option selected>Choose...</option>
+                                                            
                                                             <option value="A">A</option>
                                                             <option value="AB">AB</option>
                                                             <option value="O">O</option>
@@ -111,7 +111,7 @@
                                                         <label for="company_id" class="form-label">Company</label>
                                                         <div class=" @error('errors')border border-danger rounded-2 @enderror @error('company_id')border border-danger rounded-2 @enderror">
                                                         <select wire:model.live="company_id" id="company_id" class="form-select">
-                                                            <option selected>Choose...</option>
+                                                            
                                                             @foreach ($companys as $company)
                                                                   <option value="{{ $company->company_id}}">{{ $company->description}}</option>
                                                               @endforeach
@@ -128,7 +128,7 @@
                                                         <label for="seniority_level_id" class="form-label">Seniority level</label>
                                                         <div class=" @error('errors')border border-danger rounded-2 @enderror @error('seniority_level_id')border border-danger rounded-2 @enderror">
                                                         <select wire:model.live="seniority_level_id" id="seniority_level_id" class="form-select">
-                                                            <option selected>Choose...</option>
+                                                            
                                                             @foreach ($senioritylevels as $senioritylevel)
                                                                   <option value="{{ $senioritylevel->seniority_level_id}}">{{ $senioritylevel->description}}</option>
                                                               @endforeach
@@ -145,7 +145,7 @@
                                                         <label for="employment_status_id" class="form-label">Employment Status</label>
                                                         <div class=" @error('errors')border border-danger rounded-2 @enderror @error('employment_status_id')border border-danger rounded-2 @enderror">
                                                         <select wire:model.live="employment_status_id" id="employment_status_id" class="form-select">
-                                                            <option selected>Choose...</option>
+                                                            
                                                             @foreach ($employmentstatus as $status)
                                                             <option value="{{ $status->employment_status_id}}">{{ $status->description}}</option>
                                                             @endforeach
@@ -164,7 +164,7 @@
                                                     <div class=" @error('errors')border border-danger rounded-2 @enderror @error('job_title_id')border border-danger rounded-2 @enderror">
                                                         
                                                         <select wire:model.live="job_title_id" id="job_title_id" class="form-select">
-                                                            <option selected>Choose...</option>
+                                                            
                                                             @foreach ($jobtitle as $jobtitles)
                                                             <option value="{{ $jobtitles->job_title_id}}">{{ $jobtitles->description}}</option>
                                                             @endforeach
@@ -183,7 +183,7 @@
                                                         <label for="department_id" class="form-label">Department</label>
                                                         <div class=" @error('errors')border border-danger rounded-2 @enderror @error('department_id')border border-danger rounded-2 @enderror">
                                                         <select wire:model.live="department_id" id="department_id" class="form-select">
-                                                            <option selected>Choose...</option>
+                                                            
                                                             @foreach ($department as $departments)
                                                             <option value="{{ $departments->department_id}}">{{ $departments->description}}</option>
                                                             @endforeach
@@ -326,7 +326,7 @@
                                                         <label for="relationship" class="form-label">Relationship</label>
                                                         <div class=" @error('errors')border border-danger rounded-2 @enderror @error('relationship')border border-danger rounded-2 @enderror">
                                                         <select wire:model.live="relationship" id="relationship" class="form-select">
-                                                            <option selected>Choose...</option>
+                                                            
                                                             <option value="Manager-Employe">Manager-Employe</option>
                                                             <option value="Colleague">Colleague</option>
                                                             <option value="Employee-Client">Employee-Client</option>
@@ -349,7 +349,7 @@
                                                         <label for="shift_id" class="form-label">Shift</label>
                                                         <div class=" @error('errors')border border-danger rounded-2 @enderror @error('shift_id')border border-danger rounded-2 @enderror">
                                                         <select wire:model.live="shift_id" id="shift_id" class="form-select">
-                                                            <option selected>Choose...</option>
+                                                            
                                                             @foreach ($shifts as $shift)
                                                             <option value="{{ $shift->shift_id}}">{{ $shift->description}}</option>
                                                             @endforeach
