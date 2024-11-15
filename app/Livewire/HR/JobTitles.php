@@ -4,7 +4,6 @@ namespace App\Livewire\HR;
 
 use Livewire\Component;
 use App\Models\JobTitle;
-
 use Illuminate\Support\Facades\Auth;
 
 
