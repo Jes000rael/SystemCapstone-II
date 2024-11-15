@@ -27,15 +27,15 @@
                         <span key="t-employee-records">Employee</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li class="{{ Route::currentRouteName() == 'Employee-Edit' ? 'mm-active' : 'text-light fw-bold' }}"><a wire:navigate href="{{ route('employee-record') }}" key="t-employee-record">Employee Records</a></li>
-                        <li><a wire:navigate href="{{ route('add-employee') }}" key="t-add-employee">Add Employee</a></li>
+                        <li class="{{ Route::currentRouteName() == 'Employee-Edit' ? 'mm-active' : 'text-light fw-bold' }}"><a wire:navigate href="{{ route('employee-Record') }}" key="t-employee-record">Employee Records</a></li>
+                        <li><a wire:navigate href="{{ route('add-Employee') }}" key="t-add-employee">Add Employee</a></li>
                    
                     </ul>
                 </li>
                 
 
                 <li>
-                    <a wire:navigate href="{{ route('attendance-records') }}">
+                    <a wire:navigate href="{{ route('attendance-Records') }}">
                         <i class="bx bx-calendar"></i>
                         <span key="t-calendar">Work Schedule</span>
                     </a>
@@ -63,8 +63,8 @@
                      </a>
                   </li>
                 
-                <li class="{{ Route::currentRouteName() == 'seniority-level' ? 'mm-active' : 'text-light fw-bold' }}">
-                      <a wire:navigate href="{{ route('seniority-level') }}" class="waves-effect ">
+                <li class="{{ Route::currentRouteName() == 'seniority-Level' ? 'mm-active' : 'text-light fw-bold' }}">
+                      <a wire:navigate href="{{ route('seniority-Level') }}" class="waves-effect ">
                           <i class="bx bx-badge"></i>
                          <span key="t-starter-page"> Seniority Level</span>
                       </a>
@@ -74,8 +74,8 @@
                             
               
 
-                  <li class="{{ Route::currentRouteName() == 'employee-status' ? 'mm-active' : 'text-light fw-bold' }}">
-                    <a wire:navigate href="{{ route('employee-status') }}" class="waves-effect ">
+                  <li class="{{ Route::currentRouteName() == 'employee-Status' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('employee-Status') }}" class="waves-effect ">
                     <i class="bx bx-badge-check"></i>
                          <span key="t-starter-page"> Employee Status</span>
                      </a>
@@ -87,14 +87,14 @@
                          <span key="t-starter-page"> Shifts</span>
                      </a>
                   </li>
-                  <li class="{{ Route::currentRouteName() == 'off-duty' ? 'mm-active' : 'text-light fw-bold' }}">
-                    <a wire:navigate href="{{ route('off-duty') }}" class="waves-effect ">
+                  <li class="{{ Route::currentRouteName() == 'off-Duty' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('off-Duty') }}" class="waves-effect ">
                     <i class="bx bx-receipt"></i>
                          <span key="t-starter-page"> Off Duty</span>
                      </a>
                   </li>
-                  <li class="{{ Route::currentRouteName() == 'hand-book' ? 'mm-active' : 'text-light fw-bold' }}">
-                    <a wire:navigate href="{{ route('hand-book') }}" class="waves-effect ">
+                  <li class="{{ Route::currentRouteName() == 'hand-Book' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('hand-Book') }}" class="waves-effect ">
                     <i class="bx bx-book"></i>
                          <span key="t-starter-page"> Handbook</span>
                      </a>

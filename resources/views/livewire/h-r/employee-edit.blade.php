@@ -9,6 +9,21 @@
                     <div class="container-fluid">
 
                    
+                    <div class="row">
+                 <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Edit Employee</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Company</a></li>
+                    <li class="breadcrumb-item active">Edit Employee</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
 
                         <div class="row">
                             <div class="col-12">
@@ -57,54 +72,75 @@
                                             <div class="row">
                                            
                                                 
-                                                <div class="col-md-3">
-                                                    <div class="mb-3">
-                                                    
-                                                    <label for="suffix" class="form-label">Suffix</label>
-                                                   
-                                                        <select wire:model.live="suffix" id="suffix" class="form-select">
-                                                            <option selected>Choose...</option>
-                                                            <option value="Jr.">Jr. (Junior).</option>
-                                                            <option value="Sr.">Sr. (Senior)</option>
-                                                            <option value="II ">II (Second)</option>
-                                                            <option value="III">III (Third)</option>
-                                                            <option>None</option>
-                                                        </select>
-                                                
+                                            <div class="col-lg-3">
+                                               <div class="mb-3">
+                                               
+                                               <label for="suffix" class="form-label">Suffix</label>
+                                              
+                                                   <select wire:model.live="suffix" id="suffix" class="form-select">
+                                                       <option selected value="">Choose...</option>
+                                                       <option value="Jr.">Jr. (Junior).</option>
+                                                       <option value="Sr.">Sr. (Senior)</option>
+                                                       <option value="II ">II (Second)</option>
+                                                       <option value="III">III (Third)</option>
+                                           
+                                                   </select>
+                                           
 
-                                                    </div>
-                                                   
-                                                    
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="mb-3">
-                                                    <label for="blood_type" class="form-label">Blood type</label>
-                                                    <div class=" @error('errors')border border-danger rounded-2 @enderror @error('blood_type')border border-danger rounded-2 @enderror">
-                                                        <select wire:model.live="blood_type" id="blood_type" class="form-select">
-                                                            
-                                                            <option value="A">A</option>
-                                                            <option value="AB">AB</option>
-                                                            <option value="O">O</option>
-                                                            <option value="N/A">N/A</option>
-                                                        </select>
-                                                        </div>
-                                                        @error('blood_type') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
-                                                  
+                                               </div>
+                                           </div>
+                                           <div class="col-lg-2">
+<div class="mb-3">
+   <label class="form-label mb-3">Gender</label>
+   
+   <div class="d-flex ">
+       <div class="form-check form-check-inline">
+           <input wire:model="gender" type="radio" class="form-check-input @error('gender') border border-danger rounded-2 @enderror" id="gender_male" value="Male">
+           <label class="form-check-label" for="gender_male">Male</label>
+       </div>
 
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                   <div class="mb-3">
-                                                        <label for="address" class="form-label">Address</label>
-                                                    <div class=" @error('errors')border border-danger rounded-2 @enderror @error('address')border border-danger rounded-2 @enderror">
-                                                        <input wire:model.live="address" type="text" class="form-control" id="address" placeholder="Enter Address">
-                                                    </div>
+       <div class="form-check form-check-inline">
+           <input wire:model="gender" type="radio" class="form-check-input @error('gender') border border-danger rounded-2 @enderror" id="gender_female" value="Female">
+           <label class="form-check-label" for="gender_female">Female</label>
+       </div>
+   </div>
 
-                                                          @error('address') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
-                                                    </div>
-                                            </div>
+   @error('gender')
+       <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span>
+   @enderror
+</div>
+</div>
 
-                                            <div class="row">
+
+                                           <div class="col-lg-3">
+                                               <div class="mb-3">
+                                               <label for="blood_type" class="form-label">Blood type</label>
+                                               <div class=" @error('errors')border border-danger rounded-2 @enderror @error('blood_type')border border-danger rounded-2 @enderror">
+                                                   <select wire:model.live="blood_type" id="blood_type" class="form-select">
+                                                       <option selected>Choose...</option>
+                                                       <option value="A">A</option>
+                                                       <option value="AB">AB</option>
+                                                       <option value="O">O</option>
+                                                       <option value="N/A">N/A</option>
+                                                   </select>
+                                                   </div>
+                                                   @error('blood_type') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                             
+
+                                               </div>
+                                           </div>
+                                           <div class="col-lg-4">
+                                              <div class="mb-3">
+                                                   <label for="address" class="form-label">Address</label>
+                                               <div class=" @error('errors')border border-danger rounded-2 @enderror @error('address')border border-danger rounded-2 @enderror">
+                                                   <input wire:model.live="address" type="text" class="form-control" id="address" placeholder="Enter Address">
+                                               </div>
+
+                                                     @error('address') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                               </div>
+                                       </div>
+
+                                       <div class="row">
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         

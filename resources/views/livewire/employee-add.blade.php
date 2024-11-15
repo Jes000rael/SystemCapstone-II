@@ -68,7 +68,7 @@
                                             <div class="row">
                                            
                                                 
-                                                <div class="col-md-3">
+                                                <div class="col-lg-3">
                                                     <div class="mb-3">
                                                     
                                                     <label for="suffix" class="form-label">Suffix</label>
@@ -84,10 +84,31 @@
                                                 
 
                                                     </div>
-                                                   
-                                                    
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label class="form-label mb-3">Gender</label>
+        
+                                                    <div class="d-flex">
+                                                        <div class="form-check form-check-inline">
+                                                            <input wire:model="gender" type="radio" class="form-check-input @error('gender') border border-danger rounded-2 @enderror" id="gender_male" value="Male">
+                                                            <label class="form-check-label" for="gender_male">Male</label>
+                                                        </div>
+
+                                                        <div class="form-check form-check-inline">
+                                                            <input wire:model="gender" type="radio" class="form-check-input @error('gender') border border-danger rounded-2 @enderror" id="gender_female" value="Female">
+                                                            <label class="form-check-label" for="gender_female">Female</label>
+                                                        </div>
+                                                    </div>
+
+                                                    @error('gender')
+                                                      <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+
+                                                <div class="col-lg-3">
                                                     <div class="mb-3">
                                                     <label for="blood_type" class="form-label">Blood type</label>
                                                     <div class=" @error('errors')border border-danger rounded-2 @enderror @error('blood_type')border border-danger rounded-2 @enderror">
@@ -104,7 +125,7 @@
 
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-lg-4">
                                                    <div class="mb-3">
                                                         <label for="address" class="form-label">Address</label>
                                                     <div class=" @error('errors')border border-danger rounded-2 @enderror @error('address')border border-danger rounded-2 @enderror">
@@ -429,7 +450,7 @@
                                                 </div>
                                             </div>
                                             <div>
-                                                <button type="submit" class="btn btn-primary w-md">Save</button>
+                                                <button   type="submit" class="btn btn-primary w-md" >Save</button>
                                             </div>
                                         </form>
                                         </div>

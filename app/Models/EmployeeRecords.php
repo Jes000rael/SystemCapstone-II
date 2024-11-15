@@ -26,6 +26,7 @@ class EmployeeRecords extends Authenticatable
         'last_name',
         'middle_name',
         'suffix',
+        'gender',
         'blood_type',
         'address',
         'seniority_level_id',

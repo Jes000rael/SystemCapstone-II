@@ -44,6 +44,7 @@ class EmployeeEditSuper extends Component
     public $pagibig = '';
     public $philhealth = '';
     public $shift_id = '';
+    public $gender = '';
     public $companys, $senioritylevels, $employmentstatus, $jobtitle, $department=[], $depart=[], $shifts;
 
     public function getRules()
@@ -53,6 +54,7 @@ class EmployeeEditSuper extends Component
         'first_name' => 'required',
         'last_name' => 'required',
         'middle_name' => 'required',
+        'gender' => 'required|in:Male,Female',
         'blood_type' => 'required',
         'address' => 'required',
         'seniority_level_id' => 'required',
@@ -79,6 +81,7 @@ class EmployeeEditSuper extends Component
 
     public function mount($empID)
     {
+        
         $decryptedEmpID = Crypt::decrypt($empID);
         $employee = EmployeeRecords::findOrFail($decryptedEmpID);
         $this->employee_id = $employee->employee_id;
@@ -87,6 +90,7 @@ class EmployeeEditSuper extends Component
         $this->last_name = $employee->last_name;
         $this->middle_name = $employee->middle_name;
         $this->suffix = $employee->suffix;
+        $this->gender = $employee->gender;
         $this->blood_type = $employee->blood_type;
         $this->address = $employee->address;
         $this->contact_number = $employee->contact_number;
@@ -122,7 +126,6 @@ class EmployeeEditSuper extends Component
         $this->shifts = Shift::all();
 
 
-
         if($company_id === 1){
             if($department_id === 1){
                 $this->depart = Department::where('company_id', $company_id)->get();
@@ -149,6 +152,7 @@ class EmployeeEditSuper extends Component
     public function updateEmployee()
     {
         $this->validate();
+        $this->suffix = $this->suffix ?: null;
 
         $employee = EmployeeRecords::findOrFail($this->employee_id);
         $employee->update([
@@ -157,6 +161,7 @@ class EmployeeEditSuper extends Component
             'last_name' => $this->last_name,
             'middle_name' => $this->middle_name,
             'suffix' => $this->suffix,
+            'gender' => $this->gender,
             'blood_type' => $this->blood_type,
             'address' => $this->address,
             'contact_number' => $this->contact_number,
@@ -184,7 +189,7 @@ class EmployeeEditSuper extends Component
         ]);
 
         session()->flash('message', 'Employee updated successfully!');
-        return redirect()->intended('/employeerecords')->with('updateEmployee', 'Successfull');
+        return redirect()->intended('/company/employee/records')->with('updateEmployee', 'Successfull');
     }
     public function render()
     {

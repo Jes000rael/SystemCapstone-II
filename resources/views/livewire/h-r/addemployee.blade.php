@@ -8,7 +8,21 @@
                 <div class="page-content">
                     <div class="container-fluid">
 
-                    @include('components.layouts.hrnavbars.page-title')
+                    <div class="row">
+                 <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Add Employee</h4>
+
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Company</a></li>
+                    <li class="breadcrumb-item active">Add Employee</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
 
                         <div class="row">
                             <div class="col-12">
@@ -54,7 +68,7 @@
                                             <div class="row">
                                            
                                                 
-                                                <div class="col-md-3">
+                                                <div class="col-lg-3">
                                                     <div class="mb-3">
                                                     
                                                     <label for="suffix" class="form-label">Suffix</label>
@@ -70,10 +84,31 @@
                                                 
 
                                                     </div>
-                                                   
-                                                    
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label class="form-label mb-3">Gender</label>
+        
+                                                    <div class="d-flex">
+                                                        <div class="form-check form-check-inline">
+                                                            <input wire:model="gender" type="radio" class="form-check-input @error('gender') border border-danger rounded-2 @enderror" id="gender_male" value="Male">
+                                                            <label class="form-check-label" for="gender_male">Male</label>
+                                                        </div>
+
+                                                        <div class="form-check form-check-inline">
+                                                            <input wire:model="gender" type="radio" class="form-check-input @error('gender') border border-danger rounded-2 @enderror" id="gender_female" value="Female">
+                                                            <label class="form-check-label" for="gender_female">Female</label>
+                                                        </div>
+                                                    </div>
+
+                                                    @error('gender')
+                                                      <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+
+                                                <div class="col-lg-3">
                                                     <div class="mb-3">
                                                     <label for="blood_type" class="form-label">Blood type</label>
                                                     <div class=" @error('errors')border border-danger rounded-2 @enderror @error('blood_type')border border-danger rounded-2 @enderror">
@@ -90,7 +125,7 @@
 
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-lg-4">
                                                    <div class="mb-3">
                                                         <label for="address" class="form-label">Address</label>
                                                     <div class=" @error('errors')border border-danger rounded-2 @enderror @error('address')border border-danger rounded-2 @enderror">
@@ -122,36 +157,18 @@
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <label for="seniority_level_id" class="form-label">Seniority level</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('seniority_level_id')border border-danger rounded-2 @enderror">
-                                                        <select wire:model.live="seniority_level_id" id="seniority_level_id" class="form-select">
+                                                        <label for="department_id" class="form-label">Department</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('department_id')border border-danger rounded-2 @enderror">
+                                                        <select wire:model.live="department_id" id="department_id" class="form-select">
                                                             <option selected>Choose...</option>
-                                                            @foreach ($senioritylevels as $senioritylevel)
-                                                                  <option value="{{ $senioritylevel->seniority_level_id}}">{{ $senioritylevel->description}}</option>
-                                                              @endforeach
+                                                            @foreach ($department as $departments)
+                                                            <option value="{{ $departments->department_id}}">{{ $departments->description}}</option>
+                                                            @endforeach
+                                                          
                                                         </select>
                                                         </div>
-                                                    @error('seniority_level_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
-
-
-                                                    </div>
-                                                </div>
+                                                    @error('department_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                 
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="employment_status_id" class="form-label">Employment Status</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('employment_status_id')border border-danger rounded-2 @enderror">
-                                                        <select wire:model.live="employment_status_id" id="employment_status_id" class="form-select">
-                                                            <option selected>Choose...</option>
-                                                            @foreach ($employmentstatus as $status)
-                                                            <option value="{{ $status->employment_status_id}}">{{ $status->description}}</option>
-                                                            @endforeach
-                                                       
-                                                        </select>
-                                                
-
-                                                    </div>
-                                                    @error('employment_status_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
 
                                                     </div>
                                                 </div>
@@ -174,27 +191,45 @@
                                                  
                                                 </div>
                                             </div>
-                                            <div class="row">
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <label for="department_id" class="form-label">Department</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('department_id')border border-danger rounded-2 @enderror">
-                                                        <select wire:model.live="department_id" id="department_id" class="form-select">
+                                                        <label for="seniority_level_id" class="form-label">Seniority level</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('seniority_level_id')border border-danger rounded-2 @enderror">
+                                                        <select wire:model.live="seniority_level_id" id="seniority_level_id" class="form-select">
                                                             <option selected>Choose...</option>
-                                                            @foreach ($department as $departments)
-                                                            <option value="{{ $departments->department_id}}">{{ $departments->description}}</option>
-                                                            @endforeach
-                                                            @foreach ($depart as $departed)
-                                                            <option value="{{ $departed->department_id}}">{{ $departed->description}}</option>
-                                                            @endforeach
-                                                          
+                                                            @foreach ($senioritylevels as $senioritylevel)
+                                                                  <option value="{{ $senioritylevel->seniority_level_id}}">{{ $senioritylevel->description}}</option>
+                                                              @endforeach
                                                         </select>
                                                         </div>
-                                                    @error('department_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
-                                                
+                                                    @error('seniority_level_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+
 
                                                     </div>
                                                 </div>
+                                                
+                                              
+                                              
+                                            <div class="row">
+                                            <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label for="employment_status_id" class="form-label">Employment Status</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('employment_status_id')border border-danger rounded-2 @enderror">
+                                                        <select wire:model.live="employment_status_id" id="employment_status_id" class="form-select">
+                                                            <option selected>Choose...</option>
+                                                            @foreach ($employmentstatus as $status)
+                                                            <option value="{{ $status->employment_status_id}}">{{ $status->description}}</option>
+                                                            @endforeach
+                                                       
+                                                        </select>
+                                                
+
+                                                    </div>
+                                                    @error('employment_status_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+
+                                                    </div>
+                                                </div>
+                                              
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
 
@@ -415,7 +450,7 @@
                                                 </div>
                                             </div>
                                             <div>
-                                                <button type="submit" class="btn btn-primary w-md">Save</button>
+                                                <button   type="submit" class="btn btn-primary w-md" >Save</button>
                                             </div>
                                         </form>
                                         </div>
@@ -440,30 +475,6 @@
         </div>
         <!-- END layout-wrapper -->
 
-
-        @push('scripts')
-@if (session('updateEmployee'))
-    <script>
-        Swal.fire({
-          title: '<strong style="color:#000; font-size:15px;" class="text-center">Update Employee</strong><br><span style="color:#000; font-size:13px;"  class="text-center" >Employee Updated Successfully</span> ',
-          icon:'success', 
-            showConfirmButton: false,
-            timer: 5000,
-            timerProgressBar: true, 
-            width: '350px', 
-            height: '100px',
-            backdrop: true,
-            position: 'top-end', 
-            toast: true,
-            hideClass: {
-                popup: 'animate__animated animate__fadeOutUp', 
-            },
-         
-            
-        });
-    </script>
-@endif
-@endpush
 
 
  

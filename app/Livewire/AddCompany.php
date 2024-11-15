@@ -12,6 +12,8 @@ class AddCompany extends Component
     public $description='';
     public $image='';
     public $company;
+    public $companyId;
+ 
     protected $rules = [
         'description' => 'required',
         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -20,10 +22,14 @@ class AddCompany extends Component
     public function mount()
     {
       
-                $this->company = Company::all();
+                $this->loadCompanies();
            
 
     }
+    public function loadCompanies()
+{
+    $this->company = Company::all();
+}
     public function add_company()
     {
         $this->validate();
@@ -34,8 +40,32 @@ class AddCompany extends Component
             'image' => $imagePath,
          
         ]);
+        $this->loadCompanies();
+
         $this->reset(['description','image']);
     }
+
+
+    public function confirmDelete($id)
+{
+    $this->companyId = $id; 
+}
+
+public function deleteCompany()
+{
+    if ($this->companyId) {
+        
+        Company::find($this->companyId)->delete();
+      
+        $this->companyId = null;
+        $this->loadCompanies();
+
+        $this->dispatch('refreshTable');
+
+        $this->dispatch('company-deleted', ['message' => 'Company Deleted successfully!']);
+       
+    }
+}
     public function render()
     {
         return view('livewire.add-company');

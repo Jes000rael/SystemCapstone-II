@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('last_name'); 
             $table->string('middle_name')->nullable();
             $table->string('suffix')->nullable();
+            $table->string('gender')();
             $table->string('blood_type')->nullable();
             $table->string('address')->nullable();
             $table->foreignId('seniority_level_id'); 

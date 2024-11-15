@@ -1,5 +1,6 @@
 
 
+<div>
 
 <div id="layout-wrapper">
             <div class="main-content">
@@ -12,7 +13,6 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
-                    
                                     <div class="card-body">
         
                                         <!-- <h4 class="card-title">Employee Records</h4> -->
@@ -24,7 +24,7 @@
                                                 <th>First Name</th>
                                                 <th>Last Name</th>
                                                 <th>Middle Name</th>
-                                                <th>Suffix</th>
+                                                <th>Gender</th>
                                                 <th>Blood Type</th>
                                                 <th>Address</th>
                                                 <th>Contact Number</th>
@@ -38,25 +38,20 @@
                                                 @php
                                                      $encryptedEmpID = Crypt::encrypt($employee->employee_id);
                                                @endphp
-                                             
                                             
                                                 <tr>
                                                     <td>{{ $employee->company->description ?? 'N/A'}}</td>
                                                     <td>{{ $employee->first_name }}</td>
-                                                    <td>{{ $employee->last_name }}</td>
+                                                    <td>{{ $employee->last_name }} {{ $employee->suffix}}</td>
                                                     <td>{{ $employee->middle_name }}</td>
-                                                    <td>{{ $employee->suffix ?? 'N/A'}}</td>
+                                                    <td>{{ $employee->gender}}</td>
                                                     <td>{{ $employee->blood_type }}</td>
                                                     <td>{{ $employee->address }}</td>
                                                     <td>{{ $employee->contact_number }}</td>
                                                     <td class="text-center">
-                            <a class="btn btn-outline-secondary btn-sm view">
+                            <a class="btn btn-outline-secondary btn-sm view"  data-bs-toggle="modal" data-bs-target="#empView" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
-                         
-                   
-  
-
                             <a wire:navigate href="{{ route('Employee-Edit', ['empID' => $encryptedEmpID]) }}" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
@@ -144,6 +139,9 @@
 
    
 </div>
+
+
+
 
 
 

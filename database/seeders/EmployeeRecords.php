@@ -25,6 +25,7 @@ class EmployeeRecords extends Seeder
                 'last_name'=> 'Escaran',
                 'middle_name'=> 'D.',
                 'suffix'=> '',
+                'gender'=> 'male',
                 'blood_type'=> '1',
                 'address'=> 'Atop-Atop,Bantayan,Cebu',
                 'seniority_level_id'=> '1',

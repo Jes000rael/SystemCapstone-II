@@ -27,15 +27,15 @@
                         <span key="t-employee-records">Employee</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a wire:navigate href="{{ route('employee-record') }}" key="t-employee-record">Employee Records</a></li>
-                        <li><a wire:navigate href="{{ route('add-employee') }}" key="t-add-employee">Add Employee</a></li>
+                        <li><a wire:navigate href="" key="t-employee-record">Employee Records</a></li>
+                        <li><a wire:navigate href="" key="t-add-employee">Add Employee</a></li>
                    
                     </ul>
                 </li>
                 
 
                 <li>
-                    <a wire:navigate href="{{ route('attendance-records') }}">
+                    <a wire:navigate href="">
                         <i class="bx bx-calendar"></i>
                         <span key="t-calendar">Attendance</span>
                     </a>

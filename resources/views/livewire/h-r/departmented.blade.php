@@ -50,7 +50,7 @@
 
                                     </form>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-8"   wire:ignore.self>
                                     <table id="datatable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>
@@ -82,7 +82,7 @@
                                                     <i class="fas fa-trash"></i>
                                                   </a>
                                                   <div class="dropdown d-inline">
-                                                  <a class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
+                                                  <a  class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
                                                   <i class="fas fa-ellipsis-h"></i>
                                                   </a>
                                                    

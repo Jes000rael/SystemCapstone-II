@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>  {{ ucfirst(str_replace('-', ' ', Route::currentRouteName())) }}  | Enopoly Commerce</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
+
 <!-- App favicon -->
 <link rel="shortcut icon" href="https://app.enopolyautomation.com/assets/images/favicon.ico">
 <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -87,6 +93,42 @@
 
 
 <script>
+    document.addEventListener('livewire:load', function () {
+    initializeDataTable();
+});
+
+document.addEventListener('livewire:update', function () {
+    $('#akontable').DataTable().destroy();
+    initializeDataTable();
+});
+
+function initializeDataTable() {
+    $('#akontable').DataTable({
+        pageLength: 10,
+        dom: 'lfBrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print' 
+        ],
+        paging: true,
+        searching: true,
+        ordering: true,
+        lengthMenu: [ 
+                    [5, 10, 15, 25, 50, 100],
+                    [5, 10, 15, 25, 50, 100]
+                ]
+    });
+}
+
+document.addEventListener('livewire:load', function () {
+    initializeDataTable();
+
+    Livewire.on('refreshTable', () => {
+        $('#akontable').DataTable().destroy();
+        initializeDataTable();
+    });
+});
+
+
 $(document).ready(function() {
     $('#akontable').DataTable({
       pageLength: 10,
@@ -105,18 +147,40 @@ $(document).ready(function() {
 });
 
 
+
+
 </script>
-
-
 
 
 
 
 <script>
         document.addEventListener('DOMContentLoaded', function () {
+            window.addEventListener('company-deleted', event => {
+                Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Company</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Deleted successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+            });
+        });
+    </script>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
             window.addEventListener('employee-added', event => {
                 Swal.fire({
-                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Add Employee</strong><br><span style="color:#000; font-size:13px;"  class="text-center" >Employee Added Successfully</span> ',
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Add Employee</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Added Successfully</span> ',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 5000,

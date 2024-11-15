@@ -11,7 +11,7 @@
 </div>
 @include('components.layouts.hrfooters.footer')
 @include('components.layouts.hrnavbars.right-sidebar')
-@elseif(in_array(request()->route()->getName(),['employee-record'],))
+@elseif(in_array(request()->route()->getName(),['employee-Record'],))
 @include('components.layouts.hrnavbars.sidebar')
 @include('components.layouts.hrnavbars.topbar')
 <div>   
@@ -19,7 +19,7 @@
 </div>
 @include('components.layouts.hrfooters.footer')
 @include('components.layouts.hrnavbars.right-sidebar')
-@elseif(in_array(request()->route()->getName(),['add-employee'],))
+@elseif(in_array(request()->route()->getName(),['add-Employee'],))
 @include('components.layouts.hrnavbars.sidebar')
 @include('components.layouts.hrnavbars.topbar')
 <div>   
@@ -28,7 +28,7 @@
 @include('components.layouts.hrfooters.footer')
 @include('components.layouts.hrnavbars.right-sidebar')
 
-@elseif(in_array(request()->route()->getName(),['seniority-level'],))
+@elseif(in_array(request()->route()->getName(),['seniority-Level'],))
 @include('components.layouts.hrnavbars.sidebar')
 @include('components.layouts.hrnavbars.topbar')
 <div>   
@@ -55,7 +55,7 @@
 @include('components.layouts.hrfooters.footer')
 @include('components.layouts.hrnavbars.right-sidebar')
 
-@elseif(in_array(request()->route()->getName(),['employee-status'],))
+@elseif(in_array(request()->route()->getName(),['employee-Status'],))
 @include('components.layouts.hrnavbars.sidebar')
 @include('components.layouts.hrnavbars.topbar')
 <div>   
@@ -82,7 +82,7 @@
 @include('components.layouts.hrfooters.footer')
 @include('components.layouts.hrnavbars.right-sidebar')
 
-@elseif(in_array(request()->route()->getName(),['off-duty'],))
+@elseif(in_array(request()->route()->getName(),['off-Duty'],))
 @include('components.layouts.hrnavbars.sidebar')
 @include('components.layouts.hrnavbars.topbar')
 <div>   
@@ -91,7 +91,7 @@
 @include('components.layouts.hrfooters.footer')
 @include('components.layouts.hrnavbars.right-sidebar')
 
-@elseif(in_array(request()->route()->getName(),['hand-book'],))
+@elseif(in_array(request()->route()->getName(),['hand-Book'],))
 @include('components.layouts.hrnavbars.sidebar')
 @include('components.layouts.hrnavbars.topbar')
 <div>   

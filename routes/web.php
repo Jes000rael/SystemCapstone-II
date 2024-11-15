@@ -24,6 +24,9 @@ Route::get('/', function() {
 });
 Route::get('/login', Login::class)->name('login');
 
+Route::get('/oppss/unauthorized', function () {
+    return view('livewire.errors.unauthorized');
+})->name('unauthorized');
 
 Route::middleware('auth')->group(function () {
     Route::middleware(['auth', 'department:company'])->group(function () {
@@ -39,25 +42,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/company/shift', App\Livewire\ShiftSelect::class)->name('shift-Super');
     Route::get('/company/employeerecords/edit/{empID}', App\Livewire\EmployeeEditSuper::class)->name('employee-Edit-Super');
     
-    Route::get('/oppss/unauthorized', function () {
-        return view('livewire.errors.unauthorized');
-    })->name('unauthorized');
+ 
     });
     
     Route::middleware(['auth', 'department:hr'])->group(function () {
            // admin/hr
     Route::get('/dashboard', Dashboard::class)->name('admin-Dashboard');
-    Route::get('/admin/employee_records', EmployeeRecord::class)->name('employee-record');
-    Route::get('/admin/addemployee', Addemployee::class)->name('add-employee');
-    Route::get('/admin/attendance', AttendanceRecord::class)->name('attendance-records');
-    Route::get('/admin/seniority', App\Livewire\HR\SeniorityLevels::class)->name('seniority-level');
+    Route::get('/admin/employee_records', EmployeeRecord::class)->name('employee-Record');
+    Route::get('/admin/addemployee', Addemployee::class)->name('add-Employee');
+    Route::get('/admin/attendance', AttendanceRecord::class)->name('attendance-Records');
+    Route::get('/admin/seniority', App\Livewire\HR\SeniorityLevels::class)->name('seniority-Level');
     Route::get('/admin/department', App\Livewire\HR\Departmented::class)->name('department');
     Route::get('/admin/jobtitle', App\Livewire\HR\JobTitles::class)->name('jobtitle');
-    Route::get('/admin/employee-status', App\Livewire\HR\EmployeeStatuss::class)->name('employee-status');
+    Route::get('/admin/employee-status', App\Livewire\HR\EmployeeStatuss::class)->name('employee-Status');
     Route::get('/admin/shifts', App\Livewire\HR\Shiftss::class)->name('shifts');
     Route::get('/admin/deduction', App\Livewire\HR\Deduction::class)->name('deduction');
-    Route::get('/admin/off-duty', App\Livewire\HR\OffDuty::class)->name('off-duty');
-    Route::get('/admin/hand-book', App\Livewire\HR\HandBooks::class)->name('hand-book');
+    Route::get('/admin/off-duty', App\Livewire\HR\OffDuty::class)->name('off-Duty');
+    Route::get('/admin/hand-book', App\Livewire\HR\HandBooks::class)->name('hand-Book');
     Route::get('/admin/anouncements', App\Livewire\HR\Anouncements::class)->name('anouncements');
     Route::get('/admin/employee_records/edit/{empID}', App\Livewire\HR\EmployeeEdit::class)->name('Employee-Edit');
 
@@ -67,6 +68,9 @@ Route::middleware('auth')->group(function () {
  Route::get('/employee/dashboard', App\Livewire\Employee\Dashboard::class)->name('employee-Dashboard');
  });
 
+ Route::get('/oppss/unauthorized', function () {
+    return view('livewire.errors.unauthorized');
+})->name('unauthorized');
 
     
    

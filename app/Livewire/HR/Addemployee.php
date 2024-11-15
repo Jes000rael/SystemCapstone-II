@@ -45,6 +45,7 @@ class Addemployee extends Component
     public $pagibig='';
     public $philhealth='';
     public $shift_id='';
+    public $gender='';
     public $employees,$companys,$senioritylevels,$employmentstatus,$jobtitle,$department=[],$depart=[],$shifts;
 
     protected $rules = [
@@ -52,6 +53,7 @@ class Addemployee extends Component
         'first_name' => 'required',
         'last_name' => 'required',
         'middle_name' => 'required',
+        'gender' => 'required|in:Male,Female',
         'blood_type' => 'required',
         'address' => 'required',
         'seniority_level_id' => 'required',
@@ -123,6 +125,7 @@ class Addemployee extends Component
             'last_name' => $this->last_name,
             'middle_name' => $this->middle_name,
             'suffix' => $this->suffix,
+            'gender' => $this->gender,
             'blood_type' => $this->blood_type,
             'address' => $this->address,
             'contact_number' => $this->contact_number,
