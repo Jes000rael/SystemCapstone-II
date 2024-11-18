@@ -12,7 +12,7 @@ class AddCompany extends Component
     public $description='';
     public $image='';
     public $company;
-    public $companyId;
+
  
     protected $rules = [
         'description' => 'required',
@@ -46,23 +46,22 @@ class AddCompany extends Component
     }
 
 
-    public function confirmDelete($id)
-{
-    $this->companyId = $id; 
-}
 
-public function deleteCompany()
+
+public function deleteCompany($companyId)
+
 {
-    if ($this->companyId) {
-        
-        Company::find($this->companyId)->delete();
-      
-        $this->companyId = null;
+
+    if ($companyId) {
+    Company::find($companyId)->delete();
+    
         $this->loadCompanies();
 
-        $this->dispatch('refreshTable');
 
-        $this->dispatch('company-deleted', ['message' => 'Company Deleted successfully!']);
+        return redirect()->intended('/company/add_company')->with('company-deleted', 'Successfull');
+
+        // $this->dispatch('company-deleted', ['message' => 'Company Deleted successfully!']);
+
        
     }
 }
