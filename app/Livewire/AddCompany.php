@@ -40,6 +40,7 @@ class AddCompany extends Component
          
         ]);
         $this->loadCompanies();
+        
 
         $this->reset(['description','image']);
     }
