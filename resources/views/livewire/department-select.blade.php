@@ -56,13 +56,13 @@
                                             </td>
                                                 <td> 
 
-                                                {{ $departments->description}}
+                                                {{ ucfirst($departments->description) }}
                                                 </td>
                                                 <td class="text-center">
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View">
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewDepartment{{ $departments->department_id }}">
                                                     <i class="fas fa-eye"></i>
                                                   </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" >
                                                     <i class="fas fa-pencil-alt"></i>
                                                   </a>
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal">
@@ -80,6 +80,34 @@
                                                    </ul>
                                                  </div>
                                                 </td>
+
+                                                 
+
+                                                <!-- Transaction Modal -->
+                <div class="modal fade ViewDepartment{{ $departments->department_id }}" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ViewDepartmentLabel">Order Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="mb-2">Company : <span class="text-primary fw-bold fs-5">   {{ $departments->company->description ?? 'N/A'}}</span></p>
+                                <p class="mb-4">Department : <span class="text-primary fw-bold fs-5">{{ ucfirst($departments->description) }}</span></p>
+
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             
+
+            </div>
+            <!-- end main content-->
+           
                                             </tr>
                                             @endforeach
                                             

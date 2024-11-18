@@ -9,7 +9,7 @@ use App\Models\EmployeeRecords;
 class Company extends Model
 {
     use HasFactory;
-    protected $fillable = ['description','image',
+    protected $fillable = ['description',
     'timezone',];
 
     public function employees()

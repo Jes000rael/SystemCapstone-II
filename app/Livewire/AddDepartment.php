@@ -38,7 +38,7 @@ class AddDepartment extends Component
 
         
         $this->reset(['description','company_id']);
-      
+        return redirect()->intended('/company/department')->with('company-deleted', 'Successfull');
     
         
   

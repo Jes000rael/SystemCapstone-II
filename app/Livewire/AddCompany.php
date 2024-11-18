@@ -3,20 +3,20 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use Livewire\WithFileUploads;
+
 use App\Models\Company;
 
 class AddCompany extends Component
 {
-    use WithFileUploads;
+  
     public $description='';
-    public $image='';
+
     public $company;
 
  
     protected $rules = [
         'description' => 'required',
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        
         
     ];
     public function mount()
@@ -32,17 +32,17 @@ class AddCompany extends Component
     public function add_company()
     {
         $this->validate();
-        $imagePath = $this->image->store('assets', 'public');
+  
 
         Company::create([
             'description' => $this->description,
-            'image' => $imagePath,
+          
          
         ]);
         $this->loadCompanies();
         
 
-        $this->reset(['description','image']);
+        $this->reset(['description']);
     }
 
 

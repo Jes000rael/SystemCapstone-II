@@ -166,7 +166,30 @@ body {
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-            <livewire:auth.company-logo />
+            <a class="logo logo-dark">
+                    <span class="logo-sm">
+                        <img src="https://app.enopolyautomation.com/assets/images/logo.png" alt="" height="22">
+                    </span>
+                 
+                    <span class="logo-lg">
+                        <img src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="Company Logo" class="company-logo" height="22" width="100">
+                    </span>
+                
+
+                   
+
+                </a>
+
+                <a class="logo logo-light">
+                    <span class="logo-sm">
+                        <img src="https://app.enopolyautomation.com/assets/images/logo.png" alt="" height="22" >
+                    </span>
+                  
+                    <span class="logo-lg">
+                        <img src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="Company Logo" class="company-logo" height="22" width="100">
+                    </span>
+</a>
+
             </div>
 
             <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
