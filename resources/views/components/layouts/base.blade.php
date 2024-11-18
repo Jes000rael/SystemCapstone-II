@@ -93,42 +93,7 @@
 
 
 <script>
-    document.addEventListener('livewire:load', function () {
-    initializeDataTable();
-});
-
-document.addEventListener('livewire:update', function () {
-    $('#akontable').DataTable().destroy();
-    initializeDataTable();
-});
-
-function initializeDataTable() {
-    $('#akontable').DataTable({
-        pageLength: 10,
-        dom: 'lfBrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print' 
-        ],
-        paging: true,
-        searching: true,
-        ordering: true,
-        lengthMenu: [ 
-                    [5, 10, 15, 25, 50, 100],
-                    [5, 10, 15, 25, 50, 100]
-                ]
-    });
-}
-
-document.addEventListener('livewire:load', function () {
-    initializeDataTable();
-
-    Livewire.on('refreshTable', () => {
-        $('#akontable').DataTable().destroy();
-        initializeDataTable();
-    });
-});
-
-
+  
 $(document).ready(function() {
     $('#akontable').DataTable({
       pageLength: 10,
@@ -145,7 +110,6 @@ $(document).ready(function() {
                 ]
     });
 });
-
 
 
 

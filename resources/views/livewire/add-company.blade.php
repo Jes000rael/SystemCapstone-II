@@ -61,8 +61,8 @@
                             </form>
                                 </div>
                                   <div class="col-md-8">
-                                    <div class="mb-3" wire:ignore.self>
-                                    <table id="akontable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
+                                    <div class="mb-3">
+                                    <table id="akontable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100" >
                       
                             <thead>
                             <tr>
@@ -73,7 +73,7 @@
                                
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody >
                               @foreach($company as $companies)
                             <tr>
                                 <td>{{ $companies->description}} </td>

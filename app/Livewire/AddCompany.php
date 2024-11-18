@@ -22,8 +22,7 @@ class AddCompany extends Component
     public function mount()
     {
       
-                $this->loadCompanies();
-           
+                $this->loadCompanies();     
 
     }
     public function loadCompanies()
