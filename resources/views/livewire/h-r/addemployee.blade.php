@@ -164,7 +164,9 @@
                                                             @foreach ($department as $departments)
                                                             <option value="{{ $departments->department_id}}">{{ $departments->description}}</option>
                                                             @endforeach
-                                                          
+                                                            @foreach ($depart as $dep)
+                                                            <option value="{{ $dep->department_id}}">{{ $dep->description}}</option>
+                                                            @endforeach
                                                         </select>
                                                         </div>
                                                     @error('department_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
