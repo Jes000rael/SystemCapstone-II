@@ -77,6 +77,14 @@
                                   <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
                                     <i class="fas fa-pencil-alt"></i>
                                   </a>
+                                  <style>
+                                .modal-backdrop {
+                                   background-color: transparent !important; /* No background for the backdrop */
+                                }
+                                .modal-content {
+                                      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Smooth and subtle shadow */
+                               }
+                                   </style>
                                   <a class="btn btn-outline-secondary btn-sm edit" data-bs-toggle="modal" data-bs-target=".transaction-detailModal{{ $companies->company_id }}">
                                     <i class="fas fa-trash"></i>
                                   </a>

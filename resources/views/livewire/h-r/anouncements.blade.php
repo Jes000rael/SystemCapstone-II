@@ -48,7 +48,7 @@
                                                     </form>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <table id="datatable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
+                                                    <table id="akontable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
                                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                                             <thead>
                                                             <tr>
