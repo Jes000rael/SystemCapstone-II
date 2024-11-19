@@ -8,11 +8,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">DASHBOARD</h4>
+                    <h4 class="mb-sm-0 font-size-18">Company</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Company</a></li>
                             <li class="breadcrumb-item active">Send Email</li>
                         </ol>
                     </div>
@@ -29,7 +29,7 @@
                     <div class="card-body">
 
                         <h4 class="card-title mb-4 fs-5">Send an email</h4>
-                        <form action="">
+                        <form wire:submit.prevent="sendEmail">
                         <div class="mb-3">
                                             <label for="email" class="form-label">Send To :</label>
                                             <div class=" @error('errors')border border-danger rounded-2 @enderror @error('email')border border-danger rounded-2 @enderror">
@@ -80,3 +80,26 @@
 <!-- End Page-content -->
 </div>
 
+@push('scripts')
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            window.addEventListener('email-send', event => {
+                Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Email</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Send Successfully</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

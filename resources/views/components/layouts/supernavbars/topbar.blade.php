@@ -188,7 +188,7 @@ body {
                     <span class="logo-lg">
                         <img src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="Company Logo" class="company-logo" height="22" width="100">
                     </span>
-</a>
+                      </a>
 
             </div>
 
