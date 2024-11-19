@@ -8,12 +8,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">DASHBOARD</h4>
+                    <h4 class="mb-sm-0 font-size-18">ADMIN</h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Handbooks</li>
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
+                            <li class="breadcrumb-item active">Add Handbooks</li>
                         </ol>
                     </div>
 
@@ -27,7 +27,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <h4 class="card-title">Add Department</h4>
+                        <h4 class="card-title fs-5 mb-4">Add Handbooks</h4>
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-4">

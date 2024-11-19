@@ -33,6 +33,15 @@
    
     margin-bottom: -1.8%;
 }     
+.dt-button-info h2 {
+    color: #555;
+   
+}
+.dt-button-info{
+    color: #555;
+}
+
+
 </style>
 <script>
         // Immediately apply dark mode if preferred

@@ -108,7 +108,9 @@
                   </li>
                   <li class="{{ Route::currentRouteName() == 'anouncements' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a wire:navigate href="{{ route('anouncements') }}" class="waves-effect ">
-                    <i class="bx bx-receipt"></i>
+                    <i class="bx bx-volume-full"></i>
+
+
                          <span key="t-starter-page"> Announcement</span>
                      </a>
                   </li>
