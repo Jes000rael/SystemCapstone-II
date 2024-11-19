@@ -1,6 +1,6 @@
 <x-layouts.base>
 @auth
-
+ <!-- admin/hr  -->
 @if (in_array(request()->route()->getName(),['login'],))
 {{ $slot }}
 @elseif(in_array(request()->route()->getName(),['admin-Dashboard'],))
@@ -110,6 +110,15 @@
 @include('components.layouts.hrnavbars.right-sidebar')
 
 @elseif(in_array(request()->route()->getName(),['Employee-Edit'],))
+@include('components.layouts.hrnavbars.sidebar')
+@include('components.layouts.hrnavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.hrfooters.footer')
+@include('components.layouts.hrnavbars.right-sidebar')
+
+@elseif(in_array(request()->route()->getName(),['attendance-Records'],))
 @include('components.layouts.hrnavbars.sidebar')
 @include('components.layouts.hrnavbars.topbar')
 <div>   
