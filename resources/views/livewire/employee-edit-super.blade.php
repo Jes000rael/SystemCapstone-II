@@ -37,7 +37,7 @@
                                             
                                             <div class="row">
                                                 
-                                                <div class="col-md-4">
+                                                <div class="col-lg-4">
                                                     <div class="mb-3">
                                                         <label for="first_name" class="form-label">First name</label>
                                                         <div class=" @error('errors')border border-danger rounded-2 @enderror @error('first_name')border border-danger rounded-2 @enderror">
@@ -47,7 +47,7 @@
                                                           @error('first_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-lg-4">
                                                     <div class="mb-3">
                                                         <label for="last_name" class="form-label">Last name</label>
                                                         <div class=" @error('errors')border border-danger rounded-2 @enderror @error('last_name')border border-danger rounded-2 @enderror">
@@ -57,7 +57,7 @@
                                                           @error('last_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-lg-4">
                                                     <div class="mb-3">
                                                         <label for="middle_name" class="form-label">Middle name</label>
                                                     <div class=" @error('errors')border border-danger rounded-2 @enderror @error('middle_name')border border-danger rounded-2 @enderror">
@@ -89,27 +89,29 @@
 
                                                </div>
                                            </div>
+
                                            <div class="col-lg-2">
-                                           <div class="mb-3">
-   <label class="form-label mb-3">Gender</label>
+                                             <div class="mb-3">
+                                                <label class="form-label mb-3">Gender</label>
    
-   <div class="d-flex ">
-       <div class="form-check form-check-inline">
-           <input wire:model="gender" type="radio" class="form-check-input @error('gender') border border-danger rounded-2 @enderror" id="gender_male" value="Male">
-           <label class="form-check-label" for="gender_male">Male</label>
-       </div>
+                                                   <div class="d-flex ">
+                                                       <div class="form-check form-check-inline">
+                                                           <input wire:model="gender" type="radio" class="form-check-input @error('gender') border border-danger rounded-2 @enderror" id="gender_male" value="Male">
+                                                           <label class="form-check-label" for="gender_male">Male</label>
+                                                       </div>
+                                                
+                                                       <div class="form-check form-check-inline">
+                                                           <input wire:model="gender" type="radio" class="form-check-input @error('gender') border border-danger rounded-2 @enderror" id="gender_female" value="Female">
+                                                           <label class="form-check-label" for="gender_female">Female</label>
+                                                        </div>
+                                                   </div>
+                                                
+                                                   @error('gender')
+                                                       <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span>
+                                                   @enderror
+                                                </div>
+                                            </div>
 
-       <div class="form-check form-check-inline">
-           <input wire:model="gender" type="radio" class="form-check-input @error('gender') border border-danger rounded-2 @enderror" id="gender_female" value="Female">
-           <label class="form-check-label" for="gender_female">Female</label>
-       </div>
-   </div>
-
-   @error('gender')
-       <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span>
-   @enderror
-</div>
-</div>
                                            <div class="col-lg-3">
                                                <div class="mb-3">
                                                <label for="blood_type" class="form-label">Blood type</label>
@@ -149,8 +151,7 @@
                                                             @foreach ($companys as $company)
                                                                   <option value="{{ $company->company_id}}">{{ $company->description}}</option>
                                                               @endforeach
-                                                        </select>
-                                                      
+                                                        </select> 
 
                                                     </div>
                                                     @error('company_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror

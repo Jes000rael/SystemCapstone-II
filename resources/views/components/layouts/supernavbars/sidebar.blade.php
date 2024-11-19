@@ -69,7 +69,13 @@
                          <span key="t-starter-page"> Shifts</span>
                      </a>
                   </li>
-                
+                  <li class="menu-title" key="t-apps">Email</li>
+                  <li>
+                    <a wire:navigate href="{{ route('send-Email') }}">
+                        <i class="bx bx-paper-plane"></i>
+                        <span key="t-mail">Send an Email</span>
+                    </a>
+                </li>
 
                
 

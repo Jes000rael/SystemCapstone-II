@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/company/employment', App\Livewire\EmploymentSelect::class)->name('employment-Super');
     Route::get('/company/job', App\Livewire\JobSelect::class)->name('job-Super');
     Route::get('/company/shift', App\Livewire\ShiftSelect::class)->name('shift-Super');
+    Route::get('/company/send_email', App\Livewire\SendEmail::class)->name('send-Email');
     Route::get('/company/employeerecords/edit/{empID}', App\Livewire\EmployeeEditSuper::class)->name('employee-Edit-Super');
     
  

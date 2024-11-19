@@ -71,13 +71,7 @@
                                 
                                
                                 <td class="text-center">
-                                  <a class="btn btn-outline-secondary btn-sm edit" title="View">
-                                    <i class="fas fa-eye"></i>
-                                  </a>
-                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
-                                    <i class="fas fa-pencil-alt"></i>
-                                  </a>
-                                  <style>
+                                <style>
                                 .modal-backdrop {
                                    background-color: transparent !important; /* No background for the backdrop */
                                 }
@@ -85,6 +79,13 @@
                                       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Smooth and subtle shadow */
                                }
                                    </style>
+                                <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewCompany{{ $companies->company_id }}">
+                                                    <i class="fas fa-eye"></i>
+                                </a>
+                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
+                                    <i class="fas fa-pencil-alt"></i>
+                                  </a>
+                                  
                                   <a class="btn btn-outline-secondary btn-sm edit" data-bs-toggle="modal" data-bs-target=".transaction-detailModal{{ $companies->company_id }}">
                                     <i class="fas fa-trash"></i>
                                   </a>
@@ -102,7 +103,8 @@
                                 
                                
                             </tr>
-                            <div wire:ignore.self class="modal fade transaction-detailModal{{ $companies->company_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
+<!-- modal para delete  -->
+<div wire:ignore.self class="modal fade transaction-detailModal{{ $companies->company_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -119,8 +121,29 @@
         </div>
     </div>
 </div>
+<!-- modal para delete end -->
+
+<!-- modal para view -->
+<div class="modal fade ViewCompany{{ $companies->company_id }}" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ViewDepartmentLabel">Company</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="mb-2">Description : <span class="text-primary fw-bold">{{ $companies->description ?? 'N/A'}}</span></p>
 
 
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- modal para view end -->
                             @endforeach
                             
                             </tbody>

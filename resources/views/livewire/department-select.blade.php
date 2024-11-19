@@ -73,7 +73,7 @@
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Edit" >
                                                     <i class="fas fa-pencil-alt"></i>
                                                   </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteDepartment{{ $departments->department_id }}">
                                                     <i class="fas fa-trash"></i>
                                                   </a>
                                                   <div class="dropdown d-inline">
@@ -91,17 +91,17 @@
 
                                                  
 
-                                                <!-- Transaction Modal -->
+                                                <!-- view Modal -->
                 <div class="modal fade ViewDepartment{{ $departments->department_id }}" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="ViewDepartmentLabel">Order Details</h5>
+                                <h5 class="modal-title" id="ViewDepartmentLabel">Department</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p class="mb-2">Company : <span class="text-primary fw-bold fs-5">   {{ $departments->company->description ?? 'N/A'}}</span></p>
-                                <p class="mb-4">Department : <span class="text-primary fw-bold fs-5">{{ ucfirst($departments->description) }}</span></p>
+                                <p class="mb-2">Company : <span class="text-primary fw-bold">   {{ $departments->company->description ?? 'N/A'}}</span></p>
+                                <p class="mb-4">Department : <span class="text-primary fw-bold">{{ ucfirst($departments->description) }}</span></p>
 
                                 
                             </div>
@@ -111,10 +111,29 @@
                         </div>
                     </div>
                 </div>
-             
+               <!-- modal para delete sa department  -->
+<div wire:ignore.self class="modal fade DeleteDepartment{{ $departments->department_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="transaction-detailModalLabel">Delete Department?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>  
+            <div class="modal-body">
+                <strong class="mb-2 fs-6">Are you sure you want to delete this department?</strong>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" wire:click="" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Delete</button>
+                <button type="button" class="btn text-white fw-bold" style="background-color:#3085d6;" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+             <!-- modal para delete sa department end -->
 
             </div>
             <!-- end main content-->
+           
            
                                             </tr>
                                             @endforeach

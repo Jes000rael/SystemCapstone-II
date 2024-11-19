@@ -52,7 +52,7 @@
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>
                                             <tr>
-                                                <th>Shift ID</th>
+                                                <th>Company</th>
                                                 <th>Night Shift</th>
                                                 <th>Action</th>
                                             </tr>
@@ -68,13 +68,21 @@
                                                 <td>{{ $select->company->description ?? 'N/A' }}</td>
                                                 <td>{{ $select->description }}</td>
                                                 <td class="text-center">
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View">
+                                                <style>
+                                                    .modal-backdrop {
+                                                        background-color: transparent !important; /* No background for the backdrop */
+                                                     }
+                                                      .modal-content {
+                                                         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Smooth and subtle shadow */
+                                                      }
+                                                </style>
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewShift{{ $select->shift_id }}">
                                                     <i class="fas fa-eye"></i>
                                                   </a>
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
                                                     <i class="fas fa-pencil-alt"></i>
                                                   </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteShift{{ $select->shift_id }}">
                                                     <i class="fas fa-trash"></i>
                                                   </a>
                                                   <div class="dropdown d-inline">
@@ -91,6 +99,46 @@
                                                 </td>
                                             </tr>
 
+                                            <!-- modal view para sa shift -->
+                <div class="modal fade ViewShift{{ $select->shift_id }}" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ViewDepartmentLabel">Shift</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="mb-2">Company : <span class="text-primary fw-bold">{{ $select->company->description ?? 'N/A' }}</span></p>
+                                <p class="mb-4">Night Shift : <span class="text-primary fw-bold">{{ $select->description }}</span></p>
+
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                            <!-- modal view para sa shift end -->
+                                             <!-- modal delete para sa shift  -->
+<div wire:ignore.self class="modal fade DeleteShift{{ $select->shift_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="transaction-detailModalLabel">Delete Shift?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>  
+            <div class="modal-body">
+                <strong class="mb-2 fs-6">Are you sure you want to delete this shift?</strong>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" wire:click="" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Delete</button>
+                <button type="button" class="btn text-white fw-bold" style="background-color:#3085d6;" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+                                             <!-- modal delete para sa shift end -->
                                             @endforeach
                                             
                                             </tbody>

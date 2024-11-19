@@ -52,7 +52,7 @@
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>
                                             <tr>
-                                                <th>Job Title ID</th>
+                                                <th>Company</th>
                                                 <th>Description</th>
                                                 <th>Action</th>
                                             </tr>
@@ -68,13 +68,21 @@
                                                 <td>{{ $title->company->description ?? 'N/A'}}</td>
                                                 <td>{{ $title->description }}</td>
                                                 <td class="text-center">
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View">
+                                                <style>
+                                                  .modal-backdrop {
+                                                     background-color: transparent !important; /* No background for the backdrop */
+                                                  }
+                                                  .modal-content {
+                                                     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Smooth and subtle shadow */
+                                                  }
+                                                    </style>
+                                                <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewJobtitle{{ $title->job_title_id }}">
                                                     <i class="fas fa-eye"></i>
                                                   </a>
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
                                                     <i class="fas fa-pencil-alt"></i>
                                                   </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteJobtitle{{ $title->job_title_id }}">
                                                     <i class="fas fa-trash"></i>
                                                   </a>
                                                   <div class="dropdown d-inline">
@@ -90,6 +98,48 @@
                                                  </div>
                                                 </td>
                                             </tr>
+
+                                            <!-- modal para view sa job title  -->
+                <div class="modal fade ViewJobtitle{{ $title->job_title_id }}" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ViewDepartmentLabel">Job Title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="mb-2">Company : <span class="text-primary fw-bold">   {{ $title->company->description ?? 'N/A'}}</span></p>
+                                <p class="mb-4">Job title : <span class="text-primary fw-bold">{{ $title->description }}</span></p>
+
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                            <!-- modal para view sa job title end -->
+
+                                            <!-- modal para sa delete sa job title  -->
+<div wire:ignore.self class="modal fade DeleteJobtitle{{ $title->job_title_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="transaction-detailModalLabel">Delete Job Title?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>  
+            <div class="modal-body">
+                <strong class="mb-2 fs-6">Are you sure you want to delete this job title?</strong>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" wire:click="" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Delete</button>
+                <button type="button" class="btn text-white fw-bold" style="background-color:#3085d6;" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+                                            <!-- modal para sa delete sa job title end -->
                                             @endforeach
                                             
                                             </tbody>
