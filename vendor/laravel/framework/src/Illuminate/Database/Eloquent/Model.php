@@ -55,7 +55,7 @@ abstract class Model implements Arrayable, ArrayAccess, CanBeEscapedWhenCastToSt
      *
      * @var string
      */
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'employee_id';
 
     /**
      * The "type" of the primary key ID.
