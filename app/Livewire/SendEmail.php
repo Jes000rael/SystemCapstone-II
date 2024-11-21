@@ -2,7 +2,8 @@
 
 namespace App\Livewire;
 
-use Illuminate\Support\Facades\Mail;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 use Livewire\Component;
 
 class SendEmail extends Component
@@ -55,17 +56,30 @@ class SendEmail extends Component
 
         try {
           
-            Mail::html($this->messageBody, function ($message) {
-                $message->to($this->email)
-                        ->subject($this->emailSubject);
-            });
+            $mail = new PHPMailer(true);
+            $mail->isSMTP();
+            $mail->Host = env('MAIL_HOST');
+            $mail->SMTPAuth = true;
+            $mail->Username = env('MAIL_USERNAME');
+            $mail->Password = env('MAIL_PASSWORD');
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = env('MAIL_PORT');
+
+            $mail->setFrom(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
+            $mail->addAddress($this->email);
+            $mail->isHTML(true);
+            $mail->Subject = $this->emailSubject;
+            $mail->Body = $this->messageBody;
+
+            $mail->send();
 
              $this->dispatch('email-send', ['message' => 'Successfully!']);
              $this->reset(['email','username','password']);
         } catch (\Exception $e) {
-            $this->reset(['email','username','password']);
 
             session()->flash('error', 'Failed to send email: ' . $e->getMessage());
+            $this->reset(['email','username','password']);
+
         }
     }
     public function render()
