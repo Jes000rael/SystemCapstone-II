@@ -72,8 +72,8 @@ class SendEmail extends Component
             $mail->Body = $this->messageBody;
 
             $mail->send();
+            $this->dispatch('email-send', ['message' => 'Successfully!']);
 
-             $this->dispatch('email-send', ['message' => 'Successfully!']);
              $this->reset(['email','username','password']);
         } catch (\Exception $e) {
 

@@ -143,7 +143,7 @@
 @elseif(in_array(request()->route()->getName(),['addcompany'],))
 @include('components.layouts.supernavbars.sidebar')
 @include('components.layouts.supernavbars.topbar')
-<div wire:ignore>   
+<div>   
 {{ $slot }}
 </div>
 @include('components.layouts.superfooters.footer')
