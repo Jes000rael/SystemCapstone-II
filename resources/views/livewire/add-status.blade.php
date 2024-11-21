@@ -1,6 +1,6 @@
 
 <div class="col-md-4">
-                                    <form  wire:submit.prevent="add_department" method="POST">
+                                    <form  wire:submit.prevent="add_status" method="POST">
                                      
                                                     <div class="mb-3">
                                                         <label for="company_id" class="form-label">Company</label>
@@ -35,4 +35,5 @@
 
                                     </form>
                                 </div>
+
 
