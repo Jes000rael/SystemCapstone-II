@@ -60,13 +60,13 @@
                                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Smooth and subtle shadow */
                                 }
                                                     </style>
-                                                <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewEmployment{{ $status->demployment_status_id }}">
+                                                <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewEmployment{{ $status->employment_status_id }}">
                                                     <i class="fas fa-eye"></i>
                                                   </a>
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
                                                     <i class="fas fa-pencil-alt"></i>
                                                   </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteEmployment{{ $status->demployment_status_id }}">
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteEmployment{{ $status->employment_status_id }}">
                                                     <i class="fas fa-trash"></i>
                                                   </a>
                                                   <div class="dropdown d-inline">
@@ -85,7 +85,7 @@
 
 
                                             <!-- modal view for employment status -->
-                <div class="modal fade ViewEmployment{{ $status->demployment_status_id }}" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentLabel" aria-hidden="true">
+                <div class="modal fade ViewEmployment{{ $status->employment_status_id }}" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -108,7 +108,7 @@
                                             <!-- modal view for employment status end -->
 
                                             <!-- delete modal employement status  -->
-<div wire:ignore.self class="modal fade DeleteEmployment{{ $status->demployment_status_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
+<div wire:ignore.self class="modal fade DeleteEmployment{{ $status->employment_status_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -119,7 +119,7 @@
                 <strong class="mb-2 fs-6">Are you sure you want to delete this employment status?</strong>
             </div>
             <div class="modal-footer">
-                <button type="submit" wire:click="" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Delete</button>
+                <button type="submit" wire:click="deleteEmployment({{ $status->employment_status_id }})" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Delete</button>
                 <button type="button" class="btn text-white fw-bold" style="background-color:#3085d6;" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -147,3 +147,46 @@
 </div>
 <!-- End Page-content -->
 </div>
+@push('scripts')
+@if (session('employment-deleted'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Employment Status</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Deleted Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+@endif
+@endpush
+
+@push('scripts')
+@if (session('employment-add'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Employment Status</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Add Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+@endif
+@endpush

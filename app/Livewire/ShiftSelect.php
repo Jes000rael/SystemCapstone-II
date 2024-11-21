@@ -11,7 +11,26 @@ class ShiftSelect extends Component
 
     public function mount()
     {
-        $this->shift  = Shift::all();
+        $this->updateShift();
+    }
+    
+    public function updateShift()
+    {
+        $this->shift = Shift::all();
+    }
+    public function deleteShift($shiftId)
+
+{
+    if ($shiftId) {
+    Shift::find($shiftId)->delete();
+    
+        $this->updateShift();
+        return redirect()->intended('/company/shift')->with('shift-deleted', 'Successfully');
+        // $this->dispatch('company-deleted', ['message' => 'Company Deleted successfully!']);
+
+       
+    }
+
     }
     public function render()
     {

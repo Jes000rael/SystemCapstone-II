@@ -39,7 +39,8 @@
                             <thead>
                             <tr>
                                
-                                <th>Description</th>
+                                <th>Company</th>
+                                <th>Timezone</th>
                               
                                 <th>Action</th>
                                
@@ -49,6 +50,7 @@
                               @foreach($company as $companies)
                             <tr>
                                 <td>{{ $companies->description}} </td>
+                                <td>{{ $companies->timezone}} </td>
                                 
                                
                                 <td class="text-center">
@@ -153,7 +155,30 @@
 @if (session('company-deleted'))
 <script>
       Swal.fire({
-                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Company</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Deleted successfully!</span> ',
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Company</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Deleted Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush
+@push('scripts')
+@if (session('company-add'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Company</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Add Successfully!</span> ',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 5000,

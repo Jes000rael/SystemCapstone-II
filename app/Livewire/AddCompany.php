@@ -9,16 +9,9 @@ use App\Models\Company;
 class AddCompany extends Component
 {
   
-    public $description='';
-
     public $company;
-
- 
-    protected $rules = [
-        'description' => 'required',
-        
-        
-    ];
+protected $listeners = ['loadCompany' => 'loadCompanies'];
+   
     public function mount()
     {
       
@@ -29,24 +22,6 @@ class AddCompany extends Component
 {
     $this->company = Company::all();
 }
-    public function add_company()
-    {
-        $this->validate();
-  
-
-        Company::create([
-            'description' => $this->description,
-          
-         
-        ]);
-        $this->loadCompanies();
-        
-
-        $this->reset(['description']);
-    }
-
-
-
 
 public function deleteCompany($companyId)
 
@@ -58,8 +33,7 @@ public function deleteCompany($companyId)
         $this->loadCompanies();
 
 
-        return redirect()->intended('/company/add_company')->with('company-deleted', 'Successfull');
-
+        return redirect()->intended('/company/add_company')->with('company-deleted', 'Successfully');
         // $this->dispatch('company-deleted', ['message' => 'Company Deleted successfully!']);
 
        

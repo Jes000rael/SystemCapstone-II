@@ -11,9 +11,25 @@ class SenioritySelect extends Component
 
     public function mount()
     {
+        $this->updateSenior();
+    }
+    
+    public function updateSenior()
+    {
+        $this->seniority = SeniorityLevel::all();
+    }
+    public function deleteSeniorityLevel($seniorityId)
 
-            $this->seniority = SeniorityLevel::all();
+{
+    if ($seniorityId) {
+    SeniorityLevel::find($seniorityId)->delete();
+    
+        $this->updateSenior();
+        return redirect()->intended('/company/seniority')->with('seniority-deleted', 'Successfully');
+        // $this->dispatch('company-deleted', ['message' => 'Company Deleted successfully!']);
+
        
+    }
 
     }
     public function render()

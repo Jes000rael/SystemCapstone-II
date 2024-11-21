@@ -37,9 +37,7 @@ class AddDepartment extends Component
         $this->dispatch('departmentAdded');
         
         $this->reset(['description','company_id']);
-        return redirect()->intended('/company/department')->with('company-deleted', 'Successfull');
-    
-        
+        return redirect()->intended('/company/department')->with('department-add', 'Successfully');
   
     }
 

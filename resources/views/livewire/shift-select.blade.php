@@ -116,7 +116,7 @@
                 <strong class="mb-2 fs-6">Are you sure you want to delete this shift?</strong>
             </div>
             <div class="modal-footer">
-                <button type="submit" wire:click="" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Delete</button>
+                <button type="submit" wire:click="deleteShift({{ $select->shift_id }})" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Delete</button>
                 <button type="button" class="btn text-white fw-bold" style="background-color:#3085d6;" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -145,3 +145,50 @@
 </div>
 <!-- End Page-content -->
 </div>
+@push('scripts')
+@if (session('shift-deleted'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Shift</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Deleted successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush
+
+@push('scripts')
+@if (session('shift-add'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Shift</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Add Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush

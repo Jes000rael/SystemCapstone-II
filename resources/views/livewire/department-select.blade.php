@@ -70,7 +70,7 @@
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewDepartment{{ $departments->department_id }}">
                                                     <i class="fas fa-eye"></i>
                                                   </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" >
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit"  >
                                                     <i class="fas fa-pencil-alt"></i>
                                                   </a>
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteDepartment{{ $departments->department_id }}">
@@ -123,7 +123,7 @@
                 <strong class="mb-2 fs-6">Are you sure you want to delete this department?</strong>
             </div>
             <div class="modal-footer">
-                <button type="submit" wire:click="" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Delete</button>
+                <button type="submit" wire:click="deleteDepartment({{ $departments->department_id }})" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Delete</button>
                 <button type="button" class="btn text-white fw-bold" style="background-color:#3085d6;" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -140,6 +140,59 @@
                                             
                                             </tbody>
                                         </table>
+
+                                            <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Department</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form wire:submit.prevent="update">
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Department Name</label>
+                            <input 
+                                type="text" 
+                                id="description" 
+                                class="form-control" 
+                                wire:model="description" 
+                                placeholder="Enter department name" 
+                                required>
+                            @error('description') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="company_id" class="form-label">Company</label>
+                            <select 
+                                id="company_id" 
+                                class="form-control" 
+                                wire:model="company_id" 
+                                required>
+                                <option value="">Select Company</option>
+                                @foreach (\App\Models\Company::all() as $company)
+                                    <option value="{{ $company->id }}">{{ $company->description }}</option>
+                                @endforeach
+                            </select>
+                            @error('company_id') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+<script>
+    window.addEventListener('close-modal', event => {
+        var myModalEl = document.getElementById('editModal');
+        var modal = bootstrap.Modal.getInstance(myModalEl);
+        modal.hide();
+    });
+</script>
+@endpush
                                 </div>
                             </div>
                         </div>
@@ -157,3 +210,49 @@
     <!-- container-fluid -->
 </div>
 </div>
+@push('scripts')
+@if (session('department-deleted'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Department</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Deleted Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush
+@push('scripts')
+@if (session('department-add'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Department</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Add Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush
