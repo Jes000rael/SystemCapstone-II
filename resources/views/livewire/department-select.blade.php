@@ -48,7 +48,9 @@
                                             <tbody>
                                             @foreach ($department as $departments)
                                            
-                                           
+                                            @php
+                                                     $encryptedepartmentID = Crypt::encrypt($departments->department_id);
+                                               @endphp
 
                                             <tr>
                                              <td>
@@ -70,7 +72,7 @@
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewDepartment{{ $departments->department_id }}">
                                                     <i class="fas fa-eye"></i>
                                                   </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit"  >
+                                                  <a wire:navigate href="{{ route('department-Edit', ['departmentID' => $encryptedepartmentID]) }}" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                     <i class="fas fa-pencil-alt"></i>
                                                   </a>
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteDepartment{{ $departments->department_id }}">
@@ -141,58 +143,7 @@
                                             </tbody>
                                         </table>
 
-                                            <!-- Edit Modal -->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Edit Department</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form wire:submit.prevent="update">
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Department Name</label>
-                            <input 
-                                type="text" 
-                                id="description" 
-                                class="form-control" 
-                                wire:model="description" 
-                                placeholder="Enter department name" 
-                                required>
-                            @error('description') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="company_id" class="form-label">Company</label>
-                            <select 
-                                id="company_id" 
-                                class="form-control" 
-                                wire:model="company_id" 
-                                required>
-                                <option value="">Select Company</option>
-                                @foreach (\App\Models\Company::all() as $company)
-                                    <option value="{{ $company->id }}">{{ $company->description }}</option>
-                                @endforeach
-                            </select>
-                            @error('company_id') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-@push('scripts')
-<script>
-    window.addEventListener('close-modal', event => {
-        var myModalEl = document.getElementById('editModal');
-        var modal = bootstrap.Modal.getInstance(myModalEl);
-        modal.hide();
-    });
-</script>
-@endpush
+   
                                 </div>
                             </div>
                         </div>

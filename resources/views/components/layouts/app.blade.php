@@ -225,6 +225,15 @@
 @include('components.layouts.superfooters.footer')
 @include('components.layouts.supernavbars.right-sidebar')
 
+@elseif(in_array(request()->route()->getName(),['department-Edit'],))
+@include('components.layouts.supernavbars.sidebar')
+@include('components.layouts.supernavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.superfooters.footer')
+@include('components.layouts.supernavbars.right-sidebar')
+
 @elseif(in_array(request()->route()->getName(),['send-Email'],))
 @include('components.layouts.supernavbars.sidebar')
 @include('components.layouts.supernavbars.topbar')

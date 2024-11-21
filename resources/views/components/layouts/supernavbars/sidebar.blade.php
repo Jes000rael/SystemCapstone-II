@@ -39,7 +39,7 @@
                 </li>
                 
              
-                <li>
+                <li class="{{ Route::currentRouteName() == 'department-Edit' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a wire:navigate href="{{ route('department-Super') }}">
                         <i class="bx bx-building"></i>
                         <span key="t-building">Department</span>
