@@ -6,7 +6,6 @@
 
 /storage/*.key
 /storage
-/vendor
 /public
 /stubs
 .env
