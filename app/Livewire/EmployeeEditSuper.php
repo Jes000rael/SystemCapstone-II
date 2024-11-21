@@ -188,8 +188,8 @@ class EmployeeEditSuper extends Component
             'shift_id' => $this->shift_id,
         ]);
 
-        session()->flash('message', 'Employee updated successfully!');
-        return redirect()->intended('/company/employee/records')->with('updateEmployee', 'Successfull');
+
+        return redirect()->intended('/company/employee/records')->with('updateEmployee', 'Successfully');
     }
     public function render()
     {

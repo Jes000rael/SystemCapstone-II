@@ -14,8 +14,8 @@
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Company</a></li>
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Add Department</a></li>
+                            <li class="breadcrumb-item"><a wire:navigate href="{{ route('department-Super') }}">Company</a></li>
+                            <li class="breadcrumb-item"><a wire:navigate href="{{ route('department-Super') }}">Add Department</a></li>
                             <li class="breadcrumb-item active">Edit Department</li>
                         </ol>
                     </div>
@@ -31,30 +31,31 @@
                     <div class="card-body">
 
                         <h4 class="card-title mb-4 fs-5">Edit Department</h4>
-                        <form wire:submit.prevent="">
+                        <form wire:submit.prevent="editDepartment">
                         <div class="mb-3">
-                                            <label for="email" class="form-label">Company</label>
-                                            <div class=" @error('errors')border border-danger rounded-2 @enderror @error('email')border border-danger rounded-2 @enderror">
+                                            <label for="company_id" class="form-label">Company</label>
+                                            <div class=" @error('errors')border border-danger rounded-2 @enderror @error('company_id')border border-danger rounded-2 @enderror">
                                             <select wire:model.live="company_id" id="company_id" class="form-select">
                                                             <option selected>Choose...</option>
-                                                           
-                                                                  <option value="">dadwa</option>
-                                                                  <option value="">dadwa</option>
-                                                                  <option value="">dadwa</option>
-                                                                  <option value="">dadwa</option>
-                                                              
+                                                            @foreach ($company as $companies)
+                                                                  <option value="{{ $companies->company_id}}">{{ $companies->description ?? 'N/A'}}</option>
+                                                              @endforeach
                                                         </select>
+                                                        </div>
+                                                    @error('company_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                              
+                                                              
+                                                       
                                         </div>
 
-                                            @error('email') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
-                                        </div>
+                                          
                         <div class="mb-3">
-                                            <label for="username" class="form-label">Department</label>
-                                            <div class=" @error('errors')border border-danger rounded-2 @enderror @error('username')border border-danger rounded-2 @enderror">
-                                            <input wire:model.live="username"  id="username" class="form-control" type="text"  placeholder="Enter Department">
+                                            <label for="description" class="form-label">Department</label>
+                                            <div class=" @error('errors')border border-danger rounded-2 @enderror @error('description')border border-danger rounded-2 @enderror">
+                                            <input wire:model.live="description"  id="description" class="form-control" type="text"  placeholder="Enter description">
                                         </div>
 
-                                            @error('username') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                            @error('description') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                         </div>
                                         
 
