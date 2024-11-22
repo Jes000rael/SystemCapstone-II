@@ -35,7 +35,7 @@
                                     
                                         <div class="mb-3">
                                             <label for="formrow-firstname-input" class="form-label">Description</label>
-                                            <textarea class="form-control" rows="3" id="formrow-firstname-input" placeholder="Enter the description" name="" id=""></textarea>
+                                            <textarea class="form-control" rows="1" id="formrow-firstname-input" placeholder="Enter the description" name="" id=""></textarea>
                                             <!-- <div class="text-danger">Please fill this field</div> -->
                                         </div>
                                         

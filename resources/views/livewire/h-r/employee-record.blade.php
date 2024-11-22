@@ -63,15 +63,37 @@
                                                     <td>{{ $employee->address }}</td>
                                                     <td>{{ $employee->contact_number }}</td>
                                                     <td class="text-center">
+                                                    <style>
+                                .modal-backdrop {
+                                   background-color: transparent !important; /* No background for the backdrop */
+                                }
+                                .modal-content {
+                                      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Smooth and subtle shadow */
+                               }
+                                   </style>
                             <a class="btn btn-outline-secondary btn-sm view"  data-bs-toggle="modal" data-bs-target="#empView" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
                             <a wire:navigate href="{{ route('Employee-Edit', ['empID' => $encryptedEmpID]) }}" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                 <i class="fas fa-pencil-alt"></i>
                             </a>
-                            <a class="btn btn-outline-secondary btn-sm delete" title="Delete">
+                            <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteEmployee{{ $employee->employee_id }}">
                                 <i class="fas fa-trash"></i>
                             </a>
+                            <div class="dropdown d-inline">
+                                                  <a class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
+                                                  <i class="fas fa-ellipsis-h"></i>
+                                                  </a>
+                                                   
+                                                   <ul class="dropdown-menu" aria-labelledby="moreActions">
+                                                     <li><a class="dropdown-item" href="#">Add Work Schedule</a></li>
+                                                     <li><a class="dropdown-item" href="#">Update Work Schedule</a></li>
+                                                     <li><a class="dropdown-item" href="#">View Work Schedule</a></li>
+                                                     <li><a class="dropdown-item" href="#">Add Deduction</a></li>
+                                                     <li><a class="dropdown-item" href="#">Add Deduction</a></li>
+                                                     
+                                                   </ul>
+                                                 </div>
                         </td>
                        
                                                 </tr> 
@@ -127,6 +149,25 @@
                     </div>
                 </div>
                   <!-- end-modal --> 
+                   <!-- modal delete  -->
+                   <div wire:ignore.self class="modal fade DeleteEmployee{{ $employee->employee_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="transaction-detailModalLabel">Delete Employee?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>  
+            <div class="modal-body">
+                <strong class="mb-2 fs-6">Are you sure you want to delete this employee?</strong>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" wire:click="" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Delete</button>
+                <button type="button" class="btn text-white fw-bold" style="background-color:#3085d6;" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+                   <!-- modal delete end -->
 
                                                 @endforeach
 

@@ -40,16 +40,7 @@
                         <span key="t-calendar">Attendance Records</span>
                     </a>
                 </li>
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-time"></i>
-                        <span key="t-time">Work Schedule</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="calendar.html" key="t-tui-calendar">Schedule Record</a></li>
-                        <li><a href="calendar-full.html" key="t-full-calendar">Add Schedule</a></li>
-                    </ul>
-                </li>
+               
                 <li class="{{ Route::currentRouteName() == 'department' ? 'mm-active' : 'text-light fw-bold' }}">
                      <a wire:navigate href="{{ route('department') }}" class="waves-effect ">
                       <i class="bx bx-buildings"></i>
@@ -89,7 +80,7 @@
                   </li>
                   <li class="{{ Route::currentRouteName() == 'off-Duty' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a wire:navigate href="{{ route('off-Duty') }}" class="waves-effect ">
-                    <i class="bx bx-receipt"></i>
+                    <i class="bx bx-sleepy"></i>
                          <span key="t-starter-page"> Off Duty</span>
                      </a>
                   </li>
@@ -103,7 +94,25 @@
                   <li class="{{ Route::currentRouteName() == 'deduction' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a wire:navigate href="{{ route('deduction') }}" class="waves-effect ">
                     <i class="bx bx-receipt"></i>
-                         <span key="t-starter-page"> Deduction</span>
+                         <span key="t-starter-page"> Deduction Log</span>
+                     </a>
+                  </li>
+                  <li class="{{ Route::currentRouteName() == 'merit-log' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('merit-log') }}" class="waves-effect ">
+                    <i class="bx bx-medal"></i>
+                         <span key="t-starter-page"> Merit Log</span>
+                     </a>
+                  </li>
+                  <li class="{{ Route::currentRouteName() == 'overtime-log' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('overtime-log') }}" class="waves-effect ">
+                    <i class="bx bx-briefcase"></i>
+                         <span key="t-starter-page"> Overtime Log</span>
+                     </a>
+                  </li>
+                  <li class="{{ Route::currentRouteName() == 'breaktime-log' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('breaktime-log') }}" class="waves-effect ">
+                    <i class="bx bx-coffee"></i>
+                         <span key="t-starter-page"> Breaktime Log</span>
                      </a>
                   </li>
                   <li class="{{ Route::currentRouteName() == 'anouncements' ? 'mm-active' : 'text-light fw-bold' }}">

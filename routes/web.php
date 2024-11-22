@@ -61,6 +61,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/deduction', App\Livewire\HR\Deduction::class)->name('deduction');
     Route::get('/admin/off-duty', App\Livewire\HR\OffDuty::class)->name('off-Duty');
     Route::get('/admin/hand-book', App\Livewire\HR\HandBooks::class)->name('hand-Book');
+    Route::get('/admin/merit-log', App\Livewire\HR\MeritLog::class)->name('merit-log');
+    Route::get('/admin/breaktime-log', App\Livewire\HR\BreaktimeLog::class)->name('breaktime-log');
+    Route::get('/admin/overtime-log', App\Livewire\HR\OvertimeLog::class)->name('overtime-log');
     Route::get('/admin/anouncements', App\Livewire\HR\Anouncements::class)->name('anouncements');
     Route::get('/admin/employee_records/edit/{empID}', App\Livewire\HR\EmployeeEdit::class)->name('Employee-Edit');
 
@@ -68,6 +71,9 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['auth', 'department:employee'])->group(function () {
         // employee
  Route::get('/employee/dashboard', App\Livewire\Employee\Dashboard::class)->name('employee-Dashboard');
+ Route::get('/employee/attendance_log', App\Livewire\Employee\AttendanceLog::class)->name('attendance-Log');
+ Route::get('/employee/work_schedule', App\Livewire\Employee\EmpWorkSchedule::class)->name('work-Schedule');
+ Route::get('/employee/hand_book', App\Livewire\Employee\HandBook::class)->name('hand-Books');
  });
 
  Route::get('/oppss/unauthorized', function () {

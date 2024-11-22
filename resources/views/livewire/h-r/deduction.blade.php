@@ -13,7 +13,7 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
-                            <li class="breadcrumb-item active">Add Deduction</li>
+                            <li class="breadcrumb-item active">Deduction Log</li>
                         </ol>
                     </div>
 
@@ -27,44 +27,9 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <h4 class="card-title fs-5 mb-4">Add Deduction</h4>
+                        <h4 class="card-title fs-5 mb-4">Deduction Log</h4>
                         <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <form action="">
-                                        <div class="mb-3">
-                                            <label for="formrow-emp" class="form-label">Employee</label>
-                                            <select id="formrow-emp" class="form-select">
-                                                <option selected>Choose...</option>
-                                                <option value="">Employee 1</option>
-                                                <option value="">Employee 2</option>
-                                                <option value="">Employee 3</option>
-                                                <option value="">Employee 4</option>
-                                                <option value="">Employee 5</option>
-                                            </select>
-                                            <!-- <div class="text-danger">Please fill this field</div> -->
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="formrow-value" class="form-label">Value</label>
-                                            <input type="number" class="form-control" id="formrow-value" placeholder="Enter value of deduction" required>
-                                            <!-- <div class="text-danger">Please fill this field</div> -->
-                                        </div>
-                                    
-                                        <div class="mb-3">
-                                            <label for="formrow-firstname-input" class="form-label">Description</label>
-                                            <textarea class="form-control" rows="3" id="formrow-firstname-input" placeholder="Enter the description"></textarea>
-                                            <!-- <div class="text-danger">Please fill this field</div> -->
-                                        </div>
-                                        
-                                        <div class="mb-3">
-                                        <div>
-                                          <button type="submit" class="btn btn-primary w-md">Save</button>
-                                        </div>
-                                        </div>
-
-                                    </form>
-                                </div>
-                                <div class="col-md-8">
+                            
                                     <table id="akontable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>
@@ -112,8 +77,7 @@
                                             
                                             </tbody>
                                         </table>
-                                </div>
-                            </div>
+                               
                         </div>
                         
                         

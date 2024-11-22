@@ -442,15 +442,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="mb-3">
-                                                
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                                                    <label class="form-check-label" for="gridCheck">
-                                                      Check me out
-                                                    </label>
-                                                </div>
-                                            </div>
+                                            
                                             <div>
                                                 <button   type="submit" class="btn btn-primary w-md" >Save</button>
                                             </div>

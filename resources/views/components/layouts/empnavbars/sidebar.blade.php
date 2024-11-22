@@ -20,35 +20,26 @@
                 
 
                 <li class="menu-title" key="t-apps">Records</li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-group"></i>
-                        <span key="t-employee-records">Employee</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a wire:navigate href="" key="t-employee-record">Employee Records</a></li>
-                        <li><a wire:navigate href="" key="t-add-employee">Add Employee</a></li>
-                   
-                    </ul>
-                </li>
                 
 
-                <li>
-                    <a wire:navigate href="">
+                <li class="{{ Route::currentRouteName() == 'attendance-Log' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('attendance-Log') }}">
                         <i class="bx bx-calendar"></i>
                         <span key="t-calendar">Attendance</span>
                     </a>
                 </li>
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                <li class="{{ Route::currentRouteName() == 'work-Schedule' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('work-Schedule') }}">
                         <i class="bx bx-time"></i>
                         <span key="t-time">Work Schedule</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="calendar.html" key="t-tui-calendar">Schedule Record</a></li>
-                        <li><a href="calendar-full.html" key="t-full-calendar">Add Schedule</a></li>
-                    </ul>
+                </li>
+                
+                <li class="{{ Route::currentRouteName() == 'hand-Books' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('hand-Books') }}">
+                        <i class="bx bx-book"></i>
+                        <span key="t-book">Handbooks</span>
+                    </a>
                 </li>
 
                

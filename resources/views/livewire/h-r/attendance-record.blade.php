@@ -35,8 +35,8 @@
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>
                                             <tr>
-                                                <th>Employee ID</th>
-                                                <th>Cut Off ID</th>
+                                                <th>Employee</th>
+                                                <th>Cut Off</th>
                                                 <th>Total Hours</th>
                                                 <th>Total Break</th>
                                                 <th>Total OT</th>
@@ -55,41 +55,88 @@
                                             <tbody>
                                             <tr>
                                                 <td>EM9-30</td>
-                                                <td>CUT903</td>
+                                                <td>Wednesday</td>
                                                 <td>8 hours</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>Tiger Nixon</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
+                                                <td>30 mins</td>
+                                                <td>0 hours</td>
+                                                <td>$56</td>
+                                                <td>Nov, 6 2024</td>
+                                                <td>9:00 am</td>
+                                                <td>8:50 am</td>
+                                                <td>5:03 pm</td>
+                                                <td>Present</td>
+                                                <td>0</td>
                                                 <td class="text-center">
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View">
-                                                    <i class="fas fa-eye"></i>
-                                                  </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                  </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                                    <i class="fas fa-trash"></i>
-                                                  </a>
+                                                <style>
+                                .modal-backdrop {
+                                   background-color: transparent !important; /* No background for the backdrop */
+                                }
+                                .modal-content {
+                                      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Smooth and subtle shadow */
+                               }
+                                   </style>
+                                                <a class="btn btn-outline-secondary btn-sm view"  data-bs-toggle="modal" data-bs-target=".emprecView" title="View">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                                                  
+                            
                                                   <div class="dropdown d-inline">
                                                   <a class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
                                                   <i class="fas fa-ellipsis-h"></i>
                                                   </a>
                                                    
                                                    <ul class="dropdown-menu" aria-labelledby="moreActions">
-                                                     <li><a class="dropdown-item" href="#">Add work schedule</a></li>
-                                                     <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                     <li><a class="dropdown-item" href="#">Share</a></li>
+                                                     <li><a class="dropdown-item" href="#">Add Overtime</a></li>
+                                                     <li><a class="dropdown-item" href="#">Add Request Time Adjustment</a></li>
+                                                     
                                                    </ul>
                                                  </div>
                                                 </td>
                                             </tr>
                                             
+                                            <!-- modal para sa view  -->
+                                            <div class="modal modal-lg fade emprecView" id="emprecView" tabindex="-1" role="dialog" aria-labelledby="empViewLabel" aria-hidden="true" >
+                    <div class=" modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="empViewLabel">Attendance Records</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                            <h4 class=""> <strong class="text-danger">Enopoly</strong></h4>
+                            <div class="container">
+                            <div class="row row-cols-3">
+                               <div class="col text-start mt-3 mb-3"><text>Name:</text> <span class="fs-6 text-primary" >test</span>  <span class="fs-6 text-primary">test</span> <span class="fs-6 text-primary">test</span>  <span class="fs-6 text-primary">test</span> </div>
+                               <div class="col text-start mt-3 mb-3"><text>Cutoff:</text> <span class="fs-6 text-primary">Wednesday</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Total Hours:</text> <span class="fs-6 text-primary">8 hours</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Total Break:</text> <span class="fs-6 text-primary">30mins</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Employee Status:</text> <span class="fs-6 text-primary">Active</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Total OT:</text> <span class="fs-6 text-primary">0 hours</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Rate:</text> <span class="fs-6 text-primary">56$</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Date:</text> <span class="fs-6 text-primary">Nov 6, 2024</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Duty Start:</text> <span class="fs-6 text-primary">9:00 am</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Time in:</text> <span class="fs-6 text-primary">8:50 am</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Time out:</text> <span class="fs-6 text-primary">5:03 pm</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Status:</text> <span class="fs-6 text-primary">Present</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Has Night Diff:</text> <span class="fs-6 text-primary">0</span></div>
+
+                               
+                             </div>
+                             
+                             
+                             
+                           </div>
+ 
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                            <!-- modal para sa view end -->
                                             
                                             
                                             </tbody>
