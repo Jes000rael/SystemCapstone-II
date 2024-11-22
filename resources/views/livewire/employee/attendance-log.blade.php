@@ -43,7 +43,7 @@
 
                                                 <div class="row">
                                                     <div class="col-md-7">
-                                                        <select id="select-option" name="option" class="form-control mb-1 mt-1">
+                                                        <select id="select-option" name="option" class="form-select mb-1 mt-1">
                                                             <option value="option1">Nov 10, 2024 - Nov 10, 2024</option>
                                                             <option value="option2">Nov 10, 2024 - Nov 10, 2024</option>
                                                             <option value="option3">Nov 10, 2024 - Nov 10, 2024</option>
