@@ -42,38 +42,18 @@
         
         
                                             <tbody>
-                                            
+                                            @foreach( $hand as $book )
                                            
                                            
 
                                             <tr>
-                                                <td>Memo: 017 - 2024 PROHIBITING PLAYING ONLINE GAMES DURING WORKING HOURS <a href="https://app.enopolyautomation.com/pdf/Memo:%20017%20-%202024%20PROHIBITING%20PLAYING%20ONLINE%20GAMES%20DURING%20WORKING%20HOURS_1728314391.pdf"> <i class="bx bx-paper-plane ms-2 fs-5 text-success"></i></a></td>
-                                                <td>Mon Oct 07 2024</td>
+                                                <td>{{ $book->description }}<a href="{{ $book->link }}"> <i class="bx bx-paper-plane ms-2 fs-5 text-success"></i></a></td>
+                                                <td>{{ date('D M d Y', strtotime($book->date)) }}</td>
                                                 
                                             </tr>
-                                            <tr>
-                                                <td>Memo: 017 - 2024 PROHIBITING PLAYING ONLINE GAMES DURING WORKING HOURS <a href="https://app.enopolyautomation.com/pdf/Memo:%20017%20-%202024%20PROHIBITING%20PLAYING%20ONLINE%20GAMES%20DURING%20WORKING%20HOURS_1728314391.pdf"> <i class="bx bx-paper-plane ms-2 fs-5 text-success"></i></a></td>
-                                                <td>Mon Oct 07 2024</td>
-                                                
-                                            </tr>
-
-                                            <tr>
-                                                <td>Memo: 017 - 2024 PROHIBITING PLAYING ONLINE GAMES DURING WORKING HOURS <a href="https://app.enopolyautomation.com/pdf/Memo:%20017%20-%202024%20PROHIBITING%20PLAYING%20ONLINE%20GAMES%20DURING%20WORKING%20HOURS_1728314391.pdf"> <i class="bx bx-paper-plane ms-2 fs-5 text-success"></i></a></td>
-                                                <td>Mon Oct 07 2024</td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>Memo: 017 - 2024 PROHIBITING PLAYING ONLINE GAMES DURING WORKING HOURS <a href="https://app.enopolyautomation.com/pdf/Memo:%20017%20-%202024%20PROHIBITING%20PLAYING%20ONLINE%20GAMES%20DURING%20WORKING%20HOURS_1728314391.pdf"> <i class="bx bx-paper-plane ms-2 fs-5 text-success"></i></a></td>
-                                                <td>Mon Oct 07 2024</td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td>Memo: 017 - 2024 PROHIBITING PLAYING ONLINE GAMES DURING WORKING HOURS <a href="https://app.enopolyautomation.com/pdf/Memo:%20017%20-%202024%20PROHIBITING%20PLAYING%20ONLINE%20GAMES%20DURING%20WORKING%20HOURS_1728314391.pdf"> <i class="bx bx-paper-plane ms-2 fs-5 text-success"></i></a></td>
-                                                <td>Mon Oct 07 2024</td>
-                                                
-                                            </tr>
+                                           
                                             
-                                            
+                                            @endforeach
                                             
                                             
                                             </tbody>

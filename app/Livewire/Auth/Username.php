@@ -17,8 +17,6 @@ class Username extends Component
         if (Auth::check()) {
             $this->firstname = Auth::user();
             $this->lastname = Auth::user()->last_name;
-
-           
         } else {
            
         }

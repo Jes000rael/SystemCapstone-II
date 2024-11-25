@@ -17,6 +17,7 @@ class Handbooks extends Seeder
     {
         DB::table('handbooks')->insert([
             [
+                'company_id'=> 1,
                 
                 'Description'=> 'sss',
          'Link'=> 'https::','Date'=> now(),

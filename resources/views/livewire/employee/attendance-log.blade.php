@@ -72,7 +72,7 @@
                         <div class="card">
                             <div class="card-body">
 
-                                <h4 class="card-title fs-5 mb-4">My Attendance <button type="submit" class="btn btn-primary float-end"><i class="fas fa-eye me-1"></i> Show Rate</button></h4>
+                                <h4 class="card-title fs-5 mb-4">My Attendance <button id="toggleVisibility" class="btn btn-primary float-end"><i class="fas fa-eye me-1"></i> Show Rate</button></h4>
                                 <div class="col-md-12">
                                     <div class="table-responsive">
                                         <table id="yut" class="table table-bordered dt-responsive all-users-datatable_length nowrap w-100">
@@ -97,10 +97,10 @@
                                                     <td>Nov 6, 2024</td>
                                                     <td>8:46 AM</td>
                                                     <td>5:03 PM</td>
-                                                    <td>8.00</td>
+                                                    <td data-value="8">****</td>
                                                     <td>$10</td>
                                                     <td>0.00</td>
-                                                    <td>$80</td>
+                                                    <td data-value="80">****</td>
                                                     <td>Early-Bird</td>
                                                     <td>56:00 mins</td>
                                                     <td>Yohoo</td>
@@ -125,3 +125,38 @@
     </div>
     <!-- END layout-wrapper -->
 </div>
+@push('scripts')
+<script>
+      document.getElementById('toggleVisibility').addEventListener('click', function () {
+
+    const rows = document.querySelectorAll('#yut tbody tr');
+    const isHidden = rows[0].querySelector('td:nth-child(4)').textContent === '****'; 
+
+    rows.forEach(row => {
+        
+        const priceCell = row.querySelector('td:nth-child(4)'); 
+        const quantityCell = row.querySelector('td:nth-child(7)'); 
+
+     
+        const priceActualValue = priceCell.getAttribute('data-value');
+        const quantityActualValue = quantityCell.getAttribute('data-value');
+        
+       
+        if (isHidden) {
+            priceCell.textContent = priceActualValue; 
+            quantityCell.textContent = quantityActualValue; 
+        } else {
+            priceCell.textContent = '****'; 
+            quantityCell.textContent = '****'; 
+        }
+    });
+
+   
+    const buttonText = isHidden ? 'Hide Rate' : 'Show Rate';
+    const buttonIcon = isHidden ? 'fa-eye-slash' : 'fa-eye';
+    document.getElementById('toggleVisibility').innerHTML = `<i class="fas ${buttonIcon} me-1"></i> ${buttonText}`;
+});
+
+    </script>
+
+@endpush

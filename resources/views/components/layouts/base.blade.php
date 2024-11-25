@@ -101,6 +101,8 @@
 
 
 
+
+
 <script>
   
 $(document).ready(function() {
@@ -113,14 +115,46 @@ $(document).ready(function() {
         paging: true,
         searching: true,
         ordering: true,
+        responsive: true,
         lengthMenu: [ 
                     [5, 10, 15, 25, 50, 100],
                     [5, 10, 15, 25, 50, 100]
                 ]
     });
 });
+$(document).ready(function () {
+  
+  $('[data-toggle="tooltip"]').tooltip();
+});
 
-
+$(document).ready(function() {
+  $('#akontabled').DataTable({
+    pageLength: 10,
+      dom: 'lfBrtip',
+      buttons: [
+          'copy', 'csv', 'excel', 'pdf', 'print' 
+      ],
+      paging: true,
+      searching: true,
+      ordering: true,
+      responsive: true,
+      columnDefs: [
+      {
+          targets: [0,1],
+          render: function (data, type, row) {
+              if (type === 'display' && data.length > 40) {
+                  return `<span title="${data}" data-toggle="tooltip">${data.substr(0, 40)}...</span>`;
+              }
+              return data;
+          }
+      }
+  ],
+      lengthMenu: [ 
+                  [5, 10, 15, 25, 50, 100],
+                  [5, 10, 15, 25, 50, 100]
+              ]
+  });
+});
 
 </script>
 
@@ -155,6 +189,32 @@ $(document).ready(function() {
             window.addEventListener('employee-added', event => {
                 Swal.fire({
                     title: '<strong style="color:#000; font-size:15px;" class="text-center">Add Employee</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Added Successfully</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+            });
+        });
+
+
+
+
+    </script>
+
+    <script>
+            document.addEventListener('DOMContentLoaded', function () {
+            window.addEventListener('offcatduty-added', event => {
+                Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Off Duty Category</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Added Successfully</span> ',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 5000,

@@ -34,109 +34,56 @@
                                             <div class="col-7">
                                                 <div class="text-primary p-3">
                                                     <h5 class="text-primary">Hello  Employee</h5>
-                                                    <p>Skote Dashboard</p>
+                                                    <p> {{ $company->description }} Dashboard</p>
                                                 </div>
                                             </div>
                                             <div class="col-5 align-self-end">
-                                                <img src="{{ asset('assets/images/profile-img.png') }}" alt="" class="img-fluid">
+                                                <img src="assets/images/profile-img.png" alt="" class="img-fluid">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-body pt-0">
                                         <div class="row">
-                                            <div class="col-sm-4">
-                                                <div class="avatar-md profile-user-wid mb-4">
-                                                    <img src="{{ asset('assets/images/users/avatar-1.jpg') }}" alt="" class="img-thumbnail rounded-circle">
+                                            <div class="col-sm-5">
+                                                <div class="avatar-md profile-user-wid mb-4 img-thumbnail rounded-circle">
+                                                <span class="avatar-title rounded-circle bg-primary fs-5 fw-bold " >
+                  {{  strtoupper(substr($firstname->first_name, 0, 1)) }}
+                  
+             </span>
                                                 </div>
-                                                <h5 class="font-size-15 text-truncate">Henry Price</h5>
-                                                <p class="text-muted mb-0 text-truncate">UI/UX Designer</p>
+                                                
+                                                
+                                                <h5 class="font-size-15 ">{{ $lastname }}  {{ $firstname->first_name }}</h5>
+                                                <p class="text-muted mb-0 text-truncate">{{ $job->description }}</p>
                                             </div>
 
-                                            <div class="col-sm-8">
-                                                <div class="pt-4">
-
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <h5 class="font-size-15">125</h5>
-                                                            <p class="text-muted mb-0">Projects</p>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <h5 class="font-size-15">$1245</h5>
-                                                            <p class="text-muted mb-0">Revenue</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mt-4">
-                                                        <a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm">View Profile <i class="mdi mdi-arrow-right ms-1"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                          
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <div class="card-body">
-                                    <h4 class="card-title mb-5">Activity</h4>
+                                    <h4 class="card-title mb-5">Management Announcement</h4>
                                         <ul class="verti-timeline list-unstyled">
-                                            <li class="event-list">
+                                        @foreach( $announce as $newTop => $ment)
+                                        <li class="event-list {{ $newTop == 0 ? 'active' : '' }}">
                                                 <div class="event-timeline-dot">
-                                                    <i class="bx bx-right-arrow-circle font-size-18"></i>
+                                                    <i class="bx bxs-right-arrow-circle  {{ $newTop == 0 ? 'bx-fade-right fs-4' : '' }}"></i>
                                                 </div>
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
-                                                        <h5 class="font-size-14">22 Nov <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
+                                                        <h5 class="font-size-14">{{ date('M d Y', strtotime($ment->date)) }} <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <div>
-                                                            Responded to need “Volunteer Activities
+                                                        <p style="font-size:12px;">{{ strlen($ment->description) > 50 ? substr($ment->description, 0, 50) . '...' : $ment->description }} <a href="javascript: void(0);">Read more</a></p> 
                                                         </div>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="event-list">
-                                                <div class="event-timeline-dot">
-                                                    <i class="bx bx-right-arrow-circle font-size-18"></i>
-                                                </div>
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0 me-3">
-                                                        <h5 class="font-size-14">17 Nov <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
-                                                    </div>
-                                                    <div class="flex-grow-1">
-                                                        <div>
-                                                            Everyone realizes why a new common language would be desirable... <a href="javascript: void(0);">Read more</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="event-list active">
-                                                <div class="event-timeline-dot">
-                                                    <i class="bx bxs-right-arrow-circle font-size-18 bx-fade-right"></i>
-                                                </div>
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0 me-3">
-                                                        <h5 class="font-size-14">15 Nov <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
-                                                    </div>
-                                                    <div class="flex-grow-1">
-                                                        <div>
-                                                            Joined the group “Boardsmanship Forum”
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="event-list">
-                                                <div class="event-timeline-dot">
-                                                    <i class="bx bx-right-arrow-circle font-size-18"></i>
-                                                </div>
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0 me-3">
-                                                        <h5 class="font-size-14">12 Nov <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
-                                                    </div>
-                                                    <div class="flex-grow-1">
-                                                        <div>
-                                                            Responded to need “In-Kind Opportunity”
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                            @endforeach
+                                           
+                                           
                                         </ul>
                                         <div class="text-center mt-4"><a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm">View More <i class="mdi mdi-arrow-right ms-1"></i></a></div>
                                     </div>

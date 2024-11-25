@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('off_duty_dates', function (Blueprint $table) {
             $table->id('holiday_id');
+            $table->foreignId('company_id'); 
             $table->foreignId('category_id');
             $table->String('description');
             $table->Date('date');

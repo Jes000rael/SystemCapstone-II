@@ -18,6 +18,7 @@ class Announcement extends Seeder
         DB::table('announcements')->insert([
             [
                 'Description' => 'yeah',
+                'company_id' => 1,
                 'Date'=>now(),
                
             ],

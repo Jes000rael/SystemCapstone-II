@@ -30,26 +30,10 @@
                                         <h4 class="card-title fs-5 mb-4">Add Announcement</h4>
                                         <div class="col-md-12">
                                             <div class="row">
-                                                <div class="col-md-4">
-                                                    <form action="">
-                                                       
-                                                        <div class="mb-3">
-                                                            <label for="formrow-firstname-input" class="form-label">Description</label>
-                                                            <textarea class="form-control" rows="3" id="formrow-firstname-input" placeholder="Enter the description"></textarea>
-                                                            <!-- <div class="text-danger">Please fill this field</div> -->
-                                                        </div>
-                                                        
-                                                        <div class="mb-3">
-                                                        <div>
-                                                          <button type="submit" class="btn btn-primary w-md">Save</button>
-                                                        </div>
-                                                        </div>
-    
-                                                    </form>
-                                                </div>
+                                                <livewire:h-r.add-announcement/>
                                                 <div class="col-md-8">
                                                     <table id="akontable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
-                                                        <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
+                                                       
                                                             <thead>
                                                             <tr>
                                                                 <th>Announcement ID</th>
@@ -61,12 +45,12 @@
                         
                                                             <tbody>
                                                             
-                                                           
+                                                           @foreach($announce as $ment)
                                                            
                 
                                                             <tr>
-                                                                <td>Announce--001</td>
-                                                                <td>To all of having a cover up please cover up it as soon as possible</td>
+                                                                <td> {{ $ment->description }}</td>
+                                                                <td> {{ $ment->date }}</td>
                                                                 
                                                                 <td class="text-center">
                                                                   <a class="btn btn-outline-secondary btn-sm edit" title="View">
@@ -75,22 +59,31 @@
                                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
                                                                     <i class="fas fa-pencil-alt"></i>
                                                                   </a>
-                                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".deleteAnnouncement{{ $ment->announcement_id }}">
                                                                     <i class="fas fa-trash"></i>
                                                                   </a>
-                                                                  <div class="dropdown d-inline">
-                                                                  <a class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                  <i class="fas fa-ellipsis-h"></i>
-                                                                  </a>
-                                                                   
-                                                                   <ul class="dropdown-menu" aria-labelledby="moreActions">
-                                                                     <li><a class="dropdown-item" href="#">Details</a></li>
-                                                                     <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                                     <li><a class="dropdown-item" href="#">Share</a></li>
-                                                                   </ul>
-                                                                 </div>
+                                                                
                                                                 </td>
+<div wire:ignore.self class="modal fade deleteAnnouncement{{ $ment->announcement_id }}" tabindex="-1" role="dialog" aria-labelledby="deleteAnnouncement{{ $ment->announcement_id }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteAnnouncement{{ $ment->announcement_id }}Label">Delete Announcement?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>  
+            <div class="modal-body">
+                <strong class="mb-2 fs-6">Are you sure you want to delete this announcement?</strong>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" wire:click="deleteAnnouncement({{ $ment->announcement_id }})" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Delete</button>
+                <button type="button" class="btn text-white fw-bold" style="background-color:#3085d6;" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
                                                             </tr>
+
+                                                            @endforeach
                                                             
                                                             </tbody>
                                                         </table>
@@ -117,3 +110,50 @@
         </div>
         <!-- END layout-wrapper -->
 
+        @push('scripts')
+@if (session('announcements-add'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Announcement</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Added Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush
+
+@push('scripts')
+@if (session('announcement-deleted'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Announcement</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Deleted Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush

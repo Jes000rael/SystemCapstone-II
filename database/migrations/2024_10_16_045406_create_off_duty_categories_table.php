@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('off_duty_categories', function (Blueprint $table) {
             $table->id('category_id');
+            $table->foreignId('company_id'); 
             $table->String('description');
             
         });

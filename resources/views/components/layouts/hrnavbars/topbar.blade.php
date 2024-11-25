@@ -166,30 +166,23 @@ body {
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-            <a class="logo logo-dark">
+                <a wire:navigate href="{{ route('employee-Dashboard') }}" class="logo logo-dark">
                     <span class="logo-sm">
                         <img src="https://app.enopolyautomation.com/assets/images/logo.png" alt="" height="22">
                     </span>
-                 
                     <span class="logo-lg">
-                        <img src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="Company Logo" class="company-logo" height="22" width="100">
+                        <img src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="" height="17">
                     </span>
-                
-
-                   
-
                 </a>
 
-                <a class="logo logo-light">
+                <a wire:navigate href="{{ route('employee-Dashboard')}}" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="https://app.enopolyautomation.com/assets/images/logo.png" alt="" height="22" >
+                        <img src="https://app.enopolyautomation.com/assets/images/logo.png" alt="" height="22">
                     </span>
-                  
                     <span class="logo-lg">
-                        <img src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="Company Logo" class="company-logo" height="22" width="100">
+                        <img src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="" height="19">
                     </span>
-                      </a>
-
+                </a>
             </div>
 
             <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
@@ -237,16 +230,16 @@ body {
     </button>
     <div class="dropdown-menu dropdown-menu-end" id="userDropdownMenu">
         <!-- item-->
-
-        <!-- <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">11</span><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span key="t-settings">Change Pass</span></a> -->
-
+        <!-- <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">Profile</span></a>
+        <a class="dropdown-item" href="#"><i class="bx bx-wallet font-size-16 align-middle me-1"></i> <span key="t-my-wallet">My Wallet</span></a>
+        <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">11</span><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span key="t-settings">Settings</span></a>
+        <a class="dropdown-item" href="#"><i class="bx bx-lock-open font-size-16 align-middle me-1"></i> <span key="t-lock-screen">Lock screen</span></a> -->
         <div class="dropdown-divider"></div>
         <livewire:auth.logout />
     </div>
 </div>
 
             
-
         </div>
     </div>
 

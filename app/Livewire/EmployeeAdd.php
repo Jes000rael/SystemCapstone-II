@@ -136,6 +136,8 @@ class EmployeeAdd extends Component
             'first_name',
             'last_name',
             'middle_name',
+            'gender',
+            'suffix',
             'blood_type',
             'gender',
             'address',

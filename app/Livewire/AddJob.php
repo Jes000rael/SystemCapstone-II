@@ -33,7 +33,7 @@ class AddJob extends Component
             'company_id' => $this->company_id
         ]);
 
-        $this->dispatch('departmentAdded');
+   
         
         $this->reset(['description','company_id']);
         return redirect()->intended('/company/job')->with('job-add', 'Successfully');

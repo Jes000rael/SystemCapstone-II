@@ -16,5 +16,4 @@ class Department extends Model
     public $timestamps = false;
     protected $primaryKey = 'department_id';
 
-
 }

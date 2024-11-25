@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class OffDutyDates extends Model
 {
     use HasFactory;
-    protected $fillable = ['category_id','description','date','percentage',];
+    protected $fillable = ['category_id','description','date','percentage','company_id'];
 
     public function OffDuty()
     {

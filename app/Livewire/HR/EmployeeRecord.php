@@ -13,15 +13,36 @@ class EmployeeRecord extends Component
 
     public function mount()
     {
-       
-$companyId = Auth::user()->company_id;
-$this->employees = EmployeeRecords::with(
-    'company', 'work_sched', 'deduction', 'meritLog', 'absence', 
-    'shift', 'department', 'jobtitle', 'seniorityLevel', 'employmentStatus'
-)
-->where('company_id', $companyId)
-->where('department_id', '!=', 1) 
-->get();
+        $this->updateEmployee();
+
+    }
+
+
+    public function updateEmployee()
+    {
+        $companyId = Auth::user()->company_id;
+        $this->employees = EmployeeRecords::with(
+            'company', 'work_sched', 'deduction', 'meritLog', 'absence', 
+            'shift', 'department', 'jobtitle', 'seniorityLevel', 'employmentStatus'
+        )
+        ->where('company_id', $companyId)
+        ->where('department_id', '!=', 1) 
+        ->get();
+    }
+    public function deleteEmployee($employeeId)
+    
+    {
+    
+        if ($employeeId) {
+            EmployeeRecords::find($employeeId)->delete();
+        
+            $this->updateEmployee();
+    
+            return redirect()->intended('admin/employee_records')->with('employee-deleted', 'Successfully');
+            // $this->dispatch('company-deleted', ['message' => 'Company Deleted successfully!']);
+    
+           
+        }
     }
  
     public function render()

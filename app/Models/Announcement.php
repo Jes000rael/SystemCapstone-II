@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Announcement extends Model
 {
     use HasFactory;
-    protected $fillable = ['description','date',];
+    protected $fillable = ['description','company_id','date',];
     public $timestamps = false;
     protected $primaryKey = 'announcement_id';
 

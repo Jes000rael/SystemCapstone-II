@@ -60,11 +60,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/shifts', App\Livewire\HR\Shiftss::class)->name('shifts');
     Route::get('/admin/deduction', App\Livewire\HR\Deduction::class)->name('deduction');
     Route::get('/admin/off-duty', App\Livewire\HR\OffDuty::class)->name('off-Duty');
-    Route::get('/admin/hand-book', App\Livewire\HR\HandBooks::class)->name('hand-Book');
+    Route::get('/admin/hand-book', App\Livewire\HR\HandBookss::class)->name('hand-Book');
     Route::get('/admin/merit-log', App\Livewire\HR\MeritLog::class)->name('merit-log');
     Route::get('/admin/breaktime-log', App\Livewire\HR\BreaktimeLog::class)->name('breaktime-log');
     Route::get('/admin/overtime-log', App\Livewire\HR\OvertimeLog::class)->name('overtime-log');
-    Route::get('/admin/anouncements', App\Livewire\HR\Anouncements::class)->name('anouncements');
+    Route::get('/admin/announcements', App\Livewire\HR\Anouncements::class)->name('anouncements');
     Route::get('/admin/employee_records/edit/{empID}', App\Livewire\HR\EmployeeEdit::class)->name('Employee-Edit');
 
     });
