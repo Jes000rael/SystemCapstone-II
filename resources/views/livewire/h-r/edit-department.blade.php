@@ -31,6 +31,12 @@
                     <div class="card-body">
 
                         <h4 class="card-title mb-4 fs-5">Edit Department</h4>
+                        @if (session()->has('error'))
+    <div class="alert alert-danger text-center fw-bold py-1">
+        {{ session('error') }}
+    </div>
+@endif
+
                         <form wire:submit.prevent="editDepartment">
 
                                           
@@ -46,8 +52,8 @@
 
                                         <div class="mb-3">
                                         <div class="align-item-center d-flex justify-content-center">
-                                          <button type="submit" class="btn btn-primary w-xl mt-3">Update</button>
-                                          <a wire:navigate href="{{ route('department') }}" class="btn btn-secondary w-xl mt-3">Close</a>
+                                          <button type="submit" class="btn btn-primary w-sm mt-3 me-2">Update</button>
+                                          <a wire:navigate href="{{ route('department') }}" class="btn btn-secondary w-sm mt-3">Close</a>
                                         </div>
                                         </div>
                         </form>

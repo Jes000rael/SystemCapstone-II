@@ -45,7 +45,9 @@
                                             <tbody>
                                             @foreach ($department as $departments)
                                            
-                                           
+                                            @php
+                                                     $encryptedepartmentID = Crypt::encrypt($departments->department_id);
+                                               @endphp
 
                                             <tr>
                                              
@@ -53,8 +55,9 @@
                                                 {{ $departments->description}}
                                                 </td>
                                                 <td class="text-center">
-                                                  
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
+                                               
+
+                                                  <a wire:navigate href="{{ route('edit-Department', ['departmentID' => $encryptedepartmentID]) }}" class="btn btn-outline-secondary btn-sm edit" title="Edit" >
                                                     <i class="fas fa-pencil-alt"></i>
                                                   </a>
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteDepartment{{ $departments->department_id }}">
@@ -132,6 +135,30 @@
 <script>
       Swal.fire({
                     title: '<strong style="color:#000; font-size:15px;" class="text-center">Department</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Added Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush
+
+@push('scripts')
+@if (session('updateDepartment'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Department</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Updated Successfully!</span> ',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 5000,
