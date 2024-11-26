@@ -13,11 +13,35 @@
                                             <label for="date" class="form-label">Date</label>
                                             <div class=" @error('errors')border border-danger rounded-2 @enderror @error('date')border border-danger rounded-2 @enderror">
                                           
-                                            <input class="form-control" type="date" id="date"  name="date" min="{{ now()->toDateString() }}" wire:model.live="date">
-                                            <script>
-                                                const today = new Date().toISOString().split('T')[0];
-                                                document.getElementById('date').setAttribute('min', today);
-                                            </script>
+                                            @php
+   
+    $timezone = config('app.timezone') ?? 'UTC';
+
+    
+    $minDate = \Carbon\Carbon::now($timezone)->toDateString(); 
+@endphp
+
+<input class="form-control" 
+       type="date" 
+       id="date" 
+       name="date" 
+       min="{{ $minDate }}" 
+       wire:model.live="date">
+
+<script>
+
+    const timezone = @json($timezone); 
+
+ 
+    function getServerTime() {
+        const serverTime = new Date().toLocaleString("en-US", { timeZone: timezone });
+        const serverDate = new Date(serverTime); 
+        return serverDate.toISOString().split('T')[0]; 
+    }
+
+    document.getElementById('date').setAttribute('min', getServerTime());
+</script>
+
                                         </div>
 
                                             @error('date') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
