@@ -12,7 +12,12 @@
                                         <div class="mb-3">
                                             <label for="date" class="form-label">Date</label>
                                             <div class=" @error('errors')border border-danger rounded-2 @enderror @error('date')border border-danger rounded-2 @enderror">
-                                            <input wire:model.live="date"  id="date" class="form-control" type="date">
+                                          
+                                            <input class="form-control" type="date" id="date"  name="date" min="{{ now()->toDateString() }}" wire:model.live="date">
+                                            <script>
+                                                const today = new Date().toISOString().split('T')[0];
+                                                document.getElementById('date').setAttribute('min', today);
+                                            </script>
                                         </div>
 
                                             @error('date') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror

@@ -18,7 +18,7 @@ class Company extends Seeder
         DB::table('companies')->insert([
             [
                 'description'=> 'Enopoly',
-    'Timezone'=> now(),
+                'Timezone'=> 'Asia/Manila',
             ],
          ]);
     }
