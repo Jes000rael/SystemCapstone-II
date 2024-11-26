@@ -58,10 +58,54 @@
                                                 <h5 class="font-size-15 ">{{ $lastname }}  {{ $firstname->first_name }}</h5>
                                                 <p class="text-muted mb-0 text-truncate">{{ $job->description }}</p>
                                                 @php
-                                                $currentTime = \Carbon\Carbon::now(); 
-echo $currentTime; 
+  
+  $timezone = config('app.timezone') ?? 'UTC';
 
-                                                @endphp
+  $currentTimestamp = \Carbon\Carbon::now($timezone)->timestamp;
+@endphp
+
+<div id="real-time-clock">
+   <span id="current-time"></span>
+</div>
+
+<script>
+ 
+  const timezone = @json($timezone);
+  const serverTimestamp = @json($currentTimestamp); 
+
+
+  const clientTimestamp = Math.floor(Date.now() / 1000); 
+  const timeOffset = serverTimestamp - clientTimestamp; 
+
+
+  let currentTime = new Date((clientTimestamp + timeOffset) * 1000); 
+
+
+  function updateTime() {
+  
+      currentTime.setSeconds(currentTime.getSeconds() + 1);
+
+ 
+      const formattedTime = new Intl.DateTimeFormat('en-US', {
+          timeZone: timezone,
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true 
+      }).format(currentTime);
+
+
+      document.getElementById('current-time').textContent = formattedTime;
+  }
+
+  setInterval(updateTime, 1000);
+
+ 
+  updateTime();
+</script>
                                             </div>
 
                                         

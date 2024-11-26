@@ -58,10 +58,9 @@
                                                 <p class="text-muted mb-0 text-truncate">{{ $job->description }}</p>
 
                                                 @php
-    // Fetch timezone from Laravel's config
+  
     $timezone = config('app.timezone') ?? 'UTC';
 
-    // Get the current time and convert to UNIX timestamp
     $currentTimestamp = \Carbon\Carbon::now($timezone)->timestamp;
 @endphp
 
