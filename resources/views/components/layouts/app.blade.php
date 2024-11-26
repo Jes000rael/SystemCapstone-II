@@ -1,354 +1,65 @@
 <x-layouts.base>
-@auth
- <!-- admin/hr  -->
-@if (in_array(request()->route()->getName(),['login'],))
-{{ $slot }}
-@elseif(in_array(request()->route()->getName(),['admin-Dashboard'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-@elseif(in_array(request()->route()->getName(),['employee-Record'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-@elseif(in_array(request()->route()->getName(),['add-Employee'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['seniority-Level'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['department'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['jobtitle'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['employee-Status'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['shifts'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['deduction'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['off-Duty'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['hand-Book'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['anouncements'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['Employee-Edit'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['attendance-Records'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['breaktime-log'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['overtime-log'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['merit-log'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-@elseif(in_array(request()->route()->getName(),['edit-Department'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-@elseif(in_array(request()->route()->getName(),['edit-Jobtitle'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-@elseif(in_array(request()->route()->getName(),['edit-Seniority'],))
-@include('components.layouts.hrnavbars.sidebar')
-@include('components.layouts.hrnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.hrfooters.footer')
-
-
-@endif
-
-
-
-<!-- super admin -->
-@if(in_array(request()->route()->getName(),['dashboard'],))
-@include('components.layouts.supernavbars.sidebar')
-@include('components.layouts.supernavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.superfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['addcompany'],))
-@include('components.layouts.supernavbars.sidebar')
-@include('components.layouts.supernavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.superfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['company-Employees'],))
-@include('components.layouts.supernavbars.sidebar')
-@include('components.layouts.supernavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.superfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['addemployee'],))
-@include('components.layouts.supernavbars.sidebar')
-@include('components.layouts.supernavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.superfooters.footer')
-
-
-
-@elseif(in_array(request()->route()->getName(),['department-Super'],))
-@include('components.layouts.supernavbars.sidebar')
-@include('components.layouts.supernavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.superfooters.footer')
-
-
-
-
-@elseif(in_array(request()->route()->getName(),['seniority-Super'],))
-@include('components.layouts.supernavbars.sidebar')
-@include('components.layouts.supernavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.superfooters.footer')
-
-
-
-@elseif(in_array(request()->route()->getName(),['employment-Super'],))
-@include('components.layouts.supernavbars.sidebar')
-@include('components.layouts.supernavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.superfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['job-Super'],))
-@include('components.layouts.supernavbars.sidebar')
-@include('components.layouts.supernavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.superfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['shift-Super'],))
-@include('components.layouts.supernavbars.sidebar')
-@include('components.layouts.supernavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.superfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['employee-Edit-Super'],))
-@include('components.layouts.supernavbars.sidebar')
-@include('components.layouts.supernavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.superfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['department-Edit'],))
-@include('components.layouts.supernavbars.sidebar')
-@include('components.layouts.supernavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.superfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['send-Email'],))
-@include('components.layouts.supernavbars.sidebar')
-@include('components.layouts.supernavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.superfooters.footer')
-
-
-@endif
-
-<!-- employee  -->
-@if(in_array(request()->route()->getName(),['employee-Dashboard'],))
-@include('components.layouts.empnavbars.sidebar')
-@include('components.layouts.empnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.empfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['attendance-Log'],))
-@include('components.layouts.empnavbars.sidebar')
-@include('components.layouts.empnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.empfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['work-Schedule'],))
-@include('components.layouts.empnavbars.sidebar')
-@include('components.layouts.empnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.empfooters.footer')
-
-
-@elseif(in_array(request()->route()->getName(),['hand-Books'],))
-@include('components.layouts.empnavbars.sidebar')
-@include('components.layouts.empnavbars.topbar')
-<div>   
-{{ $slot }}
-</div>
-@include('components.layouts.empfooters.footer')
-
-
-@endif
-
-
-
-@endauth
-
-@guest
-      
-        @if (!auth()->check() && in_array(request()->route()->getName(),['login'],))
-           
+    @auth
+        @php
+            // Define the routes for each role
+            $roleLayouts = [
+                'hr' => [
+                    'admin-Dashboard', 'employee-Record', 'add-Employee', 'seniority-Level', 'department',
+                    'jobtitle', 'employee-Status', 'shifts', 'deduction', 'off-Duty', 'hand-Book',
+                    'anouncements', 'Employee-Edit', 'attendance-Records', 'breaktime-log', 'overtime-log',
+                    'merit-log', 'edit-Department'
+                ],
+                'super' => [
+                    'dashboard', 'addcompany', 'company-Employees', 'addemployee', 'department-Super', 
+                    'seniority-Super', 'employment-Super', 'job-Super', 'shift-Super', 'employee-Edit-Super', 
+                    'department-Edit', 'send-Email'
+                ],
+                'employee' => [
+                    'employee-Dashboard', 'attendance-Log', 'work-Schedule', 'hand-Books'
+                ]
+            ];
+
+            // Initialize layout variables
+            $layout = null;
+            $navbar = null;
+            $footer = null;
+
+            // Identify which role the route belongs to
+            foreach ($roleLayouts as $role => $routes) {
+                if (in_array(request()->route()->getName(), $routes)) {
+                    $layout = $role;
+                    break;
+                }
+            }
+
+            // Assign the respective layout components based on role
+            if ($layout === 'hr') {
+                $navbar = 'hrnavbars';
+                $footer = 'hrfooters';
+            } elseif ($layout === 'super') {
+                $navbar = 'supernavbars';
+                $footer = 'superfooters';
+            } elseif ($layout === 'employee') {
+                $navbar = 'empnavbars';
+                $footer = 'empfooters';
+            }
+        @endphp
+
+        <!-- Include role-specific layout components if a layout is determined -->
+        @if ($layout)
+            @include("components.layouts.$navbar.sidebar")
+            @include("components.layouts.$navbar.topbar")
+            <div>{{ $slot }}</div>
+            @include("components.layouts.$footer.footer")
+        @else
+            <!-- Default content (if no role match) -->
             {{ $slot }}
-       
+        @endif
+    @endauth
+
+    @guest
+        @if (request()->routeIs('login'))
+            {{ $slot }}
         @endif
     @endguest
-
-
-
 </x-layouts.base>
