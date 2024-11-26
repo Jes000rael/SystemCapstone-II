@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/department/edit/{departmentID}', App\Livewire\HR\EditDepartment::class)->name('edit-Department');
         Route::get('/admin/jobtitle/edit', App\Livewire\HR\EditJobtitle::class)->name('edit-Jobtitle');
         Route::get('/admin/seniority/edit', App\Livewire\HR\EditSeniority::class)->name('edit-Seniority');
+        Route::get('/admin/employee-status/edit', App\Livewire\HR\EditEmploystat::class)->name('edit-Status');
     });
 
     Route::middleware('department:employee')->group(function () {

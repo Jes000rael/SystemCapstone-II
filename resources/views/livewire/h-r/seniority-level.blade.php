@@ -36,7 +36,7 @@
                                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                                             <thead>
                                                             <tr>
-                                                                <th>Company</th>
+                                                          
                                                                 <th>Description</th>
                                                                 <th>Action</th>
                                                             </tr>
@@ -56,21 +56,21 @@
                                       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Smooth and subtle shadow */
                                }
                                    </style>
-                                                                <td>{{ $level->company->description ?? 'N/A'}}</td>
+                                                              
                                                                 <td>{{ $level->description }}</td>
                                                                 <td class="text-center">
                                                                   
                                                                   <a wire:navigate href="/admin/seniority/edit" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                                     <i class="fas fa-pencil-alt"></i>
                                                                   </a>
-                                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteSeniority{{ $level->seniority_id }}">
+                                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteSeniority{{ $level->seniority_level_id }}">
                                                     <i class="fas fa-trash"></i>
                                                   </a>
                                                                   
                                                                 </td>
                                                             </tr>
                                                             <!-- modal delete  -->
-                                                            <div wire:ignore.self class="modal fade DeleteSeniority{{ $level->seniority_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
+                                                            <div wire:ignore.self class="modal fade DeleteSeniority{{ $level->seniority_level_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -81,7 +81,7 @@
                 <strong class="mb-2 fs-6">Are you sure you want to delete this seniority level?</strong>
             </div>
             <div class="modal-footer">
-                <button type="submit" wire:click="deleteDepartment({{ $level->seniority_id }})" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Delete</button>
+                <button type="submit" wire:click="deleteDepartment({{ $level->seniority_level_id }})" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Delete</button>
                 <button type="button" class="btn text-white fw-bold" style="background-color:#3085d6;" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
