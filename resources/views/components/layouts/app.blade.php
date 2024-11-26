@@ -153,6 +153,14 @@
 </div>
 @include('components.layouts.hrfooters.footer')
 
+@elseif(in_array(request()->route()->getName(),['edit-Department'],))
+@include('components.layouts.hrnavbars.sidebar')
+@include('components.layouts.hrnavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.hrfooters.footer')
+
 
 @endif
 

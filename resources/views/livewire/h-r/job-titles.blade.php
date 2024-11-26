@@ -36,7 +36,7 @@
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>
                                             <tr>
-                                                <th>Job Title ID</th>
+
                                                 <th>Description</th>
                                                 <th>Action</th>
                                             </tr>
@@ -49,29 +49,17 @@
                                            
 
                                             <tr>
-                                                <td>{{ $title->company->description ?? 'N/A'}}</td>
+
                                                 <td>{{ $title->description }}</td>
                                                 <td class="text-center">
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View">
-                                                    <i class="fas fa-eye"></i>
-                                                  </a>
+                                                  
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
                                                     <i class="fas fa-pencil-alt"></i>
                                                   </a>
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteJobtitle{{ $title->job_title_id }}">
                                                     <i class="fas fa-trash"></i>
                                                   </a>
-                                                  <div class="dropdown d-inline">
-                                                  <a class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
-                                                  <i class="fas fa-ellipsis-h"></i>
-                                                  </a>
-                                                   
-                                                   <ul class="dropdown-menu" aria-labelledby="moreActions">
-                                                     <li><a class="dropdown-item" href="#">Details</a></li>
-                                                     <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                     <li><a class="dropdown-item" href="#">Share</a></li>
-                                                   </ul>
-                                                 </div>
+                                                  
                                                 </td>
                                                 <div wire:ignore.self class="modal fade DeleteJobtitle{{ $title->job_title_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">

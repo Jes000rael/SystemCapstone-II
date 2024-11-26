@@ -30,26 +30,7 @@
                         <h4 class="card-title fs-5 mb-4">Add Department</h4>
                         <div class="col-md-12">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <form  wire:submit.prevent="add_department" method="POST">
-                                    
-                                        <div class="mb-3">
-                                            <label for="description" class="form-label">Description</label>
-                                            <div class=" @error('errors')border border-danger rounded-2 @enderror @error('description')border border-danger rounded-2 @enderror">
-                                            <textarea wire:model.live="description"  id="description" class="form-control" rows="1"  placeholder="Enter the description"></textarea>
-                                        </div>
-
-                                            @error('description') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
-                                        </div>
-                                        
-                                        <div class="mb-3">
-                                        <div>
-                                          <button type="submit" class="btn btn-primary w-md">Add</button>
-                                        </div>
-                                        </div>
-
-                                    </form>
-                                </div>
+                                <livewire:h-r.add-department/>
                                 <div class="col-md-8"   wire:ignore.self>
                                     <table id="akontable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
@@ -72,26 +53,14 @@
                                                 {{ $departments->description}}
                                                 </td>
                                                 <td class="text-center">
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View">
-                                                    <i class="fas fa-eye"></i>
-                                                  </a>
+                                                  
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
                                                     <i class="fas fa-pencil-alt"></i>
                                                   </a>
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteDepartment{{ $departments->department_id }}">
                                                     <i class="fas fa-trash"></i>
                                                   </a>
-                                                  <div class="dropdown d-inline">
-                                                  <a  class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
-                                                  <i class="fas fa-ellipsis-h"></i>
-                                                  </a>
-                                                   
-                                                   <ul class="dropdown-menu" aria-labelledby="moreActions">
-                                                     <li><a class="dropdown-item" href="#">Details</a></li>
-                                                     <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                     <li><a class="dropdown-item" href="#">Share</a></li>
-                                                   </ul>
-                                                 </div>
+                                                  
                                                 </td>
                                                      <!-- modal para delete sa department  -->
 <div wire:ignore.self class="modal fade DeleteDepartment{{ $departments->department_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
@@ -140,6 +109,29 @@
 <script>
       Swal.fire({
                     title: '<strong style="color:#000; font-size:15px;" class="text-center">Department</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Deleted Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush
+@push('scripts')
+@if (session('department-add'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Department</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Added Successfully!</span> ',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 5000,

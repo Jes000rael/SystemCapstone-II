@@ -66,6 +66,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/overtime-log', App\Livewire\HR\OvertimeLog::class)->name('overtime-log');
     Route::get('/admin/announcements', App\Livewire\HR\Anouncements::class)->name('anouncements');
     Route::get('/admin/employee_records/edit/{empID}', App\Livewire\HR\EmployeeEdit::class)->name('Employee-Edit');
+    Route::get('/admin/department/edit/{departmentID}', App\Livewire\HR\EditDepartment::class)->name('edit-Department');
+
 
     });
     Route::middleware(['auth', 'department:employee'])->group(function () {

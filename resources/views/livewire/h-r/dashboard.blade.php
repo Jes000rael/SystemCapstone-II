@@ -115,33 +115,52 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="card">
-                                    <div class="card-body">
-                                       <h4 class="card-title mb-5">Management Announcement</h4>
+
+                                 <div class="card-body">
+                                    <h4 class="card-title mb-5">Management Announcement</h4>
+                                    <div class="scrollable-div" style="max-height: 300px; overflow-y: auto;">
                                         <ul class="verti-timeline list-unstyled">
-                                        @foreach($announce as $newTop => $ment)
-                                        <li class="event-list {{ $newTop == 0 ? 'active' : '' }}">
+                                            @foreach($announce as $newTop => $ment)
+                                            <li class="event-list {{ $newTop == 0 ? 'active' : '' }}">
                                                 <div class="event-timeline-dot">
                                                     <i class="bx bxs-right-arrow-circle  {{ $newTop == 0 ? 'bx-fade-right fs-4' : '' }}"></i>
                                                 </div>
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
-                                                        <h5 class="font-size-14">{{ date('M d Y', strtotime($ment->date)) }} <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i></h5>
+                                                        <h5 class="font-size-14">
+                                                            {{ date('M d Y', strtotime($ment->date)) }}
+                                                            <i class="bx bx-right-arrow-alt font-size-16 text-primary align-middle ms-2"></i>
+                                                        </h5>
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <div>
-                                                        <p style="font-size:12px;">{{ strlen($ment->description) > 50 ? substr($ment->description, 0, 50) . '...' : $ment->description }} <a href="javascript: void(0);">Read more</a></p> 
+                                                            <p style="font-size:12px;">
+                                                                {{ strlen($ment->description) > 35 ? substr($ment->description, 0, 35) . '...' : $ment->description }}
+                                                                <a href="javascript: void(0);">Read more</a>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </li>
                                             @endforeach
-                                           
-                                           
                                         </ul>
-                                        <div class="text-center mt-4"><a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm">View More <i class="mdi mdi-arrow-right ms-1"></i></a></div>
                                     </div>
-                                </div>
+                                    <div class="text-center mt-4">
+                                        <a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm">
+                                            View More <i class="mdi mdi-arrow-right ms-1"></i>
+                                        </a>
+                                    </div>
+                                 </div>
+                             </div>
+                             <style>
+                                 .scrollable-div {
+                                 max-height: 300px;
+                                 overflow-y: auto;
+                             }
+
+                             </style>
                             </div>
                             <div class="col-xl-8">
                                 <div class="row">
@@ -208,7 +227,7 @@
                                 </div>
                                 <!-- end row -->
 
-                                <div class="card">
+                                <!-- <div class="card">
                                     <div class="card-body">
                                         <div class="d-sm-flex flex-wrap">
                                             <h4 class="card-title mb-4">Email Sent</h4>
@@ -220,16 +239,16 @@
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="#">Month</a>
                                                     </li>
-                                                    <!-- <li class="nav-item">
+                                                    <li class="nav-item">
                                                         <a class="nav-link active" href="#">Year</a>
-                                                    </li> -->
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
                                         
                                         <div id="stacked-column-chart" class="apex-charts" data-colors='["--bs-primary", "--bs-warning", "--bs-success"]' dir="ltr"></div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <!-- end row -->
