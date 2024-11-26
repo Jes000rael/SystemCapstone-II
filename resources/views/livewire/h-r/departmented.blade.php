@@ -55,8 +55,14 @@
                                                 {{ $departments->description}}
                                                 </td>
                                                 <td class="text-center">
-                                               
-
+                                                <style>
+                                .modal-backdrop {
+                                   background-color: transparent !important; /* No background for the backdrop */
+                                }
+                                .modal-content {
+                                      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Smooth and subtle shadow */
+                               }
+                                   </style>
                                                   <a wire:navigate href="{{ route('edit-Department', ['departmentID' => $encryptedepartmentID]) }}" class="btn btn-outline-secondary btn-sm edit" title="Edit" >
                                                     <i class="fas fa-pencil-alt"></i>
                                                   </a>

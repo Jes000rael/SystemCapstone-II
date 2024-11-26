@@ -161,6 +161,22 @@
 </div>
 @include('components.layouts.hrfooters.footer')
 
+@elseif(in_array(request()->route()->getName(),['edit-Jobtitle'],))
+@include('components.layouts.hrnavbars.sidebar')
+@include('components.layouts.hrnavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.hrfooters.footer')
+
+@elseif(in_array(request()->route()->getName(),['edit-Seniority'],))
+@include('components.layouts.hrnavbars.sidebar')
+@include('components.layouts.hrnavbars.topbar')
+<div>   
+{{ $slot }}
+</div>
+@include('components.layouts.hrfooters.footer')
+
 
 @endif
 

@@ -52,16 +52,23 @@
 
                                                 <td>{{ $title->description }}</td>
                                                 <td class="text-center">
-                                                  
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
+                                                <style>
+                                .modal-backdrop {
+                                   background-color: transparent !important; /* No background for the backdrop */
+                                }
+                                .modal-content {
+                                      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Smooth and subtle shadow */
+                               }
+                                   </style>
+                                                  <a wire:navigate href="/admin/jobtitle/edit" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                     <i class="fas fa-pencil-alt"></i>
                                                   </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteJobtitle{{ $title->job_title_id }}">
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".deleteJobtitle{{ $title->job_title_id }}">
                                                     <i class="fas fa-trash"></i>
                                                   </a>
                                                   
                                                 </td>
-                                                <div wire:ignore.self class="modal fade DeleteJobtitle{{ $title->job_title_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
+                                                <div wire:ignore.self class="modal fade deleteJobtitle{{ $title->job_title_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
