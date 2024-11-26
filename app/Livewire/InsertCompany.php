@@ -10,13 +10,21 @@ class InsertCompany extends Component
     public $description='';
     public $timezone='';
 
- 
+    public $timezones = [];
+
     protected $rules = [
         'description' => 'required',
         'timezone' => 'required',
         
         
     ];
+
+    public function mount()
+    {
+        $this->timezones = collect(\DateTimeZone::listIdentifiers())
+        ->groupBy(fn($timezone) => explode('/', $timezone, 2)[0]);
+                
+    }
 
     public function add_company()
     {

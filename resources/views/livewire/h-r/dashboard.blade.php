@@ -56,6 +56,12 @@
                                                 
                                                 <h5 class="font-size-15 ">{{ $lastname }}  {{ $firstname->first_name }}</h5>
                                                 <p class="text-muted mb-0 text-truncate">{{ $job->description }}</p>
+
+                                                @php
+                                                $currentTime = \Carbon\Carbon::now(); 
+                                                  echo $currentTime; 
+                                                @endphp
+                                                
                                             </div>
 
                                            

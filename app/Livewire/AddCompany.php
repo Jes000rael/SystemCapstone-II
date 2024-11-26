@@ -10,12 +10,12 @@ class AddCompany extends Component
 {
   
     public $company;
+   
 protected $listeners = ['loadCompany' => 'loadCompanies'];
    
     public function mount()
     {
-      
-                $this->loadCompanies();     
+        $this->loadCompanies(); 
 
     }
     public function loadCompanies()

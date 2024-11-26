@@ -20,6 +20,8 @@ class CompanyEnop extends Component
     {
         $this->CompaniesWithEmployeeCount();
         $this->companyCount = Company::count();
+       
+
 
 if (Auth::check()) {
                 $this->firstname = Auth::user();

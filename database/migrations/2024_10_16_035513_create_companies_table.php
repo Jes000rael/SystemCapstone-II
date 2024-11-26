@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->id('company_id');
             $table->String('description');
-            $table->String('timezone')->nullable();
+            $table->String('timezone')->default('UTC');
           
         });
     }
