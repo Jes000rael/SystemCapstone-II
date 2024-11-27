@@ -13,7 +13,7 @@
                 'super' => [
                     'dashboard', 'addcompany', 'company-Employees', 'addemployee', 'department-Super', 
                     'seniority-Super', 'employment-Super', 'job-Super', 'shift-Super', 'employee-Edit-Super', 
-                    'department-Edit', 'send-Email'
+                    'department-Edit', 'send-Email','company-Edit','job-Edit'
                 ],
                 'employee' => [
                     'employee-Dashboard', 'attendance-Log', 'work-Schedule', 'hand-Books'

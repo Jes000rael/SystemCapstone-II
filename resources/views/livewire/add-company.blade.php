@@ -58,23 +58,14 @@
                                 <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewCompany{{ $companies->company_id }}">
                                                     <i class="fas fa-eye"></i>
                                 </a>
-                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
+                                  <a wire:navigate href="/company/add_company/edit" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                     <i class="fas fa-pencil-alt"></i>
                                   </a>
                                   
                                   <a class="btn btn-outline-secondary btn-sm edit" data-bs-toggle="modal" data-bs-target=".transaction-detailModal{{ $companies->company_id }}">
                                     <i class="fas fa-trash"></i>
                                   </a>
-                                  <div class="dropdown d-inline">
-                                  <a class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
-                                  <i class="fas fa-ellipsis-h"></i>
-                                  </a>
-                                   <ul class="dropdown-menu" aria-labelledby="moreActions">
-                                     <li><a class="dropdown-item" href="#">Add work schedule</a></li>
-                                     <li><a class="dropdown-item" href="#">Archive</a></li>
-                                     <li><a class="dropdown-item" href="#">Share</a></li>
-                                   </ul>
-                                 </div>
+                                  
                                 </td>
                                 
                                
@@ -108,7 +99,8 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p class="mb-2">Description : <span class="text-primary fw-bold">{{ $companies->description ?? 'N/A'}}</span></p>
+                                <p class="mb-2">Company : <span class="fw-bold">{{ $companies->description ?? 'N/A'}}</span></p>
+                                <p class="mb-2">Timezone : <span class="fw-bold">{{ $companies->timezone ?? 'N/A'}}</span></p>
 
 
                                 

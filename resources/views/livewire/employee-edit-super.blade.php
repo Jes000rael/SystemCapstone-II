@@ -446,6 +446,7 @@
                                             
                                             <div>
                                                 <button type="submit" class="btn btn-primary w-md">Save</button>
+                                                <a wire:navigate href="{{ route('company-Employees') }}" class="btn btn-secondary w-md">Close</a>
                                             </div>
                                         </form>
                                         </div>

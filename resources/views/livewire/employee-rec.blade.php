@@ -90,35 +90,35 @@
  
                                <!-- Columns start at 50% wide on mobile and bump up to 33.3% wide on desktop -->
                                <div class="row">
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Company:</text> <span class="fs-6 text-primary">{{ $employee->company->description ?? 'N/A'}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Firstname:</text> <span class="fs-6 text-primary">{{ $employee->first_name }}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Lastname:</text> <span class="fs-6 text-primary">{{ $employee->last_name }}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Middlename:</text> <span class="fs-6 text-primary">{{ $employee->middle_name }}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Suffix:</text> <span class="fs-6 text-primary">{{ $employee->suffix }}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Gender:</text> <span class="fs-6 text-primary">{{ $employee->gender}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Bloodtype:</text> <span class="fs-6 text-primary">{{ $employee->blood_type}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Address:</text> <span class="fs-6 text-primary">{{ $employee->address}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Birth Date:</text> <span class="fs-6 text-primary">{{ \Carbon\Carbon::parse($employee->date_of_birth)->format('M d, Y') }}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Emergency Contact:</text> <span class="fs-6 text-primary">{{ $employee->emergency_contact}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Date Hired:</text> <span class="fs-6 text-primary">{{ \Carbon\Carbon::parse($employee->date_hired)->format('M d, Y') }}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Date Start:</text> <span class="fs-6 text-primary">{{ \Carbon\Carbon::parse($employee->date_start)->format('M d, Y') }}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Seniority:</text> <span class="fs-6 text-primary">{{ $employee->seniority_level_id}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Employment:</text> <span class="fs-6 text-primary">{{ $employee->employment_status_id}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Job Title:</text> <span class="fs-6 text-primary">{{ $employee->job_title_id}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Department:</text> <span class="fs-6 text-primary">{{ $employee->department_id}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Hourly Rate:</text> <span class="fs-6 text-primary">{{ $employee->hourly_rate}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Has Night Diff:</text> <span class="fs-6 text-primary">{{ $employee->has_night_diff}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Shift:</text> <span class="fs-6 text-primary">{{ $employee->shift_id}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Username:</text> <span class="fs-6 text-primary">{{ $employee->username}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Password:</text> <span class="fs-6 text-primary">{{ $employee->password_string}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Relationship:</text> <span class="fs-6 text-primary">{{ $employee->relationship}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Tin:</text> <span class="fs-6 text-primary">{{ $employee->tin}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Sss:</text> <span class="fs-6 text-primary">{{ $employee->sss}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Pagibig:</text> <span class="fs-6 text-primary">{{ $employee->pagibig}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Philhealth:</text> <span class="fs-6 text-primary">{{ $employee->philhealth}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Company:</text> <span class="fs-6 fw-bold">{{ $employee->company->description ?? 'N/A'}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Firstname:</text> <span class="fs-6 fw-bold">{{ $employee->first_name }}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Lastname:</text> <span class="fs-6 fw-bold">{{ $employee->last_name }}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Middlename:</text> <span class="fs-6 fw-bold">{{ $employee->middle_name }}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Suffix:</text> <span class="fs-6 fw-bold">{{ $employee->suffix }}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Gender:</text> <span class="fs-6 fw-bold">{{ $employee->gender}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Bloodtype:</text> <span class="fs-6 fw-bold">{{ $employee->blood_type}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Address:</text> <span class="fs-6 fw-bold">{{ $employee->address}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Birth Date:</text> <span class="fs-6 fw-bold">{{ \Carbon\Carbon::parse($employee->date_of_birth)->format('M d, Y') }}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Emergency Contact:</text> <span class="fs-6 fw-bold">{{ $employee->emergency_contact}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Date Hired:</text> <span class="fs-6 fw-bold">{{ \Carbon\Carbon::parse($employee->date_hired)->format('M d, Y') }}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Date Start:</text> <span class="fs-6 fw-bold">{{ \Carbon\Carbon::parse($employee->date_start)->format('M d, Y') }}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Seniority:</text> <span class="fs-6 fw-bold">{{ $employee->seniority_level_id}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Employment:</text> <span class="fs-6 fw-bold">{{ $employee->employment_status_id}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Job Title:</text> <span class="fs-6 fw-bold">{{ $employee->job_title_id}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Department:</text> <span class="fs-6 fw-bold">{{ $employee->department_id}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Hourly Rate:</text> <span class="fs-6 fw-bold">{{ $employee->hourly_rate}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Has Night Diff:</text> <span class="fs-6 fw-bold">{{ $employee->has_night_diff}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Shift:</text> <span class="fs-6 fw-bold">{{ $employee->shift_id}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Username:</text> <span class="fs-6 fw-bold">{{ $employee->username}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Password:</text> <span class="fs-6 fw-bold">{{ $employee->password_string}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Relationship:</text> <span class="fs-6 fw-bold">{{ $employee->relationship}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Tin:</text> <span class="fs-6 fw-bold">{{ $employee->tin}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Sss:</text> <span class="fs-6 fw-bold">{{ $employee->sss}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Pagibig:</text> <span class="fs-6 fw-bold">{{ $employee->pagibig}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Philhealth:</text> <span class="fs-6 fw-bold">{{ $employee->philhealth}}</span></div>
 
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Contact:</text> <span class="fs-6 text-primary">{{ $employee->contact_number}}</span></div>
-                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Emergency Person:</text> <span class="fs-6 text-primary">{{ $employee->emergency_person}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Contact:</text> <span class="fs-6 fw-bold">{{ $employee->contact_number}}</span></div>
+                                 <div class="col-6 col-md-4 mt-2 mb-2"><text>Emergency Person:</text> <span class="fs-6 fw-bold">{{ $employee->emergency_person}}</span></div>
                                  
                                </div>
                              

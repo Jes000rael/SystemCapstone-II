@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/company/send_email', App\Livewire\SendEmail::class)->name('send-Email');
         Route::get('/company/employeerecords/edit/{empID}', App\Livewire\EmployeeEditSuper::class)->name('employee-Edit-Super');
         Route::get('/company/department/edit/{departmentID}', App\Livewire\DepartmentEdit::class)->name('department-Edit');
+        Route::get('/company/add_company/edit', App\Livewire\CompanyEdit::class)->name('company-Edit');
+        Route::get('/company/job/edit', App\Livewire\JobEdit::class)->name('job-Edit');
     });
 
     Route::middleware('department:hr')->group(function () {

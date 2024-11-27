@@ -61,14 +61,7 @@
                                                 {{ ucfirst($departments->description) }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <style>
-                             .modal-backdrop {
-                                   background-color: transparent !important; /* No background for the backdrop */
-                                }
-                                .modal-content {
-                                   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Smooth and subtle shadow */
-                                }
-                                                    </style>
+                                                    
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewDepartment{{ $departments->department_id }}">
                                                     <i class="fas fa-eye"></i>
                                                   </a>
@@ -78,17 +71,7 @@
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteDepartment{{ $departments->department_id }}">
                                                     <i class="fas fa-trash"></i>
                                                   </a>
-                                                  <div class="dropdown d-inline">
-                                                  <a class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
-                                                  <i class="fas fa-ellipsis-h"></i>
-                                                  </a>
-                                                   
-                                                   <ul class="dropdown-menu" aria-labelledby="moreActions">
-                                                     <li><a class="dropdown-item" href="#">Details</a></li>
-                                                     <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                     <li><a class="dropdown-item" href="#">Share</a></li>
-                                                   </ul>
-                                                 </div>
+                                                  
                                                 </td>
 
                                                  
