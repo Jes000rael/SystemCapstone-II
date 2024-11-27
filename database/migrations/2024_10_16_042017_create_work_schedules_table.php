@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('work_schedules', function (Blueprint $table) {
             $table->id('work_schedule_id');
             $table->foreignId('employee_id');
-            $table->Time('monday_in');
-            $table->Time('monday_out');
-            $table->Time('tuesday_in');
-            $table->Time('tuesday_out');
-            $table->Time('wednesday_in');
-            $table->Time('wednesday_out');
-            $table->Time('thursday_in');
-            $table->Time('thursday_out');
-            $table->Time('friday_in');
-            $table->Time('friday_out');
+            $table->Time('monday_in')->nullable();
+            $table->Time('monday_out')->nullable();
+            $table->Time('tuesday_in')->nullable();
+            $table->Time('tuesday_out')->nullable();
+            $table->Time('wednesday_in')->nullable();
+            $table->Time('wednesday_out')->nullable();
+            $table->Time('thursday_in')->nullable();
+            $table->Time('thursday_out')->nullable();
+            $table->Time('friday_in')->nullable();
+            $table->Time('friday_out')->nullable();
             $table->Time('saturday_in')->nullable();
             $table->Time('saturday_out')->nullable();
             $table->Time('sunday_in')->nullable();

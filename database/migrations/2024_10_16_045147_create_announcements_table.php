@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('announcements', function (Blueprint $table) {
             $table->id('announcement_id');
             $table->foreignId('company_id'); 
-            $table->String('description');
+            $table->text('description');
             $table->dateTime('date');
         });
     }

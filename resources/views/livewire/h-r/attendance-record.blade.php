@@ -67,14 +67,7 @@
                                                 <td>Present</td>
                                                 <td>0</td>
                                                 <td class="text-center">
-                                                <style>
-                                .modal-backdrop {
-                                   background-color: transparent !important; /* No background for the backdrop */
-                                }
-                                .modal-content {
-                                      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Smooth and subtle shadow */
-                               }
-                                   </style>
+                                               
                                                 <a class="btn btn-outline-secondary btn-sm view"  data-bs-toggle="modal" data-bs-target=".emprecView" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>

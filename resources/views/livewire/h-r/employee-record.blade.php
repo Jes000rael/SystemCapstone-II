@@ -63,14 +63,7 @@
                                                     <td>{{ $employee->address }}</td>
                                                     <td>{{ $employee->contact_number }}</td>
                                                     <td class="text-center">
-                                                    <style>
-                                .modal-backdrop {
-                                   background-color: transparent !important; /* No background for the backdrop */
-                                }
-                                .modal-content {
-                                      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Smooth and subtle shadow */
-                               }
-                                   </style>
+                                                    
                             <a class="btn btn-outline-secondary btn-sm view"  data-bs-toggle="modal" data-bs-target=".ViewEmployee{{ $employee->employee_id }}" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
@@ -89,8 +82,8 @@
                                                      <li><a class="dropdown-item" href="#">Add Work Schedule</a></li>
                                                      <li><a class="dropdown-item" href="#">Update Work Schedule</a></li>
                                                      <li><a class="dropdown-item" href="#">View Work Schedule</a></li>
-                                                     <li><a class="dropdown-item" href="#">Add Deduction</a></li>
-                                                     <li><a class="dropdown-item" href="#">Add Deduction</a></li>
+                                                     <li><a  class="dropdown-item" wire:navigate href="employee_records/add-deduction">Add Deduction</a></li>
+                                                
                                                      
                                                    </ul>
                                                  </div>

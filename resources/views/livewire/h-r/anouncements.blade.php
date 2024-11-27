@@ -32,12 +32,13 @@
                                             <div class="row">
                                                 <livewire:h-r.add-announcement/>
                                                 <div class="col-md-8">
+                                                    
                                                     <table id="akontable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
                                                        
                                                             <thead>
                                                             <tr>
-                                                                <th>Announcement ID</th>
                                                                 <th>Description</th>
+                                                                <th>Date</th>
                                                                 <th>Action</th>
                                                             </tr>
                                                             </thead>
@@ -49,14 +50,15 @@
                                                            
                 
                                                             <tr>
-                                                                <td> {{ $ment->description }}</td>
+                                                                <td class="text-truncate" style="max-width:200px;"> {{ $ment->description }}</td>
                                                                 <td> {{ $ment->date }}</td>
                                                                 
                                                                 <td class="text-center">
-                                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View">
+                                                                
+                                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View"  data-bs-toggle="modal" data-bs-target=".ViewAnouncement{{ $ment->announcement_id }}">
                                                                     <i class="fas fa-eye"></i>
                                                                   </a>
-                                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
+                                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                                     <i class="fas fa-pencil-alt"></i>
                                                                   </a>
                                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".deleteAnnouncement{{ $ment->announcement_id }}">
@@ -81,6 +83,30 @@
         </div>
     </div>
 </div>
+
+<!-- view modal  -->
+<div class="modal fade ViewAnouncement{{ $ment->announcement_id }}" tabindex="-1" role="dialog" aria-labelledby="ViewAnnouncementLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ViewDepartmentLabel">Anouncement</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="mb-4">Description : <span class=" fw-bold">{{ $ment->description }}</span></p>
+                                <p class="mb-4">Date : <span class=" fw-bold">{{ $ment->date }}</span></p>
+                               
+
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- view modal end -->
+
                                                             </tr>
 
                                                             @endforeach

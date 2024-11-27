@@ -48,14 +48,7 @@
                                                            @foreach($seniority as $level)
                                                            
                                                             <tr>
-                                                            <style>
-                                .modal-backdrop {
-                                   background-color: transparent !important; /* No background for the backdrop */
-                                }
-                                .modal-content {
-                                      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Smooth and subtle shadow */
-                               }
-                                   </style>
+                                                            
                                                               
                                                                 <td>{{ $level->description }}</td>
                                                                 <td class="text-center">
@@ -168,7 +161,7 @@
 @if (session('updateseniority'))
 <script>
       Swal.fire({
-                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Job Title</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Updated Successfully!</span> ',
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Seniority Level</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Updated Successfully!</span> ',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 5000,

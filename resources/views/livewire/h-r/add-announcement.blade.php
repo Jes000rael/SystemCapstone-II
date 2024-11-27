@@ -4,7 +4,8 @@
                                                     <div class="mb-3">
                                             <label for="description" class="form-label">Description</label>
                                             <div class=" @error('errors')border border-danger rounded-2 @enderror @error('description')border border-danger rounded-2 @enderror">
-                                            <input wire:model.live="description"  id="description" class="form-control" placeholder="Enter the description">
+                                            
+                                            <textarea wire:model.live="description" rows="5"  id="description" class="form-control" placeholder="Enter the description"></textarea>
                                         </div>
 
                                             @error('description') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror

@@ -32,7 +32,7 @@
                             <div class="row">
                                 <livewire:h-r.add-handbooks/>
                                 <div class="col-md-8 table-resposive">
-                                    <table id="akontabled" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
+                                    <table id="akontable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>
                                             <tr>
@@ -51,32 +51,44 @@
                                            
 
                                             <tr>
-                                                <td>{{ $book->description }}</td>
+                                                <td class="text-truncate" style="max-width:200px;">{{ $book->description }}</td>
                                                 <td>{{ $book->link }}</td>
                                                
                                                 <td class="text-center">
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View">
+                                              
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewHandbook{{ $book->handbook_id }}">
                                                     <i class="fas fa-eye"></i>
                                                   </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
+                                                  <a wire:navigate href="/admin/hand-book/edit" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                     <i class="fas fa-pencil-alt"></i>
                                                   </a>
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".deleteHand{{ $book->handbook_id }}">
                                                     <i class="fas fa-trash"></i>
                                                   </a>
-                                                  <div class="dropdown d-inline">
-                                                  <a class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
-                                                  <i class="fas fa-ellipsis-h"></i>
-                                                  </a>
-                                                   
-                                                   <ul class="dropdown-menu" aria-labelledby="moreActions">
-                                                     <li><a class="dropdown-item" href="#">Details</a></li>
-                                                     <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                     <li><a class="dropdown-item" href="#">Share</a></li>
-                                                   </ul>
-                                                 </div>
+                                                  
                                                 </td>
+<!-- MODAL vIEW  -->
+<div class="modal fade ViewHandbook{{ $book->handbook_id }}" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ViewDepartmentLabel">Hand Book</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="mb-4">Description : <span class=" fw-bold">{{ $book->description }}</span></p>
+                                <p class="mb-4">Link : <span class=" fw-bold">{{ $book->link }}</span></p>
+                               
 
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!-- MODAL vIEW END -->
                                                 <div wire:ignore.self class="modal fade deleteHand{{ $book->handbook_id }}" tabindex="-1" role="dialog" aria-labelledby="deleteHand{{ $book->handbook_id }}Label" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">
         <div class="modal-content">

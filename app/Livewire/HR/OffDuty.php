@@ -34,7 +34,7 @@ public function updatedOffDuty()
         OffDutyDates::find($holidayId)->delete();
         
         $this->updatedOffDuty();
-            return redirect()->intended('/admin/off-duty')->with('holiday-deleted', 'Successfully');
+            return redirect()->intended('/admin/off-duty')->with('holiday-delete', 'Successfully');
             // $this->dispatch('company-deleted', ['message' => 'Company Deleted successfully!']);
     
            

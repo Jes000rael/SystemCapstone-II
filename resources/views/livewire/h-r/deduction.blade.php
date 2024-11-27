@@ -34,9 +34,10 @@
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>
                                             <tr>
-                                                <th>Deduction ID</th>
-                                                <th>Employee ID</th>
+                                                
+                                                <th>Employee</th>
                                                 <th>Description</th>
+                                                <th>Value</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -48,32 +49,68 @@
                                            
 
                                             <tr>
-                                                <td>Deduct-001</td>
-                                                <td>Employe-001</td>
-                                                <td>Deduction Descript</td>
+                                                <td>Employee1</td>
+                                                <td>Pala absent</td>
+                                                <td>756</td>
                                                 <td class="text-center">
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View">
+                                               
+
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewHoliday">
                                                     <i class="fas fa-eye"></i>
                                                   </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
+                                                  <a wire:navigate href="deduction/edit-deduction" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                     <i class="fas fa-pencil-alt"></i>
                                                   </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteDeduction">
                                                     <i class="fas fa-trash"></i>
                                                   </a>
-                                                  <div class="dropdown d-inline">
-                                                  <a class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
-                                                  <i class="fas fa-ellipsis-h"></i>
-                                                  </a>
-                                                   
-                                                   <ul class="dropdown-menu" aria-labelledby="moreActions">
-                                                     <li><a class="dropdown-item" href="#">Details</a></li>
-                                                     <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                     <li><a class="dropdown-item" href="#">Share</a></li>
-                                                   </ul>
-                                                 </div>
+                                                  
                                                 </td>
                                             </tr>
+                                            
+                                   <!-- modal view  -->
+                                   <div class="modal fade ViewHoliday" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ViewDepartmentLabel">Deduction Log</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="mb-4">Employee : <span class=" fw-bold">Employee1</span></p>
+                                <p class="mb-4">Description : <span class=" fw-bold">Pala absent</span></p>
+                                <p class="mb-4">Value : <span class=" fw-bold">756</span></p>
+                                
+
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                   <!-- modal view  end -->
+
+                                   <!-- modal delete  -->
+                                   <div wire:ignore.self class="modal fade DeleteDeduction" tabindex="-1" role="dialog" aria-labelledby="DeleteDeduciton" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DeleteDeduction">Delete Deduction?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>  
+            <div class="modal-body">
+                <strong class="mb-2 fs-6">Are you sure you want to delete this employee deduction?</strong>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" wire:click="DeleteDeduction" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Delete</button>
+                <button type="button" class="btn text-white fw-bold" style="background-color:#3085d6;" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+                                   <!-- modal delete end -->
                                             
                                             </tbody>
                                         </table>

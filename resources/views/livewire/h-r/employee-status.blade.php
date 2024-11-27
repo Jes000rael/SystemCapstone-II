@@ -49,14 +49,7 @@
                                            @foreach($employment as $status)
 
                                             <tr>
-                                            <style>
-                                .modal-backdrop {
-                                   background-color: transparent !important; /* No background for the backdrop */
-                                }
-                                .modal-content {
-                                      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Smooth and subtle shadow */
-                               }
-                                   </style>
+                                           
                                                 <td>{{ $status->description}}</td>
                                                 <td class="text-center">
                                                 @php

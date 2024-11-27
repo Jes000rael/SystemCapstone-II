@@ -7,7 +7,7 @@
                     'admin-Dashboard', 'employee-Record', 'add-Employee', 'seniority-Level', 'department',
                     'jobtitle', 'employee-Status', 'shifts', 'deduction', 'off-Duty', 'hand-Book',
                     'anouncements', 'Employee-Edit', 'attendance-Records', 'breaktime-log', 'overtime-log',
-                    'merit-log', 'edit-Department','edit-Status','edit-Jobtitle','edit-Seniority'
+                    'merit-log', 'edit-Department','edit-Status','edit-Jobtitle','edit-Seniority','edit-Shift','edit-Duty','edit-Handbook','add-Deduction','edit-Deduction'
                 ],
                 'super' => [
                     'dashboard', 'addcompany', 'company-Employees', 'addemployee', 'department-Super', 

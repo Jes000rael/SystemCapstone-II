@@ -13,7 +13,7 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
-                            <li class="breadcrumb-item active">Add Hollidays</li>
+                            <li class="breadcrumb-item active">Add Off Duty</li>
                         </ol>
                     </div>
 
@@ -27,7 +27,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <h4 class="card-title fs-5 mb-4">Add Hollidays <a data-bs-toggle="modal" data-bs-target=".addOffDutyC" class="btn btn-primary btn-sm float-end">Add Off Duty Category</a> <livewire:h-r.add-off-duty-cat/></h4> 
+                        <h4 class="card-title fs-5 mb-4">Add Off Duty <a data-bs-toggle="modal" data-bs-target=".addOffDutyC" class="btn btn-primary btn-sm float-end">Add Off Duty Category</a> <livewire:h-r.add-off-duty-cat/></h4> 
                         <div class="col-md-12">
                             <div class="row">
                             <livewire:h-r.add-off-duty-date/>
@@ -37,9 +37,9 @@
                                             <thead>
                                             <tr>
                                                 <th>Category</th>
-                                                <th>Holliday</th>
-                                                <th>Description</th>
                                                 <th>Date</th>
+                                                <th>Percentage</th>
+                                                <th>Description</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -56,27 +56,42 @@
                                                 <td>{{ $offDutyDates->percentage }}</td>
                                                 <td>{{ $offDutyDates->description }}</td>
                                                 <td class="text-center">
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View">
+                                                
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewHoliday{{ $offDutyDates->holiday_id }}">
                                                     <i class="fas fa-eye"></i>
                                                   </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit" data-bs-toggle="modal" data-bs-target="#updateModal">
-                                                    <i class="fas fa-pencil-alt"></i>
-                                                  </a>
+                                                  <a wire:navigate href="/admin/off-duty/edit" class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                                                                    <i class="fas fa-pencil-alt"></i>
+                                                                  </a>
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteHoliday{{ $offDutyDates->holiday_id }}">
                                                     <i class="fas fa-trash"></i>
                                                   </a>
-                                                  <div class="dropdown d-inline">
-                                                  <a class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
-                                                  <i class="fas fa-ellipsis-h"></i>
-                                                  </a>
-                                                   
-                                                   <ul class="dropdown-menu" aria-labelledby="moreActions">
-                                                     <li><a class="dropdown-item" href="#">Details</a></li>
-                                                     <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                     <li><a class="dropdown-item" href="#">Share</a></li>
-                                                   </ul>
-                                                 </div>
+                                                  
                                                 </td>
+
+                                                <!-- modal view  -->
+                                                <div class="modal fade ViewHoliday{{ $offDutyDates->holiday_id }}" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="ViewDepartmentLabel">Off Duty</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="mb-4">Category : <span class=" fw-bold">{{ $offDutyDates->OffDuty->description ?? 'N/A'}}</span></p>
+                                <p class="mb-4">Date : <span class=" fw-bold">{{ $offDutyDates->date }}</span></p>
+                                <p class="mb-4">Percentage : <span class=" fw-bold">{{ $offDutyDates->percentage }}</span></p>
+                                <p class="mb-4">Description : <span class=" fw-bold">{{ $offDutyDates->description }}</span></p>
+
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                <!-- modal view end -->
                                                 <div wire:ignore.self class="modal fade DeleteHoliday{{  $offDutyDates->holiday_id }}" tabindex="-1" role="dialog" aria-labelledby="DeleteHoliday{{  $offDutyDates->holiday_id }}ModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">
         <div class="modal-content">

@@ -26,6 +26,14 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
+
+                                .modal-backdrop {
+                                   background-color: transparent !important; /* No background for the backdrop */
+                                }
+                                .modal-content {
+                                      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); /* Smooth and subtle shadow */
+                               }
+
   .dataTables_length {
           margin-bottom: -1.5%;
         }
