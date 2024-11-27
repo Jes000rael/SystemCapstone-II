@@ -162,7 +162,7 @@
 @endpush
 
 @push('scripts')
-@if (session('updateseniority'))
+@if (session('updateemployment'))
 <script>
       Swal.fire({
                     title: '<strong style="color:#000; font-size:15px;" class="text-center">Job Title</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Updated Successfully!</span> ',
