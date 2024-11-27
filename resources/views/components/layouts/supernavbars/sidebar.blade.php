@@ -20,7 +20,7 @@
                 
 
                 <li class="menu-title" key="t-apps">Records</li>
-                <li>
+                <li class="{{ Route::currentRouteName() == 'company-Edit' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a wire:navigate href="{{ route('addcompany') }}">
                         <i class="bx bx-building"></i>
                         <span key="t-calendar">Company</span>
@@ -45,7 +45,7 @@
                         <span key="t-building">Department</span>
                     </a>
                 </li>
-                <li class="{{ Route::currentRouteName() == 'job-Super' ? 'mm-active' : 'text-light fw-bold' }}">
+                <li class="{{ Route::currentRouteName() == 'job-Edit' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a wire:navigate href="{{ route('job-Super') }}" class="waves-effect ">
                     <i class="bx bx-briefcase"></i>
                          <span key="t-starter-page"> Job Title</span>
