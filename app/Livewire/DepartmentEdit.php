@@ -26,14 +26,26 @@ class DepartmentEdit extends Component
         public function mount($departmentID)
         {
             
-            $decrypteddepartmentID = Crypt::decrypt($departmentID);
+            $this->loadDropdownData();
+            try {
+           
+                $decrypteddepartmentID = Crypt::decrypt($departmentID);
             $depap = Department::findOrFail($decrypteddepartmentID);
 
             $this->description = $depap->description;
             $this->department_id = $depap->department_id;
             $this->company_id = $depap->company_id;
-            $this->loadDropdownData();
            
+            } catch (DecryptException $e) {
+             
+                session()->flash('error', 'Invalid or corrupted department ID.');
+            } catch (ModelNotFoundException $e) {
+            
+                session()->flash('error', 'Department not found.');
+            } catch (\Exception $e) {
+              
+                session()->flash('error', 'An unexpected error occurred: ' . $e->getMessage());
+            }
         }
     
         public function loadDropdownData()

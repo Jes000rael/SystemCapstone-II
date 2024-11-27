@@ -37,7 +37,7 @@
     </div>
 @endif
 
-                        <form wire:submit.prevent="editshift">
+                        <form wire:submit.prevent="editCompany">
 
                                           
                         <div class="mb-3">
@@ -49,18 +49,28 @@
                                             @error('description') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label for="timezone" class="form-label">Timezone</label>
-                                            <div class=" @error('errors')border border-danger rounded-2 @enderror @error('timezone')border border-danger rounded-2 @enderror">
-                                            <input wire:model.live="timezone"  id="timezone" class="form-control" type="text"  placeholder="Enter timezone">
-                                        </div>
+                                                        <label for="timezone" class="form-label">Timezone</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('timezone')border border-danger rounded-2 @enderror">
+                                                        <select wire:model.live="timezone" id="timezone" class="form-select">
+                                                        <option selected>Select Timezone</option>
+                                                        @foreach ($timezones as $region => $zones)
+                                                            <optgroup label="{{ $region }}">
+                                                                @foreach ($zones as $zone)
+                                                                    <option value="{{ $zone }}">{{ $zone }}</option>
+                                                                @endforeach
+                                                            </optgroup>
+                                                        @endforeach
+                                                        </select>
+                                                        </div>
+                                                    @error('timezone') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
 
-                                            @error('timezone') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
-                                        </div>
+
+                                                    </div>
                                         
 
                                         <div class="mb-3">
                                         <div class="align-item-center d-flex justify-content-center">
-                                          <button type="submit" class="btn btn-primary w-sm mt-3 me-2">Update</button>
+                                        <button type="submit" class="btn btn-primary w-sm mt-3 me-2">Update</button>
                                           <a wire:navigate href="{{ route('addcompany') }}" class="btn btn-secondary w-sm mt-3">Close</a>
                                         </div>
                                         </div>

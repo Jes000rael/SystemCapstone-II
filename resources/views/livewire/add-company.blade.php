@@ -58,7 +58,11 @@
                                 <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewCompany{{ $companies->company_id }}">
                                                     <i class="fas fa-eye"></i>
                                 </a>
-                                  <a wire:navigate href="/company/add_company/edit" class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                                @php
+                                                     $encryptecompanyID = Crypt::encrypt($companies->company_id);
+                                               @endphp
+
+                                  <a wire:navigate href="{{ route('company-Edit', ['companyID' => $encryptecompanyID]) }}" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                     <i class="fas fa-pencil-alt"></i>
                                   </a>
                                   
@@ -164,6 +168,30 @@
 <script>
       Swal.fire({
                     title: '<strong style="color:#000; font-size:15px;" class="text-center">Company</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Add Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush
+
+@push('scripts')
+@if (session('updatecompany'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Company</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Updated Successfully!</span> ',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 5000,

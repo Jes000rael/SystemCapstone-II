@@ -31,7 +31,7 @@
                     <div class="card-body">
 
                         <h4 class="card-title mb-4 fs-5">Edit Job Title</h4>
-                        <form wire:submit.prevent="editDepartment">
+                        <form wire:submit.prevent="editJob">
                         <div class="mb-3">
                                             <label for="company_id" class="form-label">Company</label>
                                             <div class=" @error('errors')border border-danger rounded-2 @enderror @error('company_id')border border-danger rounded-2 @enderror">
@@ -61,7 +61,7 @@
 
                                         <div class="mb-3">
                                         <div class="align-item-center d-flex justify-content-center">
-                                          <button type="submit" class="btn btn-primary w-xl mt-3">Update</button>
+                                        <button type="submit" class="btn btn-primary w-sm mt-3 me-2">Update</button>
                                           <a wire:navigate href="{{ route('job-Super') }}" class="btn btn-secondary w-sm mt-3">Close</a>
                                         </div>
                                         </div>
