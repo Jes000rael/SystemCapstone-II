@@ -52,14 +52,18 @@
 
                                             <tr>
                                                 <td class="text-truncate" style="max-width:200px;">{{ $book->description }}</td>
-                                                <td>{{ $book->link }}</td>
+                                                <td class="text-truncate" style="max-width:200px;">{{ $book->link }}</td>
                                                
                                                 <td class="text-center">
                                               
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewHandbook{{ $book->handbook_id }}">
                                                     <i class="fas fa-eye"></i>
                                                   </a>
-                                                  <a wire:navigate href="/admin/hand-book/edit" class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                                                  @php
+                                                     $encryptehandID = Crypt::encrypt($book->handbook_id);
+                                               @endphp
+
+                                                  <a wire:navigate href="{{ route('edit-Handbook', ['handID' => $encryptehandID]) }}" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                     <i class="fas fa-pencil-alt"></i>
                                                   </a>
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".deleteHand{{ $book->handbook_id }}">
@@ -153,7 +157,29 @@
     
 @endif
 @endpush
+@push('scripts')
+@if (session('updatebook'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Handbook</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Updated Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
 
+    
+@endif
+@endpush
 
 @push('scripts')
 @if (session('handbook-add'))

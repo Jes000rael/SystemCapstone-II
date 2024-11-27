@@ -37,13 +37,15 @@
     </div>
 @endif
 
-<form wire:submit.prevent="add_OffDate">
+<form wire:submit.prevent="editoff">
                                         <div class="mb-3">
                                             <label for="category_id" class="form-label">Category</label>
                                             <div class=" @error('errors')border border-danger rounded-2 @enderror @error('category_id')border border-danger rounded-2 @enderror">
                                                         <select wire:model.live="category_id" id="category_id" class="form-select">
-                                                            <option selected>Choose...</option>
-                                                            
+                                                          
+                                                            @foreach ($category as $offCat)
+                                                                  <option value="{{ $offCat->category_id}}">{{ $offCat->description ?? 'N/A'}}</option>
+                                                              @endforeach
                                                         </select>
                                                         </div>
                                                     @error('category_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror

@@ -18,6 +18,7 @@ class Deductions extends Seeder
             [
              
                 'employee_id' => '1',
+                'company_id' => '1',
 'description' => 'Naka Guba sang Mouse',
 'value' => '5',
                

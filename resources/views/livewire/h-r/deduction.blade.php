@@ -46,40 +46,42 @@
                                             <tbody>
                                             
                                            
-                                           
+                                           @foreach($dede as $tion)
 
                                             <tr>
-                                                <td>Employee1</td>
-                                                <td>Pala absent</td>
-                                                <td>756</td>
+                                                <td>{{ $tion->employees->first_name ?? 'N/A' }} {{ $tion->employees->middle_name ?? 'N/A' }} {{ $tion->employees->last_name ?? 'N/A' }} {{ $tion->employees->suffix ?? 'N/A' }}</td>
+                                                <td>{{ $tion->description }}</td>
+                                                <td>{{ $tion->value }}</td>
                                                 <td class="text-center">
                                                
 
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewHoliday">
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewDeduc{{ $tion->deductions_id }}">
                                                     <i class="fas fa-eye"></i>
                                                   </a>
-                                                  <a wire:navigate href="deduction/edit-deduction" class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                                                  @php
+                                                     $encrypteDeductionID = Crypt::encrypt($tion->deductions_id);
+                                               @endphp
+
+                                                  <a wire:navigate href="{{ route('edit-Deduction', ['deducID' => $encrypteDeductionID]) }}" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                     <i class="fas fa-pencil-alt"></i>
                                                   </a>
-                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteDeduction">
+                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".deleteDeduc{{ $tion->deductions_id }}">
                                                     <i class="fas fa-trash"></i>
                                                   </a>
                                                   
                                                 </td>
-                                            </tr>
-                                            
-                                   <!-- modal view  -->
-                                   <div class="modal fade ViewHoliday" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentLabel" aria-hidden="true">
+                                                <!-- modal view  -->
+                                   <div class="modal fade ViewDeduc{{ $tion->deductions_id }}" tabindex="-1" role="dialog" aria-labelledby="ViewDeduc{{ $tion->deductions_id }}Label" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="ViewDepartmentLabel">Deduction Log</h5>
+                                <h5 class="modal-title" id="ViewDeduc{{ $tion->deductions_id }}Label">Deduction Log</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p class="mb-4">Employee : <span class=" fw-bold">Employee1</span></p>
-                                <p class="mb-4">Description : <span class=" fw-bold">Pala absent</span></p>
-                                <p class="mb-4">Value : <span class=" fw-bold">756</span></p>
+                                <p class="mb-4">Employee : <span class=" fw-bold">{{ $tion->employees->first_name ?? 'N/A' }} {{ $tion->employees->middle_name ?? 'N/A' }} {{ $tion->employees->last_name ?? 'N/A' }} {{ $tion->employees->suffix ?? 'N/A' }}</span></p>
+                                <p class="mb-4">Description : <span class=" fw-bold">{{ $tion->description }}</span></p>
+                                <p class="mb-4">Value : <span class=" fw-bold">{{ $tion->value }}</span></p>
                                 
 
                                 
@@ -93,18 +95,18 @@
                                    <!-- modal view  end -->
 
                                    <!-- modal delete  -->
-                                   <div wire:ignore.self class="modal fade DeleteDeduction" tabindex="-1" role="dialog" aria-labelledby="DeleteDeduciton" aria-hidden="true">
+                                   <div wire:ignore.self class="modal fade deleteDeduc{{ $tion->deductions_id }}" tabindex="-1" role="dialog" aria-labelledby="deleteDeduc{{ $tion->deductions_id }}" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="DeleteDeduction">Delete Deduction?</h5>
+                <h5 class="modal-title" id="deleteDeduc{{ $tion->deductions_id }}">Delete Deduction?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>  
             <div class="modal-body">
                 <strong class="mb-2 fs-6">Are you sure you want to delete this employee deduction?</strong>
             </div>
             <div class="modal-footer">
-                <button type="submit" wire:click="DeleteDeduction" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Delete</button>
+                <button type="submit" wire:click="deleteDeduc({{ $tion->deductions_id }})" class="btn btn-danger fw-bold" data-bs-dismiss="modal">Delete</button>
                 <button type="button" class="btn text-white fw-bold" style="background-color:#3085d6;" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -112,6 +114,12 @@
 </div>
                                    <!-- modal delete end -->
                                             
+                                            </tr>
+                                            @endforeach
+
+
+                                            
+                                   
                                             </tbody>
                                         </table>
                                
@@ -131,3 +139,74 @@
 </div>
 <!-- End Page-content -->
 </div>
+
+@push('scripts')
+@if (session('deduction-deleted'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Handbook</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Deleted Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush
+@push('scripts')
+@if (session('updateDeduction'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Handbook</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Updated Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush
+
+@push('scripts')
+@if (session('deduction-add'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Handbook</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Added Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('deductions', function (Blueprint $table) {
             $table->id('deductions_id');
+            $table->foreignId('company_id');
             $table->foreignId('employee_id');
             $table->String('description');
             $table->Double('value');

@@ -23,9 +23,9 @@
                                        
 
                                  
-            </div>
+         
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary fw-bold ">Save</button>
+                <button type="submit" class="btn btn-primary fw-bold" data-bs-dismiss="modal">Save</button>
                 <button type="button" class="btn text-white fw-bold btn-secondary" data-bs-dismiss="modal">Cancel</button>
             </div>
             </form>

@@ -51,8 +51,12 @@
 
                                                 <td>{{ $select->description }}</td>
                                                 <td class="text-center">
-                                                
-                                                  <a wire:navigate href="/admin/shifts/edit" class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                                                @php
+                                                     $encrypteshiftID = Crypt::encrypt($select->shift_id);
+                                               @endphp
+
+
+                                                  <a wire:navigate href="{{ route('edit-Shift', ['shiftID' => $encrypteshiftID]) }}" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                                     <i class="fas fa-pencil-alt"></i>
                                                                   </a>
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".deleteShift{{ $select->shift_id }}">
@@ -103,3 +107,73 @@
 </div>
 <!-- End Page-content -->
 </div>
+@push('scripts')
+@if (session('shift-deleted'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Shift</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Deleted Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush
+@push('scripts')
+@if (session('shift-add'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Shift</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Add Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush
+
+@push('scripts')
+@if (session('updateshift'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Shift</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Updated Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush

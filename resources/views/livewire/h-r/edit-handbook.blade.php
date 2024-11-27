@@ -37,7 +37,7 @@
     </div>
 @endif
 
-<form wire:submit.prevent="add_handbooks">
+<form wire:submit.prevent="edithand">
                                     
                                     <div class="mb-3">
                                             <label for="description" class="form-label">Description</label>

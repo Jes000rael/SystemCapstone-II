@@ -37,7 +37,7 @@
     </div>
 @endif
 
-                        <form wire:submit.prevent="editjobtitle">
+                        <form wire:submit.prevent="editDeduc">
 
                                           
                         <div class="mb-3">

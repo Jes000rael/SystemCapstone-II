@@ -55,27 +55,7 @@ public function deleteDepartment($DepartmentId)
        
     }
 }
-    public function add_department()
-    {
-       
-        $this->validate();
-
-       
-        $this->companyId = Auth::user()->company_id;
-
-        // Create a new department
-        Department::create([
-            'description' => $this->description,
-            'company_id' => $this->companyId,
-        ]);
-
-        
-        $this->reset(['description']);
-      
-    
-        
-  
-    }
+ 
 
   
     public function render()

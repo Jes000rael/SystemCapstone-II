@@ -13,10 +13,31 @@ class Shiftss extends Component
     public function mount()
     {
       
-        $companyId = Auth::user()->company_id ; 
-            $this->shift = Shift::where('company_id', $companyId)->get();
+       $this->updateShift();
       
     }
+
+    public function updateShift()
+    {
+        $companyId = Auth::user()->company_id ; 
+        $this->shift = Shift::where('company_id', $companyId)->get();
+    }
+
+    public function deleteShift($ShiftID)
+
+{
+
+    if ($ShiftID) {
+        Shift::find($ShiftID)->delete();
+    
+        $this->updateShift();
+
+        return redirect()->intended('/admin/shifts')->with('shift-deleted', 'Successfully');
+        // $this->dispatch('company-deleted', ['message' => 'Company Deleted successfully!']);
+
+       
+    }
+}
     public function render()
     {
         return view('livewire.h-r.shifts');

@@ -82,7 +82,7 @@
                                                      <li><a class="dropdown-item" href="#">Add Work Schedule</a></li>
                                                      <li><a class="dropdown-item" href="#">Update Work Schedule</a></li>
                                                      <li><a class="dropdown-item" href="#">View Work Schedule</a></li>
-                                                     <li><a  class="dropdown-item" wire:navigate href="employee_records/add-deduction">Add Deduction</a></li>
+                                                     <li><a  class="dropdown-item" wire:navigate href="{{ route('add-Deduction', ['empID' => $encryptedEmpID]) }}">Add Deduction</a></li>
                                                 
                                                      
                                                    </ul>
@@ -198,7 +198,29 @@
 
 
 
-
+@push('scripts')
+@if (session('deduction-add'))
+    <script>
+        Swal.fire({
+          title: '<strong style="color:#000; font-size:15px;" class="text-center">Deduction</strong><br><span style="color:#000; font-size:13px;"  class="text-center" >Added Successfully</span> ',
+          icon:'success', 
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true, 
+            width: '350px', 
+            height: '100px',
+            backdrop: true,
+            position: 'top-end', 
+            toast: true,
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp', 
+            },
+         
+            
+        });
+    </script>
+@endif
+@endpush
 
 @push('scripts')
 @if (session('updateEmployee'))

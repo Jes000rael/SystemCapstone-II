@@ -56,11 +56,14 @@
                                                 <td>{{ $offDutyDates->percentage }}</td>
                                                 <td>{{ $offDutyDates->description }}</td>
                                                 <td class="text-center">
-                                                
+                                                @php
+                                                     $encrypteoffdutyID = Crypt::encrypt($offDutyDates->holiday_id);
+                                               @endphp
+
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="View" data-bs-toggle="modal" data-bs-target=".ViewHoliday{{ $offDutyDates->holiday_id }}">
                                                     <i class="fas fa-eye"></i>
                                                   </a>
-                                                  <a wire:navigate href="/admin/off-duty/edit" class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                                                  <a wire:navigate href="{{ route('edit-Duty', ['offID' => $encrypteoffdutyID]) }}" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                                     <i class="fas fa-pencil-alt"></i>
                                                                   </a>
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteHoliday{{ $offDutyDates->holiday_id }}">
@@ -180,17 +183,25 @@
 @endpush
 
 @push('scripts')
-
+@if (session('updateoff'))
 <script>
-    window.addEventListener('close-modal', () => {
-        var modalElement = document.querySelector('.addOffDutyC');
-        if (modalElement) {
-            var bootstrapModal = bootstrap.Modal.getInstance(modalElement);
-            if (bootstrapModal) {
-                bootstrapModal.hide();
-            }
-        }
-    });
-</script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Off duty dates</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Updated Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
 
+    
+@endif
 @endpush

@@ -58,7 +58,11 @@
                                                                   <a class="btn btn-outline-secondary btn-sm edit" title="View"  data-bs-toggle="modal" data-bs-target=".ViewAnouncement{{ $ment->announcement_id }}">
                                                                     <i class="fas fa-eye"></i>
                                                                   </a>
-                                                                  <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                                                                  @php
+                                                     $encrypteAnnounceID = Crypt::encrypt($ment->announcement_id);
+                                               @endphp
+
+                                                                  <a  wire:navigate href="{{ route('edit-Announcement', ['announceID' => $encrypteAnnounceID]) }}" class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                                     <i class="fas fa-pencil-alt"></i>
                                                                   </a>
                                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".deleteAnnouncement{{ $ment->announcement_id }}">
@@ -165,6 +169,30 @@
 <script>
       Swal.fire({
                     title: '<strong style="color:#000; font-size:15px;" class="text-center">Announcement</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Deleted Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush
+
+@push('scripts')
+@if (session('updateAnnouncement'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Announcement</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Updated Successfully!</span> ',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 5000,
