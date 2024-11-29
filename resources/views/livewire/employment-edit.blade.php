@@ -31,7 +31,7 @@
                     <div class="card-body">
 
                         <h4 class="card-title mb-4 fs-5">Edit Seniority</h4>
-                        <form wire:submit.prevent="editJob">
+                        <form wire:submit.prevent="editEmployment">
                         <div class="mb-3">
                                             <label for="company_id" class="form-label">Company</label>
                                             <div class=" @error('errors')border border-danger rounded-2 @enderror @error('company_id')border border-danger rounded-2 @enderror">

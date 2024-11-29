@@ -66,7 +66,7 @@ class JobEdit extends Component
                 
             ]);
     
-            session()->flash('message', 'Employee updated successfully!');
+           
             return redirect()->intended('/company/job')->with('updatejob', 'Successfull');
         }
     public function render()
