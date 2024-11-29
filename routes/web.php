@@ -27,6 +27,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/company/department/edit/{departmentID}', App\Livewire\DepartmentEdit::class)->name('department-Edit');
         Route::get('/company/add_company/edit/{companyID}', App\Livewire\CompanyEdit::class)->name('company-Edit');
         Route::get('/company/job/edit/{jobID}', App\Livewire\JobEdit::class)->name('job-Edit');
+        Route::get('/company/seniority/edit/{seniorID}', App\Livewire\SeniorityEdit::class)->name('senior-Edit');
+        Route::get('/company/employment/edit/{employmentID}', App\Livewire\EmploymentEdit::class)->name('employment-Edit');
+        Route::get('/company/shift/edit/{shiftID}', App\Livewire\ShiftEdit::class)->name('shift-Edit');
     });
 
     Route::middleware('department:hr')->group(function () {

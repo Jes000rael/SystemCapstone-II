@@ -51,19 +51,19 @@
                          <span key="t-starter-page"> Job Title</span>
                      </a>
                   </li>
-                <li class="{{ Route::currentRouteName() == 'seniority-Super' ? 'mm-active' : 'text-light fw-bold' }}">
+                <li class="{{ Route::currentRouteName() == 'senior-Edit' ? 'mm-active' : 'text-light fw-bold' }}">
                       <a wire:navigate href="{{ route('seniority-Super') }}" class="waves-effect ">
                           <i class="bx bx-badge"></i>
                          <span key="t-starter-page"> Seniority Level</span>
                       </a>
                   </li>
-                  <li class="{{ Route::currentRouteName() == 'employment-Super' ? 'mm-active' : 'text-light fw-bold' }}">
+                  <li class="{{ Route::currentRouteName() == 'employment-Edit' ? 'mm-active' : 'text-light fw-bold' }}">
                       <a wire:navigate href="{{ route('employment-Super') }}" class="waves-effect ">
                       <i class="bx bx-badge-check"></i>
                          <span key="t-starter-page"> Employment Status </span>
                       </a>
                   </li>
-                  <li class="{{ Route::currentRouteName() == 'shift-Super' ? 'mm-active' : 'text-light fw-bold' }}">
+                  <li class="{{ Route::currentRouteName() == 'shift-Edit' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a wire:navigate href="{{ route('shift-Super') }}" class="waves-effect ">
                     <i class="bx bx-calendar"></i>
                          <span key="t-starter-page"> Shifts</span>
