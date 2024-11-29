@@ -24,7 +24,7 @@ class WorkSchedule extends Model
         'saturday_out',
         'sunday_in',
         'sunday_out',
-        'updated_by','update_on',
+        'updated_by'
     ];
 
     public function employee()

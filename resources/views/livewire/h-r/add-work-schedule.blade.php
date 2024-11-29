@@ -40,148 +40,148 @@
     </div>
 @endif
 
-<form wire:submit.prevent="updateEmployee" method="POST">
+<form wire:submit.prevent="addSchedule" method="POST">
                                             
                                             <div class="row">
                                                 
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="first_name" class="form-label">Monday In</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('first_name')border border-danger rounded-2 @enderror">
-                                                        <input wire:model.live="first_name" type="time" class="form-control" id="first_name" placeholder="Enter First name">
+                                                        <label for="monday_in" class="form-label">Monday In</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('monday_in')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="monday_in" type="time" class="form-control" id="monday_in" placeholder="Enter First name">
                                                     </div>
 
-                                                          @error('first_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                          @error('monday_in') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="first_name" class="form-label">Monday Out</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('first_name')border border-danger rounded-2 @enderror">
-                                                        <input wire:model.live="first_name" type="time" class="form-control" id="first_name" placeholder="Enter First name">
+                                                        <label for="monday_out" class="form-label">Monday Out</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('monday_out')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="monday_out" type="time" class="form-control" id="monday_out" placeholder="Enter First name">
                                                     </div>
 
-                                                          @error('first_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                          @error('monday_out') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="first_name" class="form-label">Tueday In</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('first_name')border border-danger rounded-2 @enderror">
-                                                        <input wire:model.live="first_name" type="time" class="form-control" id="first_name" placeholder="Enter First name">
+                                                        <label for="tuesday_in" class="form-label">Tueday In</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('tuesday_in')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="tuesday_in" type="time" class="form-control" id="tuesday_in" placeholder="Enter First name">
                                                     </div>
 
-                                                          @error('first_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                          @error('tuesday_in') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="first_name" class="form-label">Tuesday Out</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('first_name')border border-danger rounded-2 @enderror">
-                                                        <input wire:model.live="first_name" type="time" class="form-control" id="first_name" placeholder="Enter First name">
+                                                        <label for="tuesday_out" class="form-label">Tuesday Out</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('tuesday_out')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="tuesday_out" type="time" class="form-control" id="tuesday_out" placeholder="Enter First name">
                                                     </div>
 
-                                                          @error('first_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                          @error('tuesday_out') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="first_name" class="form-label">Wednesday In</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('first_name')border border-danger rounded-2 @enderror">
-                                                        <input wire:model.live="first_name" type="time" class="form-control" id="first_name" placeholder="Enter First name">
+                                                        <label for="wednesday_in" class="form-label">Wednesday In</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('wednesday_in')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="wednesday_in" type="time" class="form-control" id="wednesday_in" placeholder="Enter First name">
                                                     </div>
 
-                                                          @error('first_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                          @error('wednesday_in') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="first_name" class="form-label">Wednesday Out</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('first_name')border border-danger rounded-2 @enderror">
-                                                        <input wire:model.live="first_name" type="time" class="form-control" id="first_name" placeholder="Enter First name">
+                                                        <label for="wednesday_out" class="form-label">Wednesday Out</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('wednesday_out')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="wednesday_out" type="time" class="form-control" id="wednesday_out" placeholder="Enter First name">
                                                     </div>
 
-                                                          @error('first_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                          @error('wednesday_out') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="first_name" class="form-label">Thursday In</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('first_name')border border-danger rounded-2 @enderror">
-                                                        <input wire:model.live="first_name" type="time" class="form-control" id="first_name" placeholder="Enter First name">
+                                                        <label for="thursday_in" class="form-label">Thursday In</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('thursday_in')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="thursday_in" type="time" class="form-control" id="thursday_in" placeholder="Enter First name">
                                                     </div>
 
-                                                          @error('first_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                          @error('thursday_in') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="first_name" class="form-label">Thursday Out</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('first_name')border border-danger rounded-2 @enderror">
-                                                        <input wire:model.live="first_name" type="time" class="form-control" id="first_name" placeholder="Enter First name">
+                                                        <label for="thursday_out" class="form-label">Thursday Out</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('thursday_out')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="thursday_out" type="time" class="form-control" id="thursday_out" placeholder="Enter First name">
                                                     </div>
 
-                                                          @error('first_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                          @error('thursday_out') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="first_name" class="form-label">Friday In</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('first_name')border border-danger rounded-2 @enderror">
-                                                        <input wire:model.live="first_name" type="time" class="form-control" id="first_name" placeholder="Enter First name">
+                                                        <label for="friday_in" class="form-label">Friday In</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('friday_in')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="friday_in" type="time" class="form-control" id="friday_in" placeholder="Enter First name">
                                                     </div>
 
-                                                          @error('first_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                          @error('friday_in') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="first_name" class="form-label">Friday Out</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('first_name')border border-danger rounded-2 @enderror">
-                                                        <input wire:model.live="first_name" type="time" class="form-control" id="first_name" placeholder="Enter First name">
+                                                        <label for="friday_out" class="form-label">Friday Out</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('friday_out')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="friday_out" type="time" class="form-control" id="friday_out" placeholder="Enter First name">
                                                     </div>
 
-                                                          @error('first_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                          @error('friday_out') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="first_name" class="form-label">Saturday In</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('first_name')border border-danger rounded-2 @enderror">
-                                                        <input wire:model.live="first_name" type="time" class="form-control" id="first_name" placeholder="Enter First name">
+                                                        <label for="saturday_in" class="form-label">Saturday In</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('saturday_in')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="saturday_in" type="time" class="form-control" id="saturday_in" placeholder="Enter First name">
                                                     </div>
 
-                                                          @error('first_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                          @error('saturday_in') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="first_name" class="form-label">Saturday Out</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('first_name')border border-danger rounded-2 @enderror">
-                                                        <input wire:model.live="first_name" type="time" class="form-control" id="first_name" placeholder="Enter First name">
+                                                        <label for="saturday_out" class="form-label">Saturday Out</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('saturday_out')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="saturday_out" type="time" class="form-control" id="saturday_out" placeholder="Enter First name">
                                                     </div>
 
-                                                          @error('first_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                          @error('saturday_out') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="first_name" class="form-label">Sunday In</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('first_name')border border-danger rounded-2 @enderror">
-                                                        <input wire:model.live="first_name" type="time" class="form-control" id="first_name" placeholder="Enter First name">
+                                                        <label for="sunday_in" class="form-label">Sunday In</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('sunday_in')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="sunday_in" type="time" class="form-control" id="sunday_in" placeholder="Enter First name">
                                                     </div>
 
-                                                          @error('first_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                          @error('sunday_in') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="first_name" class="form-label">Sunday Out</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('first_name')border border-danger rounded-2 @enderror">
-                                                        <input wire:model.live="first_name" type="time" class="form-control" id="first_name" placeholder="Enter First name">
+                                                        <label for="sunday_out" class="form-label">Sunday Out</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('sunday_out')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="sunday_out" type="time" class="form-control" id="sunday_out" placeholder="Enter First name">
                                                     </div>
 
-                                                          @error('first_name') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                          @error('sunday_out') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                                     </div>
                                                 </div>
 

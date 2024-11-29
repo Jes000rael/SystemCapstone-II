@@ -60,8 +60,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/employee_records/add-deduction/{empID}', App\Livewire\HR\AddDeduction::class)->name('add-Deduction');
         Route::get('/admin/deduction/edit/{deducID}', App\Livewire\HR\EditDeduction::class)->name('edit-Deduction');
         Route::get('/admin/announcements/edit/{announceID}', App\Livewire\HR\EditAnnouncement::class)->name('edit-Announcement');
-        Route::get('/admin/employee_records/add_schedule', App\Livewire\HR\AddWorkSchedule::class)->name('add-Schedule');
-        Route::get('/admin/employee_records/edit_schedule', App\Livewire\HR\EditWorkSchedule::class)->name('edit-Schedule');
+        Route::get('/admin/employee_records/add_schedule/{empID}', App\Livewire\HR\AddWorkSchedule::class)->name('add-Schedule');
+        Route::get('/admin/employee_records/edit_schedule/{empID}', App\Livewire\HR\EditWorkSchedule::class)->name('edit-Schedule');
     });
 
     Route::middleware('department:employee')->group(function () {

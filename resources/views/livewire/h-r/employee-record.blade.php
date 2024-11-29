@@ -79,8 +79,8 @@
                                                   </a>
                                                    
                                                    <ul class="dropdown-menu" aria-labelledby="moreActions">
-                                                     <li><a wire:navigate href="/admin/employee_records/add_schedule" class="dropdown-item" >Add Work Schedule</a></li>
-                                                     <li><a wire:navigate href="/admin/employee_records/edit_schedule" class="dropdown-item">Update Work Schedule</a></li>
+                                                     <li><a wire:navigate href="{{ route('add-Schedule', ['empID' => $encryptedEmpID]) }}" class="dropdown-item" >Add Work Schedule</a></li>
+                                                     <li><a wire:navigate href="{{ route('edit-Schedule', ['empID' => $encryptedEmpID]) }}" class="dropdown-item">Update Work Schedule</a></li>
                                                      <li><a class="dropdown-item" href="#">View Work Schedule</a></li>
                                                      <li><a  class="dropdown-item" wire:navigate href="{{ route('add-Deduction', ['empID' => $encryptedEmpID]) }}">Add Deduction</a></li>
                                                 
@@ -253,9 +253,75 @@
 
    
 </div>
-
-
-
+@push('scripts')
+@if (session('updatesched'))
+    <script>
+        Swal.fire({
+          title: '<strong style="color:#000; font-size:15px;" class="text-center">Work Schedule</strong><br><span style="color:#000; font-size:13px;"  class="text-center" >Updated Successfully</span> ',
+          icon:'success', 
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true, 
+            width: '350px', 
+            height: '100px',
+            backdrop: true,
+            position: 'top-end', 
+            toast: true,
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp', 
+            },
+         
+            
+        });
+    </script>
+@endif
+@endpush
+@push('scripts')
+@if (session('employee_has'))
+    <script>
+        Swal.fire({
+          title: '<strong style="color:#000; font-size:15px;" class="text-center">Employee</strong><br><span style="color:#000; font-size:13px;"  class="text-center" >Employee is already had Schedule</span> ',
+          icon:'warning', 
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true, 
+            width: '350px', 
+            height: '100px',
+            backdrop: true,
+            position: 'top-end', 
+            toast: true,
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp', 
+            },
+         
+            
+        });
+    </script>
+@endif
+@endpush
+@push('scripts')
+@if (session('schedule-add'))
+    <script>
+        Swal.fire({
+          title: '<strong style="color:#000; font-size:15px;" class="text-center">Work Schedule</strong><br><span style="color:#000; font-size:13px;"  class="text-center" >Added Successfully</span> ',
+          icon:'success', 
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true, 
+            width: '350px', 
+            height: '100px',
+            backdrop: true,
+            position: 'top-end', 
+            toast: true,
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp', 
+            },
+         
+            
+        });
+    </script>
+@endif
+@endpush
 
 @push('scripts')
 @if (session('deduction-add'))
