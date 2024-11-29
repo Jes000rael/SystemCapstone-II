@@ -32,11 +32,14 @@
                                     <div class="table-responsive">
                                         <table id="yut" class="table table-bordered dt-responsive all-users-datatable_length nowrap w-100">
                                             <thead>
+                                                
                                                 <tr>
                                                     <th>Mon-In</th>
                                                     <th>Mon-Out</th>
                                                     <th>Tue-In</th>
                                                     <th>Tue-Out</th>
+                                                    <th>Wed-in</th>
+                                                    <th>Wed-Out</th>
                                                     <th>Thu-In</th>
                                                     <th>Thu-Out</th>
                                                     <th>Fri-In</th>
@@ -50,23 +53,28 @@
                                             </thead>
 
                                             <tbody>
+                                                @foreach( $employee as $schedule)
                                                 <tr>
-                                                    <td>9:00 AM</td>
-                                                    <td>5:00 PM</td>
-                                                    <td>9:00 AM</td>
-                                                    <td>5:00 PM</td>
-                                                    <td>9:00 AM</td>
-                                                    <td>5:00 PM</td>
-                                                    <td>9:00 AM</td>
-                                                    <td>5:00 PM</td>
-                                                    <td>9:00 AM</td>
-                                                    <td>5:00 PM</td>
-                                                    <td>9:00 AM</td>
-                                                    <td>5:00 PM</td>
-                                                    
-                                                    
-                                                    
+                                                <td>{!! $schedule->monday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->monday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+<td>{!! $schedule->monday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->monday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+<td>{!! $schedule->tuesday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->tuesday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+<td>{!! $schedule->tuesday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->tuesday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+<td>{!! $schedule->wednesday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->wednesday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+<td>{!! $schedule->wednesday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->wednesday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+<td>{!! $schedule->thursday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->thursday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+<td>{!! $schedule->thursday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->thursday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+<td>{!! $schedule->friday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->friday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+<td>{!! $schedule->friday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->friday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+<td>{!! $schedule->saturday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->saturday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+<td>{!! $schedule->saturday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->saturday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+<td>{!! $schedule->sunday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->sunday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+<td>{!! $schedule->sunday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->sunday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+
+
+                                                
+
                                                 </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
