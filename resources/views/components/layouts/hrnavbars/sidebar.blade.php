@@ -27,19 +27,19 @@
                         <span key="t-employee-records">Employee</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li class="{{ Route::currentRouteName() == 'Employee-Edit' ? 'mm-active' : 'text-light fw-bold' }} {{ Route::currentRouteName() == 'add-Deduction' ? 'mm-active' : 'text-light fw-bold' }}"><a wire:navigate href="{{ route('employee-Record') }}" key="t-employee-record">Employee Records</a></li>
+                        <li class="{{ Route::currentRouteName() == 'Employee-Edit' ? 'mm-active' : 'text-light fw-bold' }} {{ Route::currentRouteName() == 'add-Deduction' ? 'mm-active' : 'text-light fw-bold' }} {{ Route::currentRouteName() == 'add-Schedule' ? 'mm-active' : 'text-light fw-bold' }} {{ Route::currentRouteName() == 'edit-Schedule' ? 'mm-active' : 'text-light fw-bold' }}"><a wire:navigate href="{{ route('employee-Record') }}" key="t-employee-record">Employee Records</a></li>
                         <li><a wire:navigate href="{{ route('add-Employee') }}" key="t-add-employee">Add Employee</a></li>
                    
                     </ul>
                 </li>
                 
 
-                <li >
+                <!-- <li >
                     <a wire:navigate href="{{ route('attendance-Records') }}">
                         <i class="bx bx-calendar"></i>
                         <span key="t-calendar">Attendance Records</span>
                     </a>
-                </li>
+                </li> -->
                
                 <li class="{{ Route::currentRouteName() == 'edit-Department' ? 'mm-active' : 'text-light fw-bold' }}">
                      <a wire:navigate href="{{ route('department') }}" class="waves-effect ">
@@ -97,7 +97,7 @@
                          <span key="t-starter-page"> Deduction Log</span>
                      </a>
                   </li>
-                  <li class="{{ Route::currentRouteName() == 'merit-log' ? 'mm-active' : 'text-light fw-bold' }}">
+                  <!-- <li class="{{ Route::currentRouteName() == 'merit-log' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a wire:navigate href="{{ route('merit-log') }}" class="waves-effect ">
                     <i class="bx bx-medal"></i>
                          <span key="t-starter-page"> Merit Log</span>
@@ -114,7 +114,7 @@
                     <i class="bx bx-coffee"></i>
                          <span key="t-starter-page"> Breaktime Log</span>
                      </a>
-                  </li>
+                  </li> -->
                   <li class="{{ Route::currentRouteName() == 'edit-Announcement' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a wire:navigate href="{{ route('anouncements') }}" class="waves-effect ">
                     <i class="bx bx-volume-full"></i>
