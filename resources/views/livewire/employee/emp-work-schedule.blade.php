@@ -55,20 +55,20 @@
                                             <tbody>
                                                 @foreach( $employee as $schedule)
                                                 <tr>
-                                                <td>{!! $schedule->monday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->monday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
-<td>{!! $schedule->monday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->monday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
-<td>{!! $schedule->tuesday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->tuesday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
-<td>{!! $schedule->tuesday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->tuesday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
-<td>{!! $schedule->wednesday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->wednesday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
-<td>{!! $schedule->wednesday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->wednesday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
-<td>{!! $schedule->thursday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->thursday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
-<td>{!! $schedule->thursday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->thursday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
-<td>{!! $schedule->friday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->friday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
-<td>{!! $schedule->friday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->friday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
-<td>{!! $schedule->saturday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->saturday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
-<td>{!! $schedule->saturday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->saturday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
-<td>{!! $schedule->sunday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->sunday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
-<td>{!! $schedule->sunday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->sunday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+                                                     <td>{!! $schedule->monday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->monday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+                                                     <td>{!! $schedule->monday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->monday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+                                                     <td>{!! $schedule->tuesday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->tuesday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+                                                     <td>{!! $schedule->tuesday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->tuesday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+                                                     <td>{!! $schedule->wednesday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->wednesday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+                                                     <td>{!! $schedule->wednesday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->wednesday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+                                                     <td>{!! $schedule->thursday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->thursday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+                                                     <td>{!! $schedule->thursday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->thursday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+                                                     <td>{!! $schedule->friday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->friday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+                                                     <td>{!! $schedule->friday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->friday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+                                                     <td>{!! $schedule->saturday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->saturday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+                                                     <td>{!! $schedule->saturday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->saturday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+                                                     <td>{!! $schedule->sunday_in ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->sunday_in)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
+                                                     <td>{!! $schedule->sunday_out ? \Carbon\Carbon::createFromFormat('H:i:s', $schedule->sunday_out)->format('h:i A') : '<strong class="text-danger">N/S</strong>' !!}</td>
 
 
                                                 
