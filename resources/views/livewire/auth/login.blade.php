@@ -84,7 +84,7 @@ input[type="text"] {
                                     <form wire:submit="login" action="#" method="POST" role="form text-left">
                                     @error('errors') <span class="text-danger error fw-bold" style="font-size: 14px;">{{ $message }}</span> @enderror
                                         <div class="mb-3">
-                                            <label for="username" class="form-label">Tikalon ka gid</label>
+                                            <label for="username" class="form-label">Username</label>
                                             <div class=" @error('errors')border border-danger rounded-3 @enderror @error('username')border border-danger rounded-3 @enderror">
                                             <input  wire:model.live="username" id="username" type="text" class="form-control bg-white border-white "  style="color:#000;" placeholder="Enter username">
                                         </div>
