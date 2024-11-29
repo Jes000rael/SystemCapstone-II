@@ -66,17 +66,7 @@
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".DeleteShift{{ $select->shift_id }}">
                                                     <i class="fas fa-trash"></i>
                                                   </a>
-                                                  <div class="dropdown d-inline">
-                                                  <a class="btn btn-outline-secondary btn-sm more dropdown-toggle" title="More" id="moreActions" data-bs-toggle="dropdown" aria-expanded="false">
-                                                  <i class="fas fa-ellipsis-h"></i>
-                                                  </a>
-                                                   
-                                                   <ul class="dropdown-menu" aria-labelledby="moreActions">
-                                                     <li><a class="dropdown-item" href="#">Details</a></li>
-                                                     <li><a class="dropdown-item" href="#">Archive</a></li>
-                                                     <li><a class="dropdown-item" href="#">Share</a></li>
-                                                   </ul>
-                                                 </div>
+                                                  
                                                 </td>
                                             </tr>
 
@@ -89,8 +79,8 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p class="mb-2">Company : <span class="text-primary fw-bold">{{ $select->company->description ?? 'N/A' }}</span></p>
-                                <p class="mb-4">Night Shift : <span class="text-primary fw-bold">{{ $select->description }}</span></p>
+                                <p class="mb-2">Company : <span class="fw-bold">{{ $select->company->description ?? 'N/A' }}</span></p>
+                                <p class="mb-4">Night Shift : <span class="fw-bold">{{ $select->description }}</span></p>
 
                                 
                             </div>

@@ -79,8 +79,8 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <p class="mb-2">Company : <span class="text-primary fw-bold">   {{ $title->company->description ?? 'N/A'}}</span></p>
-                                <p class="mb-4">Job title : <span class="text-primary fw-bold">{{ $title->description }}</span></p>
+                                <p class="mb-2">Company : <span class="fw-bold">   {{ $title->company->description ?? 'N/A'}}</span></p>
+                                <p class="mb-4">Job title : <span class="fw-bold">{{ $title->description }}</span></p>
 
                                 
                             </div>
