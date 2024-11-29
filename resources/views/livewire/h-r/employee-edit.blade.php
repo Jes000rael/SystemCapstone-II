@@ -16,8 +16,8 @@
 
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Employee Records</a></li>
+                    <li class="breadcrumb-item"><a wire:navigate href="{{ route('employee-Record') }}">Admin</a></li>
+                    <li class="breadcrumb-item"><a wire:navigate href="{{ route('employee-Record') }}">Employee Records</a></li>
                     <li class="breadcrumb-item active">Edit Employee</li>
                 </ol>
             </div>
@@ -450,6 +450,8 @@
                                             
                                             <div>
                                                 <button type="submit" class="btn btn-primary w-md">Save</button>
+                                                <a wire:navigate href="{{ route('employee-Record') }}" class="btn btn-secondary w-md">Close</a>
+
                                             </div>
                                         </form>
                                         </div>

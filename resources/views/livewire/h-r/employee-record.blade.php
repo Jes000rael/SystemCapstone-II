@@ -79,8 +79,8 @@
                                                   </a>
                                                    
                                                    <ul class="dropdown-menu" aria-labelledby="moreActions">
-                                                     <li><a class="dropdown-item" href="#">Add Work Schedule</a></li>
-                                                     <li><a class="dropdown-item" href="#">Update Work Schedule</a></li>
+                                                     <li><a wire:navigate href="/admin/employee_records/add_schedule" class="dropdown-item" >Add Work Schedule</a></li>
+                                                     <li><a wire:navigate href="/admin/employee_records/edit_schedule" class="dropdown-item">Update Work Schedule</a></li>
                                                      <li><a class="dropdown-item" href="#">View Work Schedule</a></li>
                                                      <li><a  class="dropdown-item" wire:navigate href="{{ route('add-Deduction', ['empID' => $encryptedEmpID]) }}">Add Deduction</a></li>
                                                 

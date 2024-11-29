@@ -8,7 +8,8 @@
                     'jobtitle', 'employee-Status', 'shifts', 'deduction', 'off-Duty', 'hand-Book',
                     'anouncements', 'Employee-Edit', 'attendance-Records', 'breaktime-log', 'overtime-log',
                     'merit-log', 'edit-Department','edit-Status','edit-Jobtitle','edit-Seniority','edit-Shift',
-                    'edit-Duty','edit-Handbook','add-Deduction','edit-Deduction','edit-Announcement'
+                    'edit-Duty','edit-Handbook','add-Deduction','edit-Deduction','edit-Announcement','add-Schedule',
+                    'edit-Schedule'
                 ],
                 'super' => [
                     'dashboard', 'addcompany', 'company-Employees', 'addemployee', 'department-Super', 
