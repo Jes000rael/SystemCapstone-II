@@ -51,6 +51,43 @@
 
 
 </style>
+<style>
+  /* Scroll container styles */
+  .scroll-container {
+   
+    overflow-y: auto; /* Enable vertical scrolling */
+    scrollbar-width: thin; /* Thin scrollbar for Firefox */
+    scrollbar-color: rgba(136, 136, 136, 0.3) transparent; /* Semi-transparent */
+    -ms-overflow-style: none; /* Hide scrollbar for IE/Edge (if needed) */
+  }
+
+  /* Webkit browsers scrollbar customization (Chrome, Safari, Edge) */
+  .scroll-container::-webkit-scrollbar {
+    width: 6px; /* Thin scrollbar width */
+  }
+
+  .scroll-container::-webkit-scrollbar-track {
+    background: transparent; /* Invisible track */
+  }
+
+  .scroll-container::-webkit-scrollbar-thumb {
+    background: rgba(136, 136, 136, 0.3); /* Semi-transparent thumb */
+    border-radius: 3px; /* Rounded corners */
+  }
+
+  .scroll-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(136, 136, 136, 0.6); /* More visible on hover */
+  }
+
+  /* Optional: Add fade-in/out effect */
+  .scroll-container {
+    transition: scrollbar-color 0.3s ease;
+  }
+
+  .scroll-container:hover {
+    scrollbar-color: rgba(136, 136, 136, 0.6) transparent; /* Slightly more visible on hover */
+  }
+</style>
 <script>
         // Immediately apply dark mode if preferred
         if (localStorage.getItem('theme') === 'dark') {
@@ -109,6 +146,22 @@
 
 
 
+
+
+
+<script>
+    // Ensure scroll happens on initial load
+    window.addEventListener('DOMContentLoaded', function () {
+        const chatMessages = document.getElementById('chatMessages');
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+
+    // If using Livewire, listen for an event to scroll to the bottom
+    window.addEventListener('scroll-chat-to-bottom', function () {
+        const chatMessages = document.getElementById('chatMessages');
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+</script>
 
 
 <script>

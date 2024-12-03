@@ -441,6 +441,17 @@
 
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-2">
+                                                    <div class="mb-3">
+                                                        <label for="email" class="form-label">email</label>
+                                                        <div  class=" @error('errors')border border-danger rounded-2 @enderror @error('email')border border-danger rounded-2 @enderror">
+                                                        <input wire:model.live="email"  type="text" class="form-control" id="email" placeholder="Enter email">
+                                                        </div>
+                                                        @error('email') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                
+
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             

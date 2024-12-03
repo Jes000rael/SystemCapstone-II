@@ -34,6 +34,7 @@ class EmployeeAdd extends Component
     public $has_night_diff='';
     public $username='';
     public $password='';
+    public $email='';
   
     public $emergency_contact='';
     public $emergency_person='';
@@ -51,6 +52,7 @@ class EmployeeAdd extends Component
         'first_name' => 'required',
         'last_name' => 'required',
         'middle_name' => 'required',
+        'email' => 'required|email|unique:employee_records',
         'gender' => 'required|in:Male,Female',
         'blood_type' => 'required',
         'address' => 'required',
@@ -58,9 +60,9 @@ class EmployeeAdd extends Component
         'employment_status_id'=> 'required',
         'job_title_id'=> 'required',
         'department_id'=> 'required',
-        'date_of_birth'=> 'required',
-        'date_hired'=> 'required',
-        'date_start'=> 'required',
+        'date_of_birth'=> 'required|date',
+        'date_hired'=> 'required|date',
+        'date_start'=> 'required|date',
         'hourly_rate'=> 'required|numeric|regex:/^\d+(\.\d+)?$/',
         'has_night_diff'=> 'required|boolean',
         'username'=> 'required|unique:employee_records',
@@ -126,7 +128,8 @@ class EmployeeAdd extends Component
             'sss' =>$this->sss,
             'pagibig' =>$this-> pagibig,
             'philhealth' =>$this-> philhealth,
-            'shift_id' =>$this-> shift_id
+            'shift_id' =>$this-> shift_id,
+            'email' =>$this-> email
         ]);
       
 
@@ -141,6 +144,7 @@ class EmployeeAdd extends Component
             'blood_type',
             'gender',
             'address',
+            'email',
             'seniority_level_id',
             'employment_status_id',
             'job_title_id',

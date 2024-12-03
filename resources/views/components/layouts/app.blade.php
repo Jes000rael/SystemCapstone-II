@@ -63,6 +63,9 @@
     @guest
         @if (request()->routeIs('login'))
             {{ $slot }}
+        
+        @elseif (request()->routeIs('forgot-Password'))
+            {{ $slot }}
         @endif
     @endguest
 </x-layouts.base>

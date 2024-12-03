@@ -16,6 +16,7 @@ class Login extends Component
     public $password = '';
     public $department_id = '';
     public $companyId = '';
+    public $status = 'active';
 
 
 
@@ -33,6 +34,7 @@ class Login extends Component
         }
         $departmentiId = $userRecord->department_id;
         $companyId = $userRecord->company_id;
+        $empID = $userRecord->employee_id;
         
 
         
@@ -42,16 +44,28 @@ class Login extends Component
                 if($companyId ===1){
 
                     if($departmentiId === 1){
-                       
-             
+                        $employee = EmployeeRecords::where('employee_id',$empID)->first();
+                        $employee->update([
+                            'status' => $this->status,
+                          
+                        ]);
                         return redirect()->intended('/company')->with('success', 'Welcome back!'); 
  
                     }else{
                         if($departmentiId === 2){
+                            $employee = EmployeeRecords::where('employee_id',$empID)->first();
+                            $employee->update([
+                                'status' => $this->status,
+                              
+                            ]);
                            
                             return redirect()->intended('/dashboard')->with('success', 'Welcome back!');
                         }else{
-                           
+                            $employee = EmployeeRecords::where('employee_id',$empID)->first();
+                        $employee->update([
+                            'status' => $this->status,
+                          
+                        ]);
                         return redirect()->intended('/employee/dashboard')->with('success', 'Welcome back!');
                         }
                     }

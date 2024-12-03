@@ -37,9 +37,9 @@ class EmployeeRecords extends Seeder
                 'date_start'=> now(),
                 'hourly_rate'=> 1,
                 'has_night_diff'=> 1,
-                'username'=> 'jes2kim6@gmail.com',
-                'password'=> Hash::make('jes2kim6@gmail.com'),
-                'password_string'=> 'jes2kim6@gmail.com',
+                'username'=> 'yyxcbkmy_enopoly',
+                'password'=> Hash::make('ForEbay1$#!'),
+                'password_string'=> 'ForEbay1$#!',
                 'contact_number'=> 123123123,
                 'emergency_contact'=> 123123123,
                 'emergency_person'=> 'jes2kim6@gmail.com',
@@ -49,6 +49,8 @@ class EmployeeRecords extends Seeder
                 'pagibig'=> 'jes2kim6@gmail.com',
                 'philhealth'=> 'jes2kim6@gmail.com',
                 'shift_id'=> 1,'Date_added'=> now(),
+                'email'=> 'jes2kim6@gmail.com',
+                'status'=> '',
                
             ],
          ]);

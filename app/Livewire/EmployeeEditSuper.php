@@ -45,6 +45,7 @@ class EmployeeEditSuper extends Component
     public $philhealth = '';
     public $shift_id = '';
     public $gender = '';
+    public $email = '';
     public $companys, $senioritylevels, $employmentstatus, $jobtitle, $department=[], $depart=[], $shifts;
 
     public function getRules()
@@ -61,9 +62,9 @@ class EmployeeEditSuper extends Component
         'employment_status_id' => 'required',
         'job_title_id' => 'required',
         'department_id' => 'required',
-        'date_of_birth' => 'required',
-        'date_hired' => 'required',
-        'date_start' => 'required',
+        'date_of_birth' => 'required|date',
+        'date_hired' => 'required|date',
+        'date_start' => 'required|date',
         'hourly_rate' => 'required|numeric|regex:/^\d+(\.\d+)?$/',
         'has_night_diff' => 'required|boolean',
         'username' => 'required|unique:employee_records,username,' . $this->employee_id . ',employee_id', 
@@ -76,6 +77,7 @@ class EmployeeEditSuper extends Component
         'pagibig' => 'required',
         'philhealth' => 'required',
         'shift_id' => 'required',
+        'email' => 'required|email|unique:employee_records,email,' . $this->employee_id . ',employee_id',
     ];
 }
 
@@ -113,6 +115,7 @@ class EmployeeEditSuper extends Component
         $this->pagibig = $employee->pagibig;
         $this->philhealth = $employee->philhealth;
         $this->shift_id = $employee->shift_id;
+        $this->email = $employee->email;
 
         $this->loadDropdownData($this->company_id,$this->department_id);
     }
@@ -186,6 +189,7 @@ class EmployeeEditSuper extends Component
             'pagibig' => $this->pagibig,
             'philhealth' => $this->philhealth,
             'shift_id' => $this->shift_id,
+            'email' => $this->email,
         ]);
 
 

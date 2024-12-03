@@ -49,7 +49,10 @@ class EmployeeRecords extends Authenticatable
         'sss',
         'pagibig',
         'philhealth',
-        'shift_id','Date_added',
+        'shift_id',
+        'email',
+        'status',
+        'Date_added',
     ];
 
    
@@ -111,6 +114,11 @@ public function company()
 {
     return $this->belongsTo(Company::class, 'company_id');
 } 
+
+public function messages()
+{
+    return $this->hasMany(Message::class, 'employee_id');
+}
     public $timestamps = false;
 
 

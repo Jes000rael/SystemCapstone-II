@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 Route::get('/', fn() => redirect('/login'));
 Route::get('/login', Login::class)->name('login');
+Route::get('/forgot_password', App\Livewire\Auth\ForgotPassword::class)->name('forgot-Password');
 Route::get('/oppss/unauthorized', fn() => view('livewire.errors.unauthorized'))->name('unauthorized');
 
 Route::middleware('auth')->group(function () {

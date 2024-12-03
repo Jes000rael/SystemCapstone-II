@@ -81,46 +81,42 @@ input[type="text"] {
                             <div class="card-body pt-0"> 
                                
                                 <div class="p-2">
-                                    <form wire:submit="login" action="#" method="POST" role="form text-left">
+                                <div class="alert bg-white text-center mb-3" role="alert">
+                                        
+                                                
+                                                    <i class="bx bxs-right-arrow-circle bx-fade-right fs-4 float-start me-2"></i>
+                                                   <span class=" text-dark"> Enter your Email and OTP will be sent to you!</span>
+                                            
+                                             
+                                    </div>
+                                    <form wire:submit="emailsent" action="#" method="POST" role="form text-left">
                                     @error('errors') <span class="text-danger error fw-bold" style="font-size: 14px;">{{ $message }}</span> @enderror
                                         <div class="mb-3">
-                                            <label for="username" class="form-label">Username</label>
-                                            <div class=" @error('errors')border border-danger rounded-3 @enderror @error('username')border border-danger rounded-3 @enderror">
-                                            <input  wire:model.live="username" id="username" type="text" class="form-control bg-white border-white "  style="color:#000;" placeholder="Enter username">
+                                            <label for="email" class="form-label">Email</label>
+                                            <div class=" @error('errors')border border-danger rounded-3 @enderror @error('email')border border-danger rounded-3 @enderror">
+                                            <input  wire:model.live="email" id="email" type="text" class="form-control bg-white border-white "  style="color:#000;" placeholder="Enter email">
                                         </div>
-                                        @error('username') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                        @error('email') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                         </div>
                 
-                                        <div class="mb-3">
-                                            <label class="form-label">Password</label>
-                                            <div class="@error('errors')border border-danger rounded-3 @enderror @error('password')border border-danger rounded-3 @enderror  password-container">
-                                                <input wire:model.live="password" id="password" type="password" class="form-control bg-white border-white"  style="color:#000;" placeholder="Enter password" aria-label="Password" aria-describedby="password-addon">
-                                                <span id="togglePassword" class="toggle-password" onclick="togglePassword()">
-            <i class="fas fa-eye"></i>
-        </span>
-                                            </div>
-                                            @error('password') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
-                                        </div>
+                                        
 
                                        
                                         
-                                        <div class="mt-3 d-grid ">
-                                            <button class="btn btn-primary waves-effect waves-light rounded-pill" type="submit">Log In</button>
+                                        <div class="align-item-center d-flex justify-content-center">
+                                          <button type="submit" class="btn btn-primary w-sm mt-3 me-2 rounded-pill">Update</button>
+                                          <a wire:navigate href="{{ route('department') }}" class="btn btn-secondary w-sm mt-3 rounded-pill">Close</a>
                                         </div>
 
-                                        <div class="mt-4 text-center">
-                                            <a wire:navigate href="{{ route('forgot-Password')}}" class="  text-dark"><i class="mdi mdi-lock me-1"></i> <span >Forgot your password?</span></a>
-                                        </div>
-                                        <div class="mt-3 text-center">
+                                        <div class="mt-5 text-center">
                             
                             
                                 
-                                <p wire:ignore>©{{ now()->year }} Design & Develop <i class="mdi mdi-heart text-danger"></i> by Enopoly Team </p>
+                                <p wire:ignore.self>© {{ now()->year }} Design & Develop <i class="mdi mdi-heart text-danger"></i> by Enopoly Team </p>
                            
                         </div>
-                       
             
-                                        
+                     
                                     </form>
                                 </div>
             
@@ -134,23 +130,4 @@ input[type="text"] {
         </div>
 </div>
 
-@push('scripts')
-<script>
-    function togglePassword() {
-    const passwordInput = document.getElementById('password');
-    const toggleIcon = document.getElementById('togglePassword').querySelector('i');
-    
-    if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        toggleIcon.classList.remove('fa-eye');
-        toggleIcon.classList.add('fa-eye-slash');
-    } else {
-        passwordInput.type = 'password';
-        toggleIcon.classList.remove('fa-eye-slash');
-        toggleIcon.classList.add('fa-eye');
-    }
-}
-
-</script>
-@endpush
 
