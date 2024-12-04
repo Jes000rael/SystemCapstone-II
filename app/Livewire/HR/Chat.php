@@ -6,73 +6,107 @@ use Livewire\Component;
 use App\Models\Message;
 use App\Models\EmployeeRecords;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 class Chat extends Component
 {
-    public $messages;
 
-    public $chatmessage ='';
-  
-
-    protected $rules = [
-        'chatmessage' => 'required'
-    ];
-
-    public function mount()
-    {
      
-        $this->messages = Message::with('employee')
-            ->latest()
-            ->take(50)
-            ->get()
-            ->reverse();
-
-
-    }
+        public $employee_id;
+        public $chatmessage='';
+        public $messages;
+        public $first_name;
+        public $last_name;
+        public $status;
     
+        protected $rules = [
+            'useremployee_id' => 'required',
+            'chatmessage' => 'required',
+        ];
+                 
 
-    public function sendMessage()
-    {
-      
-        Message::create([
-            'employee_id' => Auth::user()->employee_id,
-            'company_id' => Auth::user()->company_id,
-            'chatmessage' => $this->chatmessage,
-            'useremployee_id' => '1',
-        ]);
+        
+            public function mount($empID)
+            {
+                
+                try {
+               
+                    $decryptedempID = Crypt::decrypt($empID);
 
-       
-        $this->messages = Message::with('employee')
-            ->latest()
-            ->take(50)
+                    $this->messages = Message::where(function ($query) use ($decryptedempID) {
+                        $query->where('useremployee_id', $decryptedempID)
+                              ->where('employee_id', Auth::user()->employee_id);
+                    })->orWhere(function ($query) use ($decryptedempID) {
+                        $query->where('useremployee_id', Auth::user()->employee_id)
+                              ->where('employee_id', $decryptedempID);
+                    })
+                    ->latest()
+                    ->take(50)
+                    ->get()
+                    ->reverse();
+
+                    $emp = EmployeeRecords::findOrFail($decryptedempID);
+                    $this->employee_id = $emp->employee_id;
+                    $this->first_name = $emp->first_name;
+                    $this->last_name = $emp->last_name;
+                    $this->status = $emp->status;
+                    
+                    $this->dispatch('scroll-chat-to-bottom');
+
+
+                } catch (DecryptException $e) {
+                 
+                    session()->flash('error', 'Invalid or corrupted contact ID.');
+                } catch (ModelNotFoundException $e) {
+                
+                    session()->flash('error', 'Contact not found.');
+                } catch (\Exception $e) {
+                  
+                    session()->flash('error', 'An unexpected error occurred: ' . $e->getMessage());
+                }
+            
+               
+            }
+        
+
+
+            
+        public function sendMessage()
+        {
+          
            
-            ->get()
+            Message::create([
+                'employee_id' => Auth::user()->employee_id,
+                'company_id' => Auth::user()->company_id,
+                'chatmessage' => $this->chatmessage,
+                'useremployee_id' => $this->employee_id,
+            ]);
+           
 
-            ->reverse(); 
-        $this->chatmessage = '';
-       
-        return redirect()->intended('admin/chat');
-        $this->dispatch('scroll-chat-to-bottom');
+            $this->chatmessage = '';
+            $this->dispatch('refreshPage');
 
+            $this->dispatch('scroll-chat-to-bottom');
 
-    }
-
+    
+        }
+        
+            public function editDepartment()
+            {
+                $this->validate();
+    
+                $employee = Department::findOrFail($this->employee_id);
+                $employee->update([
+                    'description' => $this->description,
+                    
+                ]);
+        
+           
+            }
     public function render()
     {
-        $companyId = Auth::user()->company_id ; 
-
         
-         $contacts = EmployeeRecords::where('company_id', $companyId)->get();
-
-        
-         $sortedContacts = $contacts->sortBy(function ($contact) {
-             return strtoupper(substr($contact->first_name, 0, 1)); 
-         });
- 
-        
-         $groupedContacts = $sortedContacts->groupBy(function ($contact) {
-             return strtoupper(substr($contact->first_name, 0, 1)); 
-         });
-        return view('livewire.h-r.chat', compact('groupedContacts'));
+        return view('livewire.h-r.chat');
     }
 }

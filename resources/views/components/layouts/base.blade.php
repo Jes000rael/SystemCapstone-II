@@ -146,6 +146,11 @@
 
 
 
+<script>
+    window.addEventListener('refreshPage', () => {
+        location.reload(); 
+    });
+</script>
 
 
 

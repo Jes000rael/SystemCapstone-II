@@ -1,4 +1,37 @@
-<div class="chat-leftsidebar me-lg-4">
+<div id="layout-wrapper">
+<div class="main-content">
+
+                <div class="page-content">
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                    <h4 class="mb-sm-0 font-size-18">ADMIN</h4>
+
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
+                                            <li class="breadcrumb-item active">Breaktime Log</li>
+                                        </ol>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+                         
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+        
+                                        <h4 class="card-title fs-5 mb-4">Breaktime Log</h4>
+                                        <div class="col-md-12">
+                                                <!-- chat  -->
+                        <div class="d-lg-flex">
+                        <div class="chat-leftsidebar me-lg-4">
                                 <div class="">
                                     <div class="py-4 border-bottom">
                                         <div class="d-flex">
@@ -98,7 +131,10 @@
                 <ul class="list-unstyled chat-list">
                     @foreach ($contacts as $contact)
                         <li>
-                        <a href="javascript: void(0);" wire:click="selectContact({{ $contact->employee_id }})">
+                                               @php
+                                                     $encrypteempID = Crypt::encrypt($contact->employee_id);
+                                               @endphp
+                        <a  wire:navigate href="{{ route('chats', ['empID' => $encrypteempID]) }}" >
                         <h5 class="font-size-14 mb-0">
                             {{ $contact->first_name }} {{ $contact->last_name }}
                             <i class="mdi mdi-circle {{ $contact->status ? 'text-success' : 'text-warning' }} font-size-10"></i>
@@ -124,3 +160,35 @@
 
                                 </div>
                             </div>
+
+                            
+                            
+
+            
+
+
+           
+                                                   <!-- chat end  -->
+                                            </div>
+
+                                        
+                                        
+        
+                                    </div>
+                                </div>
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                        
+                    </div>
+                    <!-- container-fluid -->
+                </div>
+                <!-- End Page-content -->
+
+                
+
+        </div>
+        <!-- END layout-wrapper -->
+
+

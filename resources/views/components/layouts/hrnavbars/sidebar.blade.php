@@ -97,10 +97,10 @@
                          <span key="t-starter-page"> Deduction Log</span>
                      </a>
                   </li>
-                  <li class="{{ Route::currentRouteName() == 'Chat' ? 'mm-active' : 'text-light fw-bold' }}">
-                    <a wire:navigate href="{{ route('Chat') }}" class="waves-effect ">
+                  <li class="{{ Route::currentRouteName() == 'contacts' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('contacts') }}" class="waves-effect ">
                     <i class="bx bx-chat"></i>
-                         <span key="t-starter-page"> Chat</span>
+                         <span key="t-starter-page">Contacts</span>
                      </a>
                   </li>
                   <!-- <li class="{{ Route::currentRouteName() == 'merit-log' ? 'mm-active' : 'text-light fw-bold' }}">

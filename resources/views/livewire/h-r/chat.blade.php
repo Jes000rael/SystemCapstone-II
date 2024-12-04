@@ -31,17 +31,14 @@
                                         <div class="col-md-12">
                                                 <!-- chat  -->
                         <div class="d-lg-flex">
-                           <livewire:h-r.contacts/>
+                          
                             <div class="w-100 user-chat">
     <div class="card">
         <div class="p-4 border-bottom">
             <div class="row">
                 <div class="col-md-4 col-9">
-                    <h5 class="font-size-15 mb-1"></h5>
-                    <p class="text-muted mb-0">
-                        <i class="mdi mdi-circle active align-middle me-1"></i> 
-                        Active now
-                    </p>
+                    <h5 class="font-size-15 mb-1">{{$first_name}} {{$last_name}}</h5>
+                    <p class="text-muted mb-0"><i class="mdi mdi-circle {{ $status === 'active' ? 'text-success' : '' }} align-middle me-1"></i> {{ $status === 'active' ? 'Active' : 'Offline' }}</p>
                 </div>
                 <div class="col-md-8 col-3">
                     <ul class="list-inline user-chat-nav text-end mb-0">
@@ -95,38 +92,57 @@
         <div>
             <div class="chat-conversation p-3" id="chatContainer">
                 <ul class="list-unstyled mb-0 scroll-container" style="max-height: 486px;" id="chatMessages">
-                    <li>
-                        <div class="chat-day-title">
-                            <span class="title">Today</span>
-                        </div>
-                    </li>
-                    
-    @foreach ($messages as $message)
-        <li class="{{ $message->employee_id === Auth::user()->employee_id ? 'right' : '' }}">
-            <div class="conversation-list">
-                <div class="dropdown">
-                    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="bx bx-dots-vertical-rounded"></i>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Copy</a>
-                        <a class="dropdown-item" href="#">Save</a>
-                        <a class="dropdown-item" href="#">Forward</a>
-                        <a class="dropdown-item" href="#">Delete</a>
-                    </div>
-                </div>
-                <div class="ctext-wrap">
-                    <div class="conversation-name">{{ $message->employee->first_name }}</div>
-                    <p>{{ $message->chatmessage }}</p>
-                    <p class="chat-time mb-0">
-                        <i class="bx bx-time-five align-middle me-1"></i>
-                        {{ $message->created_at->format('h:i A') }}
-                    </p>
-                </div>
+                @php
+    use Carbon\Carbon;
+
+    $previousDate = null; 
+@endphp
+
+@foreach ($messages as $message)
+    @php
+        $messageDate = $message->created_at->format('Y-m-d'); 
+        $isToday = $messageDate === Carbon::now()->format('Y-m-d');
+    @endphp
+
+
+    @if ($isToday && $messageDate !== $previousDate)
+        <li>
+            <div class="chat-day-title">
+                <span class="title">Today</span>
             </div>
         </li>
-        
-    @endforeach
+    @endif
+
+    @if (!$isToday && $messageDate !== $previousDate)
+        <li>
+            <div class="chat-day-title">
+                <span class="title">{{ $message->created_at->format('F j, Y') }}</span>
+            </div>
+        </li>
+    @endif
+
+    {{-- Chat Message --}}
+    <li class="{{ $message->employee_id === Auth::user()->employee_id ? 'right' : 'left' }}">
+        <div class="conversation-list">
+            <div class="ctext-wrap">
+                <div class="conversation-name">
+                    {{ $message->employee_id === Auth::user()->employee_id ? 'You' : $message->employee->first_name }}
+                </div>
+                <p>{{ $message->chatmessage }}</p>
+                <p class="chat-time mb-0">
+                    <i class="bx bx-time-five align-middle me-1"></i>
+                    {{ $message->created_at->format('h:i A') }}
+                </p>
+            </div>
+        </div>
+    </li>
+
+
+    @php
+        $previousDate = $messageDate;
+    @endphp
+@endforeach
+
          </ul>
             </div>
 

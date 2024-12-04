@@ -12,6 +12,7 @@ class Contacts extends Component
 
 
     public $messages;
+    public $contats;
 
     public function mount()
     {
@@ -28,10 +29,10 @@ class Contacts extends Component
         $companyId = Auth::user()->company_id ; 
 
         
-        $contacts = EmployeeRecords::where('company_id', $companyId)->get();
+        $this->contacts = EmployeeRecords::where('company_id', $companyId)->get();
 
        
-        $sortedContacts = $contacts->sortBy(function ($contact) {
+        $sortedContacts = $this->contacts->sortBy(function ($contact) {
             return strtoupper(substr($contact->first_name, 0, 1)); 
         });
 
