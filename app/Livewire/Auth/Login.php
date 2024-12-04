@@ -73,11 +73,17 @@ class Login extends Component
                 }else{
                     if($departmentiId === 2)
                     {
-                       
+                        $employee->update([
+                            'status' => $this->status,
+                          
+                        ]);
                         return redirect()->intended('/dashboard')->with('success', 'Welcome back!');
                     }else{
 
-                      
+                        $employee->update([
+                            'status' => $this->status,
+                          
+                        ]);
                         return redirect()->intended('/employee/dashboard')->with('success', 'Welcome back!');
                     }
                   

@@ -6,13 +6,7 @@
     
 }
 
-input[type="password"],
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    padding-right: 40px; /* Space for the icon */
-    box-sizing: border-box;
-}
+
 
 .toggle-password {
     position: absolute;
@@ -79,9 +73,29 @@ input[type="text"] {
                                 </div>
                             </div>
                             <div class="card-body pt-0"> 
-                               
+                            @if ($step === 1)
+                            <style>
+                                input[type="password"],
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    padding-right: 40px; 
+    box-sizing: border-box;
+}
+                            </style>
                                 <div class="p-2">
-                                <div class="alert bg-white text-center mb-3" role="alert">
+                                @if ($showFailureNotification)
+                             
+                                <div wire:model.live="showFailureNotification"  class="rounded-2 alert bg-danger text-center mb-3 " role="alert">
+                                        
+                                                
+                                     
+                                       <span class=" text-white fw-bold">  Invalid email </span>
+                                
+                                 
+                        </div>
+                                @else
+                                <div class=" border border-danger rounded-2 alert bg-white text-center mb-3" role="alert">
                                         
                                                 
                                                     <i class="bx bxs-right-arrow-circle bx-fade-right fs-4 float-start me-2"></i>
@@ -89,7 +103,12 @@ input[type="text"] {
                                             
                                              
                                     </div>
-                                    <form wire:submit="emailsent" action="#" method="POST" role="form text-left">
+                                   
+                               
+                            @endif
+                                
+                                  
+                                    <form wire:submit.prevent="sendOtpforRepass" action="#" method="POST" role="form text-left">
                                     @error('errors') <span class="text-danger error fw-bold" style="font-size: 14px;">{{ $message }}</span> @enderror
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
@@ -104,8 +123,8 @@ input[type="text"] {
                                        
                                         
                                         <div class="align-item-center d-flex justify-content-center">
-                                          <button type="submit" class="btn btn-primary w-sm mt-3 me-2 rounded-pill">Update</button>
-                                          <a wire:navigate href="{{ route('department') }}" class="btn btn-secondary w-sm mt-3 rounded-pill">Close</a>
+                                          <button type="submit" class="btn btn-primary w-sm mt-3 me-2 rounded-pill">Send OTP</button>
+                                          <a wire:navigate href="{{ route('login') }}" class="btn btn-secondary w-sm mt-3 rounded-pill">Close</a>
                                         </div>
 
                                         <div class="mt-5 text-center">
@@ -118,6 +137,107 @@ input[type="text"] {
             
                      
                                     </form>
+                        </div>
+                                    
+                                    @endif
+
+                                    @if($step === 2)
+                            <div class="p-2">
+                                <div class="text-center">
+
+                                    
+                                    <div class="p-2 ">
+
+                                        <h4>Verify your email</h4>
+                                        <p class="mb-5">Please enter the 4 digit code sent to <span
+                                                class="fw-semibold"></span></p>
+
+                                        <form wire:submit.prevent ="verifyOtp">
+                                            <div class="row " >
+                                            @foreach ($otpInput as $index => $value)
+                        <div class="col-3">
+                            <div class="mb-3">
+                          
+                                <input type="text"
+                                    class="form-control form-control-lg text-center two-step"
+                                    maxlength="1"
+                                     id="digit{{ $index }}-input"
+                                     data-value="{{ $index }}"
+                                    wire:model.lazy="otpInput.{{ $index }}"
+                                    
+                                    
+                                />
+                            </div>
+                        </div>
+                    @endforeach
+                                              
+                                                
+                                            </div>
+                                            <div class="align-item-center d-flex justify-content-center">
+                                          <button type="submit" class="btn btn-success w-sm mt-3 me-2 rounded-pill w-50">Confirm</button>
+                                          
+                                        </div>
+
+                                        <div class="mt-5 text-center">
+                            
+                            
+                                
+                                <p wire:ignore.self>© {{ now()->year }} Design & Develop <i class="mdi mdi-heart text-danger"></i> by Enopoly Team </p>
+                           
+                        </div>
+                    
+
+                                        </form>
+
+                                        
+                                    </div>
+
+                                </div>
+                                </div>
+                            
+                                    @endif
+
+                                @if($step === 3)
+
+                                <style>
+                                input[type="password"],
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    padding-right: 40px; 
+    box-sizing: border-box;
+}
+                            </style>
+                                <div class="p-2">
+                               
+                                  
+                                    <form wire:submit.prevent="resetPassword"  method="POST" role="form text-left">
+                                    @error('errors') <span class="text-danger error fw-bold" style="font-size: 14px;">{{ $message }}</span> @enderror
+                                        <div class="mb-3">
+                                            <label for="newpassword" class="form-label">Password</label>
+                                            <div class=" @error('errors')border border-danger rounded-3 @enderror @error('newpassword')border border-danger rounded-3 @enderror">
+                                            <input  wire:model.live="newpassword" id="newpassword" type="text" class="form-control bg-white border-white "  style="color:#000;" placeholder="Enter newpassword">
+                                        </div>
+                                        @error('newpassword') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                        </div>
+                                        
+                                        <div class="align-item-center d-flex justify-content-center">
+                                          <button type="submit" class="btn btn-primary w-sm mt-3 me-2 rounded-pill w-50">Change newpassword</button>
+                                         
+                                        </div>
+
+                                        <div class="mt-5 text-center">
+                            
+                            
+                                
+                                <p wire:ignore.self>© {{ now()->year }} Design & Develop <i class="mdi mdi-heart text-danger"></i> by Enopoly Team </p>
+                           
+                        </div>
+            
+                     
+                                    </form>
+                        </div>
+                                @endif
                                 </div>
             
                             </div>

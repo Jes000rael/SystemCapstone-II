@@ -26,6 +26,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
+    
 
                                 .modal-backdrop {
                                    background-color: transparent !important; /* No background for the backdrop */
@@ -117,6 +118,7 @@
 <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
 <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ asset('assets/js/pages/two-step-verification.init.js') }}"></script>
 
 <script src="{{ asset('assets/js/app.js') }}"></script>
 
