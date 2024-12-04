@@ -150,26 +150,27 @@ input[type="text"] {
 
                                         <h4>Verify your email</h4>
                                         <p class="mb-5">Please enter the 4 digit code sent to <span
-                                                class="fw-semibold"></span></p>
+                                                class="fw-semibold">{{ $email }} </span></p>
 
                                         <form wire:submit.prevent ="verifyOtp">
                                             <div class="row " >
-                                            @foreach ($otpInput as $index => $value)
-                        <div class="col-3">
-                            <div class="mb-3">
-                          
-                                <input type="text"
-                                    class="form-control form-control-lg text-center two-step"
-                                    maxlength="1"
-                                     id="digit{{ $index }}-input"
-                                     data-value="{{ $index }}"
-                                    wire:model.lazy="otpInput.{{ $index }}"
-                                    
-                                    
-                                />
-                            </div>
-                        </div>
-                    @endforeach
+                                            @foreach (range(0, 3) as $index)
+    <div class="col-3">
+        <div class="mb-3">
+            <label for="digit.{{ $index }}-input" class="visually-hidden">Digit {{ $index + 1 }}</label>
+            <div class="@error('otpInput.' . $index) border border-danger rounded-3 @enderror">
+                <input 
+                    type="text" 
+                    class="form-control form-control-lg text-center two-step" 
+                    maxlength="1" 
+                    wire:model="otpInput.{{ $index }}" 
+                    id="digit.{{ $index }}-input">
+            </div>
+           
+        </div>
+    </div>
+@endforeach
+
                                               
                                                 
                                             </div>

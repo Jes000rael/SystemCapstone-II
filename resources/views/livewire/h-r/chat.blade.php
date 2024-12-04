@@ -13,7 +13,7 @@
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
                                             <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
-                                            <li class="breadcrumb-item active">Breaktime Log</li>
+                                            <li class="breadcrumb-item active">Chat</li>
                                         </ol>
                                     </div>
 
@@ -23,11 +23,12 @@
                         <!-- end page title -->
                          
                         <div class="row">
+                       
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
         
-                                        <h4 class="card-title fs-5 mb-4">Breaktime Log</h4>
+                                        <h4 class="card-title fs-5 mb-4">Chat</h4>
                                         <div class="col-md-12">
                                                 <!-- chat  -->
                         <div class="d-lg-flex">
@@ -121,7 +122,7 @@
         </li>
     @endif
 
-    {{-- Chat Message --}}
+
     <li class="{{ $message->employee_id === Auth::user()->employee_id ? 'right' : 'left' }}">
         <div class="conversation-list">
             <div class="ctext-wrap">
@@ -150,7 +151,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="position-relative">
-                            <input type="text" class="form-control chat-input" placeholder="Enter Message..." wire:model="chatmessage" id="chatmessage">
+                            <input wire:keydown.enter="sendMessage" type="text" class="form-control rounded-pill" placeholder="Enter Message..." wire:model="chatmessage" id="chatmessage">
                         </div>
                     </div>
                     <div class="col-auto">
@@ -183,6 +184,7 @@
                         
                     </div>
                     <!-- container-fluid -->
+                
                 </div>
                 <!-- End Page-content -->
 

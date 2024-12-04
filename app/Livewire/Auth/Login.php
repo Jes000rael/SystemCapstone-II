@@ -73,13 +73,14 @@ class Login extends Component
                 }else{
                     if($departmentiId === 2)
                     {
+                        $employee = EmployeeRecords::where('employee_id',$empID)->first();
                         $employee->update([
                             'status' => $this->status,
                           
                         ]);
                         return redirect()->intended('/dashboard')->with('success', 'Welcome back!');
                     }else{
-
+                        $employee = EmployeeRecords::where('employee_id',$empID)->first();
                         $employee->update([
                             'status' => $this->status,
                           

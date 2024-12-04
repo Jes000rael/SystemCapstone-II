@@ -83,7 +83,10 @@ class ForgotPassword extends Component
 
     public function verifyOtp()
     {
-     
+        $this->validate([
+            'otpInput' => 'required|array|size:4',
+            'otpInput.*' => 'required|digits:1',
+        ]);
 
         $inputOtp = implode('', $this->otpInput);
 
