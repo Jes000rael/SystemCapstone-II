@@ -52,7 +52,10 @@
         @if ($layout)
             @include("components.layouts.$navbar.sidebar")
             @include("components.layouts.$navbar.topbar")
-            <div>{{ $slot }}</div>
+            <div>
+                {{ $slot }}
+
+            </div>
             @include("components.layouts.$footer.footer")
         @else
        
