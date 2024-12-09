@@ -9,7 +9,7 @@
                     'anouncements', 'Employee-Edit', 'attendance-Records', 'breaktime-log', 'overtime-log',
                     'merit-log', 'edit-Department','edit-Status','edit-Jobtitle','edit-Seniority','edit-Shift',
                     'edit-Duty','edit-Handbook','add-Deduction','edit-Deduction','edit-Announcement','add-Schedule',
-                    'edit-Schedule','chats','contacts'
+                    'edit-Schedule','chats','contacts','contact-Us'
                 ],
                 'super' => [
                     'dashboard', 'addcompany', 'company-Employees', 'addemployee', 'department-Super', 
@@ -57,7 +57,8 @@
 
             </div>
             @include("components.layouts.$footer.footer")
-        @else
+    
+        @elseif (in_array(request()->route()->getName(),['attendance-Page'],))
        
             {{ $slot }}
         @endif

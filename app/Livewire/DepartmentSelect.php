@@ -30,7 +30,7 @@ class DepartmentSelect extends Component
 
 public function updateDepartments()
 {
-    $this->department = Department::whereNotIn('department_id', [1, 2])->get();
+    $this->department = Department::whereNotIn('department_id', [1, 2,3])->get();
 }
 public function deleteDepartment($DepartmentId)
 

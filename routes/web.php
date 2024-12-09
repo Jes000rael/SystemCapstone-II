@@ -65,6 +65,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/employee_records/edit_schedule/{empID}', App\Livewire\HR\EditWorkSchedule::class)->name('edit-Schedule');
         Route::get('/admin/contacts', App\Livewire\HR\Contacts::class)->name('contacts');
         Route::get('/admin/contacts/chat/{empID}', App\Livewire\HR\Chat::class)->name('chats');
+        Route::get('/admin/contact_us', App\Livewire\HR\ContactUs::class)->name('contact-Us');
 
     });
 
@@ -74,5 +75,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/employee/work_schedule', App\Livewire\Employee\EmpWorkSchedule::class)->name('work-Schedule');
         Route::get('/employee/hand_book', App\Livewire\Employee\HandBook::class)->name('hand-Books');
     });
+
+    Route::get('/company/attendance_page', App\Livewire\Attendance\AttendancePage::class)->name('attendance-Page');
 
 });

@@ -102,7 +102,7 @@ class Addemployee extends Component
             else{
                
                 $this->depart = Department::where('company_id', $companyId)
-            ->where('department_id', '!=', 1)
+                ->whereNotIn('department_id', [1, 3])
             ->get();
             }
 

@@ -31,7 +31,7 @@ class Departmented extends Component
     if($this->companyId === 1){
         if($departmentId === 2){
             $this->department = Department::where('company_id', $this->companyId)
-            ->whereNotIn('department_id', [1, 2])
+            ->whereNotIn('department_id', [1, 2,3])
             ->get();
         }
        

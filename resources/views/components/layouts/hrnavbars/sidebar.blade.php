@@ -130,6 +130,13 @@
                          <span key="t-starter-page"> Announcement</span>
                      </a>
                   </li>
+
+                  <li>
+                    <a  href="{{ route('contact-Us') }}" class="waves-effect ">
+                    <i class="bx bx-chat"></i>
+                         <span key="t-starter-page">Contact Us</span>
+                     </a>
+                  </li>
                   
                
 

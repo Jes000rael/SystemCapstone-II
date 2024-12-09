@@ -10,8 +10,10 @@
     <link href="https://cdn.jsdelivr.net/npm/boxicons/css/boxicons.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
 
+
 <!-- App favicon -->
 <link rel="shortcut icon" href="https://app.enopolyautomation.com/assets/images/favicon.ico">
+<link href=" {{ asset('assets/libs/summernote/summernote-bs4.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
@@ -119,6 +121,11 @@
 <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('assets/js/pages/two-step-verification.init.js') }}"></script>
+
+<script src="{{ asset('assets/js/pages/email-editor.init.js') }}"></script>
+<script src="{{ asset('assets/libs/tinymce/tinymce.min.js') }}"></script>
+
+
 
 <script src="{{ asset('assets/js/app.js') }}"></script>
 

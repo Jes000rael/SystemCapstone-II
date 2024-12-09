@@ -61,12 +61,18 @@ class Login extends Component
                            
                             return redirect()->intended('/dashboard')->with('success', 'Welcome back!');
                         }else{
-                            $employee = EmployeeRecords::where('employee_id',$empID)->first();
-                        $employee->update([
-                            'status' => $this->status,
-                          
-                        ]);
-                        return redirect()->intended('/employee/dashboard')->with('success', 'Welcome back!');
+                            if( $departmentiId === 3 ){
+                                return redirect()->intended('/company/attendance_page');
+                            }else
+                            {
+                                $employee = EmployeeRecords::where('employee_id',$empID)->first();
+                                $employee->update([
+                                    'status' => $this->status,
+                                  
+                                ]);
+                                return redirect()->intended('/employee/dashboard')->with('success', 'Welcome back!');
+                            }
+                         
                         }
                     }
 
@@ -80,12 +86,16 @@ class Login extends Component
                         ]);
                         return redirect()->intended('/dashboard')->with('success', 'Welcome back!');
                     }else{
-                        $employee = EmployeeRecords::where('employee_id',$empID)->first();
-                        $employee->update([
-                            'status' => $this->status,
-                          
-                        ]);
-                        return redirect()->intended('/employee/dashboard')->with('success', 'Welcome back!');
+                        if( $departmentiId === 3 ){
+                            return redirect()->intended('/company/attendance_page');
+                        }else
+                        {
+                            $employee = EmployeeRecords::where('employee_id',$empID)->first();
+                            $employee->update([
+                                'status' => $this->status,
+                            ]);
+                            return redirect()->intended('/employee/dashboard')->with('success', 'Welcome back!');
+                        }
                     }
                   
 

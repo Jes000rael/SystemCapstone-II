@@ -25,6 +25,10 @@ class Department extends Seeder
                 'Description' => 'Human Resources',
                 'company_id' => 1,
             ],
+            [
+                'Description' => 'Attendance Page',
+                'company_id' => 1,
+            ],
          ]);
     }
 }
