@@ -44,7 +44,7 @@ class EditWorkSchedule extends Component
                     $this->monday_in =$employee->monday_in;
                     $this->monday_out =$employee->monday_out;
                     $this->tuesday_in =$employee->tuesday_in;
-                    $this->tuesday_ou =$employee->tuesday_ou;
+                    $this->tuesday_out =$employee->tuesday_out;
                     $this->wednesday_in =$employee->wednesday_in;
                     $this->wednesday_out =$employee->wednesday_out;
                     $this->thursday_in =$employee->thursday_in;
@@ -56,11 +56,17 @@ class EditWorkSchedule extends Component
                     $this->sunday_in =$employee->sunday_in;
             } catch (DecryptException $e) {
              
-                session()->flash('error', 'Invalid or corrupted Employee ID.');
+               
+            return redirect()->intended('/admin/employee_records')->with('notsched', 'Successfully');
+
             } catch (ModelNotFoundException $e) {
             
-                session()->flash('error', 'Employee not found.');
+                
+            return redirect()->intended('/admin/employee_records')->with('notsched', 'Successfully');
+
             } catch (\Exception $e) {
+            return redirect()->intended('/admin/employee_records')->with('notsched', 'Successfully');
+
               
                 session()->flash('error', 'An unexpected error occurred: ' . $e->getMessage());
             }
@@ -71,9 +77,10 @@ class EditWorkSchedule extends Component
         public function updateSchedule()
         {
             $this->validate();
+
             $this->employeeID = Auth::user()->employee_id;
+            
             $scheduleData = [
-              
                 'monday_in' => $this->monday_in ?: null,
                 'monday_out' => $this->monday_out ?: null,
                 'tuesday_in' => $this->tuesday_in ?: null,
@@ -84,17 +91,24 @@ class EditWorkSchedule extends Component
                 'thursday_out' => $this->thursday_out ?: null,
                 'friday_in' => $this->friday_in ?: null,
                 'friday_out' => $this->friday_out ?: null,
-                'saturday_in'=> $this->saturday_in ?: null,
+                'saturday_in' => $this->saturday_in ?: null,
                 'saturday_out' => $this->saturday_out ?: null,
                 'sunday_in' => $this->sunday_in ?: null,
                 'sunday_out' => $this->sunday_out ?: null,
                 'updated_by' => $this->employeeID,
             ];
-            WorkSchedule::update($scheduleData);
             
-         
-          
+           
+            $schedule = WorkSchedule::where('employee_id', $this->employeeID)->first();
+            
+            if ($schedule) {
+                $schedule->update($scheduleData);
             return redirect()->intended('/admin/employee_records')->with('updatesched', 'Successfully');
+            } else {
+               
+            }
+            
+          
     
        
           

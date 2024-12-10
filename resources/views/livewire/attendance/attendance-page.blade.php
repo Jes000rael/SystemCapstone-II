@@ -79,9 +79,20 @@ input[type="text"] {
                                 </div>
                             </div>
                             <div class="card-body pt-0"> 
-                               
+                                 <!-- Flash Messages -->
+    @if (session()->has('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    @if (session()->has('info'))
+        <div class="alert alert-info">{{ session('info') }}</div>
+    @endif
+
+    @if (session()->has('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
                                 <div class="p-2">
-                                    <form wire:submit="login" action="#" method="POST" role="form text-left">
+                                    <form wire:submit.prevent="empAttendance"  role="form text-left">
                                     @error('errors') <span class="text-danger error fw-bold" style="font-size: 14px;">{{ $message }}</span> @enderror
                                         <div class="mb-3">
                                             <label for="employee_id" class="form-label">Employee ID</label>
@@ -90,9 +101,6 @@ input[type="text"] {
                                         </div>
                                         @error('employee_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                         </div>
-                
-                                      
-
                                        
                                         
                                         <div class="mt-3 d-grid ">

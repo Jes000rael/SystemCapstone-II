@@ -253,6 +253,30 @@
 
    
 </div>
+
+@push('scripts')
+@if (session('notsched'))
+    <script>
+        Swal.fire({
+          title: '<strong style="color:#000; font-size:15px;" class="text-center">Work Schedule</strong><br><span style="color:#000; font-size:13px;"  class="text-center" >Empty employee</span> ',
+          icon:'warning', 
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true, 
+            width: '350px', 
+            height: '100px',
+            backdrop: true,
+            position: 'top-end', 
+            toast: true,
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp', 
+            },
+         
+            
+        });
+    </script>
+@endif
+@endpush
 @push('scripts')
 @if (session('updatesched'))
     <script>
