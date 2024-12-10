@@ -39,7 +39,7 @@
                 </li>
                 <li class="{{ Route::currentRouteName() == 'department-Edit' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-group"></i>
+                        <i class="bx bx-list-ul"></i>
                         <span key="t-company-Employees">Attributes</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
