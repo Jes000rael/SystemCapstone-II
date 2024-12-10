@@ -25,7 +25,7 @@
         </div>
         <!-- end page title -->
         <div class="row">
-            <div class="col-2"></div>
+            <div class="col-3"></div>
             <div class="col-xl-6">
                 <div class="card">
                     <div class="card-body">
@@ -37,23 +37,66 @@
     </div>
 @endif
 
-                        <form wire:submit.prevent="sendEmail">
-                                        <div class="mb-3">
-                                            <label for="emailtext" class="form-label">Send Message</label>
-                                            <div class=" @error('errors')border border-danger rounded-2 @enderror @error('emailtext')border border-danger rounded-2 @enderror">
-                                            <textarea wire:model.live="emailtext" id="emailtext" class="form-control"  rows="5"></textarea>
-                                                        </div>
-                                                    @error('emailtext') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
-                                        </div>
-                                        
-                                        
-                                        <div class="mb-3">
-                                        <div class="align-item-center d-flex justify-content-center">
-                                          <button type="submit" class="btn btn-primary w-sm mt-3 me-2">Send Email</button>
-                                        </div>
-                                        </div>
+<form wire:submit.prevent="sendEmail" wire:ignore>
+    <div class="mb-3">
+        <label for="emailtext" class="form-label">Send Message</label>
+        <div class="@error('errors') border border-danger rounded-2 @enderror @error('emailtext') border border-danger rounded-2 @enderror">
+            <textarea id="email-editor" wire:model.defer="emailtext" class="form-control" rows="5"></textarea>
+        </div>
+        @error('emailtext') 
+            <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> 
+        @enderror
+    </div>
 
-                                    </form>
+    <div class="mb-3">
+        <div class="align-items-center d-flex justify-content-center">
+           
+            <button type="submit" class="btn btn-primary w-sm mt-3 me-2" wire:loading.attr="disabled" wire:target="sendEmail">
+                <span wire:loading wire:target="sendEmail" class="spinner-border spinner-border-sm me-2"></span>
+                Send Email
+            </button>
+        </div>
+    </div>
+</form>
+
+                                    <script>
+    function initTinyMCE() {
+        if (tinymce.get("email-editor")) {
+            tinymce.get("email-editor").remove(); 
+        }
+
+        tinymce.init({
+            selector: "textarea#email-editor",
+            height: 200,
+            plugins: [
+                "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "save table contextmenu directionality emoticons template paste textcolor"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
+            setup: function (editor) {
+             
+                editor.on('change', function () {
+                    @this.set('emailtext', editor.getContent());
+                });
+
+                Livewire.on('syncTinyMCE', function (content) {
+                    editor.setContent(content || ''); // Set content or reset
+                });
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        initTinyMCE();
+
+        // Reinitialize TinyMCE after Livewire updates
+        Livewire.hook('message.processed', (message, component) => {
+            initTinyMCE();
+        });
+    });
+</script>
+                                   
                         
                                
                         
@@ -62,7 +105,7 @@
                     </div>
                 </div>
             </div> <!-- end col -->
-            <div class="col-2"></div>
+            <div class="col-3"></div>
         </div>
         <!-- end row -->
 
@@ -72,3 +115,27 @@
 </div>
 <!-- End Page-content -->
 </div>
+
+
+@push('scripts')
+@if (session('email-send'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Email</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Send Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+@endif
+@endpush

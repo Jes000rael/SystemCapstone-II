@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 class ContactUs extends Component
 {
 
-    public $emailtext , $company;
+    public $emailtext='' , $company;
     public $emailSubject = 'Enopoly Login Account';
     public $messageBody;
 
@@ -25,11 +25,13 @@ class ContactUs extends Component
         'emailtext' => 'required',
     ];
 
-    public function sendEmail()
+    public function sendEmail($delay = 7)
     {
+        $this->validate();
      
 
         try {
+
             $this->company = Company::where('company_id', Auth::user()->company_id)->first();
             $mail = new PHPMailer(true);
           
@@ -75,12 +77,13 @@ class ContactUs extends Component
             $mail->Body =$this->messageBody;
         
             $mail->send();
+            sleep($delay);
+
+            return redirect()->intended('/admin/contact_us')->with('email-send', 'Successfully');
         
-     
-            $this->dispatch('email-send', ['message' => 'Successfully sent!']);
+    
         
            
-            $this->reset(['emailtext']);
         } catch (\Exception $e) {
 
             session()->flash('error', 'Failed to send email: ' . $e->getMessage());
