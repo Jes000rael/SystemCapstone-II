@@ -61,7 +61,11 @@
         @elseif (in_array(request()->route()->getName(),['attendance-Page'],))
        
             {{ $slot }}
-        @endif
+     
+        @elseif (in_array(request()->route()->getName(),['login'],))
+       
+       {{ $slot }}
+   @endif
     @endauth
 
     @guest
