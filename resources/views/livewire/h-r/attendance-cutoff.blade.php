@@ -63,7 +63,7 @@
                                                 </td>
                                                 <td class="text-center">
                                                
-                                                  <a wire:navigate href="{{ route('edit-cutoff', ['cutoffID' => $encryptecutoffID]) }}" class="btn btn-outline-secondary btn-sm edit" title="Edit" >
+                                                  <a wire:navigate href="{{ route('edit-Cutoff', ['cutoffID' => $encryptecutoffID]) }}" class="btn btn-outline-secondary btn-sm edit" title="Edit" >
                                                     <i class="fas fa-pencil-alt"></i>
                                                   </a>
                                                   <a class="btn btn-outline-secondary btn-sm edit" title="Delete" data-bs-toggle="modal" data-bs-target=".Deletecutoff{{ $cutoffs->cutoff_id }}">
@@ -114,10 +114,10 @@
 </div>
 </div>
 @push('scripts')
-@if (session('department-deleted'))
+@if (session('cutoff-deleted'))
 <script>
       Swal.fire({
-                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Department</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Deleted Successfully!</span> ',
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Cutoff</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Deleted Successfully!</span> ',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 5000,
@@ -137,10 +137,10 @@
 @endif
 @endpush
 @push('scripts')
-@if (session('department-add'))
+@if (session('cutoff-add'))
 <script>
       Swal.fire({
-                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Department</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Added Successfully!</span> ',
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Cutoff</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Added Successfully!</span> ',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 5000,
@@ -161,10 +161,10 @@
 @endpush
 
 @push('scripts')
-@if (session('updateDepartment'))
+@if (session('updatecutoff'))
 <script>
       Swal.fire({
-                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Department</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Updated Successfully!</span> ',
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Cutoff</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Updated Successfully!</span> ',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 5000,

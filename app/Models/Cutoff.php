@@ -10,6 +10,7 @@ class Cutoff extends Model
     use HasFactory;
     protected $fillable = ['date_start',
     'date_end',
+    'company_id',
     'conversion_rate',];
     public $timestamps = false;
     protected $primaryKey = 'cutoff_id';

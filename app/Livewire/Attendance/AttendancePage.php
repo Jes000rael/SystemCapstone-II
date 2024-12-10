@@ -7,6 +7,7 @@ use Livewire\Component;
 
 use App\Models\AttendanceRecord;
 use App\Models\WorkSchedule; 
+use App\Models\EmployeeRecords; 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,72 +20,155 @@ class AttendancePage extends Component
 
     public function empAttendance()
     {
-        // Validate the employee ID
+        // Validate the employee_id input
         $this->validate([
             'employee_id' => 'required|exists:employee_records,employee_id',
         ]);
-
-        // Get the current date and weekday (e.g., Monday, Tuesday)
+    
+        // Get the current date and the weekday (e.g., 'monday', 'tuesday', etc.)
         $currentDate = Carbon::now();
-        $weekday = strtolower($currentDate->format('l')); // This will return day of the week (e.g., 'Monday', 'Tuesday')
-
-        // Get the employee's work schedule for today
-        $workSchedule = WorkSchedule::where('employee_id', $this->employee_id)
-            ->first(); // Get the first work schedule (assuming there’s only one active schedule)
-
+        $weekday = strtolower($currentDate->format('l'));
+    
+        // Retrieve the work schedule for the employee
+        $workSchedule = WorkSchedule::where('employee_id', $this->employee_id)->first();
+    
+        // Check if the work schedule exists
         if (!$workSchedule) {
-            session()->flash('error', 'No work schedule found for this employee.');
+            session()->flash('error', 'You have no work schedule for today');
             return;
         }
-
-        // Check if the employee has a schedule for the current day (e.g., Monday, Tuesday, etc.)
-        $workStartTime = $workSchedule->{$weekday . '_in'}; // Get the start time for the day
-        $workEndTime = $workSchedule->{$weekday . '_out'}; // Get the end time for the day
-
-        // If there's no schedule for that day, prevent time-in
+    
+        // Get the scheduled start and end times for today
+        $workStartTime = $workSchedule->{$weekday . '_in'};
+        $workEndTime = $workSchedule->{$weekday . '_out'};
+    
+        // Check if the work start and end times are available
         if (!$workStartTime || !$workEndTime) {
             session()->flash('error', 'No work schedule for today.');
             return;
         }
-
-        // Check if the current time is within the working hours
-        $currentTime = Carbon::now()->format('H:i:s'); // Get current time in 'H:i:s' format
-
-        if ($currentTime < $workStartTime || $currentTime > $workEndTime) {
-            session()->flash('error', 'You cannot mark attendance outside of your scheduled work hours.');
-            return;
-        }
-
-        // Check if the employee already has an attendance record for today
+    
+        $currentTime = Carbon::now();
+        $scheduledStartTime = Carbon::createFromFormat('H:i:s', $workStartTime);
+    
+        // Check if the employee has already marked time-out for today
         $attendance = AttendanceRecord::where('employee_id', $this->employee_id)
             ->whereDate('date', $currentDate->toDateString())
             ->first();
-
+    
         if ($attendance) {
-            // If time_in exists but no time_out, mark time_out
-            if (!$attendance->time_out) {
-                $attendance->update([
-                    'time_out' => $currentDate, // Mark time_out when the employee leaves
-                ]);
-
-                session()->flash('success', 'Time out recorded successfully!');
-            } else {
-                session()->flash('info', 'Attendance already recorded for today.');
+            // If time-out is already recorded, we do not need to check lateness
+            if ($attendance->time_out) {
+                session()->flash('info', 'You are already time out.');
+                return;
             }
-        } else {
-            // Create a new attendance record with time_in
-            AttendanceRecord::create([
-                'employee_id' => $this->employee_id,
-                'date' => $currentDate->toDateString(),
-                'time_in' => $currentDate,
-            ]);
+        }
+    
+        // Check if the employee is late and has not yet marked time-out
+        if ($currentTime > $scheduledStartTime && !$attendance) {
+            // Calculate how much time the employee is late
+            $latenessDuration = $currentTime->diff($scheduledStartTime);
+    
+            // Format the lateness duration
+            $lateHours = $latenessDuration->h;
+            $lateMinutes = $latenessDuration->i;
+            $lateSeconds = $latenessDuration->s;
+    
+            $latenessMessage = 'You are late! Your scheduled start time was ' . $scheduledStartTime->format('g:i A') . '. Your ';
+    
+            if ($lateHours > 0) {
+                $latenessMessage .= $lateHours . ' hour' . ($lateHours > 1 ? 's' : '') . ' and ';
+            }
+    
+            if ($lateMinutes > 0) {
+                $latenessMessage .= $lateMinutes . ' minute' . ($lateMinutes > 1 ? 's' : '') . ' and ';
+            }
+    
+            $latenessMessage .= $lateSeconds . ' second' . ($lateSeconds > 1 ? 's' : '') . ' late.';
+    
+            // Flash the lateness message
+            session()->flash('error', $latenessMessage);
+        }
+    
+        // Check if the employee has already marked time_in for today
+        $attendance = AttendanceRecord::where('employee_id', $this->employee_id)
+    ->whereDate('date', $currentDate->toDateString())
+    ->first();
 
-            session()->flash('success', 'Time in recorded successfully!');
+if ($attendance) {
+    // If attendance exists and no time-out is recorded, validate time-out
+    if (!$attendance->time_out) {
+        // Get the duty start time
+        $workSchedule = WorkSchedule::where('employee_id', $this->employee_id)->first();
+        $weekday = strtolower($currentDate->format('l')); 
+        $dutyStartTime = $workSchedule->{$weekday . '_in'}; // Duty start time (e.g., 'monday_in')
+
+        // Convert the duty start time to a Carbon instance
+        $dutyStart = Carbon::createFromFormat('H:i:s', $dutyStartTime);
+        $timeIn = Carbon::parse($attendance->time_in); // Employee's time_in
+
+        // Determine the correct start time for work calculation
+        $actualStartTime = $timeIn < $dutyStart ? $dutyStart : $timeIn;
+
+        // Calculate the time worked (difference between actual start time and current time)
+        $timeWorked = $currentTime->diffInHours($actualStartTime);
+
+        // If less than 1 hour worked, show an error message
+        if ($timeWorked < 1) {
+            session()->flash('error', 'You must work at least 1 hour before you can time out.');
+            return;
         }
 
-        // Reset the input field after submitting
+        // Otherwise, record time-out
+        $attendance->update([
+            'time_out' => $currentTime,
+        ]);
+        session()->flash('success', 'Time out recorded successfully!');
+    } else {
+        session()->flash('info', 'You are already time out.');
+    }
+
+        } else {
+            // If no attendance exists, create a new one
+            $latestCutoff = \App\Models\Cutoff::where('company_id', Auth::user()->company_id)
+                ->latest('cutoff_id')
+                ->first();
+    
+            $employee = EmployeeRecords::where('employee_id', $this->employee_id)->first();
+    
+            // Get the duty start time for today
+            if ($workSchedule) {
+                $dutyStart = $workSchedule->{$weekday . '_in'};
+    
+                // Check if duty start time exists
+                if ($dutyStart) {
+                    AttendanceRecord::create([
+                        'employee_id' => $this->employee_id,
+                        'cutoff_id' => $latestCutoff->cutoff_id,
+                        'rate' => $employee->hourly_rate,
+                        'date' => $currentDate->toDateString(),
+                        'duty_start' => $dutyStart,
+                        'time_in' => $currentTime, // Set time_in to now
+                        'status_id' => 1,
+                        'has_night_diff' => $employee->has_night_diff,
+                    ]);
+                    session()->flash('success', 'Time-in recorded successfully!');
+                } else {
+                    session()->flash('error', 'No work schedule found for today.');
+                }
+            } else {
+                session()->flash('error', 'You have no work schedule for today');
+            }
+        }
+    
+        // Reset the employee ID for the next input
         $this->reset('employee_id');
     }
+    
+
+    
+
+    
 
     public function render()
     {

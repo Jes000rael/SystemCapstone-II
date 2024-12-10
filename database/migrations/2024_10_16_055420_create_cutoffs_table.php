@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('cutoffs', function (Blueprint $table) {
             $table->id('cutoff_id');
+            $table->foreignId('company_id');
             $table->Date('date_start');
             $table->Date('date_end');
             $table->Double('conversion_rate');

@@ -40,10 +40,7 @@ public function updateJob()
     }
 }
 
-public function DeleteHoliday()
-{
-    
-}
+
     public function render()
     {
         return view('livewire.h-r.job-titles');

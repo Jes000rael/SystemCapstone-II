@@ -37,7 +37,7 @@
     </div>
 @endif
 
-<form wire:submit.prevent="add_shift">
+<form wire:submit.prevent="editcutoff">
                                     
                                     <div class="mb-3">
                                                         <label for="date_start" class="form-label">Date Start</label>
