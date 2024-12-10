@@ -37,7 +37,14 @@
                    
                     </ul>
                 </li>
-                <li class="{{ Route::currentRouteName() == 'department-Edit' ? 'mm-active' : 'text-light fw-bold' }}">
+                <li class="menu-title" key="t-apps">Employee Attributes</li>
+
+                <li class="{{ Route::currentRouteName() == 'department-Edit' ? 'mm-active' : 'text-light fw-bold' }}
+                {{ Route::currentRouteName() == 'job-Edit' ? 'mm-active' : 'text-light fw-bold' }}
+                 {{ Route::currentRouteName() == 'senior-Edit' ? 'mm-active' : 'text-light fw-bold' }}
+                  {{ Route::currentRouteName() == 'employment-Edit' ? 'mm-active' : 'text-light fw-bold' }}
+                   {{ Route::currentRouteName() == 'employment-Edit' ? 'mm-active' : 'text-light fw-bold' }}
+                    {{ Route::currentRouteName() == 'shift-Edit' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-list-ul"></i>
                         <span key="t-company-Employees">Attributes</span>

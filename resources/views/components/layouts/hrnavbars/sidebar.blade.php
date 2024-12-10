@@ -33,6 +33,7 @@
                     </ul>
                 </li>
                 
+                
 
                 <!-- <li >
                     <a wire:navigate href="{{ route('attendance-Records') }}">
@@ -41,47 +42,28 @@
                     </a>
                 </li> -->
                
-                <li class="{{ Route::currentRouteName() == 'edit-Department' ? 'mm-active' : 'text-light fw-bold' }}">
-                     <a wire:navigate href="{{ route('department') }}" class="waves-effect ">
-                      <i class="bx bx-buildings"></i>
-                                    <span key="t-starter-page"> Department</span>
-                       </a>
-                   </li>
-                   <li class="{{ Route::currentRouteName() == 'edit-Jobtitle' ? 'mm-active' : 'text-light fw-bold' }}">
-                    <a wire:navigate href="{{ route('jobtitle') }}" class="waves-effect ">
-                    <i class="bx bx-briefcase"></i>
-                         <span key="t-starter-page"> Job Title</span>
-                     </a>
-                  </li>
                 
-                <li class="{{ Route::currentRouteName() == 'edit-Seniority' ? 'mm-active' : 'text-light fw-bold' }}">
-                      <a wire:navigate href="{{ route('seniority-Level') }}" class="waves-effect ">
-                          <i class="bx bx-badge"></i>
-                         <span key="t-starter-page"> Seniority Level</span>
-                      </a>
-                  </li>
+                   
+                
+                
 
                
                             
               
 
-                  <li class="{{ Route::currentRouteName() == 'edit-Status' ? 'mm-active' : 'text-light fw-bold' }}">
-                    <a wire:navigate href="{{ route('employee-Status') }}" class="waves-effect ">
-                    <i class="bx bx-badge-check"></i>
-                         <span key="t-starter-page"> Employee Status</span>
-                     </a>
-                  </li>
+                  
 
-                  <li class="{{ Route::currentRouteName() == 'edit-Shift' ? 'mm-active' : 'text-light fw-bold' }}">
-                    <a wire:navigate href="{{ route('shifts') }}" class="waves-effect ">
-                    <i class="bx bx-calendar"></i>
-                         <span key="t-starter-page"> Shifts</span>
-                     </a>
-                  </li>
+                 
                   <li class="{{ Route::currentRouteName() == 'edit-Duty' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a wire:navigate href="{{ route('off-Duty') }}" class="waves-effect ">
                     <i class="bx bx-sleepy"></i>
                          <span key="t-starter-page"> Off Duty</span>
+                     </a>
+                  </li>
+                  <li class="{{ Route::currentRouteName() == 'edit-Cutoff' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('cutoff') }}" class="waves-effect ">
+                    <i class="bx bx-calendar-alt"></i>
+                         <span key="t-starter-page">Cutoff</span>
                      </a>
                   </li>
                   <li class="{{ Route::currentRouteName() == 'edit-Handbook' ? 'mm-active' : 'text-light fw-bold' }}">
@@ -130,6 +112,55 @@
                          <span key="t-starter-page"> Announcement</span>
                      </a>
                   </li>
+
+                  <li class="menu-title" key="t-apps">Employee Attributes</li>
+                  <li class="{{ Route::currentRouteName() == 'edit-Department' ? 'mm-active' : 'text-light fw-bold' }} 
+                {{ Route::currentRouteName() == 'edit-Jobtitle' ? 'mm-active' : 'text-light fw-bold' }}
+                 {{ Route::currentRouteName() == 'edit-Seniority' ? 'mm-active' : 'text-light fw-bold' }}
+                  {{ Route::currentRouteName() == 'edit-Status' ? 'mm-active' : 'text-light fw-bold' }}
+                   {{ Route::currentRouteName() == 'edit-Shift' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="bx bx-list-ul"></i>
+                        <span key="t-employee-records">Attributes</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                       
+                    <li class="{{ Route::currentRouteName() == 'edit-Department' ? 'mm-active' : 'text-light fw-bold' }}">
+                     <a wire:navigate href="{{ route('department') }}" class="waves-effect ">
+
+                                    <span key="t-starter-page"> Department</span>
+                       </a>
+                   </li>
+
+                   <li class="{{ Route::currentRouteName() == 'edit-Jobtitle' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('jobtitle') }}" class="waves-effect ">
+
+                         <span key="t-starter-page"> Job Title</span>
+                     </a>
+                  </li>
+
+                  <li class="{{ Route::currentRouteName() == 'edit-Seniority' ? 'mm-active' : 'text-light fw-bold' }}">
+                      <a wire:navigate href="{{ route('seniority-Level') }}" class="waves-effect ">
+                         <span key="t-starter-page"> Seniority Level</span>
+                      </a>
+                  </li>
+
+                  <li class="{{ Route::currentRouteName() == 'edit-Status' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('employee-Status') }}" class="waves-effect ">
+            
+                         <span key="t-starter-page"> Employee Status</span>
+                     </a>
+                  </li>
+
+                  <li class="{{ Route::currentRouteName() == 'edit-Shift' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('shifts') }}" class="waves-effect ">
+
+                         <span key="t-starter-page"> Shifts</span>
+                     </a>
+                  </li>
+                    </ul>
+                </li>
+                <li class="menu-title" key="t-apps">Contact</li>
 
                   <li>
                     <a  href="{{ route('contact-Us') }}" class="waves-effect ">
