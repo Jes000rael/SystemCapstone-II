@@ -191,6 +191,7 @@ if ($attendance) {
          // Check if duty start time exists
          if ($dutyStart) {
              AttendanceRecord::create([
+                'company_id' =>Auth::user()->company_id,
                  'employee_id' => $this->employee_id,
                  'cutoff_id' => $latestCutoff->cutoff_id,
                  'rate' => $employee->hourly_rate,
@@ -227,6 +228,7 @@ if ($attendance) {
          // Check if duty start time exists
          if ($dutyStart) {
              AttendanceRecord::create([
+                'company_id' =>Auth::user()->company_id,
                  'employee_id' => $this->employee_id,
                  'cutoff_id' => $latestCutoff->cutoff_id,
                  'rate' => $employee->hourly_rate,
@@ -551,6 +553,7 @@ session()->flash('success', 'Time out recorded successfully!');
          // Check if duty start time exists
          if ($dutyStart) {
              AttendanceRecord::create([
+                'company_id' =>Auth::user()->company_id,
                  'employee_id' => $this->employee_id,
                  'cutoff_id' => $latestCutoff->cutoff_id,
                  'rate' => $employee->hourly_rate,

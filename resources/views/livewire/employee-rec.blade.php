@@ -139,12 +139,16 @@
                             <strong>Hourly Rate:</strong>
                             <div class="border-bottom pb-1">{{ $employee->hourly_rate }}</div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
+                            <strong>Email:</strong>
+                            <div class="border-bottom pb-1">{{  $employee->email }}</div>
+                        </div>
+                        <div class="col-sm-4">
                             <strong>Username:</strong>
                             <div class="border-bottom pb-1">{{  $employee->username }}</div>
                         </div>
                     
-                       <div class="col-sm-6">
+                       <div class="col-sm-4">
                             <strong>Password:</strong>
                             <div class="border-bottom pb-1">{{ $employee->password_string }}</div>
                         </div>

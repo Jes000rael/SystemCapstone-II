@@ -44,7 +44,7 @@ class EmployeeEdit extends Component
     public $pagibig = '';
     public $philhealth = '';
     public $shift_id = '';
-    public $gender = '';
+    public $gender = '',$email='';
     public $companys, $senioritylevels, $employmentstatus, $jobtitle, $department=[], $depart=[], $shifts;
 
     public function getRules()
@@ -76,6 +76,8 @@ class EmployeeEdit extends Component
         'pagibig' => 'required',
         'philhealth' => 'required',
         'shift_id' => 'required',
+        'email' => 'required|email|unique:employee_records',
+
     ];
 }
 
@@ -112,6 +114,8 @@ class EmployeeEdit extends Component
         $this->pagibig = $employee->pagibig;
         $this->philhealth = $employee->philhealth;
         $this->shift_id = $employee->shift_id;
+        $this->email = $employee->email;
+        
 
         $this->loadDropdownData();
     }
@@ -163,6 +167,7 @@ class EmployeeEdit extends Component
             'middle_name' => $this->middle_name,
             'suffix' => $this->suffix,
             'gender' => $this->gender,
+            'email' => $this->email,
             'blood_type' => $this->blood_type,
             'address' => $this->address,
             'contact_number' => $this->contact_number,

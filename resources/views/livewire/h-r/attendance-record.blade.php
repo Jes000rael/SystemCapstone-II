@@ -112,19 +112,18 @@
                                                 @foreach($attendance as $attendancer)
                                                 
                                             <tr>
-                                            <td>{{ \Carbon\Carbon::parse($attendancer->date_start)->format('M d Y') }} - {{ \Carbon\Carbon::parse($attendancer->date_end)->format('M d Y') }}</td>
-
-                                                <td>{{ $attendancer->employee->first_name }} {{ $attendancer->employee->last_name }} </td>
-                                                <td>{{ $attendancer->total_hours }}</td>
-                                                <td>{{ $attendancer->total_break ?? '--:--' }}</td>
-                                                <td>{{ $attendancer->total_ot ?? 'N/A'}}</td>
-                                                <td>{{ $attendancer->rate }}</td>
-                                                <td>{{ number_format($attendancer->total_hours * $attendancer->rate, 2) }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($attendancer->date)->format('D, M d Y') }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($attendancer->time_out)->format('h:i A') }} </td>
-                                                <td>{{ $attendancer->attendanceStatus->description }}</td>
+                                            <td class="{{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->date_start)->format('M d Y') }} - {{ \Carbon\Carbon::parse($attendancer->date_end)->format('M d Y') }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->employee->first_name }} {{ $attendancer->employee->last_name }} </td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->total_hours }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->total_break ?? '--:--' }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->total_ot ?? 'N/A'}}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->rate }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ number_format($attendancer->total_hours * $attendancer->rate, 2) }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->date)->format('D, M d Y') }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->time_out)->format('h:i A') }} </td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->attendanceStatus->description }}</td>
                                                
                                                 
                                                 <td class="text-center">

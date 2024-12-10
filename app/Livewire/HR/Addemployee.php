@@ -36,7 +36,6 @@ class Addemployee extends Component
     public $has_night_diff='';
     public $username='';
     public $password='';
-  
     public $emergency_contact='';
     public $emergency_person='';
     public $relationship='';
@@ -45,7 +44,7 @@ class Addemployee extends Component
     public $pagibig='';
     public $philhealth='';
     public $shift_id='';
-    public $gender='';
+    public $gender='',$email='';
     public $employees,$companys,$senioritylevels,$employmentstatus,$jobtitle,$department=[],$depart=[],$shifts;
 
     protected $rules = [
@@ -75,6 +74,8 @@ class Addemployee extends Component
         'sss'=> 'required',
         'pagibig'=> 'required',
         'philhealth'=> 'required',
+        'email' => 'required|email|unique:employee_records',
+
         'shift_id'=> 'required',
    
     ];
@@ -126,6 +127,7 @@ class Addemployee extends Component
             'middle_name' => $this->middle_name,
             'suffix' => $this->suffix,
             'gender' => $this->gender,
+            'email' => $this->email,
             'blood_type' => $this->blood_type,
             'address' => $this->address,
             'contact_number' => $this->contact_number,
@@ -161,6 +163,7 @@ class Addemployee extends Component
             'middle_name',
             'suffix',
             'gender',
+            'email',
             'blood_type',
             'address',
             'seniority_level_id',
