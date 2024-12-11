@@ -21,6 +21,7 @@ return new class extends Migration
             $table->Double('rate')->nullable();
             $table->Date('date')->nullable();
             $table->Time('duty_start')->nullable();
+            $table->Time('duty_end')->nullable();
             $table->timestamp('time_in');
             $table->timestamp('time_out')->nullable();
             $table->foreignId('status_id');

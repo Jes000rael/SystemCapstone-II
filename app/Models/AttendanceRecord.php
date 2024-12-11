@@ -16,6 +16,7 @@ class AttendanceRecord extends Model
     'rate',
     'date',
    'duty_start',
+   'duty_end',
     'time_in',
     'time_out',
     'status_id',

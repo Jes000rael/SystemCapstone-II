@@ -89,56 +89,202 @@ class AttendancePage extends Component
             // Flash the lateness message
             session()->flash('error', $latenessMessage);
         }
-    
-        // Check if the employee has already marked time_in for today
-        $attendance = AttendanceRecord::where('employee_id', $this->employee_id)
-    ->whereDate('date', $currentDate->toDateString())
+                   // Check if the employee has already marked time_in for today or the previous day's night shift
+$currentTime = Carbon::now();
+$currentDate = $currentTime->toDateString();
+$yesterdayDate = $currentTime->copy()->subDay()->toDateString();
+
+$attendance = AttendanceRecord::where('employee_id', $this->employee_id)
+    ->where(function ($query) use ($currentDate, $yesterdayDate) {
+        $query->whereDate('date', $currentDate)
+              ->orWhereDate('date', $yesterdayDate);
+    })
+    ->latest('date')
     ->first();
 
+
 if ($attendance) {
-    // If attendance exists and no time-out is recorded, validate time-out
-    if (!$attendance->time_out) {
-        // Get the duty start time
-        $workSchedule = WorkSchedule::where('employee_id', $this->employee_id)->first();
-        $weekday = strtolower($currentDate->format('l')); 
-        $dutyStartTime = $workSchedule->{$weekday . '_in'}; // Duty start time (e.g., 'monday_in')
+     // Get the current date and the weekday (e.g., 'monday', 'tuesday', etc.)
+     $currentDate = Carbon::now();
+     $weekday = strtolower($currentDate->format('l'));
+ 
+     // Retrieve the work schedule for the employee
+     $workSchedule = WorkSchedule::where('employee_id', $this->employee_id)->first();
 
-        // Convert the duty start time to a Carbon instance
-        $dutyStart = Carbon::createFromFormat('H:i:s', $dutyStartTime);
-        $timeIn = Carbon::parse($attendance->time_in); // Employee's time_in
+     $attendance = AttendanceRecord::where('employee_id', $this->employee_id)
+     ->whereDate('date', $currentDate->toDateString())
+     ->first();
+ 
+     // Check if the work schedule exists
+     if (!$workSchedule) {
+         session()->flash('error', 'You have no work schedule for today');
+         return;
+     }
+ 
+     // Get the scheduled start and end times for today
+     $workStartTime = $workSchedule->{$weekday . '_in'};
+     $workEndTime = $workSchedule->{$weekday . '_out'};
+ 
+     // Check if the work start and end times are available
+     if (!$workStartTime || !$workEndTime) {
+         session()->flash('error', 'No work schedule for today.');
+         return;
+     }
+ 
+     $currentTime = Carbon::now();
+     $scheduledStartTime = Carbon::createFromFormat('H:i:s', $workStartTime);
+ 
 
-        // Determine the correct start time for work calculation
-        $actualStartTime = $timeIn < $dutyStart ? $dutyStart : $timeIn;
-
-        // Calculate the time worked (difference between actual start time and current time)
-        $timeWorked = $currentTime->diffInHours($actualStartTime);
-
-        // If less than 1 hour worked, show an error message
-        if ($timeWorked < 1) {
-            session()->flash('error', 'You must work at least 1 hour before you can time out.');
+       $minutesBeforeSchedule = $scheduledStartTime->diffInMinutes($currentTime);
+       if($minutesBeforeSchedule < 120 )
+       {
+        //   session()->flash('info', 'You are ' . $minutesBeforeSchedule . ' minutes before your scheduled start time.');
+        try {
+            $dutyStart = Carbon::createFromFormat('Y-m-d H:i:s', $attendance->date . ' ' . $attendance->duty_start);
+            $timeIn = Carbon::parse($attendance->time_in);
+            $currentTime = Carbon::now();
+        } catch (\Exception $e) {
+            session()->flash('error', 'Invalid time format detected.');
             return;
         }
 
-        // Otherwise, record time-out
+      
+        // Calculate time worked
+        if ($currentTime->lt($dutyStart)) {
+            // Current time is earlier than the duty start time, no work has been done
+            $timeWorkedInMinutes = 0;
+        } elseif ($timeIn->lt($dutyStart)) {
+            // Time in is earlier than duty start, use duty start as the base
+            $timeWorkedInMinutes = $dutyStart->diffInMinutes($currentTime);
+        } else {
+            // Time in is on or after duty start
+            $timeWorkedInMinutes = $timeIn->diffInMinutes($currentTime);
+        }
+
+        $timeWorkedInMinutes = $timeIn->diffInMinutes($currentTime);
+
+        // Validate minimum work period
+        if ($timeWorkedInMinutes < 60) {
+            session()->flash('error', 'You must work at least 1 hour before timing out.');
+            return;
+        }
+
+
+         // If no attendance exists, create a new one
+         $latestCutoff = \App\Models\Cutoff::where('company_id', Auth::user()->company_id)
+         ->latest('cutoff_id')
+         ->first();
+
+     $employee = EmployeeRecords::where('employee_id', $this->employee_id)->first();
+ $currentDate = Carbon::now();
+
+
+     // Get the duty start time for today
+     if ($workSchedule) {
+         $dutyStart = $workSchedule->{$weekday . '_in'};
+         $workEndTime = $workSchedule->{$weekday . '_out'};
+
+
+         // Check if duty start time exists
+         if ($dutyStart) {
+             AttendanceRecord::create([
+                 'employee_id' => $this->employee_id,
+                 'cutoff_id' => $latestCutoff->cutoff_id,
+                 'rate' => $employee->hourly_rate,
+                 'date' => $currentDate->toDateString(),
+                 'duty_start' => $dutyStart,
+                 'duty_end' => $workEndTime,
+                 'time_in' => $currentTime, // Set time_in to now
+                 'status_id' => 1,
+                 'has_night_diff' => $employee->has_night_diff,
+             ]);
+             session()->flash('success', 'Time-in recorded successfully!');
+         } else {
+             session()->flash('error', 'No work schedule found for today.');
+         }
+     } else {
+         session()->flash('error', 'You have no work schedule for today');
+     }
+
+       }else{
+
+               // Check if the employee has already marked time_in for today or the previous day's night shift
+$currentTime = Carbon::now();
+$currentDate = $currentTime->toDateString();
+$yesterdayDate = $currentTime->copy()->subDay()->toDateString();
+
+$attendance = AttendanceRecord::where('employee_id', $this->employee_id)
+    ->where(function ($query) use ($currentDate, $yesterdayDate) {
+        $query->whereDate('date', $currentDate)
+              ->orWhereDate('date', $yesterdayDate);
+    })
+    ->latest('date')
+    ->first();
+         // If attendance exists and no time-out is recorded, validate time-out
+    if (!$attendance->time_out) {
+        try {
+            $dutyStart = Carbon::createFromFormat('Y-m-d H:i:s', $attendance->date . ' ' . $attendance->duty_start);
+            $timeIn = Carbon::parse($attendance->time_in);
+            $currentTime = Carbon::now();
+        } catch (\Exception $e) {
+            session()->flash('error', 'Invalid time format detected.');
+            return;
+        }
+
+      
+        // Calculate time worked
+        if ($currentTime->lt($dutyStart)) {
+            // Current time is earlier than the duty start time, no work has been done
+            $timeWorkedInMinutes = 0;
+        } elseif ($timeIn->lt($dutyStart)) {
+            // Time in is earlier than duty start, use duty start as the base
+            $timeWorkedInMinutes = $dutyStart->diffInMinutes($currentTime);
+        } else {
+            // Time in is on or after duty start
+            $timeWorkedInMinutes = $timeIn->diffInMinutes($currentTime);
+        }
+
+
+        $timeWorkedInMinutes = $timeIn->diffInMinutes($currentTime);
+
+        // Validate minimum work period
+        if ($timeWorkedInMinutes < 60) {
+            session()->flash('error', 'You must work at least 1 hour before timing out.');
+            return;
+        }
+
+        // Record time-out
         $attendance->update([
             'time_out' => $currentTime,
         ]);
+        
         session()->flash('success', 'Time out recorded successfully!');
     } else {
-        session()->flash('info', 'You are already time out.');
+      
+        
+        session()->flash('info', 'You have already timed out.');
     }
 
+
+       }
+   
         } else {
+
+            
             // If no attendance exists, create a new one
             $latestCutoff = \App\Models\Cutoff::where('company_id', Auth::user()->company_id)
                 ->latest('cutoff_id')
                 ->first();
     
             $employee = EmployeeRecords::where('employee_id', $this->employee_id)->first();
+        $currentDate = Carbon::now();
+
     
             // Get the duty start time for today
             if ($workSchedule) {
                 $dutyStart = $workSchedule->{$weekday . '_in'};
+                $workEndTime = $workSchedule->{$weekday . '_out'};
+
     
                 // Check if duty start time exists
                 if ($dutyStart) {
@@ -148,6 +294,7 @@ if ($attendance) {
                         'rate' => $employee->hourly_rate,
                         'date' => $currentDate->toDateString(),
                         'duty_start' => $dutyStart,
+                        'duty_end' => $workEndTime,
                         'time_in' => $currentTime, // Set time_in to now
                         'status_id' => 1,
                         'has_night_diff' => $employee->has_night_diff,
