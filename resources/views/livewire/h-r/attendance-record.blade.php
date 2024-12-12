@@ -31,28 +31,57 @@
         
                                     <h4 class="card-title mb-3 fs-5">Attendance Records</h4>
                                     <div class="col-md-12 mb-2">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <form class="">
+                                        <style>
+/* Customize scrollbar for select */
+#cut_off {
+    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 150px; /* Limit the dropdown height */
+}
 
-                                                <div class="row">
-                                                    <div class="col-md-7">
-                                                        <select  wire:model.live="cut_off" id="cut_off" name="option" class="form-select mb-1 mt-1 text-center">
-                                                            @foreach( $cutoffs as $cut )
-                                                            <option value="{{ $cut->cutoff_id }}">{{ $cut->date_start }} - {{ $cut->date_end }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <button wire:click="" type="submit" class="btn btn-primary mb-1 mt-1 w-100">Get Time Log</button>
-                                                        
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="col-md-8 "></div>
-                                    </div>
-                                </div>
+/* WebKit browsers (Chrome, Edge, Safari) */
+#cut_off::-webkit-scrollbar {
+    width: 6px; /* Thin scrollbar */
+    background-color: transparent; /* Transparent scrollbar track */
+}
+
+#cut_off::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent thumb */
+    border-radius: 10px; /* Rounded edges for thumb */
+}
+
+#cut_off::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.6); /* Darker thumb on hover */
+}
+
+/* Firefox */
+#cut_off {
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: rgba(0, 0, 0, 0.4) transparent; /* Thumb and track colors */
+}
+</style>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form class="">
+                <div class="row">
+                    <div class="col-md-7">
+                        <select wire:model.live="cut_off" id="cut_off" name="option" class="form-select mb-1 mt-1 text-center">
+                            @foreach($cutoffs as $cut)
+                            <option value="{{ $cut->cutoff_id }}">{{ $cut->date_start }} - {{ $cut->date_end }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <button wire:click="" type="submit" class="btn btn-primary mb-1 mt-1 w-100">Get Time Log</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-8"></div>
+    </div>
+</div>
+
+
                                         <table id="akontable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>
