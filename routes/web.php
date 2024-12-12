@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Auth\Login;
-use App\Livewire\HR\{Dashboard, EmployeeRecord, Addemployee, AttendanceRecord};
+use App\Livewire\HR\{Dashboard, EmployeeRecord, Addemployee, AttendanceRecords};
 use App\Livewire\{Company, AddCompany, EmployeeRec, EmployeeAdd};
 use Illuminate\Http\Request;
 
@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', Dashboard::class)->name('admin-Dashboard');
         Route::get('/admin/employee_records', EmployeeRecord::class)->name('employee-Record');
         Route::get('/admin/addemployee', Addemployee::class)->name('add-Employee');
-        Route::get('/admin/attendance', AttendanceRecord::class)->name('attendance-Records');
+        Route::get('/admin/attendance', AttendanceRecords::class)->name('attendance-Records');
         Route::get('/admin/seniority', App\Livewire\HR\SeniorityLevels::class)->name('seniority-Level');
         Route::get('/admin/department', App\Livewire\HR\Departmented::class)->name('department');
         Route::get('/admin/jobtitle', App\Livewire\HR\JobTitles::class)->name('jobtitle');

@@ -35,8 +35,9 @@
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>
                                             <tr>
-                                                <th>Employee</th>
                                                 <th>Cut Off</th>
+                                                <th>Employee</th>
+
                                                 <th>Total Hours</th>
                                                 <th>Total Break</th>
                                                 <th>Total OT</th>
@@ -46,26 +47,30 @@
                                                 <th>Time in</th>
                                                 <th>Time out</th>
                                                 <th>Status</th>
-                                                <th>Has night diff</th>
+                                               
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
         
         
                                             <tbody>
+                                                @foreach($attendance as $attendancer)
+                                                
                                             <tr>
-                                                <td>EM9-30</td>
-                                                <td>Wednesday</td>
-                                                <td>8 hours</td>
-                                                <td>30 mins</td>
-                                                <td>0 hours</td>
-                                                <td>$56</td>
-                                                <td>Nov, 6 2024</td>
-                                                <td>9:00 am</td>
-                                                <td>8:50 am</td>
-                                                <td>5:03 pm</td>
-                                                <td>Present</td>
-                                                <td>0</td>
+                                            <td>{{ $attendancer->cutoff->date_start }} - {{ $attendancer->cutoff->date_end }}</td>
+
+                                                <td>{{ $attendancer->employee->first_name }} {{ $attendancer->employee->last_name }} </td>
+                                                <td>{{ $attendancer->total_hours }}</td>
+                                                <td>{{ $attendancer->total_break }}</td>
+                                                <td>{{ $attendancer->total_ot }}</td>
+                                                <td>{{ $attendancer->rate }}</td>
+                                                <td>{{ $attendancer->date }}</td>
+                                                <td>{{ $attendancer->duty_start }}</td>
+                                                <td>{{ $attendancer->time_in }}</td>
+                                                <td>{{ $attendancer->time_out }}</td>
+                                                <td>{{ $attendancer->attendanceStatus->description }}</td>
+                                               
+                                                
                                                 <td class="text-center">
                                                
                                                 <a class="btn btn-outline-secondary btn-sm view"  data-bs-toggle="modal" data-bs-target=".emprecView" title="View">
@@ -85,9 +90,7 @@
                                                    </ul>
                                                  </div>
                                                 </td>
-                                            </tr>
-                                            
-                                            <!-- modal para sa view  -->
+                                                    <!-- modal para sa view  -->
                                             <div class="modal modal-lg fade emprecView" id="emprecView" tabindex="-1" role="dialog" aria-labelledby="empViewLabel" aria-hidden="true" >
                     <div class=" modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
@@ -130,6 +133,10 @@
                     </div>
                 </div>
                                             <!-- modal para sa view end -->
+                                            </tr>
+                                            @endforeach
+                                            
+                                        
                                             
                                             
                                             </tbody>

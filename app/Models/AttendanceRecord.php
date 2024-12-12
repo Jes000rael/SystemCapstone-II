@@ -9,6 +9,8 @@ class AttendanceRecord extends Model
 {
     use HasFactory;
     protected $fillable = [ 'employee_id',
+    'company_id',
+
     'cutoff_id',
     'total_hours',
     'total_break',
@@ -54,6 +56,10 @@ public function attendanceStatus()
 public function employee()
 {
     return $this->belongsTo(EmployeeRecords::class, 'employee_id');
+} 
+public function company()
+{
+    return $this->belongsTo(Company::class, 'company_id');
 } 
 public function cutoff()
 {

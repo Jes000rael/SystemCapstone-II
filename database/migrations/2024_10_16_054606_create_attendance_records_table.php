@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('attendance_records', function (Blueprint $table) {
             $table->id('attendance_id');
+            $table->foreignId('company_id');
             $table->foreignId('employee_id');
             $table->foreignId('cutoff_id');
             $table->Double('total_hours')->nullable();

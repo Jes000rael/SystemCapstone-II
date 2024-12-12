@@ -35,12 +35,12 @@
                 
                 
 
-                <!-- <li >
+                <li >
                     <a wire:navigate href="{{ route('attendance-Records') }}">
                         <i class="bx bx-calendar"></i>
                         <span key="t-calendar">Attendance Records</span>
                     </a>
-                </li> -->
+                </li>
                
                 
                    

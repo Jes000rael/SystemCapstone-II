@@ -17,7 +17,7 @@ class AttendanceRecord extends Seeder
     {
         DB::table('attendance_records')->insert([
             [
-                
+                'company_id'=> 1,
                 'Employee_id'=> '1',
     'Cutoff_id'=> '1',
     'Total_hours'=> '1',
