@@ -30,7 +30,29 @@
                                     <div class="card-body">
         
                                     <h4 class="card-title mb-4 fs-5">Attendance Records</h4>
+                                    <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <form class="">
 
+                                                <div class="row">
+                                                    <div class="col-md-7">
+                                                        <select id="select-option" name="option" class="form-select mb-1 mt-1">
+                                                            <option value="option1">Nov 10, 2024 - Nov 10, 2024</option>
+                                                            <option value="option2">Nov 10, 2024 - Nov 10, 2024</option>
+                                                            <option value="option3">Nov 10, 2024 - Nov 10, 2024</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <button type="submit" class="btn btn-primary mb-1 mt-1 w-100">Get Time Log</button>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-9"></div>
+                                    </div>
+                                </div>
                                         <table id="akontable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>

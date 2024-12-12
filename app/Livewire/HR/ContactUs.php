@@ -25,7 +25,7 @@ class ContactUs extends Component
         'emailtext' => 'required',
     ];
 
-    public function sendEmail($delay = 7)
+    public function sendEmail($delay = 2)
     {
         $this->validate();
      
