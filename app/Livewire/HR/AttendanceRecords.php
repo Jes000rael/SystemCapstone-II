@@ -11,7 +11,7 @@ class AttendanceRecords extends Component
 {
 
 
- public $attendance;
+ public $attendance ,$cutoffs;
     
 
     public function mount()
@@ -28,6 +28,9 @@ public function updateAttendance()
         $cutoff = Cutoff::where('company_id', $companyId)
     ->orderBy('cutoff_id', 'desc')
     ->first();
+    $this->cutoffs = Cutoff::where('company_id', $companyId)
+    ->orderBy('cutoff_id', 'desc')
+    ->get();
 
     if ($cutoff) {
         $this->attendance = AttendanceRecord::where('company_id', $companyId)

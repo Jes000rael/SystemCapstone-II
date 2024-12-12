@@ -29,28 +29,28 @@
                                 <div class="card">
                                     <div class="card-body">
         
-                                    <h4 class="card-title mb-4 fs-5">Attendance Records</h4>
-                                    <div class="col-md-12">
+                                    <h4 class="card-title mb-3 fs-5">Attendance Records</h4>
+                                    <div class="col-md-12 mb-2">
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <form class="">
 
                                                 <div class="row">
                                                     <div class="col-md-7">
-                                                        <select id="select-option" name="option" class="form-select mb-1 mt-1">
-                                                            <option value="option1">Nov 10, 2024 - Nov 10, 2024</option>
-                                                            <option value="option2">Nov 10, 2024 - Nov 10, 2024</option>
-                                                            <option value="option3">Nov 10, 2024 - Nov 10, 2024</option>
+                                                        <select  wire:model.live="cut_off" id="cut_off" name="option" class="form-select mb-1 mt-1 text-center">
+                                                            @foreach( $cutoffs as $cut )
+                                                            <option value="{{ $cut->cutoff_id }}">{{ $cut->date_start }} - {{ $cut->date_end }}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                     <div class="col-md-5">
-                                                        <button type="submit" class="btn btn-primary mb-1 mt-1 w-100">Get Time Log</button>
+                                                        <button wire:click="" type="submit" class="btn btn-primary mb-1 mt-1 w-100">Get Time Log</button>
                                                         
                                                     </div>
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="col-md-9"></div>
+                                        <div class="col-md-8 "></div>
                                     </div>
                                 </div>
                                         <table id="akontable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
