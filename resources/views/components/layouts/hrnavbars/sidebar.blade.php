@@ -17,8 +17,19 @@
                  
                 </li>
 
-                
-
+                <li class="menu-title" key="t-apps">User</li>
+                <li >
+                    <a wire:navigate href="{{ route('user-Attendance') }}">
+                    <i class="bx bx-calendar-event"></i>
+                        <span key="t-list">Attendance</span>
+                    </a>
+                </li>
+                <li >
+                    <a wire:navigate href="{{ route('user-Schedule') }}">
+                        <i class="bx bx-time"></i>
+                        <span key="t-time">Work Schedule</span>
+                    </a>
+                </li>
                 <li class="menu-title" key="t-apps">Records</li>
 
                 <li class="{{ Route::currentRouteName() == 'Employee-Edit' ? 'mm-active' : 'text-light fw-bold' }} {{ Route::currentRouteName() == 'add-Deduction' ? 'mm-active' : 'text-light fw-bold' }}">
@@ -37,7 +48,7 @@
 
                 <li >
                     <a wire:navigate href="{{ route('attendance-Records') }}">
-                        <i class="bx bx-calendar"></i>
+                    <i class="bx bx-calendar"></i>
                         <span key="t-calendar">Attendance Records</span>
                     </a>
                 </li>

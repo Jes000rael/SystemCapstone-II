@@ -166,7 +166,7 @@ body {
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a wire:navigate href="{{ route('employee-Dashboard') }}" class="logo logo-dark">
+                <a wire:navigate href="{{ route('admin-Dashboard') }}" class="logo logo-dark">
                     <span class="logo-sm">
                         <img src="https://app.enopolyautomation.com/assets/images/logo.png" alt="" height="22">
                     </span>
@@ -175,7 +175,7 @@ body {
                     </span>
                 </a>
 
-                <a wire:navigate href="{{ route('employee-Dashboard')}}" class="logo logo-light">
+                <a wire:navigate href="{{ route('admin-Dashboard')}}" class="logo logo-light">
                     <span class="logo-sm">
                         <img src="https://app.enopolyautomation.com/assets/images/logo.png" alt="" height="22">
                     </span>

@@ -68,6 +68,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/contact_us', App\Livewire\HR\ContactUs::class)->name('contact-Us');
         Route::get('/admin/cutoff', App\Livewire\HR\AttendanceCutoff::class)->name('cutoff');
         Route::get('/admin/cutoff/edit/{cutoffID}', App\Livewire\HR\EditCutoff::class)->name('edit-Cutoff');
+        Route::get('/admin/user/schedule', App\Livewire\HR\UserSchedule::class)->name('user-Schedule');
+        Route::get('/admin/user/attendance', App\Livewire\HR\UserAttendance::class)->name('user-Attendance');
 
     });
 
