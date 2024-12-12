@@ -32,47 +32,50 @@
                                     <h4 class="card-title mb-3 fs-5">Attendance Records</h4>
                                     <div class="col-md-12 mb-2">
                                         <style>
-/* Customize scrollbar for select */
+
 #cut_off {
-    overflow-y: auto; /* Enable vertical scrolling */
-    max-height: 150px; /* Limit the dropdown height */
+    overflow-y: auto; 
+    max-height: 150px; 
 }
 
-/* WebKit browsers (Chrome, Edge, Safari) */
+
 #cut_off::-webkit-scrollbar {
-    width: 6px; /* Thin scrollbar */
-    background-color: transparent; /* Transparent scrollbar track */
+    width: 6px;
+    background-color: transparent; 
 }
 
 #cut_off::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent thumb */
-    border-radius: 10px; /* Rounded edges for thumb */
+    background-color: rgba(0, 0, 0, 0.4); 
+    border-radius: 10px; 
 }
 
 #cut_off::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(0, 0, 0, 0.6); /* Darker thumb on hover */
+    background-color: rgba(0, 0, 0, 0.6); 
 }
 
-/* Firefox */
+
 #cut_off {
-    scrollbar-width: thin; /* Thin scrollbar */
-    scrollbar-color: rgba(0, 0, 0, 0.4) transparent; /* Thumb and track colors */
+    scrollbar-width: thin; 
+    scrollbar-color: rgba(0, 0, 0, 0.4) transparent; 
 }
 </style>
 
     <div class="row">
         <div class="col-md-4">
-            <form class="">
+            <form wire:submit.prevent="cutoffselect">
                 <div class="row">
                     <div class="col-md-7">
-                        <select wire:model.live="cut_off" id="cut_off" name="option" class="form-select mb-1 mt-1 text-center">
-                            @foreach($cutoffs as $cut)
-                            <option value="{{ $cut->cutoff_id }}">{{ $cut->date_start }} - {{ $cut->date_end }}</option>
-                            @endforeach
+                        <select wire:model="cut_off" id="cut_off" name="option" class="form-select mb-1 mt-1 text-center">
+                        @foreach($cutoffs as $cut)
+    <option value="{{ $cut->cutoff_id }}">
+        {{ \Carbon\Carbon::parse($cut->date_start)->format('M d Y') }} - {{ \Carbon\Carbon::parse($cut->date_end)->format('M d Y') }}
+    </option>
+@endforeach
+
                         </select>
                     </div>
                     <div class="col-md-5">
-                        <button wire:click="" type="submit" class="btn btn-primary mb-1 mt-1 w-100">Get Time Log</button>
+                        <button type="submit" class="btn btn-primary mb-1 mt-1 w-100">Get Time Log</button>
                     </div>
                 </div>
             </form>
@@ -93,6 +96,7 @@
                                                 <th>Total Break</th>
                                                 <th>Total OT</th>
                                                 <th>Rate</th>
+                                                <th>Earned Salary</th>
                                                 <th>Date</th>
                                                 <th>Duty Start</th>
                                                 <th>Time in</th>
@@ -108,17 +112,18 @@
                                                 @foreach($attendance as $attendancer)
                                                 
                                             <tr>
-                                            <td>{{ $attendancer->cutoff->date_start }} - {{ $attendancer->cutoff->date_end }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($attendancer->date_start)->format('M d Y') }} - {{ \Carbon\Carbon::parse($attendancer->date_end)->format('M d Y') }}</td>
 
                                                 <td>{{ $attendancer->employee->first_name }} {{ $attendancer->employee->last_name }} </td>
                                                 <td>{{ $attendancer->total_hours }}</td>
-                                                <td>{{ $attendancer->total_break }}</td>
-                                                <td>{{ $attendancer->total_ot }}</td>
+                                                <td>{{ $attendancer->total_break ?? '--:--' }}</td>
+                                                <td>{{ $attendancer->total_ot ?? 'N/A'}}</td>
                                                 <td>{{ $attendancer->rate }}</td>
-                                                <td>{{ $attendancer->date }}</td>
-                                                <td>{{ $attendancer->duty_start }}</td>
-                                                <td>{{ $attendancer->time_in }}</td>
-                                                <td>{{ $attendancer->time_out }}</td>
+                                                <td>{{ number_format($attendancer->total_hours * $attendancer->rate, 2) }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($attendancer->date)->format('D, M d Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($attendancer->time_out)->format('h:i A') }} </td>
                                                 <td>{{ $attendancer->attendanceStatus->description }}</td>
                                                
                                                 

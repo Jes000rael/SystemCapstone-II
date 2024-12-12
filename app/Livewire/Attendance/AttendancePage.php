@@ -295,8 +295,79 @@ $attendance = AttendanceRecord::where('employee_id', $this->employee_id)
         $attendance->update([
             'time_out' => $currentTime,
         ]);
+        if($attendance->duty_start > $attendance->duty_end)
+        {
+            // Calculate total hours
+if ($attendance->time_in && $attendance->time_out) {
+    $timeIn = Carbon::parse($attendance->time_in);
+    $timeOut = Carbon::parse($attendance->time_out);
+    $dutyStart = Carbon::parse($attendance->date . ' ' . $attendance->duty_start);
+    $attendanceDate = Carbon::parse($attendance->date)->addDay();
+    $dutyEnd = Carbon::parse($attendanceDate->toDateString() . ' ' . $attendance->duty_end);
+
+    if ($timeIn->greaterThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
+        // Time in > Duty Start and Time Out < Duty End
+        $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
+    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
+        // Time in < Duty Start and Time Out < Duty End
+        $totalHours = $dutyStart->diffInMinutes($timeOut) / 60;
+    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
+        // Time in < Duty Start and Duty End < Time Out
+        $totalHours = $dutyStart->diffInMinutes($dutyEnd) / 60;
+    } else {
+        // Default case for other scenarios
+        $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
+    }
+
+    // Round off total hours to 2 decimal places
+    $totalHours = round($totalHours, 2);
+
+
+
+    // Update total hours
+    $attendance->update([
+        'total_hours' => $totalHours,
+    ]);
+}
+session()->flash('success', 'Time out recorded successfully!');
+
+        }else{
+            // Calculate total hours
+if ($attendance->time_in && $attendance->time_out) {
+    $timeIn = Carbon::parse($attendance->time_in);
+    $timeOut = Carbon::parse($attendance->time_out);
+    $dutyStart = Carbon::parse($attendance->date . ' ' . $attendance->duty_start);
+    $dutyEnd = Carbon::parse($attendance->date . ' ' . $attendance->duty_end);
+
+    if ($timeIn->greaterThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
+        // Time in > Duty Start and Time Out < Duty End
+        $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
+    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
+        // Time in < Duty Start and Time Out < Duty End
+        $totalHours = $dutyStart->diffInMinutes($timeOut) / 60;
+    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
+        // Time in < Duty Start and Duty End < Time Out
+        $totalHours = $dutyStart->diffInMinutes($dutyEnd) / 60;
+    } else {
+        // Default case for other scenarios
+        $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
+    }
+
+    // Round off total hours to 2 decimal places
+    $totalHours = round($totalHours, 2);
+
+
+    // Update total hours
+    $attendance->update([
+        'total_hours' => $totalHours,
+    ]);
+}
+session()->flash('success', 'Time out recorded successfully!');
+
+
+        }
+ 
         
-        session()->flash('success', 'Time out recorded successfully!');
     } else {
       
         
@@ -388,8 +459,78 @@ $attendance = AttendanceRecord::where('employee_id', $this->employee_id)
         $attendance->update([
             'time_out' => $currentTime,
         ]);
-        
-        session()->flash('success', 'Time out recorded successfully!');
+
+        if($attendance->duty_start > $attendance->duty_end)
+        {
+            // Calculate total hours
+if ($attendance->time_in && $attendance->time_out) {
+    $timeIn = Carbon::parse($attendance->time_in);
+    $timeOut = Carbon::parse($attendance->time_out);
+    $dutyStart = Carbon::parse($attendance->date . ' ' . $attendance->duty_start);
+    $attendanceDate = Carbon::parse($attendance->date)->addDay();
+    $dutyEnd = Carbon::parse($attendanceDate->toDateString() . ' ' . $attendance->duty_end);
+
+    if ($timeIn->greaterThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
+        // Time in > Duty Start and Time Out < Duty End
+        $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
+    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
+        // Time in < Duty Start and Time Out < Duty End
+        $totalHours = $dutyStart->diffInMinutes($timeOut) / 60;
+    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
+        // Time in < Duty Start and Duty End < Time Out
+        $totalHours = $dutyStart->diffInMinutes($dutyEnd) / 60;
+    } else {
+        // Default case for other scenarios
+        $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
+    }
+
+    // Round off total hours to 2 decimal places
+    $totalHours = round($totalHours, 2);
+
+
+
+    // Update total hours
+    $attendance->update([
+        'total_hours' => $totalHours,
+    ]);
+}
+session()->flash('success', 'Time out recorded successfully!');
+
+        }else{
+            // Calculate total hours
+if ($attendance->time_in && $attendance->time_out) {
+    $timeIn = Carbon::parse($attendance->time_in);
+    $timeOut = Carbon::parse($attendance->time_out);
+    $dutyStart = Carbon::parse($attendance->date . ' ' . $attendance->duty_start);
+    $dutyEnd = Carbon::parse($attendance->date . ' ' . $attendance->duty_end);
+
+    if ($timeIn->greaterThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
+        // Time in > Duty Start and Time Out < Duty End
+        $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
+    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
+        // Time in < Duty Start and Time Out < Duty End
+        $totalHours = $dutyStart->diffInMinutes($timeOut) / 60;
+    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
+        // Time in < Duty Start and Duty End < Time Out
+        $totalHours = $dutyStart->diffInMinutes($dutyEnd) / 60;
+    } else {
+        // Default case for other scenarios
+        $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
+    }
+
+    // Round off total hours to 2 decimal places
+    $totalHours = round($totalHours, 2);
+
+
+    // Update total hours
+    $attendance->update([
+        'total_hours' => $totalHours,
+    ]);
+}
+session()->flash('success', 'Time out recorded successfully!');
+
+
+        }
     } else {
         
          // If no attendance exists, create a new one
