@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Validation\Rule;
 
 
 class AttendancePage extends Component
@@ -30,7 +31,12 @@ class AttendancePage extends Component
     {
        
         $this->validate([
-            'employee_id' => 'required|exists:employee_records,employee_id',
+            'employee_id' => [
+                'required',
+                Rule::exists('employee_records', 'employee_id')->where(function ($query) {
+                    return $query->where('company_id', Auth::user()->company_id);
+                })
+            ],
         ]);
     
 

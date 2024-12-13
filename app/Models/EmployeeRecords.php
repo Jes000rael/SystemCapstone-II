@@ -58,7 +58,7 @@ class EmployeeRecords extends Authenticatable
    
     public function work_sched()
     {
-        return $this->hasmany(WorkSchedule::class, 'employee_id');
+        return $this->belongsTo(WorkSchedule::class, 'employee_id');
     }
     public function deduction()
 {

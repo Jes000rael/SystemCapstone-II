@@ -64,11 +64,11 @@ input[type="text"] {
             <div class="container ">
                 <div class="row justify-content-center ">
                     <div class="col-md-12 col-lg-12 col-xl-12 ">
-                        <div class="card overflow-hidden transparent-card ">
+                        <div style=" max-width: 500px; " class="card overflow-hidden transparent-card  ">
                         <div>
     <div class="row">
-        <!-- Full-width column with minimum width -->
-        <div style="color:#000; min-width: 500px;" class="col-lg-12 text-center py-3 px-5 fw-bold">
+     
+        <div style="color:#000; min-width: 500px; " class="col-lg-12 text-center py-3 px-5 fw-bold">
             <h1 class="fw-bold ">{{ $companyName }}</h1>
             <div id="real-time-clock">
                 <span id="current-time" class="fs-3"></span>
@@ -134,7 +134,7 @@ input[type="text"] {
                                         <div class="mb-3">
                                             <label for="employee_id" class="form-label">Employee ID</label>
                                             <div class=" @error('errors')border border-danger rounded-3 @enderror @error('employee_id')border border-danger rounded-3 @enderror">
-                                            <input  wire:model.live="employee_id" id="employee_id" type="text" class="form-control bg-white border-white "  style="color:#000;" placeholder="Enter employee_id">
+                                            <input  wire:model.live="employee_id" id="employee_id" type="text" class="form-control bg-white border-white "  style="color:#000;" placeholder="Enter employee ID">
                                         </div>
                                         @error('employee_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                         </div>

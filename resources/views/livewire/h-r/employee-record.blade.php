@@ -81,7 +81,7 @@
                                                    <ul class="dropdown-menu" aria-labelledby="moreActions">
                                                      <li><a wire:navigate href="{{ route('add-Schedule', ['empID' => $encryptedEmpID]) }}" class="dropdown-item" >Add Work Schedule</a></li>
                                                      <li><a wire:navigate href="{{ route('edit-Schedule', ['empID' => $encryptedEmpID]) }}" class="dropdown-item">Update Work Schedule</a></li>
-                                                     <li><a class="dropdown-item" href="#">View Work Schedule</a></li>
+                                                     <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target=".ViewEmployee{{ $employee->employee_id }}">View Work Schedule</a></li>
                                                      <li><a  class="dropdown-item" wire:navigate href="{{ route('add-Deduction', ['empID' => $encryptedEmpID]) }}">Add Deduction</a></li>
                                                 
                                                      
@@ -90,6 +90,94 @@
                         </td>
                        
                                                 </tr> 
+                                                 <!-- modal para view sa workschedule  -->
+                                                 <div class="modal modal-lg fade ViewEmployee{{ $employee->employee_id }}" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ViewDepartmentLabel">Employee Work Schedule</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <!-- Company Information -->
+          
+
+                    <!-- Personal Information Section -->
+                    <h6 class="text-primary mt-3 fs-5">Personal Information</h6>
+                    <div class="row gy-3">
+                        <div class="col-sm-6">
+                            <strong>Name:</strong>
+                            <div class="border-bottom pb-1">{{ $employee->first_name }} {{ $employee->middle_name }} {{ $employee->last_name }} {{ $employee->suffix }}</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>Gender:</strong>
+                            <div class="border-bottom pb-1">{{ $employee->gender }}</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>Birth Date:</strong>
+                            <div class="border-bottom pb-1">{{ \Carbon\Carbon::parse($employee->date_of_birth)->format('M d, Y') }}</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>Address:</strong>
+                            <div class="border-bottom pb-1">{{ $employee->address }}</div>
+                        </div>
+                    </div>
+
+                  
+
+                    <!-- Emergency & Contact Section -->
+                    <h6 class="text-primary mt-4 fs-5">Work Schedule</h6>
+                    <div class="row gy-3">
+                        <div class="col-sm-6">
+                            <strong>Monday In :</strong>
+                            <div class="border-bottom pb-1 px-5">{{ $employee->work_sched->monday_in ?? 'No schedule' }}</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>Monday Out :</strong>
+                            <div class="border-bottom pb-1 px-5">{{ $employee->work_sched->monday_out ?? 'No schedule' }}</div>
+                        </div>
+                    </div>
+                    <div class="row gy-3">
+                        <div class="col-sm-6">
+                            <strong>Tuesday In :</strong>
+                            <div class="border-bottom pb-1 px-5">{{ $employee->work_sched->monday_in ?? 'No schedule' }}</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>Tuesday Out :</strong>
+                            <div class="border-bottom pb-1 px-5">{{ $employee->work_sched->monday_out ?? 'No schedule' }}</div>
+                        </div>
+                    </div>
+                    <div class="row gy-3">
+                        <div class="col-sm-6">
+                            <strong>Monday In :</strong>
+                            <div class="border-bottom pb-1 px-5">{{ $employee->work_sched->monday_in ?? 'No schedule' }}</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>Monday Out :</strong>
+                            <div class="border-bottom pb-1 px-5">{{ $employee->work_sched->monday_out ?? 'No schedule' }}</div>
+                        </div>
+                    </div>
+                    <div class="row gy-3">
+                        <div class="col-sm-6">
+                            <strong>Monday In :</strong>
+                            <div class="border-bottom pb-1 px-5">{{ $employee->work_sched->monday_in ?? 'No schedule' }}</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <strong>Monday Out :</strong>
+                            <div class="border-bottom pb-1 px-5">{{ $employee->work_sched->monday_out ?? 'No schedule' }}</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+                                                  <!-- modal para view sa employee record end -->
                                                 <!-- modal para view sa employee record  -->
                                                 <div class="modal modal-lg fade ViewEmployee{{ $employee->employee_id }}" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
