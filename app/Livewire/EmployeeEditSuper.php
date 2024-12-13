@@ -142,7 +142,8 @@ class EmployeeEditSuper extends Component
             }
 
         }else{
-           $this->department = Department::where('department_id', 2)->get();
+            $this->department = Department::whereIn('department_id', [2, 3])->get();
+
          $this->depart = Department::where('company_id', $company_id)->get();
          
         }

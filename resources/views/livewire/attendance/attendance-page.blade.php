@@ -63,34 +63,26 @@ input[type="text"] {
        <div class="account-pages  pt-sm-4 ">
             <div class="container ">
                 <div class="row justify-content-center ">
-                    <div class="col-md-8 col-lg-6 col-xl-5 ">
+                    <div class="col-md-12 col-lg-12 col-xl-12 ">
                         <div class="card overflow-hidden transparent-card ">
-                            <div >
-                                <div class="row">
-                                    <!-- <div class="col-7">
-                                        <div class="text-primary p-4">
-                                            <h5 class="text-primary">Welcome Back !</h5>
-                                            <p>Sign in to continue to Skote.</p>
-                                        </div>
-                                    </div> -->
-                                    <div class="col-12 align-self-end py-3 px-5">
-                                        <img  src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="" class="img-fluid">
-                                      
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body pt-0"> 
-                                 <!-- Flash Messages -->
-                                  
-                              
-                                 @php
+                        <div>
+    <div class="row">
+        <!-- Full-width column with minimum width -->
+        <div style="color:#000; min-width: 500px;" class="col-lg-12 text-center py-3 px-5 fw-bold">
+            <h1 class="fw-bold ">{{ $companyName }}</h1>
+            <div id="real-time-clock">
+                <span id="current-time" class="fs-3"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+                            @php
                                             $timezone = config('app.timezone') ?? 'UTC';
                                             $currentTimestamp = \Carbon\Carbon::now($timezone)->timestamp;
                                         @endphp
 
-                                        <div id="real-time-clock">
-                                            <span id="current-time"></span>
-                                        </div>
+                                        
 
                                         <script>
                                             const timezone = @json($timezone);
@@ -119,6 +111,11 @@ input[type="text"] {
                                             setInterval(updateTime, 1000);
                                             updateTime();
                                         </script>
+                            <div class="card-body pt-0"> 
+                                
+                                  
+                              
+                                
                                       
     @if (session()->has('success'))
         <div class="alert alert-success">{{ session('success') }}</div>

@@ -54,10 +54,11 @@
                                             <tr>
                                              
                                                 <td> 
-                                                {{ $cutoffs->date_start}}
+                                                
+                                                {{ \Carbon\Carbon::parse($cutoffs->date_start)->format('D, M d Y') }}
                                                 </td>
                                                 <td> 
-                                                {{ $cutoffs->date_end}}
+                                                {{ \Carbon\Carbon::parse($cutoffs->date_end)->format('D, M d Y') }}
                                                 </td><td> 
                                                 {{ $cutoffs->conversion_rate}}
                                                 </td>

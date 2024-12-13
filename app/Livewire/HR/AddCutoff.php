@@ -19,8 +19,16 @@ public $conversion_rate='';
     ];
  public function add_Cutoff()
     {
+        
        
         $this->validate();
+
+        if($this->date_start > $this->date_end )
+        {
+            
+            session()->flash('error', "Invalid date set up (".\Carbon\Carbon::parse($this->date_start)->format('D, M d Y') . ") to (".\Carbon\Carbon::parse($this->date_end)->format('D, M d Y').")");
+            return;
+        }
 
        
         $this->companyId = Auth::user()->company_id;

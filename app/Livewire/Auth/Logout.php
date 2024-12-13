@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\EmployeeRecords;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 
 class Logout extends Component
@@ -18,11 +19,13 @@ class Logout extends Component
             'status' => $this->status,
           
         ]);
-        auth()->logout();
-      
-      
-      
-        return redirect('/login');
+        Auth::logout();
+        
+        Session::invalidate();
+        Session::regenerateToken();
+
+        
+        return redirect()->route('login'); 
 
     }
     public function render()

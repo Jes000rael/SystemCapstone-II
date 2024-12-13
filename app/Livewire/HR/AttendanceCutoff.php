@@ -23,7 +23,9 @@ public $cutoff;
 public function updateCutoff()
     {
         $companyId = Auth::user()->company_id ; 
-        $this->cutoff = Cutoff::where('company_id', $companyId)->get();
+        $this->cutoff = Cutoff::where('company_id', $companyId)
+        ->orderBy('cutoff_id', 'desc')
+        ->get();
     }
     public function deletecutoff($cutoffId)
 

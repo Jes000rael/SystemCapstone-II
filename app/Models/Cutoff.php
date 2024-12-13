@@ -16,5 +16,9 @@ class Cutoff extends Model
     protected $primaryKey = 'cutoff_id';
 
     
-    
+    public function attendanceRecords()
+{
+    return $this->hasMany(AttendanceRecord::class, 'cutoff_id', 'cutoff_id');
+}
+
 }

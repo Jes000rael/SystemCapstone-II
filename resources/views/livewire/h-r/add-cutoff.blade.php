@@ -1,4 +1,7 @@
 <div class="col-md-4">
+@if (session()->has('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
                                     <form wire:submit.prevent="add_Cutoff">
                                     
                                     <div class="mb-3">
