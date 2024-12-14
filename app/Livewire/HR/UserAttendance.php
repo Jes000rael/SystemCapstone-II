@@ -80,6 +80,16 @@ private function loadAttendance($employee_id, $cutoffId)
         ->orderBy('attendance_id', 'desc') 
         ->get();
 
+    $companyId = Auth::user()->company_id;
+
+
+        $this->cutoffs = Cutoff::where('company_id', $companyId)
+        ->whereHas('attendanceRecords', function ($query) {
+            $query->whereNotNull('cutoff_id');
+        })
+        ->orderBy('cutoff_id', 'desc')
+        ->get();
+
         
 }
 
