@@ -32,7 +32,99 @@
                                     <button href="#" class="btn btn-primary mt-2 mb-2">Show Salary Summary</button>
                                     <button href="#" class="btn btn-warning mt-2 mb-2">Request Leave</button>
 
-                                    <p class="fs-2 mt-3">Remaining Break Time : <span class="text-success"> 59:59</span></p>  
+                                    <p class="fs-2 mt-3">Remaining Break Time : 
+    <span id="timer" class="text-success">
+
+    <!-- {{ sprintf('%02d:%02d', floor($latest->total_break / 60), $latest->total_break % 60) }} -->
+    
+    </span>
+</p>
+<!-- Display Timer -->
+
+
+<!-- Break Time Buttons -->
+<button id="start_break" onclick="startBreak()">Start Break</button>
+<button id="stop_break"  onclick="stopBreak()">Stop Break</button>
+
+<!-- Message for countdown -->
+<div id="timer_message"></div>
+
+<script>
+// Initialize Variables
+var breakTime = 54.433333333333; // Example: Break time in hours (54 minutes and 26 seconds)
+var break_min = 5; // Example: Initial minutes of break
+var break_sec = 33; // Example: Initial seconds of break
+var is_time_running = false;
+var x;
+var status = "Stop";
+
+// Update button state based on break time
+function updateButtonState() {
+    if (breakTime == 0) {
+        status = 'Start';
+        document.getElementById("start_break").innerHTML = "Take a Break";
+    } else {
+        status = 'Resume';
+        document.getElementById("start_break").innerHTML = "Resume Break Time";
+    }
+}
+
+// Start the countdown
+function startBreak() {
+    is_time_running = true;
+    document.getElementById("stop_break").classList.remove("hidden");
+    document.getElementById("start_break").classList.add("hidden");
+    countDownTime();
+}
+
+// Countdown function
+function countDownTime() {
+    // Set break time based on initial values
+    var countDownDate = new Date(Date.now());
+    countDownDate.setMinutes(countDownDate.getMinutes() + break_min);
+    countDownDate.setSeconds(countDownDate.getSeconds() + break_sec);
+
+    // Update every second
+    x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+
+        // Calculate minutes and seconds remaining
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the remaining time
+        document.getElementById("timer").innerHTML = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
+
+        // Show message when time is almost over
+        if (distance < 180000) {
+            document.getElementById("timer_message").innerHTML = "Break time is almost over!";
+        }
+
+        // If countdown is over, stop it and show message
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("timer").innerHTML = "00:00";
+            document.getElementById("timer_message").innerHTML = "Break is over!";
+            document.getElementById("stop_break").innerHTML = "End Break Time";
+        }
+    }, 1000);
+}
+
+// Stop break function
+function stopBreak() {
+    clearInterval(x);
+    document.getElementById("start_break").innerHTML = "Resume Break Time";
+    document.getElementById("stop_break").classList.add("hidden");
+    document.getElementById("start_break").classList.remove("hidden");
+    document.getElementById("timer_message").innerHTML = "Break time stopped.";
+    status = "Stop";
+}
+
+updateButtonState();
+</script>
+
+
                                 </div>
 
                                 <!-- Form and Select Input with Button -->
@@ -148,7 +240,7 @@
                                                 <td>
                                                 @if($attendancer->attendance_id == $latest->attendance_id)
                                                        <div class="text-center" style="max-width: 80%; margin: 0 auto;">
-                                                           <button type="submit" class="btn btn-success w-100">{{ $breakbutton }}</button>
+                                                           <button wire:click="breaktime({{ $latest->attendance_id }})" class="btn btn-success w-100"></button>
                                                        </div>
                                                    @endif
 

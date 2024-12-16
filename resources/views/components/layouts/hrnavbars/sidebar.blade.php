@@ -19,7 +19,7 @@
 
                 <li class="menu-title" key="t-apps">User</li>
                 <li >
-                    <a wire:navigate href="{{ route('user-Attendance') }}">
+                    <a  href="{{ route('user-Attendance') }}">
                     <i class="bx bx-calendar-event"></i>
                         <span key="t-list">Attendance</span>
                     </a>
@@ -55,16 +55,6 @@
                
                 
                    
-                
-                
-
-               
-                            
-              
-
-                  
-
-                 
                   <li class="{{ Route::currentRouteName() == 'edit-Duty' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a wire:navigate href="{{ route('off-Duty') }}" class="waves-effect ">
                     <i class="bx bx-sleepy"></i>
