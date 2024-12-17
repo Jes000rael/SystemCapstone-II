@@ -15,6 +15,9 @@ class BreaktimeLog extends Model
     public $timestamps = false;
     protected $primaryKey = 'breaktime_id';
 
-
+    public function attendance()
+    {
+        return $this->belongsTo(AttendanceRecord::class, 'attendance_id');
+    } 
    
 }

@@ -31,9 +31,9 @@ class AttendanceRecord extends Model
     return $this->hasmany(Absences::class, 'attendance_id');
 } 
 
-public function break()
+public function breaktime()
 {
-    return $this->hasmany(BreaktimeLog::class, 'attendance_id');
+    return $this->belongsTo(BreaktimeLog::class, 'attendance_id');
 } 
 
 public function overtime()

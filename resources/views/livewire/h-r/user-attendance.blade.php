@@ -29,100 +29,26 @@
 
                                 <h4 class="card-title mb-4">Action</h4>
                                 <div class="col-md-12">
+                                     <!-- {{ $newTotalTime ? $newTotalTime->format('H:i:s') : '00:00:00' }} -->
                                     <button href="#" class="btn btn-primary mt-2 mb-2">Show Salary Summary</button>
                                     <button href="#" class="btn btn-warning mt-2 mb-2">Request Leave</button>
 
-                                    <p class="fs-2 mt-3">Remaining Break Time : 
-    <span id="timer" class="text-success">
 
-    <!-- {{ sprintf('%02d:%02d', floor($latest->total_break / 60), $latest->total_break % 60) }} -->
-    
+                                    <p class="fs-2 mt-3">Remaining Break Time: 
+    <span class="text-success" id="break-time">
+
+    @if($breaktime && $breaktime->field == 'Duty')
+    {{ $breaktime->total_hours }}
+@else
+    {{ $newTotalTime ? $newTotalTime->format('H:i:s') : '59:59' }}
+@endif
     </span>
 </p>
-<!-- Display Timer -->
 
 
-<!-- Break Time Buttons -->
-<button id="start_break" onclick="startBreak()">Start Break</button>
-<button id="stop_break"  onclick="stopBreak()">Stop Break</button>
 
-<!-- Message for countdown -->
-<div id="timer_message"></div>
 
-<script>
-// Initialize Variables
-var breakTime = 54.433333333333; // Example: Break time in hours (54 minutes and 26 seconds)
-var break_min = 5; // Example: Initial minutes of break
-var break_sec = 33; // Example: Initial seconds of break
-var is_time_running = false;
-var x;
-var status = "Stop";
-
-// Update button state based on break time
-function updateButtonState() {
-    if (breakTime == 0) {
-        status = 'Start';
-        document.getElementById("start_break").innerHTML = "Take a Break";
-    } else {
-        status = 'Resume';
-        document.getElementById("start_break").innerHTML = "Resume Break Time";
-    }
-}
-
-// Start the countdown
-function startBreak() {
-    is_time_running = true;
-    document.getElementById("stop_break").classList.remove("hidden");
-    document.getElementById("start_break").classList.add("hidden");
-    countDownTime();
-}
-
-// Countdown function
-function countDownTime() {
-    // Set break time based on initial values
-    var countDownDate = new Date(Date.now());
-    countDownDate.setMinutes(countDownDate.getMinutes() + break_min);
-    countDownDate.setSeconds(countDownDate.getSeconds() + break_sec);
-
-    // Update every second
-    x = setInterval(function() {
-        var now = new Date().getTime();
-        var distance = countDownDate - now;
-
-        // Calculate minutes and seconds remaining
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        // Display the remaining time
-        document.getElementById("timer").innerHTML = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
-
-        // Show message when time is almost over
-        if (distance < 180000) {
-            document.getElementById("timer_message").innerHTML = "Break time is almost over!";
-        }
-
-        // If countdown is over, stop it and show message
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("timer").innerHTML = "00:00";
-            document.getElementById("timer_message").innerHTML = "Break is over!";
-            document.getElementById("stop_break").innerHTML = "End Break Time";
-        }
-    }, 1000);
-}
-
-// Stop break function
-function stopBreak() {
-    clearInterval(x);
-    document.getElementById("start_break").innerHTML = "Resume Break Time";
-    document.getElementById("stop_break").classList.add("hidden");
-    document.getElementById("start_break").classList.remove("hidden");
-    document.getElementById("timer_message").innerHTML = "Break time stopped.";
-    status = "Stop";
-}
-
-updateButtonState();
-</script>
+    
 
 
                                 </div>
@@ -174,6 +100,8 @@ updateButtonState();
                         </select>
                                                     </div>
                                                     <div class="col-md-3">
+ 
+
                                                         <button type="submit" class="btn btn-primary mb-1 mt-1 w-50 ">Get Time Log</button>
                                                         
                                                     </div>
@@ -230,7 +158,7 @@ updateButtonState();
                                             <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ !empty($attendancer->time_out) ? \Carbon\Carbon::parse($attendancer->time_out)->format('h:i A') : '--:--' }} </td>
                                                
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->total_hours ?? '0.00' }}</td>
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->total_break }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->total_break)->format('H:i:s') }}</td>
                                                
                                                 <td data-value="{{ $attendancer->rate }}" class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">****</td>
                                                 <td data-value="{{ number_format($attendancer->total_hours * $attendancer->rate, 2) }}" class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">****</td>
@@ -239,8 +167,94 @@ updateButtonState();
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->attendanceStatus->description }}</td>
                                                 <td>
                                                 @if($attendancer->attendance_id == $latest->attendance_id)
+
                                                        <div class="text-center" style="max-width: 80%; margin: 0 auto;">
-                                                           <button wire:click="breaktime({{ $latest->attendance_id }})" class="btn btn-success w-100"></button>
+  
+
+<!-- Buttons for Pause and Resume functionality -->
+
+
+<button wire:click="resumeBreak" id="resume-break-btn" class="btn  @if( $breaktime->field == null )
+    btn-primary
+@else
+    btn-success
+@endif " style="display: none;"> @if( $breaktime->field == null )
+    Start Break
+@else
+    Resume Break
+@endif
+
+
+</button>
+
+
+<button wire:click="pauseBreak" id="pause-break-btn" class="btn btn-warning" style="display: inline-block;">
+  Pause Break
+</button>
+<script>
+let breakTime = "{{ $newTotalTime ? $newTotalTime->format('H:i:s') : '59:59' }}"; 
+let [hours, minutes, seconds] = breakTime.split(":").map(Number); 
+let breakTimeInSeconds = (hours * 3600) + (minutes * 60) + seconds; 
+
+let countdownInterval;
+
+function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+}
+
+function updateCountdown() {
+    if (breakTimeInSeconds > 0) {
+        breakTimeInSeconds--;
+        document.getElementById('break-time').innerText = formatTime(breakTimeInSeconds);
+    } else {
+        document.getElementById('break-time').innerText = "00:00:00";
+        alert("Break time is over!");
+        clearInterval(countdownInterval);
+    }
+}
+
+function pauseBreak() {
+    localStorage.setItem("breakStatus", "paused");
+
+    clearInterval(countdownInterval);
+
+    document.getElementById("pause-break-btn").style.display = "none";
+    document.getElementById("resume-break-btn").style.display = "inline-block";
+}
+
+function resumeBreak() {
+    localStorage.setItem("breakStatus", "started");
+
+    countdownInterval = setInterval(updateCountdown, 1000);
+
+    document.getElementById("resume-break-btn").style.display = "none";
+    document.getElementById("pause-break-btn").style.display = "inline-block";
+}
+
+window.onload = function () {
+    const breakStatus = localStorage.getItem("breakStatus");
+    if (breakStatus === "started") {
+        document.getElementById("pause-break-btn").style.display = "inline-block";
+        document.getElementById("resume-break-btn").style.display = "none";
+        countdownInterval = setInterval(updateCountdown, 1000);
+    } else if (breakStatus === "paused") {
+        document.getElementById("pause-break-btn").style.display = "none";
+        document.getElementById("resume-break-btn").style.display = "inline-block";
+    } else {
+        document.getElementById("pause-break-btn").style.display = "none";
+        document.getElementById("resume-break-btn").style.display = "none";
+    }
+};
+
+document.getElementById("pause-break-btn")?.addEventListener("click", pauseBreak);
+document.getElementById("resume-break-btn")?.addEventListener("click", resumeBreak);
+</script>
+
+
+
                                                        </div>
                                                    @endif
 
@@ -248,6 +262,7 @@ updateButtonState();
                                                     
                                                 </tr>
                                                 @endforeach
+                                                
                                                 
                                         </table>
                                     </div>
