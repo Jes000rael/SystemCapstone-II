@@ -35,15 +35,55 @@
 
 
                                     <p class="fs-2 mt-3">Remaining Break Time: 
-    <span class="text-success" id="break-time">
+    <span class="text-success fs-1" id="break-time">
 
     @if($breaktime && $breaktime->field == 'Duty')
-    {{ $breaktime->total_hours }}
+    {{ $this->formattedBreakTime }}
 @else
-    {{ $newTotalTime ? $newTotalTime->format('H:i:s') : '59:59' }}
+
+@php
+   
+    $remainingTimeString = $newTotalTime ? $newTotalTime->format('H:i:s') : '00:59:59';
+
+    
+    $timeParts = explode(':', $remainingTimeString);
+
+    if (count($timeParts) === 3) {
+     
+        [$hours, $minutes, $seconds] = $timeParts;
+    } else {
+       
+        $hours = 0;
+        [$minutes, $seconds] = $timeParts;
+    }
+
+   
+    $remainingTimeInSeconds = ($hours * 3600) + ($minutes * 60) + $seconds;
+
+    
+    if ($remainingTimeInSeconds < 60) {
+        $formattedTime = "$remainingTimeInSeconds seconds ";
+    } elseif ($remainingTimeInSeconds < 3600) {
+        $minutes = floor($remainingTimeInSeconds / 60);
+        $seconds = $remainingTimeInSeconds % 60;
+        $formattedTime = sprintf('%02d:%02d', $minutes, $seconds);
+    } else {
+        $hours = floor($remainingTimeInSeconds / 3600);
+        $minutes = floor(($remainingTimeInSeconds % 3600) / 60);
+        $seconds = $remainingTimeInSeconds % 60;
+        $formattedTime = sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
+    }
+@endphp
+
+{{ $formattedTime }}
+
 @endif
     </span>
 </p>
+
+
+
+
 
 
 
@@ -135,13 +175,14 @@
                                             <th>Time in</th>
                                             <th>Time out</th>
                                                 <th>Total Hours</th>
-                                                <th>Total Break</th>
                                             
                                                 <th>Rate</th>
                                                 <th>Earned Salary</th>
                                                
                                               
                                                 <th>Status</th>
+                                                <th> Break Time(Remaining Mins ~ LBT)</th>
+
                                                 <th>Action</th>
                                                
                                            
@@ -158,100 +199,172 @@
                                             <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ !empty($attendancer->time_out) ? \Carbon\Carbon::parse($attendancer->time_out)->format('h:i A') : '--:--' }} </td>
                                                
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->total_hours ?? '0.00' }}</td>
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->total_break)->format('H:i:s') }}</td>
+                                               
                                                
                                                 <td data-value="{{ $attendancer->rate }}" class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">****</td>
                                                 <td data-value="{{ number_format($attendancer->total_hours * $attendancer->rate, 2) }}" class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">****</td>
                                                 
          
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->attendanceStatus->description }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">
+                                                    
+                                                
+                            
+                                                @php
+                                                    $totalTime = $attendancer->breaktimeLog()->first()->total_hours; 
+    $timeParts = explode(":", $totalTime); 
+    $totalSeconds = (isset($timeParts[0]) ? $timeParts[0] * 3600 : 0) + (isset($timeParts[1]) ? $timeParts[1] * 60 : 0) + (isset($timeParts[2]) ? $timeParts[2] : 0);
+    
+    
+    if ($totalSeconds < 60) {
+       
+        $formattedTime = $totalSeconds . ' seconds ';
+    } elseif ($totalSeconds < 3600) {
+       
+        $formattedTime = gmdate("i:s", $totalSeconds);
+    } else {
+       
+        $formattedTime = gmdate("H:i:s", $totalSeconds);
+    }
+@endphp
+
+
+
+@if ($attendancer->total_break > 3600)
+@php
+    $totalTime = $attendancer->total_break - 3600;
+    $totalSeconds = abs($totalTime); 
+
+    if ($totalSeconds < 60) {
+        $formattedTime = $totalSeconds . ' second' . ($totalSeconds === 1 ? '' : 's');
+    } elseif ($totalSeconds < 3600) {
+        $formattedTime = gmdate("i:s", $totalSeconds);
+    } else {
+        $formattedTime = gmdate("H:i:s", $totalSeconds);
+    }
+@endphp
+
+- {{ $formattedTime }} over break ~ 
+{{ \Carbon\Carbon::parse($attendancer->breaktimeLog()->first()->end_time)->format('h:i:s A') }}
+
+@else
+    {{ $formattedTime }} ~ 
+    {{ \Carbon\Carbon::parse($attendancer->breaktimeLog()->first()->end_time)->format('h:i:s A') }}
+@endif
+
+
+</td>
                                                 <td>
                                                 @if($attendancer->attendance_id == $latest->attendance_id)
 
                                                        <div class="text-center" style="max-width: 80%; margin: 0 auto;">
   
 
-<!-- Buttons for Pause and Resume functionality -->
 
 
-<button wire:click="resumeBreak" id="resume-break-btn" class="btn  @if( $breaktime->field == null )
-    btn-primary
-@else
-    btn-success
-@endif " style="display: none;"> @if( $breaktime->field == null )
-    Start Break
-@else
-    Resume Break
+
+
+                                                       @if ($attendancer->breaktimeLog()->first()?->total_hours !== '00:00:00')
+    <button 
+        wire:click="resumeBreak" 
+        id="resume-break-btn" 
+        class="btn {{ $breaktime && $breaktime->field == null ? 'btn-primary' : 'btn-success' }}" 
+        style="
+            {{ $breaktime && $breaktime->field == null ? 'display: inline-block;' : 'display: none;' }}
+        ">
+        {{ $breaktime && $breaktime->field == null ? 'Start Break' : 'Resume Break' }} 
+    </button>
+
+    <button 
+        wire:click="pauseBreak" 
+        id="pause-break-btn" 
+        class="btn btn-warning" 
+        style="display: inline-block;">
+        Pause Break
+    </button>
 @endif
 
 
-</button>
 
 
-<button wire:click="pauseBreak" id="pause-break-btn" class="btn btn-warning" style="display: inline-block;">
-  Pause Break
-</button>
+
 <script>
-let breakTime = "{{ $newTotalTime ? $newTotalTime->format('H:i:s') : '59:59' }}"; 
-let [hours, minutes, seconds] = breakTime.split(":").map(Number); 
-let breakTimeInSeconds = (hours * 3600) + (minutes * 60) + seconds; 
+    let breakTime = "{{ $newTotalTime ? $newTotalTime->format('H:i:s') : '59:59' }}"; 
+    let [hours, minutes, seconds] = breakTime.split(":").map(Number); 
+    let breakTimeInSeconds = (hours * 3600) + (minutes * 60) + seconds; 
 
-let countdownInterval;
+    let allowedBreakTimeInSeconds = 3600; 
+    let excessBreakTime = 0;
 
-function formatTime(seconds) {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const remainingSeconds = seconds % 60;
-    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
-}
+    let countdownInterval;
 
-function updateCountdown() {
-    if (breakTimeInSeconds > 0) {
-        breakTimeInSeconds--;
-        document.getElementById('break-time').innerText = formatTime(breakTimeInSeconds);
-    } else {
-        document.getElementById('break-time').innerText = "00:00:00";
-        alert("Break time is over!");
-        clearInterval(countdownInterval);
+  
+    function formatTime(seconds) {
+        let isNegative = seconds < 0;
+        if (isNegative) {
+            seconds = Math.abs(seconds); 
+        }
+
+        if (seconds < 60) {
+            return `${isNegative ? '-' : ''}${seconds} second${seconds > 1 ? 's' : ''} ${isNegative ? 'over break' : ''}`;
+        } else if (seconds < 3600) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${isNegative ? '-' : ''}${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')} ${isNegative ? 'over break' : ''}`;
+        } else {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const remainingSeconds = seconds % 60;
+            return `${isNegative ? '-' : ''}${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')} ${isNegative ? 'over break' : ''}`;
+        }
     }
-}
 
-function pauseBreak() {
-    localStorage.setItem("breakStatus", "paused");
-
-    clearInterval(countdownInterval);
-
-    document.getElementById("pause-break-btn").style.display = "none";
-    document.getElementById("resume-break-btn").style.display = "inline-block";
-}
-
-function resumeBreak() {
-    localStorage.setItem("breakStatus", "started");
-
-    countdownInterval = setInterval(updateCountdown, 1000);
-
-    document.getElementById("resume-break-btn").style.display = "none";
-    document.getElementById("pause-break-btn").style.display = "inline-block";
-}
-
-window.onload = function () {
-    const breakStatus = localStorage.getItem("breakStatus");
-    if (breakStatus === "started") {
-        document.getElementById("pause-break-btn").style.display = "inline-block";
-        document.getElementById("resume-break-btn").style.display = "none";
-        countdownInterval = setInterval(updateCountdown, 1000);
-    } else if (breakStatus === "paused") {
-        document.getElementById("pause-break-btn").style.display = "none";
-        document.getElementById("resume-break-btn").style.display = "inline-block";
-    } else {
-        document.getElementById("pause-break-btn").style.display = "none";
-        document.getElementById("resume-break-btn").style.display = "none";
+    function updateCountdown() {
+        if (breakTimeInSeconds > 0) {
+            breakTimeInSeconds--; 
+            document.getElementById('break-time').innerText = formatTime(breakTimeInSeconds);
+        } else {
+            // Count negative time (over break)
+            excessBreakTime--; 
+            document.getElementById('break-time').innerText = formatTime(excessBreakTime);
+        }
     }
-};
 
-document.getElementById("pause-break-btn")?.addEventListener("click", pauseBreak);
-document.getElementById("resume-break-btn")?.addEventListener("click", resumeBreak);
+    function pauseBreak() {
+        localStorage.setItem("breakStatus", "paused"); 
+        clearInterval(countdownInterval); 
+        document.getElementById("pause-break-btn").style.display = "none"; 
+        document.getElementById("resume-break-btn").style.display = "inline-block"; 
+    }
+
+    function resumeBreak() {
+        localStorage.setItem("breakStatus", "started"); 
+        countdownInterval = setInterval(updateCountdown, 1000); 
+        document.getElementById("resume-break-btn").style.display = "none"; 
+        document.getElementById("pause-break-btn").style.display = "inline-block"; 
+    }
+
+    window.onload = function () {
+        const breakStatus = localStorage.getItem("breakStatus");
+
+        if (breakStatus === "started") {
+            document.getElementById("pause-break-btn").style.display = "inline-block"; 
+            document.getElementById("resume-break-btn").style.display = "none"; 
+            countdownInterval = setInterval(updateCountdown, 1000); 
+        } else if (breakStatus === "paused") {
+            document.getElementById("pause-break-btn").style.display = "none"; 
+            document.getElementById("resume-break-btn").style.display = "inline-block"; 
+        } else {
+            document.getElementById("pause-break-btn").style.display = "none"; 
+            document.getElementById("resume-break-btn").style.display = "none"; 
+        }
+    };
+
+    document.getElementById("pause-break-btn")?.addEventListener("click", pauseBreak);
+    document.getElementById("resume-break-btn")?.addEventListener("click", resumeBreak);
 </script>
+
+
 
 
 
@@ -287,12 +400,12 @@ document.getElementById("resume-break-btn")?.addEventListener("click", resumeBre
       document.getElementById('toggleVisibility').addEventListener('click', function () {
 
     const rows = document.querySelectorAll('#yut tbody tr');
-    const isHidden = rows[0].querySelector('td:nth-child(6)').textContent === '****'; 
+    const isHidden = rows[0].querySelector('td:nth-child(5)').textContent === '****'; 
 
     rows.forEach(row => {
         
-        const priceCell = row.querySelector('td:nth-child(6)'); 
-        const quantityCell = row.querySelector('td:nth-child(7)'); 
+        const priceCell = row.querySelector('td:nth-child(5)'); 
+        const quantityCell = row.querySelector('td:nth-child(6)'); 
 
      
         const priceActualValue = priceCell.getAttribute('data-value');

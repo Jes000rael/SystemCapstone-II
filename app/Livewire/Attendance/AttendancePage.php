@@ -82,28 +82,95 @@ class AttendancePage extends Component
     
       
         if ($currentTime > $scheduledStartTime && !$attendance) {
-         
-            $latenessDuration = $currentTime->diff($scheduledStartTime);
     
+            
+            $latenessDuration = $currentTime->diff($scheduledStartTime);
             $lateHours = $latenessDuration->h;
             $lateMinutes = $latenessDuration->i;
             $lateSeconds = $latenessDuration->s;
-    
-            $latenessMessage = 'You are late! Your scheduled start time was ' . $scheduledStartTime->format('g:i A') . '. Your ';
-    
+        
+            $latenessMessage = '';
+        
+            
             if ($lateHours > 0) {
                 $latenessMessage .= $lateHours . ' hour' . ($lateHours > 1 ? 's' : '') . ' and ';
             }
-    
+        
             if ($lateMinutes > 0) {
                 $latenessMessage .= $lateMinutes . ' minute' . ($lateMinutes > 1 ? 's' : '') . ' and ';
             }
-    
-            $latenessMessage .= $lateSeconds . ' second' . ($lateSeconds > 1 ? 's' : '') . ' late.';
-    
+        
+        
+            if ($lateSeconds > 0) {
+                $latenessMessage .= $lateSeconds . ' second' . ($lateSeconds > 1 ? 's' : '') . ' late.';
+            } else {
+        
+                $latenessMessage = rtrim($latenessMessage, ' and ') . ' late.';
+            }
+        
+
+            $employee = EmployeeRecords::where('employee_id', $this->employee_id)->first();
+            $latestCutoff = \App\Models\Cutoff::where('company_id', Auth::user()->company_id)
+                ->latest('cutoff_id')
+                ->first();
+        
+            $currentDate = Carbon::now()->toDateString(); 
+        
            
-            session()->flash('error', $latenessMessage);
+            if ($latestCutoff) {
+                $cutoffStart = Carbon::parse($latestCutoff->date_start)->toDateString(); 
+                $cutoffEnd = Carbon::parse($latestCutoff->date_end)->toDateString();    
+        
+                if ($currentDate < $cutoffStart || $currentDate > $cutoffEnd) {
+                    session()->flash('error', "Current date ($currentDate) is outside the cutoff range ($cutoffStart to $cutoffEnd).");
+                    return;
+                } 
+            } else {
+                session()->flash('error', 'No cutoff record found.');
+                return;
+            }
+        
+     
+            if ($workSchedule) {
+                $dutyStart = $workSchedule->{$weekday . '_in'};
+                $workEndTime = $workSchedule->{$weekday . '_out'};
+        
+                if ($dutyStart) {
+                   
+                    $attendance = AttendanceRecord::create([
+                        'company_id' => Auth::user()->company_id,
+                        'employee_id' => $this->employee_id,
+                        'cutoff_id' => $latestCutoff->cutoff_id,
+                        'rate' => $employee->hourly_rate,
+                        'date' => $currentDate,
+                        'duty_start' => $dutyStart,
+                        'duty_end' => $workEndTime,
+                        'time_in' => $currentTime, 
+                        'status_id' => 1,
+                        'has_night_diff' => $employee->has_night_diff,
+                    ]);
+        
+                    
+                    BreaktimeLog::create([
+                        'attendance_id' => $attendance->attendance_id,  
+                        'employee_id' => $this->employee_id,  
+                        'total_hours' => '00:59:59',  
+                    ]);
+        
+                    session()->flash('success', 'Time-in recorded successfully!');
+                } else {
+                    session()->flash('error', 'No work schedule found for today.');
+                }
+            } else {
+                session()->flash('error', 'You have no work schedule for today');
+            }
+        
+          
+            session()->flash('error', 'You are late! Your scheduled start time was ' . $scheduledStartTime->format('g:i A') . '. Your lateness: ' . $latenessMessage);
+            return;
         }
+        
+        
                  
 $currentTime = Carbon::now();
 $currentDate = $currentTime->toDateString();

@@ -46,8 +46,8 @@ $this->latest = null;
 
 
 if ($this->latest !== null) {
-$this->breaktime = BreaktimeLog::where('attendance_id', $this->latest->attendance_id)
-    ->first();
+      $this->breaktime = BreaktimeLog::where('attendance_id', $this->latest->attendance_id)
+         ->first();
 
 
 if ($this->breaktime === null) {
@@ -58,36 +58,67 @@ if ($this->breaktime === null) {
 }
 
     
-        if ($this->breaktime) {
-          
-            $endTime = Carbon::now();  
+if ($this->breaktime) {
+    $endTime = Carbon::now();  
+    $startTime = Carbon::parse($this->breaktime->start_time);  
+    $totalBreakDurationInSeconds = $startTime->diffInSeconds($endTime);
     
-           
-            $startTime = Carbon::parse($this->breaktime->start_time);  
-    
-           
-            $totalBreakDurationInSeconds = $startTime->diffInSeconds($endTime);
-    
-           
-            $totalHours = $this->breaktime->total_hours;
-            $parsedTime = Carbon::createFromFormat('H:i:s', $totalHours);
-    
+    $totalHours = $this->breaktime->total_hours;
+    $parsedTime = Carbon::createFromFormat('H:i:s', $totalHours);
 
-            $totalTimeInSeconds = $parsedTime->hour * 3600 + $parsedTime->minute * 60 + $parsedTime->second;
+    $totalTimeInSeconds = $parsedTime->hour * 3600 + $parsedTime->minute * 60 + $parsedTime->second;
+    $newTotalTimeInSeconds = $totalTimeInSeconds - $totalBreakDurationInSeconds;
+
+  
+    $this->newTotalTime = Carbon::now()->startOfDay()->addSeconds($newTotalTimeInSeconds);
     
-     
-            $newTotalTimeInSeconds = $totalTimeInSeconds - $totalBreakDurationInSeconds;
-    
-        
-            $this->newTotalTime = Carbon::parse($newTotalTimeInSeconds);
-        } else {
-        
-            $this->newTotalTime = null;
-        }
+} else {
+    $this->newTotalTime = null;
+}
     
         $this->loadAttendance($employee_id, $this->cut_off ?: optional($this->cutoffs->first())->cutoff_id);
     }
+
+    public function formatTime($totalSeconds)
+{
+    if ($totalSeconds === 0) {
+        return "No more breaktime";
+    }
+
+    if ($totalSeconds < 60) {
+        return "{$totalSeconds} seconds ";
+    } elseif ($totalSeconds < 3600) {
+        $minutes = floor($totalSeconds / 60);
+        $seconds = $totalSeconds % 60;
+        return sprintf('%02d:%02d', $minutes, $seconds);
+    } else {
+        $hours = floor($totalSeconds / 3600);
+        $minutes = floor(($totalSeconds % 3600) / 60);
+        $seconds = $totalSeconds % 60;
+        return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
+    }
+}
+
+public function getFormattedBreakTimeProperty()
+{
+    if ($this->breaktime && $this->breaktime->total_hours) {
     
+        $timeParts = explode(':', $this->breaktime->total_hours);
+        if (count($timeParts) === 3) {
+            $hours = (int) $timeParts[0];
+            $minutes = (int) $timeParts[1];
+            $seconds = (int) $timeParts[2];
+
+      
+            $totalSeconds = ($hours * 3600) + ($minutes * 60) + $seconds;
+
+            return $this->formatTime($totalSeconds);
+        }
+    }
+
+
+    return 'No break time available';
+}
 
     public function cutoffselect()
     {
@@ -95,7 +126,10 @@ if ($this->breaktime === null) {
 
         if ($this->cut_off) {
             Session::put('selected_cut_off', $this->cut_off);
+            redirect('/admin/user/attendance');
             $this->loadAttendance($employee_id, $this->cut_off);
+            
+
         } else {
             $this->attendance = collect(); 
         }
@@ -103,30 +137,36 @@ if ($this->breaktime === null) {
 
     private function loadAttendance($employee_id, $cutoffId)
     {
+      
+
         if ($cutoffId) {
-            $this->attendance = AttendanceRecord::where('employee_id', $employee_id)
-                ->where('cutoff_id', $cutoffId)
-                ->orderBy('attendance_id', 'desc')
-                ->get();
+            $this->attendance = AttendanceRecord::
+            where('employee_id', $employee_id)
+            ->where('cutoff_id', $cutoffId)
+            ->orderBy('attendance_id', 'desc')
+            ->get();
+          
+            
+            
         } else {
             $this->attendance = collect(); 
         }
+        
     }
 
   
 
     public function resumeBreak()
     {
-        // Store the end time when the break is paused
-        $endTime = Carbon::now();  // This will give you the current time
+    
+        $endTime = Carbon::now();  
         
       
         
-        // Retrieve the most recent break log entry for the current attendance
+        
         $break = BreaktimeLog::where('attendance_id', $this->latest->attendance_id)
             ->first();
-    
-        // Update the break log with the new total hours
+  
         $break->update([
             'start_time' => $endTime,
             'field' => 'Break',
@@ -138,76 +178,87 @@ if ($this->breaktime === null) {
 
     public function pauseBreak()
     {
-        // Store the end time when the break is paused
-        $endTime = Carbon::now();  // This will give you the current time
-        
-      
-        
-        // Retrieve the most recent break log entry for the current attendance
+        $endTime = Carbon::now();  
         $break = BreaktimeLog::where('attendance_id', $this->latest->attendance_id)
             ->first();
     
-        
-        
-        // Ensure start_time is a Carbon instance
-        $startTime = Carbon::parse($break->start_time);  // Convert start_time to a Carbon instance
+        if (!$break) {
+            
+            throw new \Exception("Break log not found.");
+        }
     
- 
-        
-        // Calculate the break duration in seconds
+        $startTime = Carbon::parse($break->start_time); 
+    
         $totalBreakDurationInSeconds = $startTime->diffInSeconds($endTime);
     
-        
-        // Assuming $break->total_hours is in HH:MM:SS format, e.g., '00:59:59'
-$totalHours = $break->total_hours;  // This is a string in HH:MM:SS format
-
-// Parse total_hours to a Carbon instance
-$parsedTime = Carbon::createFromFormat('H:i:s', $totalHours);
-
-// Convert total_hours (HH:MM:SS) into total seconds
-$totalTimeInSeconds = $parsedTime->hour * 3600 + $parsedTime->minute * 60 + $parsedTime->second;
-
-
-
+        $totalHours = $break->total_hours;
     
-        // Subtract the break duration (in seconds) from total_time (in seconds)
+  
+        $parsedTime = Carbon::createFromFormat('H:i:s', $totalHours);
+        $totalTimeInSeconds = $parsedTime->hour * 3600 + $parsedTime->minute * 60 + $parsedTime->second;
+    
+    
         $newTotalTimeInSeconds = $totalTimeInSeconds - $totalBreakDurationInSeconds;
     
+      
+        if ($newTotalTimeInSeconds <= 0) {
      
+            $break->update([
+                'end_time' => $endTime,
+                'total_hours' => '00:00:00',
+                'field' => 'Duty',
+            ]);
     
-        // Convert the new total seconds back to a Carbon instance and format as HH:MM:SS
+        $this->updateTotalWorkHours($totalBreakDurationInSeconds);
+           
+        }else
+        {
+            // Convert seconds back to a time format
         $newTotalTime = Carbon::parse($newTotalTimeInSeconds);
     
-     
-    
-        // Update the break log with the new total hours
         $break->update([
             'end_time' => $endTime,
-            'total_hours' => $newTotalTime->format('H:i:s'),  // Format back to HH:MM:SS
+            'total_hours' => $newTotalTime->format('H:i:s'),
             'field' => 'Duty',
         ]);
-        $this->updateTotalWorkHours($totalTimeInSeconds);
+        $this->updateTotalWorkHours($totalBreakDurationInSeconds);
+
+        }
+    
+        
+    
     }
     
+    
 
-    public function updateTotalWorkHours($totalTimeInSeconds)
+    public function updateTotalWorkHours($totalBreakDurationInSeconds)
 {
-    // Get the latest attendance record
-    $attendanceRecord = $this->latest;
+    $employee_id = Auth::user()->employee_id;
+   
+$this->latest = AttendanceRecord::where('employee_id', $employee_id)
+->orderBy('attendance_id', 'desc')
+->first();
 
-    // Convert total_hours from hours to seconds (if it's stored in hours)
-    $totalWorkHoursInSeconds = $attendanceRecord->total_break * 3600; // Convert to seconds
+if ($this->latest) {
+  
+    $totalWorkHoursInSeconds = $this->latest->total_break; 
 
-    // Subtract the break duration (in seconds)
-    $updatedTotalWorkInSeconds = $totalWorkHoursInSeconds + $totalTimeInSeconds;
+ 
+    $updatedTotalWorkInSeconds = $totalWorkHoursInSeconds + $totalBreakDurationInSeconds;
 
-    // Convert back to hours and update the total hours in the attendance record
-    $attendanceRecord->total_break = $updatedTotalWorkInSeconds / 3600; // Convert seconds back to hours
-    $attendanceRecord->save();
-    return redirect('/admin/user/attendance');
+    $updatedTotalWorkInHours = $updatedTotalWorkInSeconds;
+
+    $this->latest->total_break = $updatedTotalWorkInHours;
+
+
+$this->latest->save();
+return redirect('/admin/user/attendance');
 
 }
 
+
+
+}
 
 
 

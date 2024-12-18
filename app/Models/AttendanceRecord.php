@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class AttendanceRecord extends Model
 {
     use HasFactory;
-    protected $fillable = [ 'employee_id',
+    protected $fillable = [ 
+        'attendance_id','employee_id',
     'company_id',
-
     'cutoff_id',
     'total_hours',
     'total_break',
@@ -31,9 +31,9 @@ class AttendanceRecord extends Model
     return $this->hasmany(Absences::class, 'attendance_id');
 } 
 
-public function breaktime()
+public function breaktimeLog()
 {
-    return $this->belongsTo(BreaktimeLog::class, 'attendance_id');
+    return $this->hasmany(BreaktimeLog::class, 'attendance_id');
 } 
 
 public function overtime()
