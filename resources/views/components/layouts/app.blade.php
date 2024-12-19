@@ -65,7 +65,11 @@
         @elseif (in_array(request()->route()->getName(),['login'],))
        
        {{ $slot }}
+       @elseif (request()->routeIs('forgot-Password'))
+            {{ $slot }}
+        
    @endif
+
     @endauth
 
     @guest

@@ -47,7 +47,9 @@
                                            
 
                                             <tr>
-                                                <td>{{ $book->description }}<a href="{{ $book->link }}"> <i class="bx bx-paper-plane ms-2 fs-5 text-success"></i></a></td>
+                                                <td>{{ $book->description }}<a href="{{ $book->link }}" target="_blank">
+    <i class="bx bx-paper-plane ms-2 fs-5 text-success"></i>
+</a></td>
                                                 <td>{{ date('D M d Y', strtotime($book->date)) }}</td>
                                                 
                                             </tr>

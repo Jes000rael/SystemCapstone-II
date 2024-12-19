@@ -142,7 +142,7 @@
                                                     <div class="col-md-3">
  
 
-                                                        <button type="submit" class="btn btn-primary mb-1 mt-1 w-50 ">Get Time Log</button>
+                                                        <button  type="submit" class="btn btn-primary mb-1 mt-1 w-50 ">Get Time Log</button>
                                                         
                                                     </div>
                                                 </div>
@@ -194,24 +194,58 @@
                                                 @foreach($attendance as $attendancer)
                                                 
                                             <tr>
-                                            <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->date)->format('D, M d Y') }}</td>
-                                            <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') }}</td>
-                                            <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ !empty($attendancer->time_out) ? \Carbon\Carbon::parse($attendancer->time_out)->format('h:i A') : '--:--' }} </td>
+                                            <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer['date'])->format('D, M d Y') }}</td>
+                                            <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}"> @if($attendancer['record'])
+                {{ \Carbon\Carbon::parse($attendancer['record']->time_in)->format('h:i A') }}
+            @else
+            @endif</td>
+                                            <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">@if($attendancer['record'])
+                                            {{ !empty(optional($attendancer['record'])->time_out) ? \Carbon\Carbon::parse(optional($attendancer['record'])->time_out)->format('h:i A') : '--:--' }}
+            @else
+            @endif  </td>
                                                
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->total_hours ?? '0.00' }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">
+                                                @if($attendancer['record'])
+                                                {{ optional($attendancer['record'])->total_hours ?? '0.00' }}
+            @else
+            @endif  </td>
                                                
                                                
-                                                <td data-value="{{ $attendancer->rate }}" class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">****</td>
-                                                <td data-value="{{ number_format($attendancer->total_hours * $attendancer->rate, 2) }}" class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">****</td>
+                                                <td data-value="
+                                                  @if($attendancer['record'])
+                                                {{ optional($attendancer['record'])->rate }}
+            @else
+            @endif" class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">  @if($attendancer['record'])
+            ****                                 
+            @else
+            @endif</td>
+                                                <td data-value="
+                                                @if($attendancer['record'])
+            {{ number_format(optional($attendancer['record'])->total_hours * optional($attendancer['record'])->rate, 2) }}                             
+            @else
+            @endif " class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">@if($attendancer['record'])
+            ****                                 
+            @else
+            @endif</td>
                                                 
          
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->attendanceStatus->description }}</td>
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">
-                                                    
-                                                
-                            
+                                                <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">
+                                                @if($attendancer['record'])
+                                                {{ optional($attendancer['record'])->attendanceStatus->description ?? 'No Status' }}                          
+            @else
+            @endif </td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">
+                                                @if($attendancer['record'])
+                                               
                                                 @php
-                                                    $totalTime = $attendancer->breaktimeLog()->first()->total_hours; 
+                                                $totalTime = optional($attendancer['record'])->breaktimeLog;
+if ($totalTime && $totalTime->count() > 0) {
+    $totalTime = $totalTime->first()->total_hours; // If a record exists, get the total_hours
+} else {
+    $totalTime = '00:00:00';
+}
+
+
     $timeParts = explode(":", $totalTime); 
     $totalSeconds = (isset($timeParts[0]) ? $timeParts[0] * 3600 : 0) + (isset($timeParts[1]) ? $timeParts[1] * 60 : 0) + (isset($timeParts[2]) ? $timeParts[2] : 0);
     
@@ -230,9 +264,9 @@
 
 
 
-@if ($attendancer->total_break > 3600)
+@if (optional($attendancer['record'])->total_break > 3600)
 @php
-    $totalTime = $attendancer->total_break - 3600;
+    $totalTime = optional($attendancer['record'])->total_break - 3600;
     $totalSeconds = abs($totalTime); 
 
     if ($totalSeconds < 60) {
@@ -245,48 +279,99 @@
 @endphp
 
 - {{ $formattedTime }} over break ~ 
-{{ \Carbon\Carbon::parse($attendancer->breaktimeLog()->first()->end_time)->format('h:i:s A') }}
+{{ \Carbon\Carbon::parse(optional($attendancer['record'])->breaktimeLog()->first()->end_time)->format('h:i:s A') }}
 
 @else
     {{ $formattedTime }} ~ 
-    {{ \Carbon\Carbon::parse($attendancer->breaktimeLog()->first()->end_time)->format('h:i:s A') }}
+    @php
+    // Safely check if breaktimeLog exists, then access the first log record
+    $breaktimeLog = optional($attendancer['record'])->breaktimeLog;
+    $endTime = $breaktimeLog ? $breaktimeLog->first()->end_time : null;
+@endphp
+
+{{ $endTime ? \Carbon\Carbon::parse($endTime)->format('h:i:s A') : 'Not started' }}
+
+
 @endif
 
+            @else
+            @endif
+                            
+                                                
 
 </td>
                                                 <td>
-                                                @if($attendancer->attendance_id == $latest->attendance_id)
+                                                @if($attendancer['record'])
+                                                @if(optional($attendancer['record'])->attendance_id == $latest->attendance_id)
 
-                                                       <div class="text-center" style="max-width: 80%; margin: 0 auto;">
-  
-
-
+<div class="text-center" style="max-width: 80%; margin: 0 auto;">
 
 
 
-                                                       @if ($attendancer->breaktimeLog()->first()?->total_hours !== '00:00:00')
-    <button 
-        wire:click="resumeBreak" 
-        id="resume-break-btn" 
-        class="btn {{ $breaktime && $breaktime->field == null ? 'btn-primary' : 'btn-success' }}" 
-        style="
-            {{ $breaktime && $breaktime->field == null ? 'display: inline-block;' : 'display: none;' }}
-        ">
-        {{ $breaktime && $breaktime->field == null ? 'Start Break' : 'Resume Break' }} 
-    </button>
 
-    <button 
-        wire:click="pauseBreak" 
-        id="pause-break-btn" 
-        class="btn btn-warning" 
-        style="display: inline-block;">
-        Pause Break
-    </button>
+
+
+@if (optional($attendancer['record'])->breaktimeLog()->first()?->total_hours !== '00:00:00')
+<button 
+wire:click="resumeBreak" 
+id="resume-break-btn" 
+class="btn {{ $breaktime && $breaktime->field == null ? 'btn-primary' : 'btn-success' }}" 
+style="
+{{ $breaktime && $breaktime->field == null ? 'display: inline-block;' : 'display: none;' }}
+">
+{{ $breaktime && $breaktime->field == null ? 'Start Break' : 'Resume Break' }} 
+</button>
+
+<button 
+wire:click="pauseBreak" 
+id="pause-break-btn" 
+class="btn btn-warning" 
+style="display: inline-block;">
+Pause Break
+</button>
 @endif
 
 
 
 
+
+
+
+
+
+
+
+</div>
+@endif
+
+            @else
+            @endif
+                                               
+                                             </td>
+                                                    
+                                                </tr>
+                                                @endforeach
+                                                
+                                                
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div> <!-- end col -->
+                </div>
+                <!-- end row -->
+                
+            </div>
+            <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
+
+    </div>
+    <!-- END layout-wrapper -->
+</div>
+@push('scripts')
 
 <script>
     let breakTime = "{{ $newTotalTime ? $newTotalTime->format('H:i:s') : '59:59' }}"; 
@@ -298,7 +383,7 @@
 
     let countdownInterval;
 
-  
+
     function formatTime(seconds) {
         let isNegative = seconds < 0;
         if (isNegative) {
@@ -324,7 +409,7 @@
             breakTimeInSeconds--; 
             document.getElementById('break-time').innerText = formatTime(breakTimeInSeconds);
         } else {
-            // Count negative time (over break)
+         
             excessBreakTime--; 
             document.getElementById('break-time').innerText = formatTime(excessBreakTime);
         }
@@ -364,38 +449,6 @@
     document.getElementById("resume-break-btn")?.addEventListener("click", resumeBreak);
 </script>
 
-
-
-
-
-                                                       </div>
-                                                   @endif
-
-                                             </td>
-                                                    
-                                                </tr>
-                                                @endforeach
-                                                
-                                                
-                                        </table>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div> <!-- end col -->
-                </div>
-                <!-- end row -->
-                
-            </div>
-            <!-- container-fluid -->
-        </div>
-        <!-- End Page-content -->
-
-    </div>
-    <!-- END layout-wrapper -->
-</div>
-@push('scripts')
 <script>
       document.getElementById('toggleVisibility').addEventListener('click', function () {
 

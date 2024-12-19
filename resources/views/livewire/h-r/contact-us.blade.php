@@ -51,10 +51,15 @@
     <div class="mb-3">
         <div class="align-items-center d-flex justify-content-center">
            
-            <button type="submit" class="btn btn-primary w-sm mt-3 me-2" wire:loading.attr="disabled" wire:target="sendEmail">
-                <span wire:loading wire:target="sendEmail" class="spinner-border spinner-border-sm me-2"></span>
-                Send Email
-            </button>
+        <button type="submit" class="btn btn-primary w-sm mt-3 me-2" wire:loading.attr="disabled" wire:target="sendEmail">
+   
+    <span wire:loading wire:target="sendEmail" class="spinner-border spinner-border-sm me-1"></span> 
+
+ 
+    <i wire:loading.remove wire:target="sendEmail" class="bx bx-paper-plane me-1"></i>
+
+    Send Email
+</button>
         </div>
     </div>
 </form>

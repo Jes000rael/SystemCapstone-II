@@ -23,7 +23,7 @@
                 
 
                 <li class="{{ Route::currentRouteName() == 'attendance-Log' ? 'mm-active' : 'text-light fw-bold' }}">
-                    <a wire:navigate href="{{ route('attendance-Log') }}">
+                    <a  href="{{ route('attendance-Log') }}">
                         <i class="bx bx-calendar"></i>
                         <span key="t-calendar">Attendance</span>
                     </a>

@@ -21,7 +21,11 @@ class ForgotPassword extends Component
     public $status='active';
     public $message;
     public $step = 1; 
-    public $otpInput = ['', '', '', ''];
+    // public $otpInput = ['', '', '', ''];
+    public $otpInput1 = '';
+    public $otpInput2 = '';
+    public $otpInput3 = '';
+    public $otpInput4 = '';
     public $showFailureNotification = false;
 
  
@@ -33,6 +37,8 @@ class ForgotPassword extends Component
    
     public function sendOtpforRepass()
     {
+        $this->showFailureNotification = false;
+
         $this->validate();
 
         $user = EmployeeRecords::where('email', $this->email)->first();
@@ -45,12 +51,10 @@ class ForgotPassword extends Component
         $this->otp = Str::random(4);
         $this->sendOtpEmail($this->otp);
 
-      
-       
-        sleep(2); 
-   
         $this->showSuccessNotification = true;
+
         $this->step = 2;
+
     }
 
     protected function sendOtpEmail($otp)
@@ -72,8 +76,9 @@ class ForgotPassword extends Component
         
             $mail->isHTML(true);
             $mail->Subject = 'OTP Code';
-            $mail->Body    = "Your OTP code is <strong style='color:blue;' class='fw-bold fs-1'>{$otp}</strong>  dont share your OTP dont trust anyone be carefull";
+            $mail->Body    = "<span style=' font-size: 20px;'> Your OTP code is <strong style='color:blue; font-size: 25px;' >{$otp}</strong>  dont share your OTP dont trust anyone be carefull</span>";
             $mail->send();
+      
             
         } catch (Exception $e) {
         
@@ -83,17 +88,31 @@ class ForgotPassword extends Component
 
     public function verifyOtp()
     {
+        $this->showFailureNotification = false;
      
+        $this->validate([
+            'otpInput1' => 'required|alpha_num|min:1|max:1', 
+            'otpInput2' => 'required|alpha_num|min:1|max:1',
+            'otpInput3' => 'required|alpha_num|min:1|max:1',
+            'otpInput4' => 'required|alpha_num|min:1|max:1',
+        ]);
 
-        $inputOtp = implode('', $this->otpInput);
+
+        $inputOtp = $this->otpInput1 . $this->otpInput2 . $this->otpInput3 . $this->otpInput4;
+
 
         if ($inputOtp == $this->otp) {
             $this->successMessage = 'Email verified successfully!';
-            $this->errorMessage = '';
+        $this->showFailureNotification = false;
+        $this->reset(['otpInput1','otpInput2','otpInput3','otpInput4']);
             $this->step = 3; 
         } else {
-            $this->errorMessage = 'Invalid OTP. Please try again.';
-            $this->successMessage = '';
+
+            $this->showFailureNotification = true;
+        $this->reset(['otpInput1','otpInput2','otpInput3','otpInput4']);
+
+            return;
+          
         }
     }
     public function resetPassword()
@@ -114,31 +133,21 @@ class ForgotPassword extends Component
             if($companyId ===1){
 
                 if($departmentiId === 1){
-                    $employee = EmployeeRecords::where('employee_id',$empID)->first();
+                   
               
-                    $employee->update([
-                        'status' => $this->status,
-                      
-                    ]);
+                  
                     return redirect()->intended('/company')->with('success', 'Welcome back!'); 
 
                 }else{
                     if($departmentiId === 2){
-                        $employee = EmployeeRecords::where('employee_id',$empID)->first();
-                  
-                        $employee->update([
-                            'status' => $this->status,
-                          
-                        ]);
                        
+                  
+                      
                         return redirect()->intended('/dashboard')->with('success', 'Welcome back!');
                     }else{
-                        $employee = EmployeeRecords::where('employee_id',$empID)->first();
+                       
                   
-                    $employee->update([
-                        'status' => $this->status,
-                      
-                    ]);
+                   
                     return redirect()->intended('/employee/dashboard')->with('success', 'Welcome back!');
                     }
                 }
@@ -146,20 +155,14 @@ class ForgotPassword extends Component
             }else{
                 if($departmentiId === 2)
                 {
-                    $employee = EmployeeRecords::where('employee_id',$empID)->first();
+                   
 
-                    $employee->update([
-                        'status' => $this->status,
-                      
-                    ]);
+                   
                     return redirect()->intended('/dashboard')->with('success', 'Welcome back!');
                 }else{
-                    $employee = EmployeeRecords::where('employee_id',$empID)->first();
+                   
 
-                    $employee->update([
-                        'status' => $this->status,
-                      
-                    ]);
+                  
                     return redirect()->intended('/employee/dashboard')->with('success', 'Welcome back!');
                 }
             

@@ -50,7 +50,6 @@ class EmployeeRecords extends Seeder
                 'philhealth'=> 'jes2kim6@gmail.com',
                 'shift_id'=> 1,'Date_added'=> now(),
                 'email'=> 'jes2kim6@gmail',
-                'status'=> '',
                
             ],
             [
@@ -85,7 +84,7 @@ class EmployeeRecords extends Seeder
                 'philhealth'=> 'jes2kim6@gmail.com',
                 'shift_id'=> 1,'Date_added'=> now(),
                 'email'=> 'jes2kim6@gmail.com',
-                'status'=> '',
+              
                
             ],
          ]);

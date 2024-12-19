@@ -86,11 +86,11 @@ input[type="text"] {
                                 <div class="p-2">
                                 @if ($showFailureNotification)
                              
-                                <div wire:model.live="showFailureNotification"  class="rounded-2 alert bg-danger text-center mb-3 " role="alert">
+                                <div wire:model.live="showFailureNotification" style="background-color:rgb(201, 56, 68);"  class="rounded-2 alert  text-center mb-3 " role="alert">
                                         
                                                 
                                      
-                                       <span class=" text-white fw-bold">  Invalid email </span>
+                                       <span class=" text-white fw-bold">  Invalid email please try again </span>
                                 
                                  
                         </div>
@@ -109,13 +109,13 @@ input[type="text"] {
                                 
                                   
                                     <form wire:submit.prevent="sendOtpforRepass" action="#" method="POST" role="form text-left">
-                                    @error('errors') <span class="text-danger error fw-bold" style="font-size: 14px;">{{ $message }}</span> @enderror
+                                   
                                         <div class="mb-3">
                                             <label for="email" class="form-label">Email</label>
                                             <div class=" @error('errors')border border-danger rounded-3 @enderror @error('email')border border-danger rounded-3 @enderror">
                                             <input  wire:model.live="email" id="email" type="text" class="form-control bg-white border-white "  style="color:#000;" placeholder="Enter email">
                                         </div>
-                                        @error('email') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                        @error('email') <span style="color:rgb(230, 12, 30);" class=" error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                         </div>
                 
                                         
@@ -123,8 +123,11 @@ input[type="text"] {
                                        
                                         
                                         <div class="align-item-center d-flex justify-content-center">
-                                          <button type="submit" class="btn btn-primary w-sm mt-3 me-2 rounded-pill">Send OTP</button>
-                                          <a wire:navigate href="{{ route('login') }}" class="btn btn-secondary w-sm mt-3 rounded-pill">Close</a>
+                                          <button type="submit" class="btn btn-primary w-sm mt-3 me-2 rounded-pill px-3"> <span wire:loading wire:target="sendOtpforRepass" class="spinner-border spinner-border-sm me-1"></span> 
+
+ 
+<i wire:loading.remove wire:target="sendOtpforRepass" class="bx bx-paper-plane me-1 "></i> Send OTP</button>
+                                          <a wire:navigate href="{{ route('login') }}" class="btn btn-secondary w-sm mt-3 rounded-pill px-3">Cancel</a>
                                         </div>
 
                                         <div class="mt-5 text-center">
@@ -149,29 +152,85 @@ input[type="text"] {
                                     <div class="p-2 ">
 
                                         <h4>Verify your email</h4>
-                                        <p class="mb-5">Please enter the 4 digit code sent to <span
+                                        <p class="@if ($showFailureNotification) mb-2 @else mb-5 @endif">Please enter the 4 digit code sent to <span
                                                 class="fw-semibold">{{ $email }} </span></p>
 
+                                                @if ($showFailureNotification)
+                             
+                             <div wire:model.live="showFailureNotification" style="background-color:rgb(201, 56, 68);"  class="rounded-2 alert  text-center mb-3 " role="alert">
+                                     
+                                             
+                                  
+                                    <span class=" text-white fw-bold">  Invalid OTP, please check your email</span>
+                             
+                              
+                     </div>
+                     @endif
+
                                         <form wire:submit.prevent ="verifyOtp">
+                                       
                                             <div class="row " >
-                                            @foreach (range(0, 3) as $index)
+                                            
     <div class="col-3">
         <div class="mb-3">
-            <label for="digit.{{ $index }}-input" class="visually-hidden">Digit {{ $index + 1 }}</label>
-            <div class="@error('otpInput.' . $index) border border-danger rounded-3 @enderror">
+            <label for="digit1-input" class="visually-hidden">Digit 1</label>
+            <div class="@error('otpInput1') border border-danger rounded-3 @enderror">
                 <input 
                     type="text" 
                     class="form-control form-control-lg text-center two-step" 
                     maxlength="1" 
-                    wire:model="otpInput.{{ $index }}" 
-                    id="digit.{{ $index }}-input">
+                    wire:model="otpInput1" 
+                    id="digit1-input">
             </div>
            
         </div>
     </div>
-@endforeach
 
-                                              
+    <div class="col-3">
+        <div class="mb-3">
+            <label for="digit2-input" class="visually-hidden">Digit 2</label>
+            <div class="@error('otpInput2') border border-danger rounded-3 @enderror">
+                <input 
+                    type="text" 
+                    class="form-control form-control-lg text-center two-step" 
+                    maxlength="1" 
+                    wire:model="otpInput2" 
+                    id="digit2-input">
+            </div>
+           
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="mb-3">
+            <label for="digit3-input" class="visually-hidden">Digit 3</label>
+            <div class="@error('otpInput3') border border-danger rounded-3 @enderror">
+                <input 
+                    type="text" 
+                    class="form-control form-control-lg text-center two-step" 
+                    maxlength="1" 
+                    wire:model="otpInput3" 
+                    id="digit3-input">
+            </div>
+           
+        </div>
+    </div>
+     <div class="col-3">
+        <div class="mb-3">
+            <label for="digit4-input" class="visually-hidden">Digit 4</label>
+            <div class="@error('otpInput4') border border-danger rounded-3 @enderror">
+                <input 
+                    type="text" 
+                    class="form-control form-control-lg text-center two-step" 
+                    maxlength="1" 
+                    wire:model="otpInput4" 
+                    id="digit4-input">
+            </div>
+           
+        </div>
+    </div>
+
+
+                                   
                                                 
                                             </div>
                                             <div class="align-item-center d-flex justify-content-center">
@@ -219,7 +278,7 @@ input[type="text"] {
                                             <div class=" @error('errors')border border-danger rounded-3 @enderror @error('newpassword')border border-danger rounded-3 @enderror">
                                             <input  wire:model.live="newpassword" id="newpassword" type="text" class="form-control bg-white border-white "  style="color:#000;" placeholder="Enter newpassword">
                                         </div>
-                                        @error('newpassword') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                        @error('newpassword') <span style="color:rgb(230, 12, 30);" class=" error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                         </div>
                                         
                                         <div class="align-item-center d-flex justify-content-center">

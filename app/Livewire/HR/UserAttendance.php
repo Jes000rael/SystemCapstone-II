@@ -121,38 +121,62 @@ public function getFormattedBreakTimeProperty()
 }
 
     public function cutoffselect()
-    {
-        $employee_id = Auth::user()->employee_id;
+{
+    $employee_id = Auth::user()->employee_id;
 
-        if ($this->cut_off) {
-            Session::put('selected_cut_off', $this->cut_off);
-            redirect('/admin/user/attendance');
-            $this->loadAttendance($employee_id, $this->cut_off);
-            
-
-        } else {
-            $this->attendance = collect(); 
-        }
+    if ($this->cut_off) {
+        Session::put('selected_cut_off', $this->cut_off);
+        redirect('/admin/user/attendance');
+        $this->loadAttendance($employee_id, $this->cut_off);
+    } else {
+        $this->attendance = collect();
     }
+}
 
-    private function loadAttendance($employee_id, $cutoffId)
-    {
-      
-
-        if ($cutoffId) {
-            $this->attendance = AttendanceRecord::
-            where('employee_id', $employee_id)
-            ->where('cutoff_id', $cutoffId)
-            ->orderBy('attendance_id', 'desc')
-            ->get();
+private function loadAttendance($employee_id, $cutoffId)
+{
+    if ($cutoffId) {
+        $cutoff = Cutoff::find($cutoffId);
+    
+        if ($cutoff) {
+            $startDate = \Carbon\Carbon::parse($cutoff->date_start);
+            $endDate = \Carbon\Carbon::now()->isAfter($cutoff->date_end) 
+                ? \Carbon\Carbon::parse($cutoff->date_end)
+                : \Carbon\Carbon::today(); 
+    
+            // Generate the date range from the start date to the end date
+            $dateRange = collect();
+            while ($startDate->lte($endDate)) {
+                $dateRange->push($startDate->copy());
+                $startDate->addDay();
+            }
+    
           
-            
-            
-        } else {
-            $this->attendance = collect(); 
+$attendanceRecords = AttendanceRecord::where('employee_id', $employee_id)
+->whereBetween('date', [$cutoff->date_start, $endDate->toDateString()])
+->orderBy('attendance_id', 'desc')
+->get()
+->keyBy('date'); 
+
+$this->attendance = $dateRange->map(function ($date) use ($attendanceRecords) {
+return [
+    'date' => $date->toDateString(),
+    'record' => $attendanceRecords->get($date->toDateString()) ?? null, 
+];
+})
+
+->sortByDesc(function ($item) {
+return $item['date']; 
+})
+->values(); 
+
         }
-        
+    } else {
+        $this->attendance = collect();
     }
+    
+}
+
 
   
 

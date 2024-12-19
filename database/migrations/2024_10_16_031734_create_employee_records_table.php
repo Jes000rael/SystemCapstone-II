@@ -44,7 +44,6 @@ return new class extends Migration
             $table->timestamp('date_added');
             $table->foreignId('shift_id');
             $table->string('email');
-            $table->string('status')->nullable();
 
         });
     }

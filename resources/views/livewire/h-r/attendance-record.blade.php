@@ -89,19 +89,20 @@
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>
                                             <tr>
-                                                <th>Cut Off</th>
+                                            <th>Date</th>
+                                      
                                                 <th>Employee</th>
 
                                                 <th>Total Hours</th>
-                                                <th>Total Break</th>
+                                                <th>Breaktime remaining </th>
                                                 <th>Total OT</th>
                                                 <th>Rate</th>
                                                 <th>Earned Salary</th>
-                                                <th>Date</th>
                                                 <th>Duty Start</th>
                                                 <th>Time in</th>
                                                 <th>Time out</th>
                                                 <th>Status</th>
+                                                <th>Duty status</th>
                                                
                                                 <th>Action</th>
                                             </tr>
@@ -112,18 +113,75 @@
                                                 @foreach($attendance as $attendancer)
                                                 
                                             <tr>
-                                            <td class="{{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->date_start)->format('M d Y') }} - {{ \Carbon\Carbon::parse($attendancer->date_end)->format('M d Y') }}</td>
+                                            <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->date)->format('D, M d Y') }}</td>
+
+                                            
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->employee->first_name }} {{ $attendancer->employee->last_name }} </td>
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->total_hours }}</td>
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->total_break ?? '--:--' }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->total_hours ?? '0.00' }} </td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">   
+                                               
+                                               @php
+                                               $totalTime = $attendancer->breaktimeLog()->first()->total_hours; 
+
+
+   $timeParts = explode(":", $totalTime); 
+   $totalSeconds = (isset($timeParts[0]) ? $timeParts[0] * 3600 : 0) + (isset($timeParts[1]) ? $timeParts[1] * 60 : 0) + (isset($timeParts[2]) ? $timeParts[2] : 0);
+   
+   
+   if ($totalSeconds < 60) {
+      
+       $formattedTime = $totalSeconds . ' seconds ';
+   } elseif ($totalSeconds < 3600) {
+      
+       $formattedTime = gmdate("i:s", $totalSeconds);
+   } else {
+      
+       $formattedTime = gmdate("H:i:s", $totalSeconds);
+   }
+@endphp
+
+
+
+@if ($attendancer->total_break > 3600)
+@php
+$totalTime = $attendancer->total_break - 3600;
+   $totalSeconds = abs($totalTime); 
+
+   if ($totalSeconds < 60) {
+       $formattedTime = $totalSeconds . ' second' . ($totalSeconds === 1 ? '' : 's');
+   } elseif ($totalSeconds < 3600) {
+       $formattedTime = gmdate("i:s", $totalSeconds);
+   } else {
+       $formattedTime = gmdate("H:i:s", $totalSeconds);
+   }
+@endphp
+
+- {{ $formattedTime }} over break ~ 
+{{ \Carbon\Carbon::parse($attendancer->breaktimeLog()->first()->end_time)->format('h:i:s A') }}
+@else
+{{ $formattedTime }} ~ 
+{{ optional($attendancer->breaktimeLog()->first())->end_time ? \Carbon\Carbon::parse(optional($attendancer->breaktimeLog()->first())->end_time)->format('h:i:s A') : 'Not started' }}
+
+
+
+
+@endif
+
+        </td>
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->total_ot ?? 'N/A'}}</td>
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->rate }}</td>
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ number_format($attendancer->total_hours * $attendancer->rate, 2) }}</td>
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->date)->format('D, M d Y') }}</td>
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') }}</td>
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') }}</td>
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ !empty($attendancer->time_out) ? \Carbon\Carbon::parse($attendancer->time_out)->format('h:i A') : '--:--' }} </td>
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->attendanceStatus->description }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">@if(optional($attendancer->breaktimeLog->first())->field)
+    On {{ optional($attendancer->breaktimeLog->first())->field }}
+@else
+    Not started
+@endif
+
+                                                </td>
                                                
                                                 
                                                 <td class="text-center">

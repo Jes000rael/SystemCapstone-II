@@ -29,36 +29,129 @@
 
                                 <h4 class="card-title mb-4">Action</h4>
                                 <div class="col-md-12">
+                                     <!-- {{ $newTotalTime ? $newTotalTime->format('H:i:s') : '00:00:00' }} -->
                                     <button href="#" class="btn btn-primary mt-2 mb-2">Show Salary Summary</button>
                                     <button href="#" class="btn btn-warning mt-2 mb-2">Request Leave</button>
 
-                                    <p class="fs-2 mt-3">Remaining Break Time : <span class="text-success"> 50:09</span></p>  
+
+                                    <p class="fs-2 mt-3">Remaining Break Time: 
+    <span class="text-success fs-1" id="break-time">
+
+    @if($breaktime && $breaktime->field == 'Duty')
+    {{ $this->formattedBreakTime }}
+@else
+
+@php
+   
+    $remainingTimeString = $newTotalTime ? $newTotalTime->format('H:i:s') : '00:59:59';
+
+    
+    $timeParts = explode(':', $remainingTimeString);
+
+    if (count($timeParts) === 3) {
+     
+        [$hours, $minutes, $seconds] = $timeParts;
+    } else {
+       
+        $hours = 0;
+        [$minutes, $seconds] = $timeParts;
+    }
+
+   
+    $remainingTimeInSeconds = ($hours * 3600) + ($minutes * 60) + $seconds;
+
+    
+    if ($remainingTimeInSeconds < 60) {
+        $formattedTime = "$remainingTimeInSeconds seconds ";
+    } elseif ($remainingTimeInSeconds < 3600) {
+        $minutes = floor($remainingTimeInSeconds / 60);
+        $seconds = $remainingTimeInSeconds % 60;
+        $formattedTime = sprintf('%02d:%02d', $minutes, $seconds);
+    } else {
+        $hours = floor($remainingTimeInSeconds / 3600);
+        $minutes = floor(($remainingTimeInSeconds % 3600) / 60);
+        $seconds = $remainingTimeInSeconds % 60;
+        $formattedTime = sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
+    }
+@endphp
+
+{{ $formattedTime }}
+
+@endif
+    </span>
+</p>
+
+
+
+
+
+
+
+
+    
+
+
                                 </div>
 
                                 <!-- Form and Select Input with Button -->
                                 <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <form class="">
+                                
+                                                                                    <style>
 
-                                                <div class="row">
-                                                    <div class="col-md-7">
-                                                        <select id="select-option" name="option" class="form-select mb-1 mt-1">
-                                                            <option value="option1">Nov 10, 2024 - Nov 10, 2024</option>
-                                                            <option value="option2">Nov 10, 2024 - Nov 10, 2024</option>
-                                                            <option value="option3">Nov 10, 2024 - Nov 10, 2024</option>
-                                                        </select>
+#cut_off {
+    overflow-y: auto; 
+    max-height: 150px; 
+}
+
+
+#cut_off::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent; 
+}
+
+#cut_off::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4); 
+    border-radius: 10px; 
+}
+
+#cut_off::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.6); 
+}
+
+
+#cut_off {
+    scrollbar-width: thin; 
+    scrollbar-color: rgba(0, 0, 0, 0.4) transparent; 
+}
+</style>
+
+    <div class="row">
+        <div class="col-md-2">
+            <form wire:submit.prevent="cutoffselect">
+             
+                        <select wire:model="cut_off" id="cut_off" name="option" class="form-select mb-1 mt-1 text-center">
+                        @foreach($cutoffs as $cut)
+    <option value="{{ $cut->cutoff_id }}">
+    {{ \Carbon\Carbon::parse($cut->date_start)->format('M d Y') }} - {{ \Carbon\Carbon::parse($cut->date_end)->format('M d Y') }}
+    </option>
+@endforeach
+
+
+                        </select>
                                                     </div>
-                                                    <div class="col-md-5">
-                                                        <button type="submit" class="btn btn-primary mb-1 mt-1 w-100">Get Time Log</button>
+                                                    <div class="col-md-3">
+ 
+
+                                                        <button  type="submit" class="btn btn-primary mb-1 mt-1 w-50 ">Get Time Log</button>
                                                         
                                                     </div>
                                                 </div>
                                             </form>
                                         </div>
+                                        <div class="col-md-7"></div>
                                         <div class="col-md-9"></div>
                                     </div>
-                                </div>
+                                
 
                             </div>
                         </div>
@@ -77,36 +170,189 @@
                                     <div class="table-responsive">
                                         <table id="yut" class="table table-bordered dt-responsive all-users-datatable_length nowrap w-100">
                                             <thead>
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <th>Time-in</th>
-                                                    <th>Time-out</th>
-                                                    <th>Total Hours</th>
-                                                    <th>Rate</th>
-                                                    <th>Night Diff</th>
-                                                    <th>Earn Salary</th>
-                                                    <th>Time-in Status</th>
-                                                    <th>Break Time (Remaining Time)</th>
-                                                    <th>Reason</th>
-                                                    
-                                                </tr>
-                                            </thead>
+                                            <tr>
+                                            <th>Date</th>
+                                            <th>Time in</th>
+                                            <th>Time out</th>
+                                                <th>Total Hours</th>
+                                            
+                                                <th>Rate</th>
+                                                <th>Earned Salary</th>
+                                               
+                                              
+                                                <th>Status</th>
+                                                <th> Break Time(Remaining Mins ~ LBT)</th>
 
+                                                <th>Action</th>
+                                               
+                                           
+                                            </tr>
+                                            </thead>
+        
+        
                                             <tbody>
-                                                <tr>
-                                                    <td>Nov 6, 2024</td>
-                                                    <td>8:46 AM</td>
-                                                    <td>5:03 PM</td>
-                                                    <td data-value="8">****</td>
-                                                    <td>$10</td>
-                                                    <td>0.00</td>
-                                                    <td data-value="80">****</td>
-                                                    <td>Early-Bird</td>
-                                                    <td>56:00 mins</td>
-                                                    <td>Yohoo</td>
+                                                @foreach($attendance as $attendancer)
+                                                
+                                            <tr>
+                                            <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer['date'])->format('D, M d Y') }}</td>
+                                            <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}"> @if($attendancer['record'])
+                {{ \Carbon\Carbon::parse($attendancer['record']->time_in)->format('h:i A') }}
+            @else
+            @endif</td>
+                                            <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">@if($attendancer['record'])
+                                            {{ !empty(optional($attendancer['record'])->time_out) ? \Carbon\Carbon::parse(optional($attendancer['record'])->time_out)->format('h:i A') : '--:--' }}
+            @else
+            @endif  </td>
+                                               
+                                                <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">
+                                                @if($attendancer['record'])
+                                                {{ optional($attendancer['record'])->total_hours ?? '0.00' }}
+            @else
+            @endif  </td>
+                                               
+                                               
+                                                <td data-value="
+                                                  @if($attendancer['record'])
+                                                {{ optional($attendancer['record'])->rate }}
+            @else
+            @endif" class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">  @if($attendancer['record'])
+            ****                                 
+            @else
+            @endif</td>
+                                                <td data-value="
+                                                @if($attendancer['record'])
+            {{ number_format(optional($attendancer['record'])->total_hours * optional($attendancer['record'])->rate, 2) }}                             
+            @else
+            @endif " class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">@if($attendancer['record'])
+            ****                                 
+            @else
+            @endif</td>
+                                                
+         
+                                                <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">
+                                                @if($attendancer['record'])
+                                                {{ optional($attendancer['record'])->attendanceStatus->description ?? 'No Status' }}                          
+            @else
+            @endif </td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">
+                                                @if($attendancer['record'])
+                                               
+                                                @php
+                                                $totalTime = optional($attendancer['record'])->breaktimeLog;
+if ($totalTime && $totalTime->count() > 0) {
+    $totalTime = $totalTime->first()->total_hours; // If a record exists, get the total_hours
+} else {
+    $totalTime = '00:00:00';
+}
+
+
+    $timeParts = explode(":", $totalTime); 
+    $totalSeconds = (isset($timeParts[0]) ? $timeParts[0] * 3600 : 0) + (isset($timeParts[1]) ? $timeParts[1] * 60 : 0) + (isset($timeParts[2]) ? $timeParts[2] : 0);
+    
+    
+    if ($totalSeconds < 60) {
+       
+        $formattedTime = $totalSeconds . ' seconds ';
+    } elseif ($totalSeconds < 3600) {
+       
+        $formattedTime = gmdate("i:s", $totalSeconds);
+    } else {
+       
+        $formattedTime = gmdate("H:i:s", $totalSeconds);
+    }
+@endphp
+
+
+
+@if (optional($attendancer['record'])->total_break > 3600)
+@php
+    $totalTime = optional($attendancer['record'])->total_break - 3600;
+    $totalSeconds = abs($totalTime); 
+
+    if ($totalSeconds < 60) {
+        $formattedTime = $totalSeconds . ' second' . ($totalSeconds === 1 ? '' : 's');
+    } elseif ($totalSeconds < 3600) {
+        $formattedTime = gmdate("i:s", $totalSeconds);
+    } else {
+        $formattedTime = gmdate("H:i:s", $totalSeconds);
+    }
+@endphp
+
+- {{ $formattedTime }} over break ~ 
+{{ \Carbon\Carbon::parse(optional($attendancer['record'])->breaktimeLog()->first()->end_time)->format('h:i:s A') }}
+
+@else
+    {{ $formattedTime }} ~ 
+    @php
+    // Safely check if breaktimeLog exists, then access the first log record
+    $breaktimeLog = optional($attendancer['record'])->breaktimeLog;
+    $endTime = $breaktimeLog ? $breaktimeLog->first()->end_time : null;
+@endphp
+
+{{ $endTime ? \Carbon\Carbon::parse($endTime)->format('h:i:s A') : 'Not started' }}
+
+
+@endif
+
+            @else
+            @endif
+                            
+                                                
+
+</td>
+                                                <td>
+                                                @if($attendancer['record'])
+                                                @if(optional($attendancer['record'])->attendance_id == $latest->attendance_id)
+
+<div class="text-center" style="max-width: 80%; margin: 0 auto;">
+
+
+
+
+
+
+@if (optional($attendancer['record'])->breaktimeLog()->first()?->total_hours !== '00:00:00')
+<button 
+wire:click="resumeBreak" 
+id="resume-break-btn" 
+class="btn {{ $breaktime && $breaktime->field == null ? 'btn-primary' : 'btn-success' }}" 
+style="
+{{ $breaktime && $breaktime->field == null ? 'display: inline-block;' : 'display: none;' }}
+">
+{{ $breaktime && $breaktime->field == null ? 'Start Break' : 'Resume Break' }} 
+</button>
+
+<button 
+wire:click="pauseBreak" 
+id="pause-break-btn" 
+class="btn btn-warning" 
+style="display: inline-block;">
+Pause Break
+</button>
+@endif
+
+
+
+
+
+
+
+
+
+
+
+</div>
+@endif
+
+            @else
+            @endif
+                                               
+                                             </td>
                                                     
                                                 </tr>
-                                            </tbody>
+                                                @endforeach
+                                                
+                                                
                                         </table>
                                     </div>
                                 </div>
@@ -126,16 +372,93 @@
     <!-- END layout-wrapper -->
 </div>
 @push('scripts')
+
+<script>
+    let breakTime = "{{ $newTotalTime ? $newTotalTime->format('H:i:s') : '59:59' }}"; 
+    let [hours, minutes, seconds] = breakTime.split(":").map(Number); 
+    let breakTimeInSeconds = (hours * 3600) + (minutes * 60) + seconds; 
+
+    let allowedBreakTimeInSeconds = 3600; 
+    let excessBreakTime = 0;
+
+    let countdownInterval;
+
+
+    function formatTime(seconds) {
+        let isNegative = seconds < 0;
+        if (isNegative) {
+            seconds = Math.abs(seconds); 
+        }
+
+        if (seconds < 60) {
+            return `${isNegative ? '-' : ''}${seconds} second${seconds > 1 ? 's' : ''} ${isNegative ? 'over break' : ''}`;
+        } else if (seconds < 3600) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${isNegative ? '-' : ''}${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')} ${isNegative ? 'over break' : ''}`;
+        } else {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const remainingSeconds = seconds % 60;
+            return `${isNegative ? '-' : ''}${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')} ${isNegative ? 'over break' : ''}`;
+        }
+    }
+
+    function updateCountdown() {
+        if (breakTimeInSeconds > 0) {
+            breakTimeInSeconds--; 
+            document.getElementById('break-time').innerText = formatTime(breakTimeInSeconds);
+        } else {
+         
+            excessBreakTime--; 
+            document.getElementById('break-time').innerText = formatTime(excessBreakTime);
+        }
+    }
+
+    function pauseBreak() {
+        localStorage.setItem("breakStatus", "paused"); 
+        clearInterval(countdownInterval); 
+        document.getElementById("pause-break-btn").style.display = "none"; 
+        document.getElementById("resume-break-btn").style.display = "inline-block"; 
+    }
+
+    function resumeBreak() {
+        localStorage.setItem("breakStatus", "started"); 
+        countdownInterval = setInterval(updateCountdown, 1000); 
+        document.getElementById("resume-break-btn").style.display = "none"; 
+        document.getElementById("pause-break-btn").style.display = "inline-block"; 
+    }
+
+    window.onload = function () {
+        const breakStatus = localStorage.getItem("breakStatus");
+
+        if (breakStatus === "started") {
+            document.getElementById("pause-break-btn").style.display = "inline-block"; 
+            document.getElementById("resume-break-btn").style.display = "none"; 
+            countdownInterval = setInterval(updateCountdown, 1000); 
+        } else if (breakStatus === "paused") {
+            document.getElementById("pause-break-btn").style.display = "none"; 
+            document.getElementById("resume-break-btn").style.display = "inline-block"; 
+        } else {
+            document.getElementById("pause-break-btn").style.display = "none"; 
+            document.getElementById("resume-break-btn").style.display = "none"; 
+        }
+    };
+
+    document.getElementById("pause-break-btn")?.addEventListener("click", pauseBreak);
+    document.getElementById("resume-break-btn")?.addEventListener("click", resumeBreak);
+</script>
+
 <script>
       document.getElementById('toggleVisibility').addEventListener('click', function () {
 
     const rows = document.querySelectorAll('#yut tbody tr');
-    const isHidden = rows[0].querySelector('td:nth-child(4)').textContent === '****'; 
+    const isHidden = rows[0].querySelector('td:nth-child(5)').textContent === '****'; 
 
     rows.forEach(row => {
         
-        const priceCell = row.querySelector('td:nth-child(4)'); 
-        const quantityCell = row.querySelector('td:nth-child(7)'); 
+        const priceCell = row.querySelector('td:nth-child(5)'); 
+        const quantityCell = row.querySelector('td:nth-child(6)'); 
 
      
         const priceActualValue = priceCell.getAttribute('data-value');

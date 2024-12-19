@@ -57,7 +57,10 @@
 
                                         <div class="mb-3">
                                         <div class="align-item-center d-flex justify-content-center">
-                                          <button type="submit" class="btn btn-primary w-xl mt-3"> <i class="bx bx-paper-plane me-1"></i>Send </button>
+                                          <button type="submit" class="btn btn-primary w-xl mt-3">  <span wire:loading wire:target="sendEmail" class="spinner-border spinner-border-sm me-1"></span> 
+
+ 
+<i wire:loading.remove wire:target="sendEmail" class="bx bx-paper-plane me-1"></i>Send </button>
                                         </div>
                                         </div>
                         </form>

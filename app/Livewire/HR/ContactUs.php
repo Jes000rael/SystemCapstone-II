@@ -25,7 +25,7 @@ class ContactUs extends Component
         'emailtext' => 'required',
     ];
 
-    public function sendEmail($delay = 2)
+    public function sendEmail()
     {
         $this->validate();
      
@@ -77,7 +77,7 @@ class ContactUs extends Component
             $mail->Body =$this->messageBody;
         
             $mail->send();
-            sleep($delay);
+          
 
             return redirect()->intended('/admin/contact_us')->with('email-send', 'Successfully');
         

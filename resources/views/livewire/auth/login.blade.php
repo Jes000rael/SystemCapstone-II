@@ -82,13 +82,15 @@ input[type="text"] {
                                
                                 <div class="p-2">
                                     <form wire:submit="login" action="#" method="POST" role="form text-left">
-                                    @error('errors') <span class="text-danger error fw-bold" style="font-size: 14px;">{{ $message }}</span> @enderror
+                                   <div class="col-12 text-center mb-2">
+                                   @error('errors') <span style="color:rgb(230, 12, 30); font-size: 14px;" class=" error fw-bold">{{ $message }}</span> @enderror
+                                   </div>
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Username</label>
                                             <div class=" @error('errors')border border-danger rounded-3 @enderror @error('username')border border-danger rounded-3 @enderror">
                                             <input  wire:model.live="username" id="username" type="text" class="form-control bg-white border-white "  style="color:#000;" placeholder="Enter username">
                                         </div>
-                                        @error('username') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                        @error('username') <span style="color:rgb(230, 12, 30);" class=" error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                         </div>
                 
                                         <div class="mb-3">
@@ -99,7 +101,7 @@ input[type="text"] {
             <i class="fas fa-eye"></i>
         </span>
                                             </div>
-                                            @error('password') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                            @error('password') <span style="color:rgb(230, 12, 30);" class=" error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                         </div>
 
                                        
