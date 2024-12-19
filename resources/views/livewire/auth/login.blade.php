@@ -83,7 +83,7 @@ input[type="text"] {
                                 <div class="p-2">
                                     <form wire:submit="login" action="#" method="POST" role="form text-left">
                                    <div class="col-12 text-center mb-2">
-                                   @error('errors') <span style="color:rgb(230, 12, 30); font-size: 14px;" class=" error fw-bold">{{ $message }}</span> @enderror
+                                   @error('errors') <span style="color:rgb(230, 12, 30); font-size: 15px;" class=" error fw-bold">{{ $message }}</span> @enderror
                                    </div>
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Username</label>
