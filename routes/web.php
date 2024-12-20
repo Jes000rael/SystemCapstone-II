@@ -70,6 +70,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/cutoff/edit/{cutoffID}', App\Livewire\HR\EditCutoff::class)->name('edit-Cutoff');
         Route::get('/admin/user/schedule', App\Livewire\HR\UserSchedule::class)->name('user-Schedule');
         Route::get('/admin/user/attendance', App\Livewire\HR\UserAttendance::class)->name('user-Attendance');
+        Route::get('/admin/time_adjustment', App\Livewire\HR\TimeAdjustment::class)->name('time-Adjustment');
+        Route::get('/admin/attendance/add_overtime/{overID}', App\Livewire\HR\AddOvertime::class)->name('add-Overtime');
+
 
     });
 

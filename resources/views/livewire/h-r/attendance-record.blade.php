@@ -94,7 +94,6 @@
                                                 <th>Employee</th>
 
                                                 <th>Total Hours</th>
-                                                <th>Breaktime remaining </th>
                                                 <th>Total OT</th>
                                                 <th>Rate</th>
                                                 <th>Earned Salary</th>
@@ -102,6 +101,8 @@
                                                 <th>Time in</th>
                                                 <th>Time out</th>
                                                 <th>Status</th>
+                                                <th>Breaktime remaining </th>
+
                                                 <th>Duty status</th>
                                                
                                                 <th>Action</th>
@@ -111,13 +112,23 @@
         
                                             <tbody>
                                                 @foreach($attendance as $attendancer)
-                                                
+                                                                                           
+                                        
+
                                             <tr>
                                             <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->date)->format('D, M d Y') }}</td>
 
                                             
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->employee->first_name }} {{ $attendancer->employee->last_name }} </td>
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->total_hours ?? '0.00' }} </td>
+                                               
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->total_ot ?? 'N/A'}}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->rate }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ number_format($attendancer->total_hours * $attendancer->rate, 2) }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ !empty($attendancer->time_out) ? \Carbon\Carbon::parse($attendancer->time_out)->format('h:i A') : '--:--' }} </td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->attendanceStatus->description }}</td>
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">   
                                                
                                                @php
@@ -168,13 +179,6 @@ $totalTime = $attendancer->total_break - 3600;
 @endif
 
         </td>
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->total_ot ?? 'N/A'}}</td>
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->rate }}</td>
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ number_format($attendancer->total_hours * $attendancer->rate, 2) }}</td>
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') }}</td>
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') }}</td>
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ !empty($attendancer->time_out) ? \Carbon\Carbon::parse($attendancer->time_out)->format('h:i A') : '--:--' }} </td>
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->attendanceStatus->description }}</td>
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">@if(optional($attendancer->breaktimeLog->first())->field)
     On {{ optional($attendancer->breaktimeLog->first())->field }}
 @else
@@ -197,12 +201,30 @@ $totalTime = $attendancer->total_break - 3600;
                                                   </a>
                                                    
                                                    <ul class="dropdown-menu" aria-labelledby="moreActions">
-                                                     <li><a class="dropdown-item" href="#">Add Overtime</a></li>
+                                                     <li><a class="dropdown-item"data-bs-toggle="modal" data-bs-target=".addOvertime{{ $attendancer->attendance_id }}">Add Overtime</a></li>
                                                      <li><a class="dropdown-item" href="#">Add Request Time Adjustment</a></li>
                                                      
                                                    </ul>
                                                  </div>
                                                 </td>
+
+                                                <div wire:ignore.self class="modal fade addOvertime{{ $attendancer->attendance_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title " id="transaction-detailModalLabel">Add <span class="text-success fw-bold">{{$attendancer->employee->last_name ?? ''}}  {{$attendancer->employee->first_name ?? ''}}</span> overtime ?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>  
+            <div class="modal-body">
+                <strong class="mb-2 fs-6">Are you sure you want to add this employee to Overtime?</strong>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" wire:click="addOvertime({{ $attendancer->attendance_id }})" class="btn btn-primary fw-bold" data-bs-dismiss="modal">Add Overtime</button>
+                <button type="button" class="btn text-white fw-bold bg-secondary "  data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
                                                     <!-- modal para sa view  -->
                                             <div class="modal modal-lg fade emprecView" id="emprecView" tabindex="-1" role="dialog" aria-labelledby="empViewLabel" aria-hidden="true" >
                     <div class=" modal-dialog modal-dialog-centered" role="document">

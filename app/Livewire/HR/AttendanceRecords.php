@@ -6,6 +6,7 @@ use Livewire\Component;
 
 use App\Models\AttendanceRecord;
 use App\Models\Cutoff;
+use App\Models\OvertimeLog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 class AttendanceRecords extends Component
@@ -62,6 +63,21 @@ class AttendanceRecords extends Component
             ->get();
     }
 
+
+    public function addOvertime($attendance_id)
+
+{
+    if ($attendance_id) {
+        $employee = AttendanceRecord::findOrFail($attendance_id);
+
+        OvertimeLog::create([
+            'attendance_id' => $employee->attendance_id,
+        ]);
+
+        return redirect()->intended('/admin/attendance')->with('job-deleted', 'Successfully');
+       
+    }
+}
 
 
 

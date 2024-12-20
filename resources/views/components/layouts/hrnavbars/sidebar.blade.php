@@ -52,6 +52,12 @@
                         <span key="t-calendar">Attendance Records</span>
                     </a>
                 </li>
+                <li class="{{ Route::currentRouteName() == 'time-Adjustment' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('time-Adjustment') }}" class="waves-effect ">
+                    <i class="bx bx-reset"></i>
+                         <span key="t-starter-page"> Time Adjustment</span>
+                     </a>
+                  </li>
                
                 
                    

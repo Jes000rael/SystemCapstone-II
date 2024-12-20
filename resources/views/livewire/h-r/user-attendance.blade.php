@@ -29,7 +29,7 @@
 
                                 <h4 class="card-title mb-4">Action</h4>
                                 <div class="col-md-12">
-                                     <!-- {{ $newTotalTime ? $newTotalTime->format('H:i:s') : '00:00:00' }} -->
+                                    
                                     <button href="#" class="btn btn-primary mt-2 mb-2">Show Salary Summary</button>
                                     <button href="#" class="btn btn-warning mt-2 mb-2">Request Leave</button>
 
@@ -129,16 +129,18 @@
         <div class="col-md-2">
             <form wire:submit.prevent="cutoffselect">
              
-                        <select wire:model="cut_off" id="cut_off" name="option" class="form-select mb-1 mt-1 text-center">
-                        @foreach($cutoffs as $cut)
-    <option value="{{ $cut->cutoff_id }}">
-    {{ \Carbon\Carbon::parse($cut->date_start)->format('M d Y') }} - {{ \Carbon\Carbon::parse($cut->date_end)->format('M d Y') }}
-    </option>
-@endforeach
+                                                           <select wire:model="cut_off" id="cut_off" name="option" class="form-select mb-1 mt-1 text-center">
+                                                           @foreach($cutoffs as $cut)
+                                       <option value="{{ $cut->cutoff_id }}">
+                                       {{ \Carbon\Carbon::parse($cut->date_start)->format('M d Y') }} - {{ \Carbon\Carbon::parse($cut->date_end)->format('M d Y') }}
+                                             </option>
+                                         @endforeach
 
 
-                        </select>
-                                                    </div>
+                              </select>
+                              </div>
+
+                                                                                     
                                                     <div class="col-md-3">
  
 
@@ -166,6 +168,7 @@
                             <div class="card-body">
 
                                 <h4 class="card-title fs-5 mb-4">My Attendance <button id="toggleVisibility" class="btn btn-primary float-end"><i class="fas fa-eye me-1"></i> Show Rate</button></h4>
+                                
                                 <div class="col-md-12">
                                     <div class="table-responsive">
                                         <table id="yut" class="table table-bordered dt-responsive all-users-datatable_length nowrap w-100">
@@ -211,22 +214,37 @@
             @endif  </td>
                                                
                                                
-                                                <td data-value="
-                                                  @if($attendancer['record'])
+
+            @if($attendancer['record'])
+            <td data-value="
+                                                
                                                 {{ optional($attendancer['record'])->rate }}
-            @else
-            @endif" class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">  @if($attendancer['record'])
+                                                 
+          " class="text-center  {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}"> 
             ****                                 
+          
+           </td>                           
             @else
-            @endif</td>
-                                                <td data-value="
-                                                @if($attendancer['record'])
-            {{ number_format(optional($attendancer['record'])->total_hours * optional($attendancer['record'])->rate, 2) }}                             
-            @else
-            @endif " class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">@if($attendancer['record'])
+<td class="text-center"></td>
+
+            @endif
+                                            
+
+            @if($attendancer['record'])
+            <td data-value="                        
+  {{ number_format((optional($attendancer['record'])->total_hours ?? 0) * (optional($attendancer['record'])->rate ?? 0), 2) }}
+
+ " class="text-center 
+
+
+ {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">
             ****                                 
-            @else
-            @endif</td>
+           </td>
+@else
+<td class="text-center"></td>
+@endif
+                 
+
                                                 
          
                                                 <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">
@@ -240,7 +258,7 @@
                                                 @php
                                                 $totalTime = optional($attendancer['record'])->breaktimeLog;
 if ($totalTime && $totalTime->count() > 0) {
-    $totalTime = $totalTime->first()->total_hours; // If a record exists, get the total_hours
+    $totalTime = $totalTime->first()->total_hours;
 } else {
     $totalTime = '00:00:00';
 }
@@ -309,27 +327,36 @@ if ($totalTime && $totalTime->count() > 0) {
 
 
 
-
+@if($attendancer['record']->time_out == null)
 
 @if (optional($attendancer['record'])->breaktimeLog()->first()?->total_hours !== '00:00:00')
-<button 
-wire:click="resumeBreak" 
-id="resume-break-btn" 
-class="btn {{ $breaktime && $breaktime->field == null ? 'btn-primary' : 'btn-success' }}" 
-style="
-{{ $breaktime && $breaktime->field == null ? 'display: inline-block;' : 'display: none;' }}
-">
-{{ $breaktime && $breaktime->field == null ? 'Start Break' : 'Resume Break' }} 
-</button>
+        <button 
+            wire:click="resumeBreak" 
+            id="resume-break-btn" 
+            class="btn {{ $breaktime && $breaktime->field == null ? 'btn-primary' : 'btn-success' }}" 
+            style=" 
+                {{ $breaktime && $breaktime->field == null ? 'display: inline-block;' : 'display: none;' }}
+            ">
+            {{ $breaktime && $breaktime->field == null ? 'Start Break' : 'Resume Break' }} 
+        </button>
 
-<button 
-wire:click="pauseBreak" 
-id="pause-break-btn" 
-class="btn btn-warning" 
-style="display: inline-block;">
-Pause Break
-</button>
+        <button 
+            wire:click="pauseBreak" 
+            id="pause-break-btn" 
+            class="btn btn-warning" 
+            style="display: inline-block;">
+            Pause Break
+        </button>
+    @endif          
+@else
+
+    
 @endif
+
+
+
+
+
 
 
 
@@ -351,7 +378,7 @@ Pause Break
                                                     
                                                 </tr>
                                                 @endforeach
-                                                
+                                                </tbody>
                                                 
                                         </table>
                                     </div>
