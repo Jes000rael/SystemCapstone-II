@@ -5,13 +5,14 @@ use Livewire\Component;
 use App\Models\AttendanceRecord;
 use App\Models\Cutoff;
 use App\Models\BreaktimeLog;
+use App\Models\OvertimeLog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 
 class UserAttendance extends Component
 {
-    public $attendance, $cutoffs, $cut_off, $latest,$breaktime;
+    public $attendance, $cutoffs, $cut_off, $latest,$breaktime,$cut_attendance,$cutoffdate,$totalDays,$totalHours;
     public $timeShow;
     public $newTotalTime; 
 
@@ -38,6 +39,33 @@ $this->latest = AttendanceRecord::where('employee_id', $employee_id)
 ->first();
 
 
+$this->cut_attendance = AttendanceRecord::where('employee_id', $employee_id)
+    ->whereIn('cutoff_id', $this->cutoffs->pluck('cutoff_id')->toArray()) 
+    ->first();
+
+
+
+    
+    $startDate = \Carbon\Carbon::parse($this->cut_attendance->cutoff->date_start);
+    $endDate = \Carbon\Carbon::parse($this->cut_attendance->cutoff->date_end);
+    
+    $this->cutoffdate = $startDate->format('D, M d Y') . ' - ' . $endDate->format('D, M d Y');
+    
+    $totalDays1 = $startDate->diffInDays($endDate);
+    
+    $this->totalDays = $totalDays1;
+
+
+    $cutoffIds1 = $this->cutoffs->pluck('cutoff_id')->toArray();
+
+
+    $totalHours = AttendanceRecord::where('employee_id', $employee_id)
+    ->whereIn('cutoff_id', $cutoffIds1)
+    ->sum('total_hours');
+
+    $this->totalHours = $totalHours;
+
+    
 if ($this->latest === null) {
 
 $this->latest = null;  
@@ -99,6 +127,11 @@ if ($this->breaktime) {
     }
 }
 
+
+
+
+
+
 public function getFormattedBreakTimeProperty()
 {
     if ($this->breaktime && $this->breaktime->total_hours) {
@@ -119,6 +152,11 @@ public function getFormattedBreakTimeProperty()
 
     return 'No break time available';
 }
+
+
+
+
+
 
     public function cutoffselect()
 {
@@ -144,7 +182,7 @@ private function loadAttendance($employee_id, $cutoffId)
                 ? \Carbon\Carbon::parse($cutoff->date_end)
                 : \Carbon\Carbon::today(); 
     
-            // Generate the date range from the start date to the end date
+  
             $dateRange = collect();
             while ($startDate->lte($endDate)) {
                 $dateRange->push($startDate->copy());
@@ -237,7 +275,7 @@ return $item['date'];
            
         }else
         {
-            // Convert seconds back to a time format
+    
         $newTotalTime = Carbon::parse($newTotalTimeInSeconds);
     
         $break->update([
@@ -248,8 +286,6 @@ return $item['date'];
         $this->updateTotalWorkHours($totalBreakDurationInSeconds);
 
         }
-    
-        
     
     }
     
@@ -284,6 +320,73 @@ return redirect('/admin/user/attendance');
 
 }
 
+public function startOver()
+{
+    $start = Carbon::now();  
+
+    $overtimeLog = OvertimeLog::where('attendance_id', $this->latest->attendance_id)
+        ->first();
+
+    if ($overtimeLog) {
+        $overtimeLog->update([
+            'start_time' => $start,
+            'field' => 'started',
+        ]);
+
+        return response()->json(['message' => 'Overtime started successfully.']);
+    }
+
+    return response()->json(['error' => 'No matching overtime log found.'], 404);
+}
+
+public function endOver()
+{
+    $end = Carbon::now();
+
+
+    $overtimeLog = OvertimeLog::where('attendance_id', $this->latest->attendance_id)->first();
+
+ 
+    if (!$overtimeLog) {
+        return response()->json(['error' => 'No matching overtime log found.'], 404);
+    }
+
+
+    $overtimeLog->update([
+        'end_time' => $end,
+        'field' => 'end',
+    ]);
+ 
+    if ($overtimeLog->start_time && $overtimeLog->end_time) {
+        $timeIn = Carbon::parse($overtimeLog->start_time);
+        $timeOut = Carbon::parse($overtimeLog->end_time);
+
+        $totalOt = $timeIn->diffInMinutes($timeOut) / 60; 
+        $totalOt = round($totalOt, 2); 
+
+        $this->latest->update([
+            'total_ot' => $totalOt,
+        ]);
+
+        $diffInSeconds = $timeIn->diffInSeconds($timeOut); 
+
+
+$hours = floor($diffInSeconds / 3600);
+$minutes = floor(($diffInSeconds % 3600) / 60);
+$seconds = $diffInSeconds % 60;
+
+
+$totalOt = sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
+
+
+        $overtimeLog->update([
+            'total_hours' => $totalOt,
+        ]);
+    }
+
+
+    return response()->json(['message' => 'Overtime ended successfully.']);
+}
 
 
 

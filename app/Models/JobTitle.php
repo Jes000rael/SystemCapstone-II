@@ -9,6 +9,7 @@ class JobTitle extends Model
 {
     use HasFactory;
     protected $fillable = ['description','company_id'];
+    
     public function company()
     {
         return $this->belongsTo(Company::class, 'company_id');

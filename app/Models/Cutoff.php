@@ -18,7 +18,7 @@ class Cutoff extends Model
     
     public function attendanceRecords()
 {
-    return $this->hasMany(AttendanceRecord::class, 'cutoff_id', 'cutoff_id');
+    return $this->hasMany(AttendanceRecord::class,  'cutoff_id');
 }
 
 }

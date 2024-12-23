@@ -30,7 +30,38 @@
                                 <h4 class="card-title mb-4">Action</h4>
                                 <div class="col-md-12">
                                     
-                                    <button href="#" class="btn btn-primary mt-2 mb-2">Show Salary Summary</button>
+                                    <button   data-bs-toggle="modal" data-bs-target=".salary"  class="btn btn-primary mt-2 mb-2">Show Salary Summary 
+                                    </button>
+
+                                     <!-- modal-view -->
+                 <div class="modal modal-xl fade salary" id="salary" tabindex="-1" role="dialog" aria-labelledby="salaryLabel" aria-hidden="true">
+                    <div class=" modal-dialog " role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="salaryLabel">Summary of Salary</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            <div class="container">
+                            <div class="row row-col-12">
+                               <div class="col-12 text-start mt-2  fs-5">  <pre class="font-size-18 my-2 text-dark"> Pay Period Days and Hours From [ {{ $cutoffdate }} ] : {{ $totalDays }} days </pre>  </div>
+                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Regular Hours    :  {{ $totalHours }} hrs </pre>  </div>
+                              
+                             </div>
+                             
+                             
+                             
+                           </div>
+ 
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                  <!-- end-modal -->
                                     <button href="#" class="btn btn-warning mt-2 mb-2">Request Leave</button>
 
 
@@ -349,9 +380,33 @@ if ($totalTime && $totalTime->count() > 0) {
         </button>
     @endif          
 @else
+@if(optional($attendancer['record'])->attendance_id === optional($attendancer['record'])->overtime()->first()?->attendance_id)
+@if(optional($attendancer['record'])->overtime()->first()?->field == null )
 
-    
+    <button 
+            wire:click="startOver" 
+            class="btn btn-primary">
+            Start overtime
+        </button>
+@else
+@if(optional($attendancer['record'])->overtime()->first()?->field == 'end' )
+
+@else
+<button 
+            wire:click="endOver"  
+            class="btn btn-warning" 
+           >
+            End overtime
+        </button>
+        @endif
 @endif
+
+@endif
+
+
+@endif
+
+
 
 
 

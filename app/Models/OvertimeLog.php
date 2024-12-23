@@ -11,11 +11,16 @@ class OvertimeLog extends Model
     protected $fillable = [ 'attendance_id',
     'start_time',
     'end_time',
-    'total_hours','field',];
+    'total_hours',
+    'field',];
 
   
     public $timestamps = false;
-    protected $primaryKey = 'Overtime_id';
+    protected $primaryKey = 'overtime_id';
 
 
+    public function attendanceRecords()
+    {
+        return $this->belongsTo(AttendanceRecord::class, 'attendance_id');
+    }
 }

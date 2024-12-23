@@ -67,6 +67,8 @@ class AttendanceRecords extends Component
     public function addOvertime($attendance_id)
 
 {
+
+    
     if ($attendance_id) {
         $employee = AttendanceRecord::findOrFail($attendance_id);
 
@@ -74,7 +76,7 @@ class AttendanceRecords extends Component
             'attendance_id' => $employee->attendance_id,
         ]);
 
-        return redirect()->intended('/admin/attendance')->with('job-deleted', 'Successfully');
+        return redirect()->intended('/admin/attendance')->with('overtime', 'Successfully');
        
     }
 }
