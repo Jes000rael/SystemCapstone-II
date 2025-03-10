@@ -141,17 +141,12 @@
                                                     <div class="mb-3">
                                                         
                                                         <label for="company_id" class="form-label">Company</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('company_id')border border-danger rounded-2 @enderror">
-                                                        <select wire:model.live="company_id" id="company_id" class="form-select">
-                                                            <option selected>Choose...</option>
+                                                        
+                                                       
                                                             @foreach ($companys as $company)
-                                                                  <option value="{{ $company->company_id}}">{{ $company->description}}</option>
+                                                                 
+                                                                  <input value="{{ $company->description}}" type="text" id="company_id" class="form-control" readonly>
                                                               @endforeach
-                                                        </select>
-                                                      
-
-                                                    </div>
-                                                    @error('company_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
 
                                                     </div>
                                                 </div>

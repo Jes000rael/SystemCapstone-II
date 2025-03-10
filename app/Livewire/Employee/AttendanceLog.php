@@ -13,7 +13,7 @@ use Carbon\Carbon;
 
 class AttendanceLog extends Component
 {
-    public $attendance, $cutoffs, $cut_off, $latest,$breaktime;
+    public $attendance, $cutoffs, $cut_off, $latest,$breaktime,$cut_attendance,$cutoffdate,$totalDays,$totalHours;
     public $timeShow;
     public $newTotalTime; 
 
@@ -40,6 +40,39 @@ $this->latest = AttendanceRecord::where('employee_id', $employee_id)
 ->first();
 
 
+$this->cut_attendance = AttendanceRecord::where('employee_id', $employee_id)
+    ->whereIn('cutoff_id', $this->cutoffs->pluck('cutoff_id')->toArray()) 
+    ->first();
+
+
+
+    
+    if ($this->cut_attendance && $this->cut_attendance->cutoff) {
+        $startDate = \Carbon\Carbon::parse($this->cut_attendance->cutoff->date_start);
+        $endDate = \Carbon\Carbon::parse($this->cut_attendance->cutoff->date_end);
+    
+        $this->cutoffdate = $startDate->format('D, M d Y') . ' - ' . $endDate->format('D, M d Y');
+    
+        $totalDays1 = $startDate->diffInDays($endDate);
+        $this->totalDays = $totalDays1;
+    } else {
+        
+        $this->cutoffdate = "No cutoff available";
+        $this->totalDays = 0;
+    }
+    
+
+
+    $cutoffIds1 = $this->cutoffs->pluck('cutoff_id')->toArray();
+
+
+    $totalHours = AttendanceRecord::where('employee_id', $employee_id)
+    ->whereIn('cutoff_id', $cutoffIds1)
+    ->sum('total_hours');
+
+    $this->totalHours = $totalHours;
+
+    
 if ($this->latest === null) {
 
 $this->latest = null;  
@@ -101,6 +134,11 @@ if ($this->breaktime) {
     }
 }
 
+
+
+
+
+
 public function getFormattedBreakTimeProperty()
 {
     if ($this->breaktime && $this->breaktime->total_hours) {
@@ -122,13 +160,18 @@ public function getFormattedBreakTimeProperty()
     return 'No break time available';
 }
 
+
+
+
+
+
     public function cutoffselect()
 {
     $employee_id = Auth::user()->employee_id;
 
     if ($this->cut_off) {
         Session::put('selected_cut_off', $this->cut_off);
-        redirect('/employee/attendance_log');
+        redirect('/admin/user/attendance');
         $this->loadAttendance($employee_id, $this->cut_off);
     } else {
         $this->attendance = collect();
@@ -146,7 +189,7 @@ private function loadAttendance($employee_id, $cutoffId)
                 ? \Carbon\Carbon::parse($cutoff->date_end)
                 : \Carbon\Carbon::today(); 
     
-            // Generate the date range from the start date to the end date
+  
             $dateRange = collect();
             while ($startDate->lte($endDate)) {
                 $dateRange->push($startDate->copy());
@@ -154,23 +197,23 @@ private function loadAttendance($employee_id, $cutoffId)
             }
     
           
-                $attendanceRecords = AttendanceRecord::where('employee_id', $employee_id)
-                ->whereBetween('date', [$cutoff->date_start, $endDate->toDateString()])
-                ->orderBy('attendance_id', 'desc')
-                ->get()
-                ->keyBy('date'); 
+$attendanceRecords = AttendanceRecord::where('employee_id', $employee_id)
+->whereBetween('date', [$cutoff->date_start, $endDate->toDateString()])
+->orderBy('attendance_id', 'desc')
+->get()
+->keyBy('date'); 
 
-                  $this->attendance = $dateRange->map(function ($date) use ($attendanceRecords) {
-                  return [
-                      'date' => $date->toDateString(),
-                      'record' => $attendanceRecords->get($date->toDateString()) ?? null, 
-                  ];
-                  })
+$this->attendance = $dateRange->map(function ($date) use ($attendanceRecords) {
+return [
+    'date' => $date->toDateString(),
+    'record' => $attendanceRecords->get($date->toDateString()) ?? null, 
+];
+})
 
-                  ->sortByDesc(function ($item) {
-                  return $item['date']; 
-                  })
-                  ->values(); 
+->sortByDesc(function ($item) {
+return $item['date']; 
+})
+->values(); 
 
         }
     } else {
@@ -197,7 +240,7 @@ private function loadAttendance($employee_id, $cutoffId)
             'start_time' => $endTime,
             'field' => 'Break',
         ]);
-    return redirect('/employee/attendance_log');
+    return redirect('/admin/user/attendance');
 
  
     }
@@ -239,7 +282,7 @@ private function loadAttendance($employee_id, $cutoffId)
            
         }else
         {
-            // Convert seconds back to a time format
+    
         $newTotalTime = Carbon::parse($newTotalTimeInSeconds);
     
         $break->update([
@@ -250,8 +293,6 @@ private function loadAttendance($employee_id, $cutoffId)
         $this->updateTotalWorkHours($totalBreakDurationInSeconds);
 
         }
-    
-        
     
     }
     
@@ -278,7 +319,7 @@ if ($this->latest) {
 
 
 $this->latest->save();
-return redirect('/employee/attendance_log');
+return redirect('/admin/user/attendance');
 
 }
 
@@ -286,6 +327,73 @@ return redirect('/employee/attendance_log');
 
 }
 
+public function startOver()
+{
+    $start = Carbon::now();  
+
+    $overtimeLog = OvertimeLog::where('attendance_id', $this->latest->attendance_id)
+        ->first();
+
+    if ($overtimeLog) {
+        $overtimeLog->update([
+            'start_time' => $start,
+            'field' => 'started',
+        ]);
+
+        return response()->json(['message' => 'Overtime started successfully.']);
+    }
+
+    return response()->json(['error' => 'No matching overtime log found.'], 404);
+}
+
+public function endOver()
+{
+    $end = Carbon::now();
+
+
+    $overtimeLog = OvertimeLog::where('attendance_id', $this->latest->attendance_id)->first();
+
+ 
+    if (!$overtimeLog) {
+        return response()->json(['error' => 'No matching overtime log found.'], 404);
+    }
+
+
+    $overtimeLog->update([
+        'end_time' => $end,
+        'field' => 'end',
+    ]);
+ 
+    if ($overtimeLog->start_time && $overtimeLog->end_time) {
+        $timeIn = Carbon::parse($overtimeLog->start_time);
+        $timeOut = Carbon::parse($overtimeLog->end_time);
+
+        $totalOt = $timeIn->diffInMinutes($timeOut) / 60; 
+        $totalOt = round($totalOt, 2); 
+
+        $this->latest->update([
+            'total_ot' => $totalOt,
+        ]);
+
+        $diffInSeconds = $timeIn->diffInSeconds($timeOut); 
+
+
+$hours = floor($diffInSeconds / 3600);
+$minutes = floor(($diffInSeconds % 3600) / 60);
+$seconds = $diffInSeconds % 60;
+
+
+$totalOt = sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
+
+
+        $overtimeLog->update([
+            'total_hours' => $totalOt,
+        ]);
+    }
+
+
+    return response()->json(['message' => 'Overtime ended successfully.']);
+}
     public function render()
     {
         return view('livewire.employee.attendance-log');

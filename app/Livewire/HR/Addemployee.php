@@ -17,7 +17,7 @@ use App\Models\Shift;
 
 class Addemployee extends Component
 {
-    public $company_id='';
+    
     public $first_name='';
     public $last_name='';
     public $middle_name='';
@@ -48,7 +48,7 @@ class Addemployee extends Component
     public $employees,$companys,$senioritylevels,$employmentstatus,$jobtitle,$department=[],$depart=[],$shifts;
 
     protected $rules = [
-        'company_id' => 'required',
+       
         'first_name' => 'required',
         'last_name' => 'required',
         'middle_name' => 'required',
@@ -121,7 +121,7 @@ class Addemployee extends Component
         $this->validate();
 
         EmployeeRecords::create([
-            'company_id' => $this->company_id,
+            'company_id' => $companyId = Auth::user()->company_id,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'middle_name' => $this->middle_name,
@@ -157,7 +157,7 @@ class Addemployee extends Component
 
         $this->dispatch('employee-added', ['message' => 'Employee added successfully!']);
         $this->reset([
-            'company_id',
+            
             'first_name',
             'last_name',
             'middle_name',

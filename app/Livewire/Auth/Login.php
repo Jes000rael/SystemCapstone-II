@@ -16,7 +16,6 @@ class Login extends Component
     public $password = '';
     public $department_id = '';
     public $companyId = '';
-    public $status = 'active';
 
 
 

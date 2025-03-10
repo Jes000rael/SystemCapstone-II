@@ -14,11 +14,7 @@ class Logout extends Component
 {
     public $status ='offline';
     public function logout() {
-        $employee = EmployeeRecords::where('employee_id',Auth::user()->employee_id)->first();
-        $employee->update([
-            'status' => $this->status,
-          
-        ]);
+        
         Auth::logout();
         
         Session::invalidate();

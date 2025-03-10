@@ -46,14 +46,20 @@ $this->cut_attendance = AttendanceRecord::where('employee_id', $employee_id)
 
 
     
-    $startDate = \Carbon\Carbon::parse($this->cut_attendance->cutoff->date_start);
-    $endDate = \Carbon\Carbon::parse($this->cut_attendance->cutoff->date_end);
+    if ($this->cut_attendance && $this->cut_attendance->cutoff) {
+        $startDate = \Carbon\Carbon::parse($this->cut_attendance->cutoff->date_start);
+        $endDate = \Carbon\Carbon::parse($this->cut_attendance->cutoff->date_end);
     
-    $this->cutoffdate = $startDate->format('D, M d Y') . ' - ' . $endDate->format('D, M d Y');
+        $this->cutoffdate = $startDate->format('D, M d Y') . ' - ' . $endDate->format('D, M d Y');
     
-    $totalDays1 = $startDate->diffInDays($endDate);
+        $totalDays1 = $startDate->diffInDays($endDate);
+        $this->totalDays = $totalDays1;
+    } else {
+        
+        $this->cutoffdate = "No cutoff available";
+        $this->totalDays = 0;
+    }
     
-    $this->totalDays = $totalDays1;
 
 
     $cutoffIds1 = $this->cutoffs->pluck('cutoff_id')->toArray();

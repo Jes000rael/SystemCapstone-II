@@ -161,11 +161,16 @@
             <form wire:submit.prevent="cutoffselect">
              
                                                            <select wire:model="cut_off" id="cut_off" name="option" class="form-select mb-1 mt-1 text-center">
-                                                           @foreach($cutoffs as $cut)
-                                       <option value="{{ $cut->cutoff_id }}">
-                                       {{ \Carbon\Carbon::parse($cut->date_start)->format('M d Y') }} - {{ \Carbon\Carbon::parse($cut->date_end)->format('M d Y') }}
-                                             </option>
-                                         @endforeach
+                                                           @if (!empty($cutoffs) && $cutoffs->count() > 0)
+    @foreach($cutoffs as $cut)
+        <option value="{{ $cut->cutoff_id }}">
+            {{ \Carbon\Carbon::parse($cut->date_start)->format('M d Y') }} - 
+            {{ \Carbon\Carbon::parse($cut->date_end)->format('M d Y') }}
+        </option>
+    @endforeach
+@else
+    <option class="text-white" disabled>No cutoffs available</option>
+@endif
 
 
                               </select>

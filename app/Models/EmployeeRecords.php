@@ -21,6 +21,7 @@ class EmployeeRecords extends Authenticatable
      */
 
      protected $fillable = [
+        'employee_id',
         'company_id',
         'first_name',
         'last_name',
@@ -120,6 +121,8 @@ public function messages()
     return $this->hasMany(Message::class, 'employee_id');
 }
     public $timestamps = false;
+    protected $primaryKey = 'employee_id';
+
 
 
     /**
