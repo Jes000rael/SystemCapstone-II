@@ -89,11 +89,11 @@ class Addemployee extends Component
 
         $this->companys = Company::where('company_id', $companyId)->get();
       
-        $this->senioritylevels = SeniorityLevel::all();
-        $this->employmentstatus = EmploymentStatus::all();
-        $this->jobtitle = JobTitle::all();
+        $this->senioritylevels = SeniorityLevel::where('company_id', $companyId)->get();
+        $this->employmentstatus = EmploymentStatus::where('company_id', $companyId)->get();
+        $this->jobtitle = JobTitle::where('company_id', $companyId)->get();
         
-        $this->shifts = Shift::all();
+        $this->shifts = Shift::where('company_id', $companyId)->get();
         
         if($companyId === 1){
             if($departmentId === 1){

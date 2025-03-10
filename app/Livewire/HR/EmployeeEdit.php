@@ -76,7 +76,7 @@ class EmployeeEdit extends Component
         'pagibig' => 'required',
         'philhealth' => 'required',
         'shift_id' => 'required',
-        'email' => 'required|email|unique:employee_records',
+        'email' => 'required|email|unique:employee_records,email,' . $this->employee_id . ',employee_id',
 
     ];
 }
@@ -122,13 +122,14 @@ class EmployeeEdit extends Component
 
     public function loadDropdownData()
     {
-        
-        $this->senioritylevels = SeniorityLevel::all();
-        $this->employmentstatus = EmploymentStatus::all();
-        $this->jobtitle = JobTitle::all();
-        $this->shifts = Shift::all();
-
         $companyId = Auth::user()->company_id;
+
+        
+        $this->senioritylevels = SeniorityLevel::where('company_id', $companyId)->get();
+        $this->employmentstatus = EmploymentStatus::where('company_id', $companyId)->get();
+        $this->jobtitle = JobTitle::where('company_id', $companyId)->get();
+        $this->shifts = Shift::where('company_id', $companyId)->get();
+
         $departmentId = Auth::user()->department_id;
 
         if($companyId === 1){
