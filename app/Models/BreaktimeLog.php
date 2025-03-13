@@ -13,6 +13,7 @@ class BreaktimeLog extends Model
     'total_hours','field', 'start_time',
     'end_time',];
     public $timestamps = false;
+
     protected $primaryKey = 'breaktime_id';
 
     public function attendance()

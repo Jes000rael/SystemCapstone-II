@@ -161,16 +161,11 @@
             <form wire:submit.prevent="cutoffselect">
              
                                                            <select wire:model="cut_off" id="cut_off" name="option" class="form-select mb-1 mt-1 text-center">
-                                                           @if (!empty($cutoffs) && $cutoffs->count() > 0)
-    @foreach($cutoffs as $cut)
-        <option value="{{ $cut->cutoff_id }}">
-            {{ \Carbon\Carbon::parse($cut->date_start)->format('M d Y') }} - 
-            {{ \Carbon\Carbon::parse($cut->date_end)->format('M d Y') }}
-        </option>
-    @endforeach
-@else
-    <option class="text-white" disabled>No cutoffs available</option>
-@endif
+                                                           @foreach($cutoffs as $cut)
+                                       <option value="{{ $cut->cutoff_id }}">
+                                       {{ \Carbon\Carbon::parse($cut->date_start)->format('M d Y') }} - {{ \Carbon\Carbon::parse($cut->date_end)->format('M d Y') }}
+                                             </option>
+                                         @endforeach
 
 
                               </select>
@@ -232,7 +227,7 @@
                                             <tbody>
                                                 @foreach($attendance as $attendancer)
                                                 
-                                            <tr>
+                                            <tr class =" {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">
                                             <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer['date'])->format('D, M d Y') }}</td>
                                             <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}"> @if($attendancer['record'])
                 {{ \Carbon\Carbon::parse($attendancer['record']->time_in)->format('h:i A') }}
@@ -414,20 +409,6 @@ if ($totalTime && $totalTime->count() > 0) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </div>
 @endif
 
@@ -441,6 +422,7 @@ if ($totalTime && $totalTime->count() > 0) {
                                                 </tbody>
                                                 
                                         </table>
+                                        
                                     </div>
                                 </div>
 

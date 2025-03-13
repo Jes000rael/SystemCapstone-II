@@ -152,9 +152,9 @@ class AttendancePage extends Component
         
                     
                     BreaktimeLog::create([
-                        'attendance_id' => $attendance->attendance_id,  
-                        'employee_id' => $this->employee_id,  
-                        'total_hours' => '00:59:59',  
+                        'attendance_id' => $attendance->attendance_id,
+                        'total_hours' => '00:59:59',
+                        'field' => '',  
                     ]);
         
                     session()->flash('success', 'Time-in recorded successfully!');
@@ -304,9 +304,9 @@ if ($attendance) {
             
             
             BreaktimeLog::create([
-                'attendance_id' => $attendance->attendance_id,  
-                'employee_id' => $this->employee_id,  
-                'total_hours' => '00:59:59',  
+                'attendance_id' => $attendance->attendance_id,
+                'total_hours' => '00:59:59',
+                'field' => '',  
             ]);
              session()->flash('success', 'Time-in recorded successfully!');
          } else {
@@ -364,9 +364,9 @@ if ($attendance) {
             
             
             BreaktimeLog::create([
-                'attendance_id' => $attendance->attendance_id,  
-                'employee_id' => $this->employee_id,  
-                'total_hours' => '00:59:59',  
+                'attendance_id' => $attendance->attendance_id,
+                'total_hours' => '00:59:59',
+                'field' => '',  
             ]);
              session()->flash('success', 'Time-in recorded successfully!');
          } else {
@@ -711,9 +711,9 @@ session()->flash('success', 'Time out recorded successfully!');
             
             
             BreaktimeLog::create([
-                'attendance_id' => $attendance->attendance_id,  
-                'employee_id' => $this->employee_id,  
-                'total_hours' => '00:59:59',  
+                'attendance_id' => $attendance->attendance_id,
+                'total_hours' => '00:59:59',
+                'field' => '',  
             ]);
              session()->flash('success', 'Time-in recorded successfully!');
          } else {
@@ -785,9 +785,9 @@ if ($latestCutoff) {
                     
                     
                     BreaktimeLog::create([
-                        'attendance_id' => $attendance->attendance_id,  
-                        'employee_id' => $this->employee_id,  
-                        'total_hours' => '00:59:59',  
+                        'attendance_id' => $attendance->attendance_id,
+                        'total_hours' => '00:59:59',
+                        'field' => '',  
                     ]);
                     session()->flash('success', 'Time-in recorded successfully!');
                 } else {

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();
             $table->Time('total_hours');
-            $table->string('field');
+            $table->string('field')->nullable();
           
         });
     }

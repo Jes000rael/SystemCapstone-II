@@ -63,8 +63,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/announcements/edit/{announceID}', App\Livewire\HR\EditAnnouncement::class)->name('edit-Announcement');
         Route::get('/admin/employee_records/add_schedule/{empID}', App\Livewire\HR\AddWorkSchedule::class)->name('add-Schedule');
         Route::get('/admin/employee_records/edit_schedule/{empID}', App\Livewire\HR\EditWorkSchedule::class)->name('edit-Schedule');
-        Route::get('/admin/contacts', App\Livewire\HR\Contacts::class)->name('contacts');
-        Route::get('/admin/contacts/chat/{empID}', App\Livewire\HR\Chat::class)->name('chats');
+      
         Route::get('/admin/contact_us', App\Livewire\HR\ContactUs::class)->name('contact-Us');
         Route::get('/admin/cutoff', App\Livewire\HR\AttendanceCutoff::class)->name('cutoff');
         Route::get('/admin/cutoff/edit/{cutoffID}', App\Livewire\HR\EditCutoff::class)->name('edit-Cutoff');

@@ -9,7 +9,7 @@
                     'anouncements', 'Employee-Edit', 'attendance-Records', 'breaktime-log', 'overtime-log',
                     'merit-log', 'edit-Department','edit-Status','edit-Jobtitle','edit-Seniority','edit-Shift',
                     'edit-Duty','edit-Handbook','add-Deduction','edit-Deduction','edit-Announcement','add-Schedule',
-                    'edit-Schedule','chats','contacts','contact-Us','cutoff','edit-Cutoff','user-Schedule','user-Attendance'
+                    'edit-Schedule','contact-Us','cutoff','edit-Cutoff','user-Schedule','user-Attendance'
                     ,'time-Adjustment','add-Overtime'
                 ],
                 'super' => [

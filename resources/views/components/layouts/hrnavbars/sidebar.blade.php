@@ -87,12 +87,7 @@
                      </a>
                   </li>
                   
-                  <li class="{{ Route::currentRouteName() == 'chats' ? 'mm-active' : 'text-light fw-bold' }}">
-                    <a wire:navigate href="{{ route('contacts') }}" class="waves-effect ">
-                    <i class="bx bx-chat"></i>
-                         <span key="t-starter-page">Contacts</span>
-                     </a>
-                  </li>
+              
                   <!-- <li class="{{ Route::currentRouteName() == 'merit-log' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a wire:navigate href="{{ route('merit-log') }}" class="waves-effect ">
                     <i class="bx bx-medal"></i>
