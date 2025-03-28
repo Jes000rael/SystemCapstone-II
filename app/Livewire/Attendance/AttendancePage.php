@@ -136,36 +136,47 @@ class AttendancePage extends Component
                 $workEndTime = $workSchedule->{$weekday . '_out'};
         
                 if ($dutyStart) {
-                   
-                    $attendance = AttendanceRecord::create([
-                        'company_id' => Auth::user()->company_id,
-                        'employee_id' => $this->employee_id,
-                        'cutoff_id' => $latestCutoff->cutoff_id,
-                        'rate' => $employee->hourly_rate,
-                        'date' => $currentDate,
-                        'duty_start' => $dutyStart,
-                        'duty_end' => $workEndTime,
-                        'time_in' => $currentTime, 
-                        'status_id' => 1,
-                        'has_night_diff' => $employee->has_night_diff,
-                    ]);
-        
                     
-                    BreaktimeLog::create([
-                        'attendance_id' => $attendance->attendance_id,
-                        'total_hours' => '00:59:59',
-                        'field' => '',  
-                    ]);
-        
-                    session()->flash('success', 'Time-in recorded successfully!');
+                    $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)->first();
+
+                     if ($offDuty && $currentDate === $offDuty->date) {
+                      session()->flash('error', 'No Work Today, it\'s ' . $offDuty->description . '.');
+                    return;
+
+                        
+                    }else{
+                        $attendance = AttendanceRecord::create([
+                            'company_id' => Auth::user()->company_id,
+                            'employee_id' => $this->employee_id,
+                            'cutoff_id' => $latestCutoff->cutoff_id,
+                            'rate' => $employee->hourly_rate,
+                            'date' => $currentDate,
+                            'duty_start' => $dutyStart,
+                            'duty_end' => $workEndTime,
+                            'time_in' => $currentTime, 
+                            'status_id' => 1,
+                            'has_night_diff' => $employee->has_night_diff,
+                        ]);
+            
+                        
+                        BreaktimeLog::create([
+                            'attendance_id' => $attendance->attendance_id,
+                            'total_hours' => '00:59:59',
+                            'field' => '',  
+                        ]);
+            
+                        session()->flash('success', 'Time-in recorded successfully!');
+
+                    }
+                    
+                   
                 } else {
                     session()->flash('error', 'No work schedule found for today.');
                 }
             } else {
                 session()->flash('error', 'You have no work schedule for today');
             }
-        
-          
+            
             session()->flash('error', 'You are late! Your scheduled start time was ' . $scheduledStartTime->format('g:i A') . '. Your lateness: ' . $latenessMessage);
             return;
         }
@@ -289,6 +300,14 @@ if ($attendance) {
        
          $currentDate = Carbon::now();
          if ($dutyStart) {
+            $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)->first();
+
+            if ($offDuty && $currentDate === $offDuty->date) {
+             session()->flash('error', 'No Work Today, it\'s ' . $offDuty->description . '.');
+             return;
+
+               
+           }else{
             $attendance = AttendanceRecord::create([
                 'company_id' => Auth::user()->company_id,
                 'employee_id' => $this->employee_id,
@@ -309,6 +328,9 @@ if ($attendance) {
                 'field' => '',  
             ]);
              session()->flash('success', 'Time-in recorded successfully!');
+
+           }
+           
          } else {
              session()->flash('error', 'No work schedule found for today.');
          }
@@ -349,6 +371,14 @@ if ($attendance) {
         
          $currentDate = Carbon::now();
          if ($dutyStart) {
+            $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)->first();
+
+            if ($offDuty && $currentDate === $offDuty->date) {
+             session()->flash('error', 'No Work Today, it\'s ' . $offDuty->description . '.');
+             return;
+
+               
+           }else{
             $attendance = AttendanceRecord::create([
                 'company_id' => Auth::user()->company_id,
                 'employee_id' => $this->employee_id,
@@ -369,6 +399,8 @@ if ($attendance) {
                 'field' => '',  
             ]);
              session()->flash('success', 'Time-in recorded successfully!');
+           }
+          
          } else {
              session()->flash('error', 'No work schedule found for today.');
          }
@@ -696,6 +728,14 @@ session()->flash('success', 'Time out recorded successfully!');
          
          $currentDate = Carbon::now();
          if ($dutyStart) {
+            $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)->first();
+
+            if ($offDuty && $currentDate === $offDuty->date) {
+             session()->flash('error', 'No Work Today, it\'s ' . $offDuty->description . '.');
+             return;
+
+               
+           }else{
             $attendance = AttendanceRecord::create([
                 'company_id' => Auth::user()->company_id,
                 'employee_id' => $this->employee_id,
@@ -716,6 +756,9 @@ session()->flash('success', 'Time out recorded successfully!');
                 'field' => '',  
             ]);
              session()->flash('success', 'Time-in recorded successfully!');
+
+           }
+           
          } else {
              session()->flash('error', 'No work schedule found for today.');
          }
@@ -770,26 +813,36 @@ if ($latestCutoff) {
               
                 $currentDate = Carbon::now();
                 if ($dutyStart) {
-                    $attendance = AttendanceRecord::create([
-                        'company_id' => Auth::user()->company_id,
-                        'employee_id' => $this->employee_id,
-                        'cutoff_id' => $latestCutoff->cutoff_id,
-                        'rate' => $employee->hourly_rate,
-                        'date' => $currentDate->toDateString(),
-                        'duty_start' => $dutyStart,
-                        'duty_end' => $workEndTime,
-                        'time_in' => $currentTime, 
-                        'status_id' => 1,
-                        'has_night_diff' => $employee->has_night_diff,
-                    ]);
-                    
-                    
-                    BreaktimeLog::create([
-                        'attendance_id' => $attendance->attendance_id,
-                        'total_hours' => '00:59:59',
-                        'field' => '',  
-                    ]);
-                    session()->flash('success', 'Time-in recorded successfully!');
+                     $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)->first();
+
+                     if ($offDuty && $currentDate === $offDuty->date) {
+                      session()->flash('error', 'No Work Today, it\'s ' . $offDuty->description . '.');
+                    return;
+
+                        
+                    }else{
+                        $attendance = AttendanceRecord::create([
+                            'company_id' => Auth::user()->company_id,
+                            'employee_id' => $this->employee_id,
+                            'cutoff_id' => $latestCutoff->cutoff_id,
+                            'rate' => $employee->hourly_rate,
+                            'date' => $currentDate->toDateString(),
+                            'duty_start' => $dutyStart,
+                            'duty_end' => $workEndTime,
+                            'time_in' => $currentTime, 
+                            'status_id' => 1,
+                            'has_night_diff' => $employee->has_night_diff,
+                        ]);
+                        
+                        
+                        BreaktimeLog::create([
+                            'attendance_id' => $attendance->attendance_id,
+                            'total_hours' => '00:59:59',
+                            'field' => '',  
+                        ]);
+                        session()->flash('success', 'Time-in recorded successfully!');
+                    }
+                  
                 } else {
                     session()->flash('error', 'No work schedule found for today.');
                 }

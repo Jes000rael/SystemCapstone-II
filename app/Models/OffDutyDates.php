@@ -10,7 +10,7 @@ class OffDutyDates extends Model
     use HasFactory;
     protected $fillable = ['category_id','description','date','percentage','company_id'];
 
-    public function OffDuty()
+    public function OffDutys()
     {
         return $this->belongsTo(OffDutyCategory::class, 'category_id');
     } 

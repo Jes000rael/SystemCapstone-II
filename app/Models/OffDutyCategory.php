@@ -10,6 +10,10 @@ class OffDutyCategory extends Model
     use HasFactory;
     protected $fillable = ['description','company_id'];
     
+    public function OffDuty()
+    {
+        return $this->belongsTo(OffDutyDates::class, 'category_id');
+    } 
     public $timestamps = false;
     protected $primaryKey = 'category_id';
 
