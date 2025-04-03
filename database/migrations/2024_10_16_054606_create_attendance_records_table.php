@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('cutoff_id');
             $table->Double('total_hours')->nullable();
             $table->Double('total_break')->nullable();
+            $table->Double('over_break')->nullable();
             $table->Double('total_ot')->nullable();
             $table->Double('rate')->nullable();
             $table->Date('date')->nullable();

@@ -14,6 +14,7 @@ class AttendanceRecord extends Model
     'cutoff_id',
     'total_hours',
     'total_break',
+    'over_break',
     'total_ot',
     'rate',
     'date',

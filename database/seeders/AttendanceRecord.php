@@ -22,6 +22,7 @@ class AttendanceRecord extends Seeder
     'Cutoff_id'=> '1',
     'Total_hours'=> '1',
     'Total_break'=> '1',
+    'over_break'=> '1',
     'Total_ot'=> 1,
     'Rate'=> '2',
     'Date'=> now(),

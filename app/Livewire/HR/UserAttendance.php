@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 class UserAttendance extends Component
 {
-    public $attendance, $cutoffs, $cut_off, $latest,$breaktime,$cut_attendance,$cutoffdate,$totalDays,$totalHours;
+    public $attendance, $cutoffs, $cut_off, $latest,$breaktime,$cut_attendance,$cutoffdate,$totalDays,$totalHours,$totalOvertime,$overBreak,$totalearned;
     public $timeShow;
     public $newTotalTime; 
 
@@ -69,6 +69,26 @@ $this->cut_attendance = AttendanceRecord::where('employee_id', $employee_id)
 
     $this->totalHours = $totalHours;
 
+    $totalOvertime = AttendanceRecord::where('employee_id', $employee_id)
+    ->whereIn('cutoff_id', $cutoffIds1)
+    ->sum('total_ot');
+
+    $this->totalOvertime = $totalOvertime;
+
+    $overBreak = AttendanceRecord::where('employee_id', $employee_id)
+    ->whereIn('cutoff_id', $cutoffIds1)
+    ->sum('over_break');
+
+    $this->overBreak = $overBreak;
+
+
+    $totalearned = $totalHours + $totalOvertime - $overBreak;
+
+
+
+    
+
+    $this->totalearned = $totalearned;
     
 if ($this->latest === null) {
 
@@ -314,6 +334,14 @@ if ($this->latest) {
     $updatedTotalWorkInHours = $updatedTotalWorkInSeconds;
 
     $this->latest->total_break = $updatedTotalWorkInHours;
+    if($updatedTotalWorkInHours > 3599){
+        $changeOver = $updatedTotalWorkInHours - 3600 ;
+        $changeOvers = round(max(0, $changeOver) / 3600, 2);
+    $this->latest->over_break = $changeOvers;
+
+} else {
+    $this->latest->over_break = 0;
+}
 
 
 $this->latest->save();

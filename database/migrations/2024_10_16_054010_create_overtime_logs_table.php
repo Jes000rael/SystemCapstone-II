@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('overtime_logs', function (Blueprint $table) {
             $table->id('overtime_id');
+            $table->foreignId('cutoff_id');
             $table->foreignId('attendance_id');
+            $table->foreignId('employee_id');
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class OvertimeLog extends Model
 {
     use HasFactory;
-    protected $fillable = [ 'attendance_id',
+    protected $fillable = [ 'cutoff_id','attendance_id','employee_id',
     'start_time',
     'end_time',
     'total_hours',

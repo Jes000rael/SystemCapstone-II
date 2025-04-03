@@ -355,6 +355,30 @@ $totalTime = $attendancer->total_break - 3600;
         </div>
 
 
+        @push('scripts')
+@if (session('employee_has'))
+    <script>
+        Swal.fire({
+          title: '<strong style="color:#000; font-size:15px;" class="text-center">Employee</strong><br><span style="color:#000; font-size:13px;"  class="text-center" >Employee is already Sign For Overtime Today</span> ',
+          icon:'warning', 
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true, 
+            width: '350px', 
+            height: '100px',
+            backdrop: true,
+            position: 'top-end', 
+            toast: true,
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp', 
+            },
+         
+            
+        });
+    </script>
+@endif
+@endpush
+
 
 
         @push('scripts')

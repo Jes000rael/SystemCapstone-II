@@ -46,6 +46,10 @@
                             <div class="row row-col-12">
                                <div class="col-12 text-start mt-2  fs-5">  <pre class="font-size-18 my-2 text-dark"> Pay Period Days and Hours From [ {{ $cutoffdate }} ] : {{ $totalDays }} days </pre>  </div>
                                <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Regular Hours    :  {{ $totalHours }} hrs </pre>  </div>
+                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Overtime Hours   :  {{ $totalOvertime }} hrs </pre>  </div>
+                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total CoverUp Hours   :  {{ $totalOvertime }} hrs </pre>  </div>
+                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total OverBreak Hours   :  {{ $overBreak }} hrs </pre>  </div>
+                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total OverBreak Hours   :  {{ $totalearned }} hrs </pre>  </div>
                               
                              </div>
                              
@@ -339,7 +343,7 @@ if ($totalTime && $totalTime->count() > 0) {
 @else
     {{ $formattedTime }} ~ 
     @php
-    // Safely check if breaktimeLog exists, then access the first log record
+    
     $breaktimeLog = optional($attendancer['record'])->breaktimeLog;
     $endTime = $breaktimeLog ? $breaktimeLog->first()->end_time : null;
 @endphp
@@ -367,7 +371,16 @@ if ($totalTime && $totalTime->count() > 0) {
 @if($attendancer['record']->time_out == null)
 
 @if (optional($attendancer['record'])->breaktimeLog()->first()?->total_hours !== '00:00:00')
-        <button 
+@if($breaktime && $breaktime->field == null)
+<button 
+            wire:click="resumeBreak" 
+            id="resume-break-btn" 
+            class="btn btn-primary" 
+           >
+           Start Break 
+        </button>
+@else
+<button 
             wire:click="resumeBreak" 
             id="resume-break-btn" 
             class="btn {{ $breaktime && $breaktime->field == null ? 'btn-primary' : 'btn-success' }}" 
@@ -384,6 +397,10 @@ if ($totalTime && $totalTime->count() > 0) {
             style="display: inline-block;">
             Pause Break
         </button>
+@endif
+        
+
+        
     @endif          
 @else
 @if(optional($attendancer['record'])->attendance_id === optional($attendancer['record'])->overtime()->first()?->attendance_id)

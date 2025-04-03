@@ -67,16 +67,29 @@ class AttendanceRecords extends Component
     public function addOvertime($attendance_id)
 
 {
-
     
+
     if ($attendance_id) {
         $employee = AttendanceRecord::findOrFail($attendance_id);
 
+        $existingOvertime = OvertimeLog::where('attendance_id', $employee->attendance_id)->first();
+
+    if($existingOvertime){
+    return redirect()->intended('/admin/attendance')->with('employee_has', 'Successfully');
+    }else
+    {
         OvertimeLog::create([
+            'cutoff_id' => $employee->cutoff_id,
+
             'attendance_id' => $employee->attendance_id,
+            'employee_id' => $employee->employee_id,
         ]);
 
         return redirect()->intended('/admin/attendance')->with('overtime', 'Successfully');
+
+    }
+
+       
        
     }
 }
