@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 class UserAttendance extends Component
 {
-    public $attendance, $cutoffs, $cut_off, $latest,$breaktime,$cut_attendance,$cutoffdate,$totalDays,$totalHours,$totalOvertime,$overBreak,$totalearned;
+    public $attendance, $cutoffs, $cut_off, $latest,$breaktime,$cut_attendance,$cutoffdate,$totalDays,$totalHours,$totalOvertime,$overBreak,$totalearned,$employeeRate,$employeePresent,$totalSalary,$ratetoCutoff;
     public $timeShow;
     public $newTotalTime; 
 
@@ -81,14 +81,37 @@ $this->cut_attendance = AttendanceRecord::where('employee_id', $employee_id)
 
     $this->overBreak = $overBreak;
 
+    $employeeRate = AttendanceRecord::where('employee_id', $employee_id)
+    ->whereNotNull('time_out') 
+    ->whereIn('cutoff_id', $cutoffIds1)
+    ->sum('rate');
+
+    $employeePresent = AttendanceRecord::where('employee_id', $employee_id)
+    ->whereNotNull('time_out') 
+    ->whereIn('cutoff_id', $cutoffIds1)
+    ->count();
+
+   $cutoffRate = Cutoff::whereIn('cutoff_id', (array) $cutoffIds1)->first();
+
+ 
+    
+    
+
 
     $totalearned = $totalHours + $totalOvertime - $overBreak;
+    $totalRateOfHours = $employeePresent > 0 ? ($employeeRate / $employeePresent) : 0;
+    $totalSalary = $totalRateOfHours * $totalearned;
+
+    $ratetoCutoff = $cutoffRate ? ($totalSalary * ($cutoffRate->conversion_rate)) : 0;
+
 
 
 
     
 
     $this->totalearned = $totalearned;
+    $this->totalSalary = $totalSalary;
+    $this->ratetoCutoff = $ratetoCutoff;
     
 if ($this->latest === null) {
 

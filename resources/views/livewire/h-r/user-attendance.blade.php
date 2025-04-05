@@ -49,9 +49,12 @@
                                <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Overtime Hours   :  {{ $totalOvertime }} hrs </pre>  </div>
                                <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total CoverUp Hours   :  {{ $totalOvertime }} hrs </pre>  </div>
                                <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total OverBreak Hours   :  {{ $overBreak }} hrs </pre>  </div>
-                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total OverBreak Hours   :  {{ $totalearned }} hrs </pre>  </div>
+                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Paid Hours   :  {{ $totalearned }} hrs </pre>  </div>
+                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Earned Salary   :  {{ number_format($totalSalary, 2) }} </pre>  </div>
+                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Estimated Total Pay Depends on Cutoff Rate :  {{ number_format($totalSalary, 2) }} Earned Salary X Cutoff Rate = {{ number_format($ratetoCutoff, 2) }} </pre>  </div>
                               
                              </div>
+
                              
                              
                              

@@ -81,7 +81,7 @@
                                                    <ul class="dropdown-menu" aria-labelledby="moreActions">
                                                      <li><a wire:navigate href="{{ route('add-Schedule', ['empID' => $encryptedEmpID]) }}" class="dropdown-item" >Add Work Schedule</a></li>
                                                      <li><a wire:navigate href="{{ route('edit-Schedule', ['empID' => $encryptedEmpID]) }}" class="dropdown-item">Update Work Schedule</a></li>
-                                                     <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target=".ViewEmployee{{ $employee->employee_id }}">View Work Schedule</a></li>
+                                                     <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target=".ViewEmployees{{ $employee->employee_id }}">View Work Schedule</a></li>
                                                      <li><a  class="dropdown-item" wire:navigate href="{{ route('add-Deduction', ['empID' => $encryptedEmpID]) }}">Add Deduction</a></li>
                                                 
                                                      
@@ -91,7 +91,7 @@
                        
                                                 </tr> 
                                                  <!-- modal para view sa workschedule  -->
-                                                 <div class="modal modal-lg fade ViewEmployee{{ $employee->employee_id }}" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentLabel" aria-hidden="true">
+                                                 <div class="modal modal-lg fade ViewEmployees{{ $employee->employee_id }}" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">

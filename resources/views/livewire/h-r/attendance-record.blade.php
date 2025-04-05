@@ -196,7 +196,7 @@ $totalTime = $attendancer->total_break - 3600;
                                                 
                                                 <td class="text-center">
                                                
-                                                <a class="btn btn-outline-secondary btn-sm view"  data-bs-toggle="modal" data-bs-target=".emprecView" title="View">
+                                                <a class="btn btn-outline-secondary btn-sm view"  data-bs-toggle="modal" data-bs-target=".emprecView{{ $attendancer->attendance_id }}" title="View">
                                 <i class="fas fa-eye"></i>
                             </a>
                                                   
@@ -232,7 +232,7 @@ $totalTime = $attendancer->total_break - 3600;
     </div>
 </div>
                                                     <!-- modal para sa view  -->
-                                            <div class="modal modal-lg fade emprecView" id="emprecView" tabindex="-1" role="dialog" aria-labelledby="empViewLabel" aria-hidden="true" >
+                                            <div class="modal modal-lg fade emprecView{{ $attendancer->attendance_id }}" id="emprecView{{ $attendancer->attendance_id }}" tabindex="-1" role="dialog" aria-labelledby="empViewLabel" aria-hidden="true" >
                     <div class=" modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -241,22 +241,23 @@ $totalTime = $attendancer->total_break - 3600;
                             </div>
                             <div class="modal-body">
 
-                            <h4 class=""> <strong class="text-danger">Enopoly</strong></h4>
+                            <h4 class=""> <strong class="text-danger">{{ $attendancer->company->description ?? 'N/A' }}</strong></h4>
                             <div class="container">
                             <div class="row row-cols-3">
-                               <div class="col text-start mt-3 mb-3"><text>Name:</text> <span class="fs-6 text-primary" >test</span>  <span class="fs-6 text-primary">test</span> <span class="fs-6 text-primary">test</span>  <span class="fs-6 text-primary">test</span> </div>
-                               <div class="col text-start mt-3 mb-3"><text>Cutoff:</text> <span class="fs-6 text-primary">Wednesday</span></div>
-                               <div class="col text-start mt-3 mb-3"><text>Total Hours:</text> <span class="fs-6 text-primary">8 hours</span></div>
-                               <div class="col text-start mt-3 mb-3"><text>Total Break:</text> <span class="fs-6 text-primary">30mins</span></div>
-                               <div class="col text-start mt-3 mb-3"><text>Employee Status:</text> <span class="fs-6 text-primary">Active</span></div>
-                               <div class="col text-start mt-3 mb-3"><text>Total OT:</text> <span class="fs-6 text-primary">0 hours</span></div>
-                               <div class="col text-start mt-3 mb-3"><text>Rate:</text> <span class="fs-6 text-primary">56$</span></div>
-                               <div class="col text-start mt-3 mb-3"><text>Date:</text> <span class="fs-6 text-primary">Nov 6, 2024</span></div>
-                               <div class="col text-start mt-3 mb-3"><text>Duty Start:</text> <span class="fs-6 text-primary">9:00 am</span></div>
-                               <div class="col text-start mt-3 mb-3"><text>Time in:</text> <span class="fs-6 text-primary">8:50 am</span></div>
-                               <div class="col text-start mt-3 mb-3"><text>Time out:</text> <span class="fs-6 text-primary">5:03 pm</span></div>
-                               <div class="col text-start mt-3 mb-3"><text>Status:</text> <span class="fs-6 text-primary">Present</span></div>
-                               <div class="col text-start mt-3 mb-3"><text>Has Night Diff:</text> <span class="fs-6 text-primary">0</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Name:</text> <span class="fs-6 text-white" >{{ $attendancer->employee->first_name }}</span>  <span class="fs-6 text-white">{{ $attendancer->employee->last_name }}</span> <span class="fs-6 text-white">{{ $attendancer->employee->middle_name}}</span>  <span class="fs-6 text-white">{{ $attendancer->employee->suffix }}</span> </div>
+                               <div class="col text-start mt-3 mb-3"><text>Cutoff:</text> <span class="fs-6 text-white">{{ $attendancer->cutoff->date_start }} - {{ $attendancer->cutoff->date_end }}</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Total Hours:</text> <span class="fs-6 text-white">{{ $attendancer->total_hours}}</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Total Break:</text> <span class="fs-6 text-white">{{ intdiv($attendancer->total_break, 60) }} min {{ $attendancer->total_break % 60 }} sec
+                               </span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Employee Status:</text> <span class="fs-6 text-white">{{$attendancer->employee->status}}</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Total OT:</text> <span class="fs-6 text-white">{{$attendancer->total_ot}} hrs</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Rate:</text> <span class="fs-6 text-white">{{$attendancer->rate}}</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Date:</text> <span class="fs-6 text-white">{{$attendancer->date}}4</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Duty Start:</text> <span class="fs-6 text-white">{{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') }}</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Time in:</text> <span class="fs-6 text-white">{{ \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') }}</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Time out:</text> <span class="fs-6 text-white">{{ \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ?? 'N/A'}}</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Status:</text> <span class="fs-6 text-white">{{$attendancer->status_id}}</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Has Night Diff:</text> <span class="fs-6 text-white">{{$attendancer->has_night_diff}}</span></div>
 
                                
                              </div>
