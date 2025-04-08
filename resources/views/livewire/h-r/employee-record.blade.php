@@ -83,6 +83,7 @@
                                                      <li><a wire:navigate href="{{ route('edit-Schedule', ['empID' => $encryptedEmpID]) }}" class="dropdown-item">Update Work Schedule</a></li>
                                                      <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target=".ViewEmployees{{ $employee->employee_id }}">View Work Schedule</a></li>
                                                      <li><a  class="dropdown-item" wire:navigate href="{{ route('add-Deduction', ['empID' => $encryptedEmpID]) }}">Add Deduction</a></li>
+                                                     <li><a  class="dropdown-item" wire:navigate href="{{ route('employee-Payslip', ['empID' => $encryptedEmpID]) }}">Payslip</a></li>
                                                 
                                                      
                                                    </ul>

@@ -71,6 +71,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/user/attendance', App\Livewire\HR\UserAttendance::class)->name('user-Attendance');
         Route::get('/admin/time_adjustment', App\Livewire\HR\TimeAdjustment::class)->name('time-Adjustment');
         Route::get('/admin/attendance/add_overtime/{overID}', App\Livewire\HR\AddOvertime::class)->name('add-Overtime');
+        Route::get('/admin/employee_records/payslip/{empID}', App\Livewire\HR\EmployeePayslip::class)->name('employee-Payslip');
+ 
+        
+
+
+
+
+        
 
 
     });
