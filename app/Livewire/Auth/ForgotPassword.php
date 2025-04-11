@@ -66,7 +66,7 @@ class ForgotPassword extends Component
             $mail->Host = 'smtp.gmail.com'; 
             $mail->SMTPAuth = true;
             $mail->Username = 'jes2kim6@gmail.com'; 
-            $mail->Password = 'ykqskenrpgthcbab'; 
+            $mail->Password = 'ghnrxblqjdzebrbp'; 
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
          
