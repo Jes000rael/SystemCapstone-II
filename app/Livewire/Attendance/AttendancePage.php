@@ -166,15 +166,21 @@ class AttendancePage extends Component
                         ]);
             
                         session()->flash('success', 'Time-in recorded successfully!');
+return;
+
 
                     }
                     
                    
                 } else {
                     session()->flash('error', 'No work schedule found for today.');
+return;
+
                 }
             } else {
                 session()->flash('error', 'You have no work schedule for today');
+return;
+
             }
             
             session()->flash('error', 'You are late! Your scheduled start time was ' . $scheduledStartTime->format('g:i A') . '. Your lateness: ' . $latenessMessage);
@@ -328,14 +334,20 @@ if ($attendance) {
                 'field' => '',  
             ]);
              session()->flash('success', 'Time-in recorded successfully!');
+return;
+
 
            }
            
          } else {
              session()->flash('error', 'No work schedule found for today.');
+return;
+
          }
      } else {
          session()->flash('error', 'You have no work schedule for today');
+return;
+
      }
        }else{
         
@@ -399,13 +411,19 @@ if ($attendance) {
                 'field' => '',  
             ]);
              session()->flash('success', 'Time-in recorded successfully!');
+return;
+
            }
           
          } else {
              session()->flash('error', 'No work schedule found for today.');
+return;
+
          }
      } else {
          session()->flash('error', 'You have no work schedule for today');
+return;
+
      }
        }
     } else {
@@ -458,6 +476,9 @@ $attendance = AttendanceRecord::where('employee_id', $this->employee_id)
         $attendance->update([
             'time_out' => $currentTime,
         ]);
+
+        
+
         if($attendance->duty_start > $attendance->duty_end)
         {
         
@@ -491,8 +512,11 @@ if ($attendance->time_in && $attendance->time_out) {
     $attendance->update([
         'total_hours' => $totalHours,
     ]);
+  
+    session()->flash('success', 'Time out recorded successfully!');
+    return;
 }
-session()->flash('success', 'Time out recorded successfully!');
+
 
         }else{
          
@@ -523,10 +547,14 @@ if ($attendance->time_in && $attendance->time_out) {
    
     $attendance->update([
         'total_hours' => $totalHours,
+        
     ]);
+   
+
+ 
 }
 session()->flash('success', 'Time out recorded successfully!');
-
+return;
 
         }
  
@@ -535,6 +563,8 @@ session()->flash('success', 'Time out recorded successfully!');
       
         
         session()->flash('info', 'You have already timed out.');
+return;
+
     }
     }
 
@@ -621,6 +651,8 @@ $attendance = AttendanceRecord::where('employee_id', $this->employee_id)
         $attendance->update([
             'time_out' => $currentTime,
         ]);
+        session()->flash('success', 'Time out recorded successfully!');
+return;
 
         if($attendance->duty_start > $attendance->duty_end)
         {
@@ -654,8 +686,11 @@ if ($attendance->time_in && $attendance->time_out) {
     $attendance->update([
         'total_hours' => $totalHours,
     ]);
+    session()->flash('success', 'Time out recorded successfully!');
+return;
 }
-session()->flash('success', 'Time out recorded successfully!');
+
+
 
         }else{
           
@@ -687,8 +722,10 @@ if ($attendance->time_in && $attendance->time_out) {
     $attendance->update([
         'total_hours' => $totalHours,
     ]);
+    session()->flash('success', 'Time out recorded successfully!');
+return;
 }
-session()->flash('success', 'Time out recorded successfully!');
+
 
 
         }
@@ -756,20 +793,28 @@ session()->flash('success', 'Time out recorded successfully!');
                 'field' => '',  
             ]);
              session()->flash('success', 'Time-in recorded successfully!');
+return;
+
 
            }
            
          } else {
              session()->flash('error', 'No work schedule found for today.');
+return;
+
          }
      } else {
          session()->flash('error', 'You have no work schedule for today');
+return;
+
      }
     }
 
 
        }else{
         session()->flash('info', 'You have already timed out.');
+return;
+
        }
     }
    
@@ -782,7 +827,7 @@ session()->flash('success', 'Time out recorded successfully!');
             $employee = EmployeeRecords::where('employee_id', $this->employee_id)->first();
             $latestCutoff = \App\Models\Cutoff::where('company_id', Auth::user()->company_id)
     ->latest('cutoff_id')
-    ->first();
+    ->first(); 
 
 $currentDate = Carbon::now()->toDateString(); 
 
@@ -841,13 +886,19 @@ if ($latestCutoff) {
                             'field' => '',  
                         ]);
                         session()->flash('success', 'Time-in recorded successfully!');
+return;
+
                     }
                   
                 } else {
                     session()->flash('error', 'No work schedule found for today.');
+return;
+
                 }
             } else {
                 session()->flash('error', 'You have no work schedule for today');
+return;
+
             }
         }
     
