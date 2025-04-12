@@ -24,8 +24,10 @@ class EmployeePayslip extends Component
     public $last_name;
     public $middle_name;
     public $suffix ,$cutoffs;
+    public $cutoff_id;
     public function mount($empID)
     {
+        
       
       $decryptedEmpID = Crypt::decrypt($empID);
             $employee = EmployeeRecords::findOrFail($decryptedEmpID);
@@ -38,48 +40,50 @@ class EmployeePayslip extends Component
         
     
     $this->loadDropdownData();
+    
 }
     public function loadDropdownData()
         {
             $companyId = Auth::user()->company_id;
-        $employee_id = Auth::user()->employee_id;
+          $employee_id = $this->employee_id;
 
        
         $this->cutoffs = Cutoff::where('company_id', $companyId)
-            ->whereHas('attendanceRecords', function ($query) {
-                $query->whereNotNull('cutoff_id');
-            })
-            ->orderBy('cutoff_id', 'desc')
-            ->get();
-    
- 
-$this->latest = AttendanceRecord::where('employee_id', $employee_id)
-->orderBy('attendance_id', 'desc')
-->first();
+        ->whereHas('attendanceRecords', function ($query) use ($employee_id) {
+            $query->where('employee_id', $employee_id)
+                  ->whereNotNull('cutoff_id');
+        })
+        ->orderBy('cutoff_id', 'desc')
+        ->get();
+}
+
+public function goToPayslipDetails()
+{
+$this->loadAttendance($this->cutoff_id);
 
 
-$this->cut_attendance = AttendanceRecord::where('employee_id', $employee_id)
-    ->whereIn('cutoff_id', $this->cutoffs->pluck('cutoff_id')->toArray()) 
-    ->first();
+   
+}
+private function loadAttendance($cutoffId)
+{
+   
 
-
-
-    
-    if ($this->cut_attendance && $this->cut_attendance->cutoff) {
-        $startDate = \Carbon\Carbon::parse($this->cut_attendance->cutoff->date_start);
-        $endDate = \Carbon\Carbon::parse($this->cut_attendance->cutoff->date_end);
-    
-        $this->cutoffdate = $startDate->format('D, M d Y') . ' - ' . $endDate->format('D, M d Y');
-        
-        $totalDays1 = $startDate->diffInDays($endDate);
-        $this->totalDays = $totalDays1;
-    } else {
-        $this->cutoffdate = 'No cutoff available';
-        $this->totalDays = 0;
+    if (!$this->cutoff_id) {
+        session()->flash('error', 'Please select a cutoff period.');
+        return;
     }
 
+    $encryptedEmpID = Crypt::encrypt($this->employee_id);
+    $encryptedCutoffID = Crypt::encrypt($this->cutoff_id);
+
+    return redirect()->route('print-payslip', [
+        'empID' => $encryptedEmpID,
+        'cutoffID' => $encryptedCutoffID,
+    ]);
 
 }
+
+
 
 
 

@@ -27,12 +27,12 @@ class UserAttendance extends Component
     
        
         $this->cutoffs = Cutoff::where('company_id', $companyId)
-            ->whereHas('attendanceRecords', function ($query) {
-                $query->whereNotNull('cutoff_id');
-            })
-            ->orderBy('cutoff_id', 'desc')
-            ->get();
-    
+        ->whereHas('attendanceRecords', function ($query) use ($employee_id) {
+            $query->where('employee_id', $employee_id)
+                  ->whereNotNull('cutoff_id');
+        })
+        ->orderBy('cutoff_id', 'desc')
+        ->get();
  
 $this->latest = AttendanceRecord::where('employee_id', $employee_id)
 ->orderBy('attendance_id', 'desc')
@@ -226,6 +226,8 @@ public function getFormattedBreakTimeProperty()
 private function loadAttendance($employee_id, $cutoffId)
 {
     if ($cutoffId) {
+
+
         $cutoff = Cutoff::find($cutoffId);
     
         if ($cutoff) {

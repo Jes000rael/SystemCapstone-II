@@ -30,7 +30,8 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <h4 class="card-title mb-4 fs-5">Payslip for : {{ $first_name }} {{ $middle_name }} {{ $last_name }} {{ $suffix }} </h4>
+                        <h4 class="card-title mb-4 fs-5">Payslip for : <p>Employee ID: {{ $employee_id }}</p>
+                        <p>Cutoff ID: {{ $cutoff_id }}</p> </h4>
                         @if (session()->has('error'))
     <div class="alert alert-danger text-center fw-bold py-1">
         {{ session('error') }}
@@ -44,21 +45,7 @@
             <div class="col-8"> 
                 <div class="mb-1"> 
                     <div class="align-items-center d-flex justify-content-center">
-                   <form wire:submit.prevent="goToPayslipDetails">
-                   <select wire:model="cutoff_id" id="cutoff_id" name="option" class="form-select mb-1 mt-1 text-center">
-    @if($cutoffs->isEmpty())
-        <option class="text-white" disabled selected>No cutoffs found</option>
-    @else
-    <option class="text-white" value="">Select Cut Off Date</option>
-        @foreach($cutoffs as $cut)
-            <option value="{{ $cut->cutoff_id }}">
-                {{ \Carbon\Carbon::parse($cut->date_start)->format('M d, Y') }} - 
-                {{ \Carbon\Carbon::parse($cut->date_end)->format('M d, Y') }}
-            </option>
-        @endforeach
-    @endif
-</select>
-
+                       
                     </div>
                 </div>
             </div>
@@ -68,7 +55,7 @@
             <div class="col-8"> 
                 <div class="align-items-center d-flex justify-content-center">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input me-1 "> Add Deductions
+                        <input type="checkbox" class="form-check-input me-1 ">View Payslip
                     </label>
                 </div>
             </div>
@@ -80,16 +67,14 @@
         <div class="align-items-center d-flex justify-content-center">
         
       
-        <button  type="submit" class="btn btn-primary w-sm mt-3 me-2">View Payslip</button>
-
-
-
-
+<a  class="btn btn-primary w-sm mt-3 me-2">
+    <i class="bx bx-receipt me-1"></i>
+    Add Payslip
+</a>
 
        
         </div>
     </div>
-                   </form>
 
 
                                    
