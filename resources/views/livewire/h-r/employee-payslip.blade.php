@@ -53,7 +53,7 @@
         @foreach($cutoffs as $cut)
             <option value="{{ $cut->cutoff_id }}">
                 {{ \Carbon\Carbon::parse($cut->date_start)->format('M d, Y') }} - 
-                {{ \Carbon\Carbon::parse($cut->date_end)->format('M d, Y') }}
+                {{ \Carbon\Carbon::parse($cut->date_end)->format('M d, Y') }}   
             </option>
         @endforeach
     @endif

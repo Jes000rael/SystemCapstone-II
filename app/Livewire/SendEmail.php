@@ -19,10 +19,13 @@ class SendEmail extends Component
         'username' => 'required|string|max:255',
         'password' => 'required|string|max:255',
     ];
+    
 
     public function sendEmail()
     {
         $this->validate();
+        $mail = new PHPMailer(true);
+
 
         
         $this->messageBody = "
@@ -54,19 +57,20 @@ class SendEmail extends Component
             </div>
         </div>";
 
-        try {
-          
-            $mail = new PHPMailer(true);
-            $mail->isSMTP();
-            $mail->Host = env('MAIL_HOST');
-            $mail->SMTPAuth = true;
-            $mail->Username = env('MAIL_USERNAME');
-            $mail->Password = env('MAIL_PASSWORD');
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = env('MAIL_PORT');
 
-            $mail->setFrom(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
-            $mail->addAddress($this->email);
+        try {
+
+          
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com'; 
+        $mail->SMTPAuth = true;
+        $mail->Username = 'jes2kim6@gmail.com'; 
+        $mail->Password = 'ghnrxblqjdzebrbp'; 
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+     
+        $mail->setFrom('jes2kim6@gmail.com', 'Enopoly Prime');
+        $mail->addAddress($this->email); 
             $mail->isHTML(true);
             $mail->Subject = $this->emailSubject;
             $mail->Body = $this->messageBody;
