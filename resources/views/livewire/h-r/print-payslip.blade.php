@@ -170,7 +170,7 @@
                                     </style>
                                 @endpush
 
-                            </div> <!-- card-body -->
+                            </div> 
                         </div> <!-- card -->
                     </div>
                     <div class="col-1"></div>
