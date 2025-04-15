@@ -109,13 +109,13 @@
                                             <h6 class="font-weight-bold mb-2">EARNINGS</h6>
                                             <table class="table table-sm">
                                                 <tbody>
-                                                    <tr><td>Total Regular Hours</td><td class="text-right">{{ $totalHours }}.00 hrs</td></tr>
-                                                    <tr><td>Total Overtime Hours</td><td class="text-right">{{ $totalOvertime }}.00 hrs</td></tr>
-                                                    <tr><td>Total OverBreak Hours</td><td class="text-right">{{ $overBreak }}.00 hrs</td></tr>
+                                                    <tr><td>Total Regular Hours</td><td class="text-right">{{ number_format($totalHours, 2) }} hrs</td></tr>
+                                                    <tr><td>Total Overtime Hours</td><td class="text-right">{{ number_format($totalOvertime, 2) }} hrs</td></tr>
+                                                    <tr><td>Total OverBreak Hours</td><td class="text-right">{{ number_format($overBreak, 2) }} hrs</td></tr>
                                                     <tr><td>Total CoverUp Hours</td><td class="text-right">0.00 hrs</td></tr>
                                                     <tr><td>Total Leave Hours</td><td class="text-right">0.00 hrs</td></tr>
                                                     <tr><td>Total Night Diff Hours</td><td class="text-right">0.00 hrs</td></tr>
-                                                    <tr><td>Total Paid Hours</td><td class="text-right">{{ $totalearned }}.00 hrs</td></tr>
+                                                    <tr><td>Total Paid Hours</td><td class="text-right">{{ number_format($totalearned, 2) }} hrs</td></tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -141,20 +141,34 @@
                                     <!-- Totals -->
                                     <div class="row">
                                         <div class="col-md-6 font-weight-bold">Total Basic Salary: {{ number_format($totalSalary, 2) }}</div>
-                                        <div class="col-md-6 font-weight-bold">Total Deductions: ₱0.00</div>
+                                        <div class="col-md-6 font-weight-bold">Total Deductions:@if($addDeductions) 
+                                        {{ number_format($totalDeductions, 2) }} 
+                            @else
+                                0.00 
+                            @endif </div>
                                     </div>
                                     <div class="foot text-center mt-5">
                 <p>This is a system generated payslip
                     <br>Design & Develop by Enopoly Team
                 </p>
-                <button class="btn btn-danger float-end ms-2">Close</button>
-                <button class="btn btn-primary float-end ">Print</button>
+                <div class="no-print mb-4">
+    <a href="/admin/employee_records" class="btn btn-danger float-end ms-2" onclick="window.close()">Close</a>
+    <button  class="btn btn-primary float-end" onclick="window.print()">Print</button>
+</div>
                 
             </div>
                                     
                                 </div>
 
                                 @push('styles')
+                                <style>
+    @media print {
+        .no-print {
+            display: none !important;
+        }
+    }
+</style>
+
                                     <style>
                                         body { font-family: Arial, sans-serif; font-size: 14px; }
                                         .payslip-header { text-align: center; margin-bottom: 20px; }

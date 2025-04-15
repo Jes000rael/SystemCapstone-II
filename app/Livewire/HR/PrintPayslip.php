@@ -19,7 +19,7 @@ use Carbon\Carbon;
 class PrintPayslip extends Component
 {
 
-    public $employee_id,$email,$contact_number,$hourly_rate,$department_id,$job_title_id,$shift_id,$address,$conversion_rate,$deductions;
+    public $employee_id,$email,$contact_number,$hourly_rate,$department_id,$job_title_id,$shift_id,$address,$conversion_rate,$deductions,$totalDeductions;
     public $attendance, $cutoffs, $cut_off, $latest,$breaktime,$cut_attendance,$cutoffdate,$totalDays,$totalHours,$totalOvertime,$overBreak,$totalearned,$employeeRate,$employeePresent,$totalSalary,$ratetoCutoff,$totalSalarys;
     public $cutoff_id;
    
@@ -36,8 +36,9 @@ class PrintPayslip extends Component
 
         $decryptedEmpIDs = [Crypt::decrypt($empID)];
 
-        $this->deductions = Deductions::where('employee_id', $decryptedEmpIDs)
-        ->get();
+        $this->deductions = Deductions::where('employee_id', $decryptedEmpIDs)->get();
+        $this->totalDeductions = $this->deductions->sum('value');
+        
 
 
         $decryptedEmpID= Crypt::decrypt($empID);
@@ -117,14 +118,14 @@ class PrintPayslip extends Component
 
     $totalearned = $totalHours + $totalOvertime - $overBreak;
     
-    $totalSalary = $employee->hourly_rate * $totalearned;
-
+    $totalRateOfHours = $employeePresent > 0 ? ($employeeRate / $employeePresent) : 0;
+    $totalSalary = $totalRateOfHours * $totalearned;
     $ratetoCutoff = $cutoffRate ? ($totalSalary * ($cutoffRate->conversion_rate)) : 0;
 
 
 
 
-    
+     
 
     $this->totalearned = $totalearned;
    

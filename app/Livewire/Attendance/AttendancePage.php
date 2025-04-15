@@ -60,8 +60,143 @@ class AttendancePage extends Component
     
   
         if (!$workStartTime || !$workEndTime) {
-            session()->flash('error', 'No work schedule for today.');
+            $currentTime = Carbon::now();
+$currentDate = $currentTime->toDateString();
+$yesterdayDate = $currentTime->copy()->subDay()->toDateString();
+
+$attendance = AttendanceRecord::where('employee_id', $this->employee_id)
+    ->where(function ($query) use ($currentDate, $yesterdayDate) {
+        $query->whereDate('date', $currentDate)
+              ->orWhereDate('date', $yesterdayDate);
+    })
+    ->latest('date')
+    ->first();
+         
+    if (!$attendance->time_out) {
+        try {
+            $dutyStart = Carbon::createFromFormat('Y-m-d H:i:s', $attendance->date . ' ' . $attendance->duty_start);
+            $timeIn = Carbon::parse($attendance->time_in);
+            $currentTime = Carbon::now();
+        } catch (\Exception $e) {
+            session()->flash('error', 'Invalid time format detected.');
             return;
+        }
+
+      
+       
+        if ($currentTime->lt($dutyStart)) {
+           
+            $timeWorkedInMinutes = 0;
+        } elseif ($timeIn->lt($dutyStart)) {
+            
+            $timeWorkedInMinutes = $dutyStart->diffInMinutes($currentTime);
+        } else {
+           
+            $timeWorkedInMinutes = $timeIn->diffInMinutes($currentTime);
+        }
+
+
+
+   
+        if ($timeWorkedInMinutes < 60) {
+            session()->flash('error', 'You must work at least 1 hour before timing out.');
+            return;
+        }
+
+       
+        $attendance->update([
+            'time_out' => $currentTime,
+        ]);
+
+        
+
+        if($attendance->duty_start > $attendance->duty_end)
+        {
+        
+if ($attendance->time_in && $attendance->time_out) {
+    $timeIn = Carbon::parse($attendance->time_in);
+    $timeOut = Carbon::parse($attendance->time_out);
+    $dutyStart = Carbon::parse($attendance->date . ' ' . $attendance->duty_start);
+    $attendanceDate = Carbon::parse($attendance->date)->addDay();
+    $dutyEnd = Carbon::parse($attendanceDate->toDateString() . ' ' . $attendance->duty_end);
+
+    if ($timeIn->greaterThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
+      
+        $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
+    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
+       
+        $totalHours = $dutyStart->diffInMinutes($timeOut) / 60;
+    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
+        
+        $totalHours = $dutyStart->diffInMinutes($dutyEnd) / 60;
+    } else {
+      
+        $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
+    }
+
+  
+    $totalHours = round($totalHours, 2);
+
+
+
+    
+    $attendance->update([
+        'total_hours' => $totalHours,
+    ]);
+  
+    session()->flash('success', 'Time out recorded successfully!');
+    return;
+}
+
+
+        }else{
+         
+if ($attendance->time_in && $attendance->time_out) {
+    $timeIn = Carbon::parse($attendance->time_in);
+    $timeOut = Carbon::parse($attendance->time_out);
+    $dutyStart = Carbon::parse($attendance->date . ' ' . $attendance->duty_start);
+    $dutyEnd = Carbon::parse($attendance->date . ' ' . $attendance->duty_end);
+
+    if ($timeIn->greaterThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
+        
+        $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
+    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
+        
+        $totalHours = $dutyStart->diffInMinutes($timeOut) / 60;
+    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
+       
+        $totalHours = $dutyStart->diffInMinutes($dutyEnd) / 60;
+    } else {
+       
+        $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
+    }
+
+    
+    $totalHours = round($totalHours, 2);
+
+
+   
+    $attendance->update([
+        'total_hours' => $totalHours,
+        
+    ]);
+   
+
+ 
+}
+session()->flash('success', 'Time out recorded successfully!');
+return;
+
+        }
+ 
+        
+    } else {
+      
+        
+        session()->flash('error', 'No work schedule for today.');
+        return;
+
+    }
         }
     
         $currentTime = Carbon::now();
@@ -166,7 +301,7 @@ class AttendancePage extends Component
                         ]);
             
                         session()->flash('success', 'Time-in recorded successfully!');
-return;
+
 
 
                     }
@@ -174,12 +309,12 @@ return;
                    
                 } else {
                     session()->flash('error', 'No work schedule found for today.');
-return;
+
 
                 }
             } else {
                 session()->flash('error', 'You have no work schedule for today');
-return;
+
 
             }
             
@@ -334,19 +469,19 @@ if ($attendance) {
                 'field' => '',  
             ]);
              session()->flash('success', 'Time-in recorded successfully!');
-return;
+
 
 
            }
            
          } else {
              session()->flash('error', 'No work schedule found for today.');
-return;
+
 
          }
      } else {
          session()->flash('error', 'You have no work schedule for today');
-return;
+
 
      }
        }else{
@@ -411,18 +546,18 @@ return;
                 'field' => '',  
             ]);
              session()->flash('success', 'Time-in recorded successfully!');
-return;
+
 
            }
           
          } else {
              session()->flash('error', 'No work schedule found for today.');
-return;
+
 
          }
      } else {
          session()->flash('error', 'You have no work schedule for today');
-return;
+
 
      }
        }
@@ -793,19 +928,19 @@ return;
                 'field' => '',  
             ]);
              session()->flash('success', 'Time-in recorded successfully!');
-return;
+
 
 
            }
            
          } else {
              session()->flash('error', 'No work schedule found for today.');
-return;
+
 
          }
      } else {
          session()->flash('error', 'You have no work schedule for today');
-return;
+
 
      }
     }
@@ -813,7 +948,7 @@ return;
 
        }else{
         session()->flash('info', 'You have already timed out.');
-return;
+
 
        }
     }
@@ -886,18 +1021,18 @@ if ($latestCutoff) {
                             'field' => '',  
                         ]);
                         session()->flash('success', 'Time-in recorded successfully!');
-return;
+
 
                     }
                   
                 } else {
                     session()->flash('error', 'No work schedule found for today.');
-return;
+
 
                 }
             } else {
                 session()->flash('error', 'You have no work schedule for today');
-return;
+
 
             }
         }
