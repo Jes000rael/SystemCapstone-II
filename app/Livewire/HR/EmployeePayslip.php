@@ -25,6 +25,8 @@ class EmployeePayslip extends Component
     public $middle_name;
     public $suffix ,$cutoffs;
     public $cutoff_id;
+    public $addDeductions = false;
+
     public function mount($empID)
     {
         
@@ -75,10 +77,12 @@ private function loadAttendance($cutoffId)
 
     $encryptedEmpID = Crypt::encrypt($this->employee_id);
     $encryptedCutoffID = Crypt::encrypt($this->cutoff_id);
+    $withDeductions = $this->addDeductions ? 1 : 0;
 
     return redirect()->route('print-payslip', [
         'empID' => $encryptedEmpID,
         'cutoffID' => $encryptedCutoffID,
+        'deduct' => $withDeductions,
     ]);
 
 }

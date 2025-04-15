@@ -54,48 +54,48 @@
                                             <h5 class="section-header">Employee Details:</h5>
                                             <div class="row info-row">
                                                 <div class="col-sm-4 detail-label">Employee Name</div>
-                                                <div class="col-sm-8">Bon Von Hubahib</div>
+                                                <div class="col-sm-8">{{ $first_name }}  {{ $middle_name }} {{  $last_name }} {{ $suffix }}</div>
                                             </div>
                                             <div class="row info-row">
                                                 <div class="col-sm-4 detail-label">Employee ID</div>
-                                                <div class="col-sm-8">ENO-FB-8</div>
+                                                <div class="col-sm-8">{{ $employee_id }}</div>
                                             </div>
                                             <div class="row info-row">
                                                 <div class="col-sm-4 detail-label">Email Address</div>
-                                                <div class="col-sm-8">not_provided@email.com</div>
+                                                <div class="col-sm-8">{{ $email }}</div>
                                             </div>
                                             <div class="row info-row">
                                                 <div class="col-sm-4 detail-label">Contact No.</div>
-                                                <div class="col-sm-8">09193326731</div>
+                                                <div class="col-sm-8">{{ $contact_number }}</div>
                                             </div>
                                             <div class="row info-row">
-                                                <div class="col-sm-4 detail-label">Rate per Hour ($)</div>
-                                                <div class="col-sm-8">10.00</div>
+                                                <div class="col-sm-4 detail-label">Rate per Hour</div>
+                                                <div class="col-sm-8">{{ $hourly_rate }}.00</div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <h5 class="section-header text-md-right net-pay">Net Pay: </h5>
+                                            <h5 class="section-header text-md-right net-pay">Net Pay: {{ number_format($ratetoCutoff, 2) }}</h5>
                                             
 
                                             <div class="row info-row mt-3">
                                                 <div class="col-sm-6 detail-label">Department</div>
-                                                <div class="col-sm-6">MARKETING AND COMMUNICATION</div>
+                                                <div class="col-sm-6">{{ $department_id}}</div>
                                             </div>
                                             <div class="row info-row">
                                                 <div class="col-sm-6 detail-label">Job Title</div>
-                                                <div class="col-sm-6">Senior Brand Manager</div>
+                                                <div class="col-sm-6">{{ $job_title_id}}</div>
                                             </div>
                                             <div class="row info-row">
                                                 <div class="col-sm-6 detail-label">Duty Time</div>
-                                                <div class="col-sm-6">08:00 pm Night Shift</div>
+                                                <div class="col-sm-6">{{ $shift_id}}</div>
                                             </div>
                                             <div class="row info-row">
                                                 <div class="col-sm-6 detail-label">Location</div>
-                                                <div class="col-sm-6">Bantayan</div>
+                                                <div class="col-sm-6">{{$address}}</div>
                                             </div>
                                             <div class="row info-row">
-                                                <div class="col-sm-6 detail-label">Dollar to Php</div>
-                                                <div class="col-sm-6">50.00</div>
+                                                <div class="col-sm-6 detail-label">Cutoff rate to Php</div>
+                                                <div class="col-sm-6">{{ $conversion_rate }}.00</div>
                                             </div>
                                         </div>
                                     </div>
@@ -109,12 +109,13 @@
                                             <h6 class="font-weight-bold mb-2">EARNINGS</h6>
                                             <table class="table table-sm">
                                                 <tbody>
-                                                    <tr><td>Total Regular Hours</td><td class="text-right">8.00 hrs</td></tr>
-                                                    <tr><td>Total Overtime Hours</td><td class="text-right">0.00 hrs</td></tr>
+                                                    <tr><td>Total Regular Hours</td><td class="text-right">{{ $totalHours }}.00 hrs</td></tr>
+                                                    <tr><td>Total Overtime Hours</td><td class="text-right">{{ $totalOvertime }}.00 hrs</td></tr>
+                                                    <tr><td>Total OverBreak Hours</td><td class="text-right">{{ $overBreak }}.00 hrs</td></tr>
                                                     <tr><td>Total CoverUp Hours</td><td class="text-right">0.00 hrs</td></tr>
                                                     <tr><td>Total Leave Hours</td><td class="text-right">0.00 hrs</td></tr>
                                                     <tr><td>Total Night Diff Hours</td><td class="text-right">0.00 hrs</td></tr>
-                                                    <tr><td>Total Paid Hours</td><td class="text-right">8.00 hrs</td></tr>
+                                                    <tr><td>Total Paid Hours</td><td class="text-right">{{ $totalearned }}.00 hrs</td></tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -122,9 +123,14 @@
                                             <h6 class="font-weight-bold mb-2">DEDUCTIONS</h6>
                                             <table class="table table-sm">
                                                 <tbody>
-                                                    <tr><td>SSS</td><td class="text-right">0.00</td></tr>
-                                                    <tr><td>PhilHealth</td><td class="text-right">0.00</td></tr>
-                                                    <tr><td>Pagibig</td><td class="text-right">0.00</td></tr>
+                                                    @foreach($deductions as $deduct)
+                                                    <tr><td>{{ $deduct->description }}</td><td class="text-right">      @if($addDeductions) 
+                                {{ number_format($deduct->value, 2) }} 
+                            @else
+                                0.00 
+                            @endif</td></tr>
+                                                    @endforeach
+                                                   
                                                 </tbody>
                                             </table>
                                         </div>
@@ -134,7 +140,7 @@
 
                                     <!-- Totals -->
                                     <div class="row">
-                                        <div class="col-md-6 font-weight-bold">Total Basic Salary: $80.00 / ₱4,000.00</div>
+                                        <div class="col-md-6 font-weight-bold">Total Basic Salary: {{ number_format($totalSalary, 2) }}</div>
                                         <div class="col-md-6 font-weight-bold">Total Deductions: ₱0.00</div>
                                     </div>
                                     <div class="foot text-center mt-5">

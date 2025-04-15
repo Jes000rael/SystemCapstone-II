@@ -68,7 +68,8 @@
             <div class="col-8"> 
                 <div class="align-items-center d-flex justify-content-center">
                     <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input me-1 "> Add Deductions
+                    <input type="checkbox" wire:model="addDeductions" class="form-check-input me-1"> Add Deductions
+
                     </label>
                 </div>
             </div>
