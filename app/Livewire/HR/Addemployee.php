@@ -130,7 +130,6 @@ class Addemployee extends Component
             'email' => $this->email,
             'blood_type' => $this->blood_type,
             'address' => $this->address,
-            'contact_number' => $this->contact_number,
             'seniority_level_id' =>$this->seniority_level_id,
             'employment_status_id' =>$this-> employment_status_id,
             'job_title_id' =>$this-> job_title_id,

@@ -46,8 +46,15 @@
                             <div class="row row-col-12">
                                <div class="col-12 text-start mt-2  fs-5">  <pre class="font-size-18 my-2 text-dark"> Pay Period Days and Hours From [ {{ $cutoffdate }} ] : {{ $totalDays }} days </pre>  </div>
                                <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Regular Hours    :  {{ $totalHours }} hrs </pre>  </div>
+                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Overtime Hours   :  {{ $totalOvertime }} hrs </pre>  </div>
+                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total CoverUp Hours   :  {{ $totalOvertime }} hrs </pre>  </div>
+                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total OverBreak Hours   :  {{ $overBreak }} hrs </pre>  </div>
+                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Paid Hours   :  {{ $totalearned }} hrs </pre>  </div>
+                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Earned Salary   :  {{ number_format($totalSalary, 2) }} </pre>  </div>
+                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Estimated Total Pay Depends on Cutoff Rate :  {{ number_format($totalSalary, 2) }} Earned Salary X Cutoff Rate = {{ number_format($ratetoCutoff, 2) }} </pre>  </div>
                               
                              </div>
+
                              
                              
                              
@@ -161,16 +168,17 @@
             <form wire:submit.prevent="cutoffselect">
              
                                                            <select wire:model="cut_off" id="cut_off" name="option" class="form-select mb-1 mt-1 text-center">
-                                                           @if (!empty($cutoffs) && $cutoffs->count() > 0)
-    @foreach($cutoffs as $cut)
-        <option value="{{ $cut->cutoff_id }}">
-            {{ \Carbon\Carbon::parse($cut->date_start)->format('M d Y') }} - 
-            {{ \Carbon\Carbon::parse($cut->date_end)->format('M d Y') }}
-        </option>
-    @endforeach
-@else
-    <option class="text-white" disabled>No cutoffs available</option>
-@endif
+                                                           @if($cutoffs->isEmpty())
+        <option class="text-white" disabled selected>No cutoffs found</option>
+    @else
+        @foreach($cutoffs as $cut)
+            <option value="{{ $cut->cutoff_id }}">
+                {{ \Carbon\Carbon::parse($cut->date_start)->format('M d Y') }} - 
+                {{ \Carbon\Carbon::parse($cut->date_end)->format('M d Y') }}
+            </option>
+        @endforeach
+    @endif
+                                         
 
 
                               </select>
@@ -232,7 +240,7 @@
                                             <tbody>
                                                 @foreach($attendance as $attendancer)
                                                 
-                                            <tr>
+                                            <tr class =" {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">
                                             <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer['date'])->format('D, M d Y') }}</td>
                                             <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}"> @if($attendancer['record'])
                 {{ \Carbon\Carbon::parse($attendancer['record']->time_in)->format('h:i A') }}
@@ -338,7 +346,7 @@ if ($totalTime && $totalTime->count() > 0) {
 @else
     {{ $formattedTime }} ~ 
     @php
-    // Safely check if breaktimeLog exists, then access the first log record
+    
     $breaktimeLog = optional($attendancer['record'])->breaktimeLog;
     $endTime = $breaktimeLog ? $breaktimeLog->first()->end_time : null;
 @endphp
@@ -366,7 +374,16 @@ if ($totalTime && $totalTime->count() > 0) {
 @if($attendancer['record']->time_out == null)
 
 @if (optional($attendancer['record'])->breaktimeLog()->first()?->total_hours !== '00:00:00')
-        <button 
+@if($breaktime && $breaktime->field == null)
+<button 
+            wire:click="resumeBreak" 
+            id="resume-break-btn" 
+            class="btn btn-primary" 
+           >
+           Start Break 
+        </button>
+@else
+<button 
             wire:click="resumeBreak" 
             id="resume-break-btn" 
             class="btn {{ $breaktime && $breaktime->field == null ? 'btn-primary' : 'btn-success' }}" 
@@ -383,6 +400,10 @@ if ($totalTime && $totalTime->count() > 0) {
             style="display: inline-block;">
             Pause Break
         </button>
+@endif
+        
+
+        
     @endif          
 @else
 @if(optional($attendancer['record'])->attendance_id === optional($attendancer['record'])->overtime()->first()?->attendance_id)
@@ -414,20 +435,6 @@ if ($totalTime && $totalTime->count() > 0) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </div>
 @endif
 
@@ -441,6 +448,7 @@ if ($totalTime && $totalTime->count() > 0) {
                                                 </tbody>
                                                 
                                         </table>
+                                        
                                     </div>
                                 </div>
 

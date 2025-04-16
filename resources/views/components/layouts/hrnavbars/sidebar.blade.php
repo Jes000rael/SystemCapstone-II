@@ -109,9 +109,13 @@
                   <li class="{{ Route::currentRouteName() == 'edit-Announcement' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a wire:navigate href="{{ route('anouncements') }}" class="waves-effect ">
                     <i class="bx bx-volume-full"></i>
-
-
                          <span key="t-starter-page"> Announcement</span>
+                     </a>
+                  </li>
+                  <li class="{{ Route::currentRouteName() == 'edit-Page' ? 'mm-active' : 'text-light fw-bold' }}">
+                    <a wire:navigate href="{{ route('create-Attendance-Page') }}" class="waves-effect ">
+                    <i class="bx bx-clipboard"></i>
+                         <span key="t-starter-page"> Attendance Page</span>
                      </a>
                   </li>
 

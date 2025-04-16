@@ -131,20 +131,25 @@ class EmployeeEditSuper extends Component
 
         if($company_id === 1){
             if($department_id === 1){
-                $this->depart = Department::where('company_id', $company_id)->get();
+                $this->depart = Department::where('company_id', $company_id)
+    ->where('department_id', '!=', 3)  
+    ->get();
                 
             }
             else{
                
                 $this->depart = Department::where('company_id', $company_id)
-            ->where('department_id', '!=', 1)
-            ->get();
+                ->whereNotIn('department_id', [1, 3]) 
+                ->get();
+            
             }
 
         }else{
             $this->department = Department::whereIn('department_id', [2, 3])->get();
 
-         $this->depart = Department::where('company_id', $company_id)->get();
+         $this->depart = Department::where('company_id', $company_id)
+    ->where('department_id', '!=', 3)  
+    ->get();
          
         }
 

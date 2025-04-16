@@ -73,6 +73,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/attendance/add_overtime/{overID}', App\Livewire\HR\AddOvertime::class)->name('add-Overtime');
         Route::get('/admin/employee_records/payslip/{empID}', App\Livewire\HR\EmployeePayslip::class)->name('employee-Payslip');
         Route::get('/admin/employee_records/{empID}/{cutoffID}/{deduct?}', App\Livewire\HR\PrintPayslip::class)->name('print-payslip');
+        Route::get('/admin/create/attendace_page', App\Livewire\HR\AttendancePage::class)->name('create-Attendance-Page');
+        Route::get('/admin/edit/attendace_page/{pageID}', App\Livewire\HR\EditPage::class)->name('edit-Page');
+
+
         
 
  

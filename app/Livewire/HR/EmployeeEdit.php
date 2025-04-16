@@ -67,6 +67,7 @@ class EmployeeEdit extends Component
         'hourly_rate' => 'required|numeric|regex:/^\d+(\.\d+)?$/',
         'has_night_diff' => 'required|boolean',
         'username' => 'required|unique:employee_records,username,' . $this->employee_id . ',employee_id', 
+        'password' => 'required',
         'contact_number' => 'required',
         'emergency_contact' => 'required',
         'emergency_person' => 'required',

@@ -7,13 +7,14 @@ use Livewire\Component;
 use App\Models\AttendanceRecord;
 use App\Models\Cutoff;
 use App\Models\BreaktimeLog;
+use App\Models\OvertimeLog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 
 class AttendanceLog extends Component
 {
-    public $attendance, $cutoffs, $cut_off, $latest,$breaktime,$cut_attendance,$cutoffdate,$totalDays,$totalHours;
+    public $attendance, $cutoffs, $cut_off, $latest,$breaktime,$cut_attendance,$cutoffdate,$totalDays,$totalHours,$totalOvertime,$overBreak,$totalearned,$employeeRate,$employeePresent,$totalSalary,$ratetoCutoff;
     public $timeShow;
     public $newTotalTime; 
 
@@ -28,12 +29,12 @@ class AttendanceLog extends Component
     
        
         $this->cutoffs = Cutoff::where('company_id', $companyId)
-            ->whereHas('attendanceRecords', function ($query) {
-                $query->whereNotNull('cutoff_id');
-            })
-            ->orderBy('cutoff_id', 'desc')
-            ->get();
-    
+        ->whereHas('attendanceRecords', function ($query) use ($employee_id) {
+            $query->where('employee_id', $employee_id)
+                  ->whereNotNull('cutoff_id');
+        })
+        ->orderBy('cutoff_id', 'desc')
+        ->get();
  
 $this->latest = AttendanceRecord::where('employee_id', $employee_id)
 ->orderBy('attendance_id', 'desc')
@@ -41,7 +42,8 @@ $this->latest = AttendanceRecord::where('employee_id', $employee_id)
 
 
 $this->cut_attendance = AttendanceRecord::where('employee_id', $employee_id)
-    ->whereIn('cutoff_id', $this->cutoffs->pluck('cutoff_id')->toArray()) 
+    ->whereNotNull('cutoff_id')
+    ->orderBy('attendance_id', 'desc')
     ->first();
 
 
@@ -52,18 +54,18 @@ $this->cut_attendance = AttendanceRecord::where('employee_id', $employee_id)
         $endDate = \Carbon\Carbon::parse($this->cut_attendance->cutoff->date_end);
     
         $this->cutoffdate = $startDate->format('D, M d Y') . ' - ' . $endDate->format('D, M d Y');
-    
+        
         $totalDays1 = $startDate->diffInDays($endDate);
         $this->totalDays = $totalDays1;
     } else {
-        
-        $this->cutoffdate = "No cutoff available";
+        $this->cutoffdate = 'No cutoff available';
         $this->totalDays = 0;
     }
-    
 
 
-    $cutoffIds1 = $this->cutoffs->pluck('cutoff_id')->toArray();
+    $cutoffIds1 = optional($this->cutoffs->first())->cutoff_id ? [optional($this->cutoffs->first())->cutoff_id] : [];
+
+
 
 
     $totalHours = AttendanceRecord::where('employee_id', $employee_id)
@@ -72,6 +74,49 @@ $this->cut_attendance = AttendanceRecord::where('employee_id', $employee_id)
 
     $this->totalHours = $totalHours;
 
+    $totalOvertime = AttendanceRecord::where('employee_id', $employee_id)
+    ->whereIn('cutoff_id', $cutoffIds1)
+    ->sum('total_ot');
+
+    $this->totalOvertime = $totalOvertime;
+
+    $overBreak = AttendanceRecord::where('employee_id', $employee_id)
+    ->whereIn('cutoff_id', $cutoffIds1)
+    ->sum('over_break');
+
+    $this->overBreak = $overBreak;
+
+    $employeeRate = AttendanceRecord::where('employee_id', $employee_id)
+    ->whereNotNull('time_out') 
+    ->whereIn('cutoff_id', $cutoffIds1)
+    ->sum('rate');
+
+    $employeePresent = AttendanceRecord::where('employee_id', $employee_id)
+    ->whereNotNull('time_out') 
+    ->whereIn('cutoff_id', $cutoffIds1)
+    ->count();
+
+   $cutoffRate = Cutoff::whereIn('cutoff_id', (array) $cutoffIds1)->first();
+
+ 
+    
+    
+
+
+    $totalearned = $totalHours + $totalOvertime - $overBreak;
+    $totalRateOfHours = $employeePresent > 0 ? ($employeeRate / $employeePresent) : 0;
+    $totalSalary = $totalRateOfHours * $totalearned;
+
+    $ratetoCutoff = $cutoffRate ? ($totalSalary * ($cutoffRate->conversion_rate)) : 0;
+
+
+
+
+    
+
+    $this->totalearned = $totalearned;
+    $this->totalSalary = $totalSalary;
+    $this->ratetoCutoff = $ratetoCutoff;
     
 if ($this->latest === null) {
 
@@ -174,6 +219,8 @@ public function getFormattedBreakTimeProperty()
         redirect('/admin/user/attendance');
         $this->loadAttendance($employee_id, $this->cut_off);
     } else {
+        redirect('/admin/user/attendance');
+
         $this->attendance = collect();
     }
 }
@@ -181,6 +228,8 @@ public function getFormattedBreakTimeProperty()
 private function loadAttendance($employee_id, $cutoffId)
 {
     if ($cutoffId) {
+
+
         $cutoff = Cutoff::find($cutoffId);
     
         if ($cutoff) {
@@ -216,9 +265,11 @@ return $item['date'];
 ->values(); 
 
         }
+        
     } else {
         $this->attendance = collect();
     }
+    
     
 }
 
@@ -229,9 +280,6 @@ return $item['date'];
     {
     
         $endTime = Carbon::now();  
-        
-      
-        
         
         $break = BreaktimeLog::where('attendance_id', $this->latest->attendance_id)
             ->first();
@@ -316,6 +364,14 @@ if ($this->latest) {
     $updatedTotalWorkInHours = $updatedTotalWorkInSeconds;
 
     $this->latest->total_break = $updatedTotalWorkInHours;
+    if($updatedTotalWorkInHours > 3599){
+        $changeOver = $updatedTotalWorkInHours - 3600 ;
+        $changeOvers = round(max(0, $changeOver) / 3600, 2);
+    $this->latest->over_break = $changeOvers;
+
+} else {
+    $this->latest->over_break = 0;
+}
 
 
 $this->latest->save();
@@ -394,6 +450,9 @@ $totalOt = sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
 
     return response()->json(['message' => 'Overtime ended successfully.']);
 }
+
+
+
     public function render()
     {
         return view('livewire.employee.attendance-log');

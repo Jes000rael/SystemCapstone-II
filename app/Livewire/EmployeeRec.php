@@ -22,7 +22,12 @@ class EmployeeRec extends Component
    
     public function updateEmployee()
     {
-        $this->employees =  EmployeeRecords::with('company','work_sched','deduction','meritLog','absence','shift','department','jobtitle','seniorityLevel','employmentStatus')->get();
+       $this->employees = EmployeeRecords::with(
+        'company', 'work_sched', 'deduction', 'meritLog', 'absence', 
+        'shift', 'department', 'jobtitle', 'seniorityLevel', 'employmentStatus'
+    )
+    ->where('department_id', '!=', 3) 
+    ->get();
     }
     public function deleteEmployee($employeeId)
     

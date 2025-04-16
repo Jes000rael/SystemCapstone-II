@@ -26,7 +26,7 @@ class EmployeeRecord extends Component
             'shift', 'department', 'jobtitle', 'seniorityLevel', 'employmentStatus'
         )
         ->where('company_id', $companyId)
-        ->where('department_id', '!=', 1) 
+        ->whereNotIn('department_id', [1, 3])
         ->get();
     }
     public function deleteEmployee($employeeId)

@@ -89,7 +89,8 @@ class EmployeeAdd extends Component
         $this->senioritylevels = SeniorityLevel::all();
         $this->employmentstatus = EmploymentStatus::all();
         $this->jobtitle = JobTitle::all();
-        $this->department = Department::all();
+        $this->department = Department::where('department_id', '!=', 3)->get();
+
         $this->shifts = Shift::all();
 
     }
