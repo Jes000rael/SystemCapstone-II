@@ -81,7 +81,7 @@ input[type="text"] {
                             <div class="card-body pt-0"> 
                                
                                 <div class="p-2">
-                                    <form wire:submit="login" action="#" method="POST" role="form text-left">
+                                    <form wire:submit.prevent="login"  role="form text-left">
                                    <div class="col-12 text-center mb-2">
                                    @error('errors') <span style="color:rgb(230, 12, 30); font-size: 15px;" class=" error fw-bold">{{ $message }}</span> @enderror
                                    </div>

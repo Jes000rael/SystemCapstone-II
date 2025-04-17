@@ -19,7 +19,7 @@ use Carbon\Carbon;
 class PrintPayslip extends Component
 {
 
-    public $employee_id,$email,$contact_number,$hourly_rate,$department_id,$job_title_id,$shift_id,$address,$conversion_rate,$deductions,$totalDeductions;
+    public $employee_id,$email,$contact_number,$hourly_rate,$department_id,$job_title_id,$shift_id,$address,$conversion_rate,$deductions,$totalDeductions,$totalnigtdiffhours;
     public $attendance, $cutoffs, $cut_off, $latest,$breaktime,$cut_attendance,$cutoffdate,$totalDays,$totalHours,$totalOvertime,$overBreak,$totalearned,$employeeRate,$employeePresent,$totalSalary,$ratetoCutoff,$totalSalarys;
     public $cutoff_id;
    
@@ -110,6 +110,17 @@ class PrintPayslip extends Component
     ->whereIn('cutoff_id', $decryptedcutOffs)
     ->count();
 
+
+    $totalnigtdiffhours = AttendanceRecord::where('employee_id', $decryptedEmpIDs)
+    ->whereIn('cutoff_id', $decryptedcutOffs)
+    ->where('has_night_diff', 1)
+    ->sum('total_hours');
+
+$totaldiff = $this->hourly_rate * 0.30;
+$totaldiffnight =  $totalnigtdiffhours * $totaldiff;
+$this->totalnigtdiffhours = $totalnigtdiffhours;
+
+
     $cutoffRate = Cutoff::where('cutoff_id', $decryptedcutOff)->first();
 
     
@@ -119,7 +130,8 @@ class PrintPayslip extends Component
     $totalearned = $totalHours + $totalOvertime - $overBreak;
     
     $totalRateOfHours = $employeePresent > 0 ? ($employeeRate / $employeePresent) : 0;
-    $totalSalary = $totalRateOfHours * $totalearned;
+    $totalSalary = ($totalRateOfHours * $totalearned) + $totaldiffnight;
+
     $ratetoCutoff = $cutoffRate ? ($totalSalary * ($cutoffRate->conversion_rate)) : 0;
 
 
@@ -138,9 +150,8 @@ class PrintPayslip extends Component
         ->sum('value');
 
     $this->totalSalary = $totalSalary;
-        $totalSalary -= $deduction;
-
-    $this->ratetoCutoff = $totalSalary;
+    $netSalary = $ratetoCutoff - $deduction;
+    $this->ratetoCutoff = $netSalary;
 
    
     }else{

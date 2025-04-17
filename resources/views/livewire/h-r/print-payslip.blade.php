@@ -74,7 +74,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <h5 class="section-header text-md-right net-pay">Net Pay: {{ number_format($ratetoCutoff, 2) }}</h5>
+                                            <h5 class="section-header text-md-right net-pay">Net Pay: {{ number_format($ratetoCutoff, 3) }}</h5>
                                             
 
                                             <div class="row info-row mt-3">
@@ -114,7 +114,7 @@
                                                     <tr><td>Total OverBreak Hours</td><td class="text-right">{{ number_format($overBreak, 2) }} hrs</td></tr>
                                                     <tr><td>Total CoverUp Hours</td><td class="text-right">0.00 hrs</td></tr>
                                                     <tr><td>Total Leave Hours</td><td class="text-right">0.00 hrs</td></tr>
-                                                    <tr><td>Total Night Diff Hours</td><td class="text-right">0.00 hrs</td></tr>
+                                                    <tr><td>Total Night Diff Hours</td><td class="text-right">{{ number_format($totalnigtdiffhours, 2) }} hrs</td></tr>
                                                     <tr><td>Total Paid Hours</td><td class="text-right">{{ number_format($totalearned, 2) }} hrs</td></tr>
                                                 </tbody>
                                             </table>
@@ -140,9 +140,9 @@
 
                                     <!-- Totals -->
                                     <div class="row">
-                                        <div class="col-md-6 font-weight-bold">Total Basic Salary: {{ number_format($totalSalary, 2) }}</div>
+                                        <div class="col-md-6 font-weight-bold">Total Basic Salary: {{ number_format($totalSalary, 3) }}</div>
                                         <div class="col-md-6 font-weight-bold">Total Deductions:@if($addDeductions) 
-                                        {{ number_format($totalDeductions, 2) }} 
+                                        {{ number_format($totalDeductions, 3) }} 
                             @else
                                 0.00 
                             @endif </div>

@@ -249,6 +249,8 @@ body {
 <livewire:auth.change-password/>
 
 
+
+
 @push('scripts')
 <script>
     function toggleDropdown() {
