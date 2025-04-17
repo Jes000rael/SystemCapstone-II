@@ -253,7 +253,7 @@
 @if (session('success'))
     <script>
         Swal.fire({
-          title: '<span style="color:#000;" class="text-center">Login  <span>Successfully</span></span> ',
+          title: '<span style="color:#000;" class="text-center fs-6 fw-bold">Login  <span>Successfully</span></span> ',
           icon:'success', 
             showConfirmButton: false,
             timer: 5000,

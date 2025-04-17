@@ -286,6 +286,35 @@ $(document).ready(function() {
 
     </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        window.addEventListener('changepassword', event => {
+           
+            const modal = bootstrap.Modal.getInstance(document.getElementById('changepassModal'));
+            if (modal) {
+                modal.hide();
+            }
+
+           
+            Swal.fire({
+                title: '<strong style="color:#000; font-size:15px;" class="text-center">Change Password</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Successfully!</span> ',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                width: '300px',
+                backdrop: true,
+                position: 'top-end',
+                toast: true,
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp',
+                }
+            });
+        });
+    });
+</script>
+
+
     <script>
             document.addEventListener('DOMContentLoaded', function () {
             window.addEventListener('offcatduty-added', event => {

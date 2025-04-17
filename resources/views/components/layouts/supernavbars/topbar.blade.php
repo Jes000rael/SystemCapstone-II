@@ -238,7 +238,9 @@ body {
     <div class="dropdown-menu dropdown-menu-end" id="userDropdownMenu">
         <!-- item-->
 
-        <!-- <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">11</span><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span key="t-settings">Change Pass</span></a> -->
+        <a title="View" data-bs-toggle="modal" data-bs-target=".changepass" class="dropdown-item d-block" href="#"><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span key="t-settings">Change Pass</span></a>
+
+        
 
         <div class="dropdown-divider"></div>
         <livewire:auth.logout />
@@ -251,6 +253,8 @@ body {
     </div>
 
 </header>
+        <livewire:auth.change-password/>
+
 
 @push('scripts')
 <script>

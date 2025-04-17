@@ -234,6 +234,7 @@ body {
         <a class="dropdown-item" href="#"><i class="bx bx-wallet font-size-16 align-middle me-1"></i> <span key="t-my-wallet">My Wallet</span></a>
         <a class="dropdown-item d-block" href="#"><span class="badge bg-success float-end">11</span><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span key="t-settings">Settings</span></a>
         <a class="dropdown-item" href="#"><i class="bx bx-lock-open font-size-16 align-middle me-1"></i> <span key="t-lock-screen">Lock screen</span></a> -->
+        <a title="View" data-bs-toggle="modal" data-bs-target=".changepass" class="dropdown-item d-block" href="#"><i class="bx bx-wrench font-size-16 align-middle me-1"></i> <span key="t-settings">Change Pass</span></a>
         <div class="dropdown-divider"></div>
         <livewire:auth.logout />
     </div>
@@ -244,6 +245,9 @@ body {
     </div>
 
 </header>
+
+<livewire:auth.change-password/>
+
 
 @push('scripts')
 <script>
