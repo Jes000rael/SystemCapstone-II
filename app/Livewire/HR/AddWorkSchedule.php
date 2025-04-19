@@ -72,6 +72,7 @@ public $description='';
             $this->validate();
             $this->employeeID = Auth::user()->employee_id;
             $scheduleData = [
+                'company_id' => Auth::user()->company_id,
                 'employee_id' => $this->employee_id,
                 'monday_in' => $this->monday_in ?: null,
                 'monday_out' => $this->monday_out ?: null,

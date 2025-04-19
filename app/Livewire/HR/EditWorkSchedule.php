@@ -16,22 +16,7 @@ class EditWorkSchedule extends Component
     public $monday_in='',$monday_out='',$tuesday_out='',$tuesday_in='',$wednesday_out='',$wednesday_in='',$thursday_in='',$thursday_out='',$friday_in='',$friday_out='',$saturday_out='',$saturday_in='',$sunday_in='',$sunday_out='';
     public $employeeID;
 
-    protected $rules = [
-        'monday_in' => 'nullable',
-        'monday_out' => 'nullable',
-        'tuesday_in' => 'nullable',
-        'tuesday_out' => 'nullable',
-        'wednesday_in' => 'nullable',
-        'wednesday_out' => 'nullable',
-        'thursday_in' => 'nullable',
-        'thursday_out' => 'nullable',
-        'friday_in' => 'nullable',
-        'friday_out' => 'nullable',
-        'saturday_in' => 'nullable',
-        'saturday_out' => 'nullable',
-        'sunday_in' => 'nullable',
-        'sunday_out' => 'nullable',
-    ];
+
           
         
     
@@ -41,6 +26,8 @@ class EditWorkSchedule extends Component
             try {
                 $decryptedempID = Crypt::decrypt($empID);
                     $employee = WorkSchedule::where('employee_id', $decryptedempID)->firstOrFail();
+                    $this->employeeID =$employee->employee_id;
+
                     $this->monday_in =$employee->monday_in;
                     $this->monday_out =$employee->monday_out;
                     $this->tuesday_in =$employee->tuesday_in;
@@ -54,6 +41,8 @@ class EditWorkSchedule extends Component
                     $this->saturday_in =$employee->saturday_in;
                     $this->saturday_out =$employee->saturday_out;
                     $this->sunday_in =$employee->sunday_in;
+                    $this->sunday_out =$employee->sunday_out;
+
             } catch (DecryptException $e) {
              
                
@@ -76,9 +65,10 @@ class EditWorkSchedule extends Component
     
         public function updateSchedule()
         {
-            $this->validate();
 
-            $this->employeeID = Auth::user()->employee_id;
+
+           
+            
             
             $scheduleData = [
                 'monday_in' => $this->monday_in ?: null,

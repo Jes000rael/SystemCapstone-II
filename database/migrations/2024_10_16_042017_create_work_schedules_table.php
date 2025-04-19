@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('work_schedules', function (Blueprint $table) {
             $table->id('work_schedule_id');
+            $table->foreignId('company_id');
             $table->foreignId('employee_id');
             $table->Time('monday_in')->nullable();
             $table->Time('monday_out')->nullable();

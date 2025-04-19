@@ -19,6 +19,7 @@ class WorkSchedule extends Seeder
             [
                 
         'employee_id'=> '1',
+        'company_id'=> '1',
         'monday_in'=> '9:00:00',
         'monday_out'=> '17:00:00',
         'tuesday_in'=> '9:00:00',

@@ -9,6 +9,7 @@ class WorkSchedule extends Model
 {
     use HasFactory;
     protected $fillable =[
+        'company_id',
         'employee_id',
         'monday_in',
         'monday_out',
@@ -30,6 +31,10 @@ class WorkSchedule extends Model
     public function employee()
 {
     return $this->belongsTo(EmployeeRecords::class, 'employee_id');
+} 
+public function company()
+{
+    return $this->belongsTo(Company::class, 'company_id');
 } 
     public $timestamps = false;
     protected $primaryKey = 'work_schedule_id';
