@@ -46,7 +46,7 @@
                 
                 
 
-                <li >
+                <li   class="{{ Route::currentRouteName() == 'cover-Up' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a wire:navigate href="{{ route('attendance-Records') }}">
                     <i class="bx bx-calendar"></i>
                         <span key="t-calendar">Attendance Records</span>

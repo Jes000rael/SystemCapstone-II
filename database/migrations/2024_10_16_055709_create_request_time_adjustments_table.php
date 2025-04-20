@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('request_time_adjustments', function (Blueprint $table) {
             $table->id('time_adjusment_id');
+            $table->foreignId('company_id');
+
             $table->foreignId('attendance_id');
             $table->foreignId('request_type_id');
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();
 
 
-            $table->time('total_hours');
+            $table->Double('total_hours');
             $table->string('reason');
          
         });

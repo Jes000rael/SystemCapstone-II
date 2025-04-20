@@ -17,7 +17,7 @@ class RequestTimeType extends Seeder
     {
         DB::table('request_time_types')->insert([
             [
-                'Description' => 'sadlife',
+                'Description' => 'Cover Up',
                
             ],
          ]);

@@ -9,6 +9,7 @@ use App\Models\BreaktimeLog;
 use App\Models\OvertimeLog;
 use App\Models\EmployeeRecords;
 use App\Models\Deductions;
+use App\Models\RequestTimeAdjustments;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,7 +22,7 @@ class PrintPayslip extends Component
 
     public $employee_id,$email,$contact_number,$hourly_rate,$department_id,$job_title_id,$shift_id,$address,$conversion_rate,$deductions,$totalDeductions,$totalnigtdiffhours;
     public $attendance, $cutoffs, $cut_off, $latest,$breaktime,$cut_attendance,$cutoffdate,$totalDays,$totalHours,$totalOvertime,$overBreak,$totalearned,$employeeRate,$employeePresent,$totalSalary,$ratetoCutoff,$totalSalarys;
-    public $cutoff_id;
+    public $cutoff_id,$coverup;
    
     public $company_id;
     public $first_name;
@@ -82,11 +83,19 @@ class PrintPayslip extends Component
         $decryptedEmpIDs = [Crypt::decrypt($empID)];
 
 
+        
  $totalHours = AttendanceRecord::where('employee_id', $decryptedEmpIDs)
     ->whereIn('cutoff_id', $decryptedcutOffs)
     ->sum('total_hours');
 
-    $this->totalHours = $totalHours;
+   
+    $coverup = RequestTimeAdjustments::whereHas('attendance', function ($query) use ($decryptedEmpIDs, $decryptedcutOffs) {
+        $query->where('employee_id', $decryptedEmpIDs)
+              ->whereIn('cutoff_id', $decryptedcutOffs);
+    })->sum('total_hours');
+    
+    $this->totalHours = $totalHours - $coverup;
+    $this->coverup = $coverup;
 
     $totalOvertime = AttendanceRecord::where('employee_id', $decryptedEmpIDs)
     ->whereIn('cutoff_id', $decryptedcutOffs)

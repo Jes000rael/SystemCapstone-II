@@ -10,6 +10,7 @@ class RequestTimeAdjustments extends Model
     use HasFactory;
 
     protected $fillable = [
+        'company_id',
         'attendance_id',
         'request_type_id',
         'start_time',
@@ -21,6 +22,10 @@ class RequestTimeAdjustments extends Model
     public function requestTimetype()
 {
     return $this->belongsTo(RequestTimeType::class, 'request_type_id');
+} 
+public function company()
+{
+    return $this->belongsTo(Company::class, 'company_id');
 } 
 
 public function attendance()

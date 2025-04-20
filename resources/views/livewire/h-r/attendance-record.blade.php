@@ -118,6 +118,10 @@
         
                                             <tbody>
                                                 @foreach($attendance as $attendancer)
+                                                @php
+                                                     $encryptattendanceID = Crypt::encrypt($attendancer->attendance_id);
+                                               @endphp
+
                                                                                            
                                         
 
@@ -132,10 +136,10 @@
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->rate }}</td>
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ number_format($attendancer->total_hours * $attendancer->rate, 2) }}</td>
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') }}</td>
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') }}</td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->time_in ? \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') : 'N/A' }}                                                </td>
                                                 <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ !empty($attendancer->time_out) ? \Carbon\Carbon::parse($attendancer->time_out)->format('h:i A') : '--:--' }} </td>
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ $attendancer->attendanceStatus->description }}</td>
-                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }}">   
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }} {{ empty($attendancer->time_in) ? 'text-danger' : '' }} ">{{ empty($attendancer->time_in) ? 'Absent' : $attendancer->attendanceStatus->description }}                       </td>
+                                                <td class="text-center {{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') < \Carbon\Carbon::parse($attendancer->time_in)->format('h:i A') ? 'text-danger' : '' }} ">   
                                                
                                                @php
                                                $totalTime = $attendancer->breaktimeLog()->first()->total_hours; 
@@ -208,7 +212,8 @@ $totalTime = $attendancer->total_break - 3600;
                                                    
                                                    <ul class="dropdown-menu" aria-labelledby="moreActions">
                                                      <li><a class="dropdown-item"data-bs-toggle="modal" data-bs-target=".addOvertime{{ $attendancer->attendance_id }}">Add Overtime</a></li>
-                                                     <li><a class="dropdown-item" href="#">Add Request Time Adjustment</a></li>
+                                                     <li> <a wire:navigate href="{{ route('cover-Up', ['attendanceID' => $encryptattendanceID]) }}"  class="dropdown-item" title="Edit">
+                                                     Time adjustment</a></li>
                                                      
                                                    </ul>
                                                  </div>
@@ -434,6 +439,55 @@ $totalTime = $attendancer->total_break - 3600;
 <script>
       Swal.fire({
                     title: '<strong style="color:#000; font-size:15px;" class="text-center">Department</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Updated Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@endpush
+
+@push('scripts')
+@if (session('employee_has'))
+    <script>
+        Swal.fire({
+          title: '<strong style="color:#000; font-size:15px;" class="text-center">Cover Up</strong><br><span style="color:#000; font-size:13px;"  class="text-center" >Attendance is already adjust</span> ',
+          icon:'warning', 
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true, 
+            width: '350px', 
+            height: '100px',
+            backdrop: true,
+            position: 'top-end', 
+            toast: true,
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp', 
+            },
+         
+            
+        });
+    </script>
+@endif
+@endpush
+
+
+@push('scripts')
+@if (session('adjustmenttime'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Adjustment Time</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Updated Successfully!</span> ',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 5000,

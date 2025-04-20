@@ -96,7 +96,11 @@ $attendance = AttendanceRecord::where('employee_id', $this->employee_id)
         }
 
 
-
+        if(empty($attendance->time_in))
+        {
+            session()->flash('error', 'You had been recorded in attendance today.');
+            return;
+        }
    
         if ($timeWorkedInMinutes < 60) {
             session()->flash('error', 'You must work at least 1 hour before timing out.');
@@ -400,6 +404,12 @@ if ($attendance) {
 
         
 
+        if(empty($attendance->time_in))
+        {
+            session()->flash('error', 'You had been recorded in attendance today.');
+            return;
+        }
+
    
         if ($timeWorkedInMinutes < 60) {
             session()->flash('error', 'You must work at least 1 hour before timing out.');
@@ -601,7 +611,11 @@ $attendance = AttendanceRecord::where('employee_id', $this->employee_id)
 
 
 
-   
+        if(empty($attendance->time_in))
+        {
+            session()->flash('error', 'You had been recorded in attendance today.');
+            return;
+        }
         if ($timeWorkedInMinutes < 60) {
             session()->flash('error', 'You must work at least 1 hour before timing out.');
             return;
@@ -778,7 +792,11 @@ $attendance = AttendanceRecord::where('employee_id', $this->employee_id)
             $timeWorkedInMinutes = $timeIn->diffInMinutes($currentTime);
         }
 
-
+        if(empty($attendance->time_in))
+        {
+            session()->flash('error', 'You had been recorded in attendance today.');
+            return;
+        }
 
       
         if ($timeWorkedInMinutes < 60) {

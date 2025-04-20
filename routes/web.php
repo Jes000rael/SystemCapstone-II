@@ -75,6 +75,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/employee_records/{empID}/{cutoffID}/{deduct?}', App\Livewire\HR\PrintPayslip::class)->name('print-payslip');
         Route::get('/admin/create/attendace_page', App\Livewire\HR\AttendancePage::class)->name('create-Attendance-Page');
         Route::get('/admin/edit/attendace_page/{pageID}', App\Livewire\HR\EditPage::class)->name('edit-Page');
+        Route::get('/admin/edit/attendance/coverup/{attendanceID}', App\Livewire\HR\CoverUp::class)->name('cover-Up');
 
 
         

@@ -112,7 +112,7 @@
                                                     <tr><td>Total Regular Hours</td><td class="text-right">{{ number_format($totalHours, 2) }} hrs</td></tr>
                                                     <tr><td>Total Overtime Hours</td><td class="text-right">{{ number_format($totalOvertime, 2) }} hrs</td></tr>
                                                     <tr><td>Total OverBreak Hours</td><td class="text-right">{{ number_format($overBreak, 2) }} hrs</td></tr>
-                                                    <tr><td>Total CoverUp Hours</td><td class="text-right">0.00 hrs</td></tr>
+                                                    <tr><td>Total CoverUp Hours</td><td class="text-right">{{ number_format($coverup, 2) }} hrs</td></tr>
                                                     <tr><td>Total Leave Hours</td><td class="text-right">0.00 hrs</td></tr>
                                                     <tr><td>Total Night Diff Hours</td><td class="text-right">{{ number_format($totalnigtdiffhours, 2) }} hrs</td></tr>
                                                     <tr><td>Total Paid Hours</td><td class="text-right">{{ number_format($totalearned, 2) }} hrs</td></tr>

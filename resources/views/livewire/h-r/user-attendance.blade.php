@@ -242,8 +242,11 @@
                                                 
                                             <tr class =" {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">
                                             <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">{{ \Carbon\Carbon::parse($attendancer['date'])->format('D, M d Y') }}</td>
-                                            <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}"> @if($attendancer['record'])
-                {{ \Carbon\Carbon::parse($attendancer['record']->time_in)->format('h:i A') }}
+                                            <td class="text-center   {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}"> @if($attendancer['record'])
+
+            
+                {{ $attendancer['record']->time_in ? \Carbon\Carbon::parse($attendancer['record']->time_in)->format('h:i A') : 'N/A' }}
+
             @else
             @endif</td>
                                             <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">@if($attendancer['record'])
@@ -291,9 +294,11 @@
 
                                                 
          
-                                                <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">
+                                                <td class="text-center {{ empty( $attendancer['record']->time_in) ? 'text-danger' : '' }} {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">
                                                 @if($attendancer['record'])
-                                                {{ optional($attendancer['record'])->attendanceStatus->description ?? 'No Status' }}                          
+                                           
+                                                {{ empty($attendancer->time_in) ? 'Absent' : (optional($attendancer['record']->attendanceStatus)->description ?? 'No Status') }}
+                      
             @else
             @endif </td>
                                                 <td class="text-center {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">
