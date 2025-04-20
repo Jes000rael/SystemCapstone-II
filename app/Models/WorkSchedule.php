@@ -28,14 +28,8 @@ class WorkSchedule extends Model
         'updated_by'
     ];
 
-    public function employee()
-{
-    return $this->belongsTo(EmployeeRecords::class, 'employee_id');
-} 
-public function company()
-{
-    return $this->belongsTo(Company::class, 'company_id');
-} 
+
+
     public $timestamps = false;
     protected $primaryKey = 'work_schedule_id';
 

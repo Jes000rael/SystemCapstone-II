@@ -28,8 +28,12 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
+
         
                                         <h4 class="card-title mb-4 fs-5">Employee Records</h4>
+                                        @if (session()->has('error'))
+        <div class="alert alert-danger text-center">{{ session('error') }}</div>
+    @endif
                                         <table id="akontable" class="table table-bordered dt-responsive all-users-datatable_length  nowrap w-100">
                                         <!-- <div id="dataTables_length" id="all-users-datatable_length"></div> -->
                                             <thead>
@@ -82,20 +86,41 @@
                                                      <li><a wire:navigate href="{{ route('add-Schedule', ['empID' => $encryptedEmpID]) }}" class="dropdown-item" >Add Work Schedule</a></li>
                                                      <li><a wire:navigate href="{{ route('edit-Schedule', ['empID' => $encryptedEmpID]) }}" class="dropdown-item">Update Work Schedule</a></li>
                                                      <li><a class="dropdown-item"data-bs-toggle="modal" data-bs-target=".addAttendance{{ $employee->employee_id }}">Add Attendance Record</a></li>
+                                                   <li><a class="dropdown-item"data-bs-toggle="modal" data-bs-target=".absence{{ $employee->employee_id }}">Absent</a></li>
                                                      <li><a  class="dropdown-item" wire:navigate href="{{ route('add-Deduction', ['empID' => $encryptedEmpID]) }}">Add Deduction</a></li>
                                                      <li><a  class="dropdown-item"  href="{{ route('employee-Payslip', ['empID' => $encryptedEmpID]) }}">Payslip</a></li>
                                                 
                                                      
                                                    </ul>
                                                  </div>
+                                                 
+                                                <div wire:ignore class="modal fade absence{{ $employee->employee_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title " id="transaction-detailModalLabel">Absent <span class="text-success fw-bold">{{$employee->last_name ?? ''}}  {{$employee->first_name ?? ''}}</span> ?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>  
+            <div class="modal-body">
+                <strong class="mb-2 fs-6">Are you sure this Employee is absent Today ?</strong>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" wire:click="absence({{$employee->employee_id}})" class="btn btn-primary fw-bold" data-bs-dismiss="modal">Absent</button>
+                <button type="button" class="btn text-white fw-bold bg-secondary "  data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
                         </td>
+                        
                        
                                                 </tr> 
+
                                                 <div wire:ignore.self class="modal fade addAttendance{{ $employee->employee_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title " id="transaction-detailModalLabel">Add <span class="text-success fw-bold">{{$employeelast_name ?? ''}}  {{$employeefirst_name ?? ''}}</span> Attendance ?</h5>
+                <h5 class="modal-title " id="transaction-detailModalLabel">Add <span class="text-success fw-bold">{{$employee->last_name ?? ''}}  {{$employee->first_name ?? ''}}</span> Attendance ?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>  
             <div class="modal-body">
@@ -361,6 +386,81 @@
    
 </div>
 
+
+@push('scripts')
+@if (session('absent_emp'))
+    <script>
+        Swal.fire({
+          title: '<strong style="color:#000; font-size:15px;" class="text-center">Employee</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Absent record successfully created.</span> ',
+          icon:'success', 
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true, 
+            width: '350px', 
+            height: '100px',
+            backdrop: true,
+            position: 'top-end', 
+            toast: true,
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp', 
+            },
+         
+            
+        });
+    </script>
+@endif
+@endpush
+@push('scripts')
+
+
+@if (session('worksched'))
+    <script>
+        Swal.fire({
+          title: '<strong style="color:#000; font-size:15px;" class="text-center">Employee</strong><br><span style="color:#000; font-size:13px;"  class="text-center" >Employee No Workschedule</span> ',
+          icon:'warning', 
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true, 
+            width: '350px', 
+            height: '100px',
+            backdrop: true,
+            position: 'top-end', 
+            toast: true,
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp', 
+            },
+         
+            
+        });
+    </script>
+@endif
+@endpush
+
+
+@push('scripts')
+@if (session('employee_has_absent'))
+    <script>
+        Swal.fire({
+          title: '<strong style="color:#000; font-size:15px;" class="text-center">Employee</strong><br><span style="color:#000; font-size:13px;"  class="text-center" >Employee is already had Attendance Record Today !</span> ',
+          icon:'warning', 
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true, 
+            width: '350px', 
+            height: '100px',
+            backdrop: true,
+            position: 'top-end', 
+            toast: true,
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp', 
+            },
+         
+            
+        });
+    </script>
+@endif
+@endpush
+
 @push('scripts')
 @if (session('notsched'))
     <script>
@@ -407,6 +507,7 @@
     </script>
 @endif
 @endpush
+
 @push('scripts')
 @if (session('employee_has'))
     <script>

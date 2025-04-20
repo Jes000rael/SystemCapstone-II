@@ -116,10 +116,7 @@ public function company()
     return $this->belongsTo(Company::class, 'company_id');
 } 
 
-public function workSchedule()
-{
-    return $this->belongsTo(WorkSchedule::class, 'employee_id');
-} 
+
 public function messages()
 {
     return $this->hasMany(Message::class, 'employee_id');

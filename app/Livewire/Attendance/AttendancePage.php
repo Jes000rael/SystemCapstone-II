@@ -613,54 +613,7 @@ $attendance = AttendanceRecord::where('employee_id', $this->employee_id)
         ]);
 
         //una
-        $currentDate = Carbon::now()->toDateString();
-        $currentTime = Carbon::now()->format('H:i:s');
-        $weekday = strtolower(Carbon::now()->format('l'));
-        
-        $latestCutoff = \App\Models\Cutoff::where('company_id', Auth::user()->company_id)
-            ->latest('cutoff_id')
-            ->first();
-        
-        $employees = EmployeeRecords::with('workSchedule')
-            ->where('company_id', Auth::user()->company_id)
-            ->get();
-        
-        foreach ($employees as $employee) {
-            $schedule = $employee->workSchedule;
-        
-            // Check if schedule exists and today's in/out times are not empty
-            if (
-                !$schedule ||
-                empty($schedule->{$weekday . '_in'}) ||
-                empty($schedule->{$weekday . '_out'})
-            ) {
-                continue; // skip employee if no schedule for today
-            }
-        
-            $scheduleIn = $schedule->{$weekday . '_in'};
-            $scheduleOut = $schedule->{$weekday . '_out'};
-        
-            // Check if attendance already exists
-            $existingAttendance = AttendanceRecord::where('employee_id', $employee->employee_id)
-                ->whereDate('date', $currentDate)
-                ->first();
-        
-            // Create record if not existing and current time is past scheduled out
-            if (!$existingAttendance && $currentTime >= $scheduleOut) {
-                AttendanceRecord::create([
-                    'company_id' => Auth::user()->company_id,
-                    'employee_id' => $employee->employee_id,
-                    'cutoff_id' => $latestCutoff->cutoff_id ?? null,
-                    'rate' => $employee->hourly_rate,
-                    'date' => $currentDate,
-                    'duty_start' => $scheduleIn,
-                    'duty_end' => $scheduleOut,
-                    'time_in' => null,
-                    'status_id' => 1,
-                    'has_night_diff' => $employee->has_night_diff,
-                ]);
-            }
-        }
+       
         //duha
 
         
@@ -838,55 +791,6 @@ $attendance = AttendanceRecord::where('employee_id', $this->employee_id)
             'time_out' => $currentTime,
         ]);
          //una
-       
-         $currentDate = Carbon::now()->toDateString();
-         $currentTime = Carbon::now()->format('H:i:s');
-         $weekday = strtolower(Carbon::now()->format('l'));
-         
-         $latestCutoff = \App\Models\Cutoff::where('company_id', Auth::user()->company_id)
-             ->latest('cutoff_id')
-             ->first();
-         
-         $employees = EmployeeRecords::with('workSchedule')
-             ->where('company_id', Auth::user()->company_id)
-             ->get();
-         
-         foreach ($employees as $employee) {
-             $schedule = $employee->workSchedule;
-         
-             // Check if schedule exists and today's in/out times are not empty
-             if (
-                 !$schedule ||
-                 empty($schedule->{$weekday . '_in'}) ||
-                 empty($schedule->{$weekday . '_out'})
-             ) {
-                 continue; // skip employee if no schedule for today
-             }
-         
-             $scheduleIn = $schedule->{$weekday . '_in'};
-             $scheduleOut = $schedule->{$weekday . '_out'};
-         
-             // Check if attendance already exists
-             $existingAttendance = AttendanceRecord::where('employee_id', $employee->employee_id)
-                 ->whereDate('date', $currentDate)
-                 ->first();
-         
-             // Create record if not existing and current time is past scheduled out
-             if (!$existingAttendance && $currentTime >= $scheduleOut) {
-                 AttendanceRecord::create([
-                     'company_id' => Auth::user()->company_id,
-                     'employee_id' => $employee->employee_id,
-                     'cutoff_id' => $latestCutoff->cutoff_id ?? null,
-                     'rate' => $employee->hourly_rate,
-                     'date' => $currentDate,
-                     'duty_start' => $scheduleIn,
-                     'duty_end' => $scheduleOut,
-                     'time_in' => null,
-                     'status_id' => 1,
-                     'has_night_diff' => $employee->has_night_diff,
-                 ]);
-             }
-         }
         //duha
 
        
