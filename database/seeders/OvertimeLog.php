@@ -20,7 +20,7 @@ class OvertimeLog extends Seeder
               'cutoff_id' => '1',
               
                 'Attendance_id'=> '1',
-                'empployee_id'=> '1',
+                'employee_id'=> '1',
 
     'Start_time'=> now(),
     'End_time'=> now(),

@@ -40,7 +40,8 @@ $this->latest = AttendanceRecord::where('employee_id', $employee_id)
 
 
 $this->cut_attendance = AttendanceRecord::where('employee_id', $employee_id)
-    ->whereIn('cutoff_id', $this->cutoffs->pluck('cutoff_id')->toArray()) 
+    ->whereNotNull('cutoff_id')
+    ->orderBy('attendance_id', 'desc')
     ->first();
 
 
@@ -60,7 +61,9 @@ $this->cut_attendance = AttendanceRecord::where('employee_id', $employee_id)
     }
 
 
-    $cutoffIds1 = $this->cutoffs->pluck('cutoff_id')->toArray();
+    $cutoffIds1 = optional($this->cutoffs->first())->cutoff_id ? [optional($this->cutoffs->first())->cutoff_id] : [];
+
+
 
 
     $totalHours = AttendanceRecord::where('employee_id', $employee_id)
