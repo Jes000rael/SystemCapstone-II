@@ -27,7 +27,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <h4 class="card-title fs-5 mb-4">Add Off Duty <a data-bs-toggle="modal" data-bs-target=".addOffDutyC" class="btn btn-primary btn-sm float-end">Add Off Duty Category</a> <livewire:h-r.add-off-duty-cat/></h4> 
+                        <h4 class="card-title fs-5 mb-4">Add Off Duty </h4> 
                         <div class="col-md-12">
                             <div class="row">
                             <livewire:h-r.add-off-duty-date/>
@@ -38,8 +38,9 @@
                                             <tr>
                                                 <th>Category</th>
                                                 <th>Date</th>
-                                                <th>Percentage</th>
                                                 <th>Description</th>
+
+                                                <th>Percentage</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>
@@ -53,8 +54,9 @@
                                             <tr>
                                                 <td>{{ $offDutyDates->OffDuty->description ?? 'N/A'}}</td>
                                                 <td>{{ $offDutyDates->date }}</td>
-                                                <td>{{ $offDutyDates->percentage }}</td>
                                                 <td>{{ $offDutyDates->description }}</td>
+                                                <td>{{ $offDutyDates->percentage * 100 }}</td>
+                                                
                                                 <td class="text-center">
                                                 @php
                                                      $encrypteoffdutyID = Crypt::encrypt($offDutyDates->holiday_id);

@@ -86,12 +86,18 @@ class PrintPayslip extends Component
         
  $totalHours = AttendanceRecord::where('employee_id', $decryptedEmpIDs)
     ->whereIn('cutoff_id', $decryptedcutOffs)
+    ->whereNotNull('time_out')
+
     ->sum('total_hours');
 
    
     $coverup = RequestTimeAdjustments::whereHas('attendance', function ($query) use ($decryptedEmpIDs, $decryptedcutOffs) {
         $query->where('employee_id', $decryptedEmpIDs)
+    ->whereNotNull('time_out')
+
               ->whereIn('cutoff_id', $decryptedcutOffs);
+
+              
     })->sum('total_hours');
     
     $this->totalHours = $totalHours - $coverup;
@@ -99,12 +105,16 @@ class PrintPayslip extends Component
 
     $totalOvertime = AttendanceRecord::where('employee_id', $decryptedEmpIDs)
     ->whereIn('cutoff_id', $decryptedcutOffs)
+    ->whereNotNull('time_out')
+
     ->sum('total_ot');
 
     $this->totalOvertime = $totalOvertime;
 
     $overBreak = AttendanceRecord::where('employee_id', $decryptedEmpIDs)
     ->whereIn('cutoff_id', $decryptedcutOffs)
+    ->whereNotNull('time_out')
+
     ->sum('over_break');
 
     $this->overBreak = $overBreak;
@@ -123,6 +133,8 @@ class PrintPayslip extends Component
     $totalnigtdiffhours = AttendanceRecord::where('employee_id', $decryptedEmpIDs)
     ->whereIn('cutoff_id', $decryptedcutOffs)
     ->where('has_night_diff', 1)
+    ->whereNotNull('time_out')
+
     ->sum('total_hours');
 
 $totaldiff = $this->hourly_rate * 0.30;
@@ -131,24 +143,51 @@ $this->totalnigtdiffhours = $totalnigtdiffhours;
 
 
     $cutoffRate = Cutoff::where('cutoff_id', $decryptedcutOff)->first();
-
-    
-    
-
-
-    $totalearned = $totalHours + $totalOvertime - $overBreak;
-    
-    $totalRateOfHours = $employeePresent > 0 ? ($employeeRate / $employeePresent) : 0;
-    $totalSalary = ($totalRateOfHours * $totalearned) + $totaldiffnight;
-
-    $ratetoCutoff = $cutoffRate ? ($totalSalary * ($cutoffRate->conversion_rate)) : 0;
-
-
-
-
+    $totalearneded = $totalHours + $totalOvertime - $overBreak;
      
 
-    $this->totalearned = $totalearned;
+    $this->totalearned = $totalearneded;
+    
+    $totalNightDiffHours = AttendanceRecord::where('employee_id', $decryptedEmpIDs)
+    ->whereIn('cutoff_id', $decryptedcutOffs)
+    ->where('has_night_diff', 1)
+    ->whereNotNull('time_out')
+    ->sum('total_hours');
+
+$records = AttendanceRecord::where('employee_id', $decryptedEmpIDs)
+    ->whereIn('cutoff_id', $decryptedcutOffs)
+    ->whereNotNull('time_out')
+    ->get();
+
+$totalEarned = 0;
+$baseRate = $records->first()?->rate ?? 0; 
+foreach ($records as $record) {
+    $hours = $record->total_hours ?? 0;
+    $otime = $record->total_ot ?? 0;
+    $overBreak = $record->over_break ?? 0;
+    $rate = $record->rate ?? 0;
+    $diff = $record->has_night_diff;
+
+    $earned = ($hours + $otime - $overBreak) * $rate;
+
+    $nightdifftotalhours = 0;
+
+    if ($diff === 1) {
+        $diffnigthrate = $rate * 0.30;
+        $nightdifftotalhours = $hours * $diffnigthrate;
+    }
+
+    $totalEarned += $earned + $nightdifftotalhours;
+}
+
+
+
+
+$totalSalary = $totalEarned ;
+
+$ratetoCutoff = $cutoffRate ? ($totalSalary * $cutoffRate->conversion_rate) : 0;
+
+
    
   
   

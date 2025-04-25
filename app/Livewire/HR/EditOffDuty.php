@@ -38,7 +38,8 @@ public $category;
                 $this->category_id = $offD->category_id;
                 $this->description = $offD->description;
                 $this->date = $offD->date;
-                $this->percentage = $offD->percentage;
+                $this->percentage = $offD->percentage * 100;
+
             } catch (DecryptException $e) {
              
                 session()->flash('error', 'Invalid or corrupted Off Duty ID.');
@@ -55,7 +56,7 @@ public $category;
         public function loadDropdownData()
             {
                 $companyId = Auth::user()->company_id;
-                $this->category = OffDutyCategory::where('company_id',$companyId)->get();
+                $this->category = OffDutyCategory::all();
             }
     
         public function editoff()
@@ -68,7 +69,7 @@ public $category;
                 'company_id' => $this->company_id,
                 'date' => $this->date,
                 'category_id' => $this->category_id,
-                'percentage' => $this->percentage,
+                'percentage' => $this->percentage / 100,
                 
             ]);
     

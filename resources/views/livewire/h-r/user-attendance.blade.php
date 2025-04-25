@@ -297,7 +297,7 @@
                                                 <td class="text-center {{ empty( $attendancer['record']->time_in) ? 'text-danger' : '' }} {{ \Carbon\Carbon::parse(optional($attendancer['record'])->duty_start)->format('h:i A') < \Carbon\Carbon::parse(optional($attendancer['record'])->time_in)->format('h:i A') ? 'text-danger' : '' }}">
                                                 @if($attendancer['record'])
                                            
-                                                {{ empty($attendancer->time_in) ? 'Absent' : (optional($attendancer['record']->attendanceStatus)->description ?? 'No Status') }}
+                                                {{ empty($attendancer['record']->time_in) ? 'Absent' : (optional($attendancer['record']->attendanceStatus)->description ?? 'No Status') }}
                       
             @else
             @endif </td>

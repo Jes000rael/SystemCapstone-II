@@ -16,11 +16,10 @@ class OffDutyCategory extends Seeder
     public function run(): void
     {
         DB::table('off_duty_categories')->insert([
-            [
-                'Description' => 'Why',
-                'company_id' => '1',
-               
-            ],
-         ]);
+            ['Description' => 'No Work/Juty'],
+            ['Description' => 'Regular Holidays'],
+            ['Description' => 'Special Holidays'],
+        ]);
+        
     }
 }

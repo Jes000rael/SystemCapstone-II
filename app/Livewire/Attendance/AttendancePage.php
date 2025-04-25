@@ -276,19 +276,26 @@ return;
         
                 if ($dutyStart) {
                     
-                    $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)->first();
-
-                     if ($offDuty && $currentDate === $offDuty->date) {
-                      session()->flash('error', 'No Work Today, it\'s ' . $offDuty->description . '.');
+                    $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)
+                    ->where('category_id', 1)
+                    ->first();
+                
+                if ($offDuty && $currentDate === $offDuty->date) {
+                    session()->flash('error', 'No Work Today, it\'s ' . $offDuty->description . '.');
                     return;
 
                         
                     }else{
+                        $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)
+                          ->first();
+
+                      
                         $attendance = AttendanceRecord::create([
                             'company_id' => Auth::user()->company_id,
                             'employee_id' => $this->employee_id,
                             'cutoff_id' => $latestCutoff->cutoff_id,
-                            'rate' => $employee->hourly_rate,
+                       'rate' => ($offDuty && $currentDate === $offDuty->date) 
+                       ? ($employee->hourly_rate * $offDuty->percentage) + $employee->hourly_rate: $employee->hourly_rate, 
                             'date' => $currentDate,
                             'duty_start' => $dutyStart,
                             'duty_end' => $workEndTime,
@@ -451,19 +458,24 @@ if ($attendance) {
        
          $currentDate = Carbon::now();
          if ($dutyStart) {
-            $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)->first();
-
-            if ($offDuty && $currentDate === $offDuty->date) {
-             session()->flash('error', 'No Work Today, it\'s ' . $offDuty->description . '.');
-             return;
+            $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)
+            ->where('category_id', 1)
+            ->first();
+        
+        if ($offDuty && $currentDate === $offDuty->date) {
+            session()->flash('error', 'No Work Today, it\'s ' . $offDuty->description . '.');
+            return;
 
                
            }else{
+            $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)
+                          ->first();
             $attendance = AttendanceRecord::create([
                 'company_id' => Auth::user()->company_id,
                 'employee_id' => $this->employee_id,
                 'cutoff_id' => $latestCutoff->cutoff_id,
-                'rate' => $employee->hourly_rate,
+                'rate' => ($offDuty && $currentDate === $offDuty->date) 
+                ? ($employee->hourly_rate * $offDuty->percentage) + $employee->hourly_rate: $employee->hourly_rate, 
                 'date' => $currentDate->toDateString(),
                 'duty_start' => $dutyStart,
                 'duty_end' => $workEndTime,
@@ -528,19 +540,24 @@ if ($attendance) {
         
          $currentDate = Carbon::now();
          if ($dutyStart) {
-            $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)->first();
-
-            if ($offDuty && $currentDate === $offDuty->date) {
-             session()->flash('error', 'No Work Today, it\'s ' . $offDuty->description . '.');
-             return;
+            $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)
+            ->where('category_id', 1)
+            ->first();
+        
+        if ($offDuty && $currentDate === $offDuty->date) {
+            session()->flash('error', 'No Work Today, it\'s ' . $offDuty->description . '.');
+            return;
 
                
            }else{
+            $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)
+                          ->first();
             $attendance = AttendanceRecord::create([
                 'company_id' => Auth::user()->company_id,
                 'employee_id' => $this->employee_id,
                 'cutoff_id' => $latestCutoff->cutoff_id,
-                'rate' => $employee->hourly_rate,
+                'rate' => ($offDuty && $currentDate === $offDuty->date) 
+                       ? ($employee->hourly_rate * $offDuty->percentage) + $employee->hourly_rate: $employee->hourly_rate, 
                 'date' => $currentDate->toDateString(),
                 'duty_start' => $dutyStart,
                 'duty_end' => $workEndTime,
@@ -925,19 +942,24 @@ return;
          
          $currentDate = Carbon::now();
          if ($dutyStart) {
-            $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)->first();
-
-            if ($offDuty && $currentDate === $offDuty->date) {
-             session()->flash('error', 'No Work Today, it\'s ' . $offDuty->description . '.');
-             return;
+            $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)
+            ->where('category_id', 1)
+            ->first();
+        
+        if ($offDuty && $currentDate === $offDuty->date) {
+            session()->flash('error', 'No Work Today, it\'s ' . $offDuty->description . '.');
+            return;
 
                
            }else{
+            $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)
+                          ->first();
             $attendance = AttendanceRecord::create([
                 'company_id' => Auth::user()->company_id,
                 'employee_id' => $this->employee_id,
                 'cutoff_id' => $latestCutoff->cutoff_id,
-                'rate' => $employee->hourly_rate,
+                'rate' => ($offDuty && $currentDate === $offDuty->date) 
+                ? ($employee->hourly_rate * $offDuty->percentage) + $employee->hourly_rate: $employee->hourly_rate, 
                 'date' => $currentDate->toDateString(),
                 'duty_start' => $dutyStart,
                 'duty_end' => $workEndTime,
@@ -1018,19 +1040,24 @@ if ($latestCutoff) {
               
                 $currentDate = Carbon::now();
                 if ($dutyStart) {
-                     $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)->first();
-
-                     if ($offDuty && $currentDate === $offDuty->date) {
-                      session()->flash('error', 'No Work Today, it\'s ' . $offDuty->description . '.');
+                    $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)
+                    ->where('category_id', 1)
+                    ->first();
+                
+                if ($offDuty && $currentDate === $offDuty->date) {
+                    session()->flash('error', 'No Work Today, it\'s ' . $offDuty->description . '.');
                     return;
 
                         
                     }else{
+                        $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)
+                          ->first();
                         $attendance = AttendanceRecord::create([
                             'company_id' => Auth::user()->company_id,
                             'employee_id' => $this->employee_id,
                             'cutoff_id' => $latestCutoff->cutoff_id,
-                            'rate' => $employee->hourly_rate,
+                            'rate' => ($offDuty && $currentDate === $offDuty->date) 
+                            ? ($employee->hourly_rate * $offDuty->percentage) + $employee->hourly_rate: $employee->hourly_rate, 
                             'date' => $currentDate->toDateString(),
                             'duty_start' => $dutyStart,
                             'duty_end' => $workEndTime,

@@ -25,7 +25,8 @@ class AddOffDutyDate extends Component
 public function updatedOffDuty()
     {
         $this->companyId = Auth::user()->company_id ; 
-        $this->OffdutyC = OffDutyCategory::where('company_id', $this->companyId)->get();
+        $this->OffdutyC = OffDutyCategory::all();
+
     }
 
         protected $rules = [
@@ -49,7 +50,7 @@ public function add_OffDate()
             'description' => $this->description,
             'category_id'=> $this->category_id,
             'date'=> $this->date,
-            'percentage'=> $this->percentage,
+            'percentage' => $this->percentage / 100,
 
         ]);
 

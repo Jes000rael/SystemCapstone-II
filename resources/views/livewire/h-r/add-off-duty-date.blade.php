@@ -21,14 +21,6 @@
                                             @error('date') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label for="percentage" class="form-label">Percentage</label>
-                                            <div class=" @error('errors')border border-danger rounded-2 @enderror @error('percentage')border border-danger rounded-2 @enderror">
-                                            <input wire:model.live="percentage"  id="percentage" class="form-control" placeholder="Enter the percentage">
-                                        </div>
-
-                                            @error('percentage') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
-                                        </div>
-                                        <div class="mb-3">
                                             <label for="description" class="form-label">Description</label>
                                             <div class=" @error('errors')border border-danger rounded-2 @enderror @error('description')border border-danger rounded-2 @enderror">
                                             <input wire:model.live="description"  id="description" class="form-control" placeholder="Enter the description">
@@ -36,6 +28,23 @@
 
                                             @error('description') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                         </div>
+                                        <div class="mb-3">
+    <label for="percentage" class="form-label">Percentage</label>
+    <div class="@error('errors') border border-danger rounded-2 @enderror @error('percentage') border border-danger rounded-2 @enderror">
+        <input
+            type="number"
+            min="0"
+            wire:model.live="percentage"
+            id="percentage"
+            class="form-control"
+            placeholder="Enter the percentage"
+        >
+    </div>
+    @error('percentage')
+        <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span>
+    @enderror
+</div>
+                                    
                                         
                                         <div class="mb-3">
                                         <div>
