@@ -85,9 +85,10 @@
                                                    <ul class="dropdown-menu" aria-labelledby="moreActions">
                                                      <li><a wire:navigate href="{{ route('add-Schedule', ['empID' => $encryptedEmpID]) }}" class="dropdown-item" >Add Work Schedule</a></li>
                                                      <li><a wire:navigate href="{{ route('edit-Schedule', ['empID' => $encryptedEmpID]) }}" class="dropdown-item">Update Work Schedule</a></li>
-                                                     <li><a class="dropdown-item"data-bs-toggle="modal" data-bs-target=".addAttendance{{ $employee->employee_id }}">Add Attendance Record</a></li>
-                                                   <li><a class="dropdown-item"data-bs-toggle="modal" data-bs-target=".absence{{ $employee->employee_id }}">Absent</a></li>
                                                      <li><a  class="dropdown-item" wire:navigate href="{{ route('add-Deduction', ['empID' => $encryptedEmpID]) }}">Add Deduction</a></li>
+                                                   <li><a class="dropdown-item"data-bs-toggle="modal" data-bs-target=".absence{{ $employee->employee_id }}">Absent</a></li>
+                                                     <li><a class="dropdown-item" wire:navigate href="{{ route('add-Attendance', ['empID' => $encryptedEmpID]) }}">Add Attendance Record</a></li>
+
                                                      <li><a  class="dropdown-item"  href="{{ route('employee-Payslip', ['empID' => $encryptedEmpID]) }}">Payslip</a></li>
                                                 
                                                      
@@ -116,23 +117,7 @@
                        
                                                 </tr> 
 
-                                                <div wire:ignore.self class="modal fade addAttendance{{ $employee->employee_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title " id="transaction-detailModalLabel">Add <span class="text-success fw-bold">{{$employee->last_name ?? ''}}  {{$employee->first_name ?? ''}}</span> Attendance ?</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>  
-            <div class="modal-body">
-                <strong class="mb-2 fs-6">Are you sure you want to add this employee to Attendance Record?</strong>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" wire:click="addAttendance({{ $employee->employee_id }})" class="btn btn-primary fw-bold" data-bs-dismiss="modal">Add Attendance</button>
-                <button type="button" class="btn text-white fw-bold bg-secondary "  data-bs-dismiss="modal">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
+                     
                                          
                                                  <!-- <div class="modal modal-lg fade ViewEmployees{{ $employee->employee_id }}" tabindex="-1" role="dialog" aria-labelledby="ViewDepartmentLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">

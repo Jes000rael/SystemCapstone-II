@@ -505,6 +505,25 @@ $totalTime = $attendancer->total_break - 3600;
 
     
 @endif
+@if (session('add_attendance'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Attendance</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Add Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+@endif
 @endpush
 
 

@@ -11,6 +11,7 @@
                     'edit-Duty','edit-Handbook','add-Deduction','edit-Deduction','edit-Announcement','add-Schedule',
                     'edit-Schedule','contact-Us','cutoff','edit-Cutoff','user-Schedule','user-Attendance'
                     ,'time-Adjustment','add-Overtime','employee-Payslip','print-payslip','create-Attendance-Page','edit-Page','cover-Up'
+                    ,'add-Attendance'
                 ],
                 'super' => [
                     'dashboard', 'addcompany', 'company-Employees', 'addemployee', 'department-Super', 

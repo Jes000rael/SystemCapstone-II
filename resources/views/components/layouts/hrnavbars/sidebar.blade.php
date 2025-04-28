@@ -32,13 +32,13 @@
                 </li>
                 <li class="menu-title" key="t-apps">Records</li>
 
-                <li class="{{ Route::currentRouteName() == 'Employee-Edit' ? 'mm-active' : 'text-light fw-bold' }} {{ Route::currentRouteName() == 'add-Deduction' ? 'mm-active' : 'text-light fw-bold' }}">
+                <li class="{{ Route::currentRouteName() == 'Employee-Edit' ? 'mm-active' : 'text-light fw-bold' }} {{ Route::currentRouteName() == 'add-Deduction' ? 'mm-active' : 'text-light fw-bold' }} {{ Route::currentRouteName() == 'add-Attendance' ? 'mm-active' : 'text-light fw-bold' }}">
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-group"></i>
                         <span key="t-employee-records">Employee</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li class="{{ Route::currentRouteName() == 'Employee-Edit' ? 'mm-active' : 'text-light fw-bold' }} {{ Route::currentRouteName() == 'add-Deduction' ? 'mm-active' : 'text-light fw-bold' }} {{ Route::currentRouteName() == 'add-Schedule' ? 'mm-active' : 'text-light fw-bold' }} {{ Route::currentRouteName() == 'edit-Schedule' ? 'mm-active' : 'text-light fw-bold' }}"><a wire:navigate href="{{ route('employee-Record') }}" key="t-employee-record">Employee Records</a></li>
+                        <li class="{{ Route::currentRouteName() == 'Employee-Edit' ? 'mm-active' : 'text-light fw-bold' }} {{ Route::currentRouteName() == 'add-Deduction' ? 'mm-active' : 'text-light fw-bold' }} {{ Route::currentRouteName() == 'add-Attendance' ? 'mm-active' : 'text-light fw-bold' }} {{ Route::currentRouteName() == 'add-Schedule' ? 'mm-active' : 'text-light fw-bold' }} {{ Route::currentRouteName() == 'edit-Schedule' ? 'mm-active' : 'text-light fw-bold' }}"><a wire:navigate href="{{ route('employee-Record') }}" key="t-employee-record">Employee Records</a></li>
                         <li><a wire:navigate href="{{ route('add-Employee') }}" key="t-add-employee">Add Employee</a></li>
                    
                     </ul>

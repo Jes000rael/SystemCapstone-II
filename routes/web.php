@@ -63,6 +63,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/announcements/edit/{announceID}', App\Livewire\HR\EditAnnouncement::class)->name('edit-Announcement');
         Route::get('/admin/employee_records/add_schedule/{empID}', App\Livewire\HR\AddWorkSchedule::class)->name('add-Schedule');
         Route::get('/admin/employee_records/edit_schedule/{empID}', App\Livewire\HR\EditWorkSchedule::class)->name('edit-Schedule');
+        Route::get('/admin/employee_records/attendance/{empID}', App\Livewire\HR\AddAttendance::class)->name('add-Attendance');
+
+
       
         Route::get('/admin/contact_us', App\Livewire\HR\ContactUs::class)->name('contact-Us');
         Route::get('/admin/cutoff', App\Livewire\HR\AttendanceCutoff::class)->name('cutoff');
@@ -76,6 +79,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/create/attendace_page', App\Livewire\HR\AttendancePage::class)->name('create-Attendance-Page');
         Route::get('/admin/edit/attendace_page/{pageID}', App\Livewire\HR\EditPage::class)->name('edit-Page');
         Route::get('/admin/edit/attendance/coverup/{attendanceID}', App\Livewire\HR\CoverUp::class)->name('cover-Up');
+
 
 
         
