@@ -8,6 +8,7 @@ use App\Models\OvertimeLog;
 use App\Models\RequestTimeType;
 use App\Models\BreaktimeLog;
 use App\Models\Cutoff;
+use App\Models\AttendanceStatus;
 use App\Models\RequestTimeAdjustments;
 use App\Models\EmployeeRecords;
 use Illuminate\Support\Facades\Auth;
@@ -18,8 +19,8 @@ use Carbon\Carbon;
 class AddAttendance extends Component
 {
 
-    public $timetype,$employee_id,$cutoff,$cutoff_id,$date_of_attendance;
-    public $start_time ='',$end_time='',$total_hours='';
+    public $timetype,$employee_id,$cutoff,$cutoff_id,$date_of_attendance,$attendanceStatus;
+    public $start_time ='',$end_time='',$total_hours='',$status_id='';
     public $total_ot_checked = false;
 public $total_ot = null;
 
@@ -27,6 +28,7 @@ public $total_ot = null;
     {
         return [
             'cutoff_id' => 'required',
+            'status_id' => 'required',
             'date_of_attendance' => 'required|date',
             'start_time' => 'required|date',
             'end_time' => 'required|date|after_or_equal:start_time',
@@ -66,6 +68,8 @@ public $total_ot = null;
         $this->cutoff = Cutoff::select('cutoff_id', 'date_start', 'date_end')
             ->where('company_id', Auth::user()->company_id)
             ->orderBy('date_start', 'desc')
+            ->get();
+            $this->attendanceStatus = AttendanceStatus:: whereNotIn('status_id', [1, 2])
             ->get();
     }
     
@@ -121,7 +125,7 @@ public $total_ot = null;
             'duty_end' => null,
             'time_in' => $this->start_time,
             'time_out' => $this->end_time, 
-            'status_id' => 1,
+            'status_id' => $this->status_id,
             'has_night_diff' => $timeadjust->has_night_diff,
         ]);
     

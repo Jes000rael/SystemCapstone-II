@@ -14,9 +14,9 @@
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a wire:navigate href="{{ route('off-Duty') }}">Admin</a></li>
-                            <li class="breadcrumb-item active">Attendance Records</li>
-                            <li class="breadcrumb-item active">Time Adjustment</li>
+                            <li class="breadcrumb-item"><a wire:navigate href="{{ route('employee-Record') }}">Admin</a></li>
+                            <li class="breadcrumb-item active">Employee</li>
+                            <li class="breadcrumb-item active">Add Attendance</li>
                         </ol>
                     </div>
 
@@ -30,7 +30,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <h4 class="card-title mb-4 fs-5">Time Adjustment</h4>
+                        <h4 class="card-title mb-4 fs-5">Add Attendance</h4>
                         @if (session()->has('error'))
     <div class="alert alert-danger text-center fw-bold py-1">
         {{ session('error') }}
@@ -116,6 +116,21 @@
 
                                             @error('total_ot') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                         </div>
+
+                                        <div class="mb-3">
+                                                        <label for="status_id" class="form-label">Attendance Status</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('status_id')border border-danger rounded-2 @enderror">
+                                                        <select wire:model.live="status_id" id="status_id" class="form-select">
+                                                            <option selected>Choose...</option>
+                                                            @foreach ($attendanceStatus as $statusatt)
+                                                                  <option value="{{ $statusatt->status_id}}">{{ $statusatt->description ?? 'N/A'}}</option>
+                                                              @endforeach
+                                                        </select>
+                                                        </div>
+                                                    @error('status_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+
+
+                                                    </div>
                                 
                                         <div class="mb-3">
                                         <div class="align-item-center d-flex justify-content-center">

@@ -300,7 +300,7 @@ return;
                             'duty_start' => $dutyStart,
                             'duty_end' => $workEndTime,
                             'time_in' => $currentTime, 
-                            'status_id' => 1,
+                            'status_id' => 2,
                             'has_night_diff' => $employee->has_night_diff,
                         ]);
             

@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('attendance_statuses', function (Blueprint $table) {
             $table->id('status_id');
             $table->string('description');
-            $table->integer('min');
-            $table->integer('max');
+  
            
         });
     }

@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\AttendanceRecord;
 use App\Models\OvertimeLog;
 use App\Models\RequestTimeType;
+use App\Models\AttendanceStatus;
 use App\Models\RequestTimeAdjustments;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -16,10 +17,11 @@ use Carbon\Carbon;
 class CoverUp extends Component
 {
     public $timetype,$attendance_id;
-    public $start_time ='',$end_time='',$total_hours='',$reason='',$request_type_id='';
+    public $start_time ='',$end_time='',$total_hours='',$reason='',$request_type_id='',$attendanceStatus='',$status_id='';
 
     protected $rules = [
         'request_type_id' => 'required',
+        'status_id' => 'required',
         'start_time' => 'required|date',
         'end_time' => 'required|date|after_or_equal:start_time',
         'total_hours' => 'required|numeric|min:0',
@@ -64,6 +66,8 @@ class CoverUp extends Component
     public function loadDropdownData()
         {
             $this->timetype = RequestTimeType::get();
+            $this->attendanceStatus = AttendanceStatus:: whereNotIn('status_id', [1, 2])
+            ->get();
         }
 
 
@@ -76,6 +80,7 @@ class CoverUp extends Component
                 'time_in' => $this->start_time,
                 'time_out' => $this->end_time,
                 'total_hours' => $this->total_hours,
+                'status_id' => $this->status_id,
                 
             ]);
             RequestTimeAdjustments::create([

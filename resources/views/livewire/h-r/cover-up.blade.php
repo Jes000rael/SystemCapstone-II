@@ -78,6 +78,21 @@
 
                                             @error('total_hours') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
                                         </div>
+                                        
+                                        <div class="mb-3">
+                                                        <label for="status_id" class="form-label">Attendance Status</label>
+                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('status_id')border border-danger rounded-2 @enderror">
+                                                        <select wire:model.live="status_id" id="status_id" class="form-select">
+                                                            <option selected>Choose...</option>
+                                                            @foreach ($attendanceStatus as $statusatt)
+                                                                  <option value="{{ $statusatt->status_id}}">{{ $statusatt->description ?? 'N/A'}}</option>
+                                                              @endforeach
+                                                        </select>
+                                                        </div>
+                                                    @error('status_id') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+
+
+                                                    </div>
                                         <div class="mb-3">
                                             <label for="reason" class="form-label">Reason</label>
                                             <div class=" @error('errors')border border-danger rounded-2 @enderror @error('reason')border border-danger rounded-2 @enderror">

@@ -156,8 +156,8 @@ class EmployeeRecord extends Component
             'duty_start' => $scheduleIn,
             'duty_end' => $scheduleOut,
             'time_in' => null,
-            'status_id' => 1, // Absent
-            'has_night_diff' => $employee->has_night_diff,
+            'status_id' => 1, 
+            'has_night_diff' => 0,
         ]);
     
         BreaktimeLog::create([

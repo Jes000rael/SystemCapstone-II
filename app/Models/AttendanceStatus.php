@@ -10,8 +10,7 @@ class AttendanceStatus extends Model
     use HasFactory;
 
     protected $fillable = [ 'description',
-    'min',
-    'max',
+  
  ];
 
 
