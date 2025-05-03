@@ -45,7 +45,17 @@ class EmployeeAdd extends Component
     public $philhealth='';
     public $shift_id='';
     public $gender='';
-    public $employees,$companys,$senioritylevels,$employmentstatus,$jobtitle,$department,$shifts;
+    public $employees;
+      
+    public $companys = [];
+    public $senioritylevels = [];
+    public $employmentstatus = [];
+    public $jobtitle = [];
+    public $department = [];
+    public $shifts = [];
+
+    public $department1 = [];
+
 
     protected $rules = [
         'company_id' => 'required',
@@ -86,14 +96,55 @@ class EmployeeAdd extends Component
         $this->companys = Company::all();
       
     
-        $this->senioritylevels = SeniorityLevel::all();
-        $this->employmentstatus = EmploymentStatus::all();
-        $this->jobtitle = JobTitle::all();
-        $this->department = Department::where('department_id', '!=', 3)->get();
-
-        $this->shifts = Shift::all();
+        // $this->senioritylevels = SeniorityLevel::all();
+        // $this->employmentstatus = EmploymentStatus::all();
+        // $this->jobtitle = JobTitle::all();
+        // $this->shifts = Shift::all();
 
     }
+
+    
+        // Update dependent options based on company selection
+        public function updatedCompanyId($company_id)
+        {
+            if ($company_id) {
+                if ($company_id == 1) {
+                    // For company_id 1: exclude department 3
+                    $this->department = Department::where('company_id', $company_id)
+                                                  ->where('department_id', '!=', 3)
+                                                  ->get();
+                } else {
+                    // This query gets departments 1 and 3 from company 1...
+                    $this->department1 = Department::where('company_id', 1)
+                    ->whereIn('department_id', [2])
+                    ->get();
+
+                
+                    // ...But this immediately replaces it with all departments from selected company
+                    $this->department = Department::where('company_id', $company_id)->get();
+                }
+
+                // Filter seniority levels based on selected company
+                $this->senioritylevels = SeniorityLevel::where('company_id', $company_id)->get();
+    
+                // Filter employment status based on selected company
+                $this->employmentstatus = EmploymentStatus::where('company_id', $company_id)->get();
+    
+                // Filter job titles based on selected company
+                $this->jobtitle = JobTitle::where('company_id', $company_id)->get();
+                 $this->shifts = Shift::where('company_id', $company_id)->get();
+
+            } else {
+                // Reset dependent values if no company is selected
+                $this->senioritylevels = [];
+                $this->employmentstatus = [];
+                $this->jobtitle = [];
+                $this->shifts = [];
+                $this->department = [];
+                $this->department1 = [];
+
+            }
+        }
 
     public function addemp(){
 

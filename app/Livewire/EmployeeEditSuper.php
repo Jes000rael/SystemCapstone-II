@@ -120,43 +120,51 @@ class EmployeeEditSuper extends Component
         $this->loadDropdownData($this->company_id,$this->department_id);
     }
 
-    public function loadDropdownData($company_id,$department_id)
+    public function loadDropdownData($company_id, $department_id)
     {
         $this->companys = Company::all();
         $this->senioritylevels = SeniorityLevel::where('company_id', $company_id)->get();
-        $this->employmentstatus = EmploymentStatus::all();
-        $this->jobtitle = JobTitle::all();
-        $this->shifts = Shift::all();
-
-
-        if($company_id === 1){
-            if($department_id === 1){
-                $this->depart = Department::where('company_id', $company_id)
-    ->where('department_id', '!=', 3)  
-    ->get();
-                
+        $this->employmentstatus = EmploymentStatus::where('company_id', $company_id)->get();
+        $this->jobtitle = JobTitle::where('company_id', $company_id)->get();
+        $this->shifts = Shift::where('company_id', $company_id)->get();
+    
+        if ($company_id == 1) {
+            if ($department_id == 1) {
+                $this->depart = Department::where('company_id', 1)
+                                          ->where('department_id', '!=', 3)
+                                          ->get();
+            } else {
+                $this->depart = Department::where('company_id', 1)
+                                          ->whereNotIn('department_id', [1, 3])
+                                          ->get();
             }
-            else{
-               
-                $this->depart = Department::where('company_id', $company_id)
-                ->whereNotIn('department_id', [1, 3]) 
-                ->get();
-            
-            }
-
-        }else{
-            $this->department = Department::whereIn('department_id', [2, 3])->get();
-
-         $this->depart = Department::where('company_id', $company_id)
-    ->where('department_id', '!=', 3)  
-    ->get();
-         
+        } else {
+            // Always include department 2 from company 1
+            $companyDepartments = Department::where('company_id', $company_id)
+                                            ->where('department_id', '!=', 3)
+                                            ->get();
+    
+            $staticDepartments = Department::where('company_id', 1)
+                                           ->where('department_id', 2)
+                                           ->get();
+    
+            $this->depart = $companyDepartments->merge($staticDepartments)->unique('department_id')->values();
         }
-
-
-        
-
     }
+    
+    public function updatedCompanyId($company_id)
+    {
+        if ($company_id) {
+            $this->loadDropdownData($company_id, $this->department_id ?? null);
+        } else {
+            $this->depart = [];
+            $this->senioritylevels = [];
+            $this->employmentstatus = [];
+            $this->jobtitle = [];
+            $this->shifts = [];
+        }
+    }
+    
 
     public function updateEmployee()
     {

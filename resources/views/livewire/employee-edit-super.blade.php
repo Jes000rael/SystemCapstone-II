@@ -166,12 +166,11 @@
                                                         <div class=" @error('errors')border border-danger rounded-2 @enderror @error('department_id')border border-danger rounded-2 @enderror">
                                                         <select wire:model.live="department_id" id="department_id" class="form-select">
                                                             
-                                                            @foreach ($department as $departments)
-                                                            <option value="{{ $departments->department_id}}">{{ $departments->description}}</option>
-                                                            @endforeach
-                                                            @foreach ($depart as $departed)
-                                                            <option value="{{ $departed->department_id}}">{{ $departed->description}}</option>
-                                                            @endforeach
+                                                        <option selected>Choose...</option>
+@foreach ($depart as $department)
+    <option value="{{ $department->department_id }}">{{ $department->description }}</option>
+@endforeach
+
                                                           
                                                         </select>
                                                         </div>
@@ -286,7 +285,11 @@
                                                     <div class="mb-3">
                                                         <label for="has_night_diff" class="form-label">Has Night Diff</label>
                                                         <div class=" @error('errors')border border-danger rounded-2 @enderror @error('has_night_diff')border border-danger rounded-2 @enderror">
-                                                        <input  wire:model.live="has_night_diff" type="number" class="form-control" id="has_night_diff" placeholder="Enter Hourly Rate">
+                                                        <select wire:model="has_night_diff" id="has_night_diff" class="form-select">
+    <option value="" disabled selected>Choose...</option>
+    <option value="1">Yes</option>
+    <option value="0">No</option>
+</select>
                                                         </div>
                                                     @error('has_night_diff') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
 
