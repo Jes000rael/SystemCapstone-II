@@ -22,7 +22,7 @@ class PrintPayslip extends Component
 
     public $employee_id,$email,$contact_number,$hourly_rate,$department_id,$job_title_id,$shift_id,$address,$conversion_rate,$deductions,$totalDeductions,$totalnigtdiffhours;
     public $attendance, $cutoffs, $cut_off, $latest,$breaktime,$cut_attendance,$cutoffdate,$totalDays,$totalHours,$totalOvertime,$overBreak,$totalearned,$employeeRate,$employeePresent,$totalSalary,$ratetoCutoff,$totalSalarys;
-    public $cutoff_id,$coverup;
+    public $cutoff_id,$coverup,$onLeave;
    
     public $company_id;
     public $first_name;
@@ -91,17 +91,28 @@ class PrintPayslip extends Component
     ->sum('total_hours');
 
    
+    $onLeave = AttendanceRecord::where('employee_id', $decryptedEmpIDs)
+    ->where('status_id', 3)
+    ->whereIn('cutoff_id', $decryptedcutOffs)
+    ->whereNotNull('time_out')
+    ->sum('total_hours');
+
+    $this->onLeave = $onLeave;
+
+
     $coverup = RequestTimeAdjustments::whereHas('attendance', function ($query) use ($decryptedEmpIDs, $decryptedcutOffs) {
         $query->where('employee_id', $decryptedEmpIDs)
     ->whereNotNull('time_out')
 
               ->whereIn('cutoff_id', $decryptedcutOffs);
-
-              
     })->sum('total_hours');
-    
-    $this->totalHours = $totalHours - $coverup;
+
+
+    $totaladdjust = ($coverup ?? 0) + ($onLeave ?? 0);
+    $this->totalHours = ($totalHours ?? 0) - $totaladdjust;
     $this->coverup = $coverup;
+    
+
 
     $totalOvertime = AttendanceRecord::where('employee_id', $decryptedEmpIDs)
     ->whereIn('cutoff_id', $decryptedcutOffs)

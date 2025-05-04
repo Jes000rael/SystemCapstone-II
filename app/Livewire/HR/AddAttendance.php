@@ -88,6 +88,9 @@ public $total_ot = null;
                 return;
             }
         }
+
+     
+       
     
 
         $cutoff = Cutoff::find($this->cutoff_id);
@@ -98,6 +101,7 @@ public $total_ot = null;
                 return;
             }
         }
+ 
     
     
         $employee = AttendanceRecord::where('employee_id', $this->employee_id)
@@ -113,31 +117,49 @@ public $total_ot = null;
         $timeadjust = EmployeeRecords::findOrFail($this->employee_id);
     
 
-        $attendance = AttendanceRecord::create([
-            'company_id' => Auth::user()->company_id,
-            'employee_id' => $this->employee_id,
-            'cutoff_id' => $this->cutoff_id,
-            'total_hours' => $this->total_hours,
-            'total_ot' => $this->total_ot,
-            'rate' => $timeadjust->hourly_rate,
-            'date' => $this->date_of_attendance,
-            'duty_start' => null,
-            'duty_end' => null,
-            'time_in' => $this->start_time,
-            'time_out' => $this->end_time, 
-            'status_id' => $this->status_id,
-            'has_night_diff' => $timeadjust->has_night_diff,
-        ]);
+    $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)
+        ->where('category_id', 1)
+        ->first();
     
+    if ($offDuty && $this->date_of_attendance === $offDuty->date) {
+        session()->flash('error', 'No Work in this date, it\'s ' . $offDuty->description . '.');
+        return;
+           
+       }else{
+        $offDuty = \App\Models\OffDutyDates::where('company_id', Auth::user()->company_id)
+                      ->first();
+                      $attendance = AttendanceRecord::create([
+                        'company_id' => Auth::user()->company_id,
+                        'employee_id' => $this->employee_id,
+                        'cutoff_id' => $this->cutoff_id,
+                        'total_hours' => $this->total_hours,
+                        'total_ot' => $this->total_ot,
+                        'rate' =>  ($offDuty && $this->date_of_attendance === $offDuty->date) 
+                        ? ($timeadjust->hourly_rate * $offDuty->percentage) + $timeadjust->hourly_rate: $timeadjust->hourly_rate,
+                        'date' => $this->date_of_attendance,
+                        'duty_start' => null,
+                        'duty_end' => null,
+                        'time_in' => $this->start_time,
+                        'time_out' => $this->end_time, 
+                        'status_id' => $this->status_id,
+                        'has_night_diff' => $timeadjust->has_night_diff,
+                    ]);
+                
+            
+                    BreaktimeLog::create([
+                        'attendance_id' => $attendance->attendance_id,
+                        'total_hours' => '00:59:59',
+                        'field' => '',
+                    ]);
+                
+            
+                    return redirect()->intended('/admin/attendance')->with('add_attendance', 'Successful');
+   
 
-        BreaktimeLog::create([
-            'attendance_id' => $attendance->attendance_id,
-            'total_hours' => '00:59:59',
-            'field' => '',
-        ]);
-    
 
-        return redirect()->intended('/admin/attendance')->with('add_attendance', 'Successful');
+
+       }
+       
     }
     
 

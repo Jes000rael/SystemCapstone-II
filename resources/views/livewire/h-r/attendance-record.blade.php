@@ -255,7 +255,7 @@ $totalTime = $attendancer->total_break - 3600;
                                <div class="col text-start mt-3 mb-3"><text>Total Break:</text> <span class="fs-6 text-white">{{ intdiv($attendancer->total_break, 60) }} min {{ $attendancer->total_break % 60 }} sec
                                </span></div>
                                <div class="col text-start mt-3 mb-3"><text>Employee Status:</text> <span class="fs-6 text-white">{{$attendancer->employee->status}}</span></div>
-                               <div class="col text-start mt-3 mb-3"><text>Total OT:</text> <span class="fs-6 text-white">{{$attendancer->total_ot}} hrs</span></div>
+                               <div class="col text-start mt-3 mb-3"><text>Total OT:</text> <span class="fs-6 text-white">{{ $attendancer->total_ot ?? '0.00' }} hrs</span></div>
                                <div class="col text-start mt-3 mb-3"><text>Rate:</text> <span class="fs-6 text-white">{{$attendancer->rate}}</span></div>
                                <div class="col text-start mt-3 mb-3"><text>Date:</text> <span class="fs-6 text-white">{{$attendancer->date}}4</span></div>
                                <div class="col text-start mt-3 mb-3"><text>Duty Start:</text> <span class="fs-6 text-white">{{ \Carbon\Carbon::parse($attendancer->duty_start)->format('h:i A') }}</span></div>
