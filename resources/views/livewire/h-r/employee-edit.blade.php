@@ -1,4 +1,59 @@
+@push('styles')
+<style>
+    .password-container {
+    position: relative;
+    
+}
 
+
+.toggle-passwordp {
+    position: absolute;
+    top: 53%;
+    right: 0.7rem;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6c757d;
+    z-index: 10;
+    /* font-size: 1.0rem; */
+    padding: 0.25rem;
+}
+
+/* Optional: Adjust spacing slightly for smaller screens */
+@media (max-width: 992px) {
+    .toggle-passwordp {
+        right: 0.75rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .toggle-passwordp {
+        right: 0.6rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .toggle-passwordp {
+        right: 0.5rem;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .toggle-passwordp {
+        right: 0.4rem;
+        font-size: 0.9rem;
+    }
+}
+
+
+
+
+</style>
+
+
+@endpush
 
 
 <div id="layout-wrapper">
@@ -314,13 +369,26 @@
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <label for="password" class="form-label">Password</label>
-                                                        <div class=" @error('errors')border border-danger rounded-2 @enderror @error('password')border border-danger rounded-2 @enderror">
-                                                        <input wire:model.live="password" type="password" class="form-control" id="password" placeholder="Enter Password">
-                                                        </div>
-                                                    @error('password') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+                                                    <label for="password" class="form-label">Password</label>
 
-                                                
+<div class="position-relative @error('password') border border-danger rounded-2 @enderror">
+    <input 
+        type="password" 
+        wire:model.live="password" 
+        id="passwordedp" 
+        class="form-control pe-5" 
+        placeholder="Enter password" 
+        aria-label="Password"
+    >
+
+    <span id="togglePasswordp" class="toggle-passwordp" onclick="togglePasswordp()">
+        <i class="fas fa-eye" id="eyeIcon"></i>
+    </span>
+</div>
+
+@error('password') 
+    <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> 
+@enderror
 
                                                     </div>
                                                 </div>
@@ -491,7 +559,25 @@
         </div>
         <!-- END layout-wrapper -->
 
+        @push('scripts')
+<script>
+    function togglePasswordp() {
+    const passwordInput = document.getElementById('passwordedp');
+    const toggleIcon = document.getElementById('togglePasswordp').querySelector('i');
+    
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
+    } else {
+        passwordInput.type = 'password';
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
+    }
+}
 
+</script>
+@endpush
 
  
 

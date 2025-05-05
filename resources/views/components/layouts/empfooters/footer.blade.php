@@ -2,11 +2,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
-            {{ now()->year }} © Enopoly.
+            {{ now()->year }} © Rentify.web
             </div>
             <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
-                    Design & Develop by Enopoly Team
+                    Design & Develop by Rentify.web Team
                 </div>
             </div>
         </div>

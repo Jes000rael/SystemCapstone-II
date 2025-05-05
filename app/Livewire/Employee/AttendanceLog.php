@@ -8,6 +8,8 @@ use App\Models\AttendanceRecord;
 use App\Models\Cutoff;
 use App\Models\BreaktimeLog;
 use App\Models\OvertimeLog;
+use App\Models\RequestTimeAdjustments;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
@@ -15,7 +17,7 @@ use Carbon\Carbon;
 class AttendanceLog extends Component
 {
     public $attendance, $cutoffs, $cut_off, $latest,$breaktime,$cut_attendance,$cutoffdate,$totalDays,$totalHours,$totalOvertime,$overBreak,$totalearned,$employeeRate,$employeePresent,$totalSalary,$ratetoCutoff;
-    public $timeShow;
+    public $timeShow,$onLeave,$coverup;
     public $newTotalTime; 
 
 
@@ -37,13 +39,13 @@ class AttendanceLog extends Component
         ->get();
  
 $this->latest = AttendanceRecord::where('employee_id', $employee_id)
-->orderBy('attendance_id', 'desc')
+->orderBy('date', 'desc')
 ->first();
 
 
 $this->cut_attendance = AttendanceRecord::where('employee_id', $employee_id)
     ->whereNotNull('cutoff_id')
-    ->orderBy('attendance_id', 'desc')
+    ->orderBy('date', 'desc')
     ->first();
 
 
@@ -73,6 +75,26 @@ $this->cut_attendance = AttendanceRecord::where('employee_id', $employee_id)
     ->sum('total_hours');
 
     $this->totalHours = $totalHours;
+    $onLeave = AttendanceRecord::where('employee_id', $employee_id)
+    ->where('status_id', 3)
+    ->whereIn('cutoff_id', $cutoffIds1)
+    ->whereNotNull('time_out')
+    ->sum('total_hours');
+
+    $this->onLeave = $onLeave;
+
+
+    $coverup = RequestTimeAdjustments::whereHas('attendance', function ($query) use ($employee_id, $cutoffIds1) {
+        $query->where('employee_id', $employee_id)
+    ->whereNotNull('time_out')
+
+              ->whereIn('cutoff_id', $cutoffIds1);
+    })->sum('total_hours');
+
+
+    $totaladdjust = ($coverup ?? 0) + ($onLeave ?? 0);
+    $this->totalHours = ($totalHours ?? 0) - $totaladdjust;
+    $this->coverup = $coverup;
 
     $totalOvertime = AttendanceRecord::where('employee_id', $employee_id)
     ->whereIn('cutoff_id', $cutoffIds1)
@@ -450,6 +472,10 @@ $totalOt = sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
 
     return response()->json(['message' => 'Overtime ended successfully.']);
 }
+
+
+
+
 
 
 

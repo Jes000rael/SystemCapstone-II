@@ -117,7 +117,7 @@ input[type="text"] {
                             
                             
                                 
-                                <p wire:ignore>©{{ now()->year }} Design & Develop <i class="mdi mdi-heart text-danger"></i> by Enopoly Team </p>
+                                <p wire:ignore>©{{ now()->year }} Design & Develop  by Rentify.web Team </p>
                            
                         </div>
                        

@@ -28,7 +28,7 @@
                                     <div class="card-body">
                                   
         
-                                        <h4 class="card-title fs-5 mb-4">Add Announcement</h4>
+                                        <h4 class="card-title fs-5 mb-4">TIme Adjustment Record</h4>
                                         <div class="col-md-12">
                                             <div class="row">
                                               

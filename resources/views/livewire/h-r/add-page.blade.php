@@ -6,29 +6,47 @@
     
 }
 
-input[type="password"],
-input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    padding-right: 40px; /* Space for the icon */
-    box-sizing: border-box;
-}
 
 .toggle-passwordp {
     position: absolute;
-    top: 44%;
-    right: 30px;
+    top: 53%;
+    right: 1rem;
     transform: translateY(-50%);
     cursor: pointer;
+    color: #6c757d;
+    z-index: 10;
+    /* font-size: 1.0rem; */
+    padding: 0.25rem;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Optional: Adjust spacing slightly for smaller screens */
+@media (max-width: 992px) {
+    .toggle-passwordp {
+        right: 0.75rem;
+        font-size: 1rem;
+    }
 }
 
+@media (max-width: 768px) {
+    .toggle-passwordp {
+        right: 0.6rem;
+        font-size: 1rem;
+    }
+}
 
+@media (max-width: 576px) {
+    .toggle-passwordp {
+        right: 0.5rem;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .toggle-passwordp {
+        right: 0.4rem;
+        font-size: 0.9rem;
+    }
+}
 
 
 
@@ -57,15 +75,26 @@ input[type="text"] {
                                         </div>
 
                                         <div class="mb-3">
-                                                        <label for="password" class="form-label">Password</label>
-                                            <div class=" @error('errors')border border-danger rounded-2 @enderror @error('password')border border-danger rounded-2 @enderror">
-                                            <input type="password" step="any" wire:model.live="password"  id="passwordedp" class="form-control"  placeholder="Enter password" aria-label="Password" aria-describedby="password-addon">
-                                            <span id="togglePasswordp" class="toggle-passwordp" onclick="togglePasswordp()">
-            <i class="fas fa-eye"></i>
-        </span>
-                                        </div>
+                                        <label for="password" class="form-label">Password</label>
 
-                                            @error('password') <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> @enderror
+<div class="position-relative @error('password') border border-danger rounded-2 @enderror">
+    <input 
+        type="password" 
+        wire:model.live="password" 
+        id="passwordedp" 
+        class="form-control pe-5" 
+        placeholder="Enter password" 
+        aria-label="Password"
+    >
+
+    <span id="togglePasswordp" class="toggle-passwordp" onclick="togglePasswordp()">
+        <i class="fas fa-eye" id="eyeIcon"></i>
+    </span>
+</div>
+
+@error('password') 
+    <span class="text-danger error fw-bold" style="font-size: 12px;">{{ $message }}</span> 
+@enderror
                                         </div>
                                 
                                         

@@ -47,7 +47,8 @@
                                <div class="col-12 text-start mt-2  fs-5">  <pre class="font-size-18 my-2 text-dark"> Pay Period Days and Hours From [ {{ $cutoffdate }} ] : {{ $totalDays }} days </pre>  </div>
                                <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Regular Hours    :  {{ $totalHours }} hrs </pre>  </div>
                                <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Overtime Hours   :  {{ $totalOvertime }} hrs </pre>  </div>
-                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total CoverUp Hours   :  {{ $totalOvertime }} hrs </pre>  </div>
+                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total CoverUp Hours   :  {{ $coverup }} hrs </pre>  </div>
+                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Leave Hours   :  {{ $onLeave }} hrs </pre>  </div>
                                <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total OverBreak Hours   :  {{ $overBreak }} hrs </pre>  </div>
                                <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Paid Hours   :  {{ $totalearned }} hrs </pre>  </div>
                                <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Earned Salary   :  {{ number_format($totalSalary, 2) }} </pre>  </div>
@@ -69,7 +70,7 @@
                     </div>
                 </div>
                   <!-- end-modal -->
-                                    <button href="#" class="btn btn-warning mt-2 mb-2">Request Leave</button>
+                            
 
 
                                     <p class="fs-2 mt-3">Remaining Break Time: 
