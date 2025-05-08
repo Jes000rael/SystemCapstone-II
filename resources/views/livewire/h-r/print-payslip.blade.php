@@ -74,7 +74,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <h5 class="section-header text-md-right net-pay">Net Pay: {{ number_format($ratetoCutoff, 3) }}</h5>
+                                            <h5 class="section-header text-md-right net-pay">Net Pay: {{ number_format($ratetoCutoff, 2) }}</h5>
                                             
 
                                             <div class="row info-row mt-3">
@@ -140,9 +140,9 @@
 
                                     <!-- Totals -->
                                     <div class="row">
-                                        <div class="col-md-6 font-weight-bold">Total Basic Salary: {{ number_format($totalSalary, 3) }}</div>
+                                        <div class="col-md-6 font-weight-bold">Total Basic Salary: {{ number_format($totalSalary, 2) }}</div>
                                         <div class="col-md-6 font-weight-bold">Total Deductions:@if($addDeductions) 
-                                        {{ number_format($totalDeductions, 3) }} 
+                                        {{ number_format($totalDeductions, 2) }} 
                             @else
                                 0.00 
                             @endif </div>
@@ -153,7 +153,8 @@
                 </p>
                 <div class="no-print mb-4">
     <a href="/admin/employee_records" class="btn btn-danger float-end ms-2" onclick="window.close()">Close</a>
-    <button  class="btn btn-primary float-end" onclick="window.print()">Print</button>
+   <button class="btn btn-primary float-end" onclick="window.print()" type="submit" wire:click="printemp">Print</button>
+
 </div>
                 
             </div>

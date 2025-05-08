@@ -16,23 +16,7 @@ class AttendanceRecord extends Seeder
     public function run(): void
     {
         DB::table('attendance_records')->insert([
-            [
-                'company_id'=> 1,
-                'Employee_id'=> '1',
-    'Cutoff_id'=> '1',
-    'Total_hours'=> '1',
-    'Total_break'=> '1',
-    'over_break'=> '1',
-    'Total_ot'=> 1,
-    'Rate'=> '2',
-    'Date'=> now(),
-   'Duty_start'=> now(),
-    'Time_in'=> now(),
-    'Time_out'=> now(),
-    'status_id'=> '1',
-    'Has_night_diff'=> '1',
-               
-            ],
+          
          ]);
     }
 }

@@ -16,17 +16,7 @@ class Absences extends Seeder
     public function run(): void
     {
         DB::table('absences')->insert([
-            [
-                'Employee_id' => 1,
-                'Attendance_id' =>1,
-                'Date' => now(),
-                'Reason' => 'why',
-            ],
-            // You can add more entries here
-
-            // 'Employee_id' => Carbon::now()->subHours(2),
-            //     'End_time' => Carbon::now(),
-            // 'End_time' => Carbon::createFromFormat('Y-m-d H:i:s', '2024-10-16 14:00:00'),
+       
         ]);
         
     }

@@ -16,17 +16,7 @@ class RequestTimeAdjustments extends Seeder
     public function run(): void
     {
         DB::table('request_time_adjustments')->insert([
-            [
-                'company_id'=> '1',
-                
-                'Attendance_id'=> '1',
-                'Request_type_id'=> '1',
-                'Start_time'=> now(),
-                'End_time'=> now(),
-                'Total_hours'=> '2',
-                'Reason'=> 'sheshhh',
-               
-            ],
+        
          ]);
     }
 }

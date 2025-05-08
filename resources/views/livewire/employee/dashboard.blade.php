@@ -137,14 +137,37 @@ updateTime();
                                         </ul>
                                         <div class="text-center mt-4"><a href="javascript: void(0);" class="btn btn-primary waves-effect waves-light btn-sm">View More <i class="mdi mdi-arrow-right ms-1"></i></a></div>
                                     </div>
+                                    
                                 </div>
+
+                             
                             </div>
+                            <div class="col-xl-8">
+                                <div class="row">
+                                
+
+                                   
+                                   
+
+                                    <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4">Attendance Chart</h4>
+                                        
+                                        <div  id="column_chart" data-colors='["--bs-success","--bs-primary", "--bs-danger"]' class="apex-charts text-black" dir="ltr"></div>                                      
+                                    </div>
+                                </div><!--end card-->
+                            </div>
+                                    
+                                </div>
                             
                         <!-- end row -->
 
                         
                         <!-- end row -->
+                         
                     </div>
+                    
                     <!-- container-fluid -->
                 </div>
                 <!-- End Page-content -->
@@ -171,7 +194,112 @@ updateTime();
 
 
 
+
 @push('scripts')
+
+<script>
+    var cutoffDates = @json($cutoffs->map(function($cut) {
+        return \Carbon\Carbon::parse($cut->cutoff->date_start)->format('M d, Y') . ' - ' . \Carbon\Carbon::parse($cut->cutoff->date_end)->format('M d, Y');
+    }));
+    var netPay = @json($cutoffs->map(function($cut) {
+        return $cut->total_pay;
+    }));
+    var tOvert = @json($cutoffs->map(function($cut) {
+        return $cut->ot_rendered;
+    }));
+    var thours = @json($cutoffs->map(function($cut) {
+        return $cut->hours_rendered;
+    }));
+    var tdeducs = @json($cutoffs->map(function($cut) {
+        return $cut->total_deduction;
+    }));
+</script>
+
+
+
+<script>
+// column chart
+var columnChartColors = getChartColorsArray("column_chart");
+if (columnChartColors) {
+    var options = {
+        chart: {
+            height: 350,
+            type: 'bar',
+            toolbar: {
+                show: false,
+            }
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '45%',
+                endingShape: 'rounded'
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            show: true,
+            width: 2,
+            colors: ['transparent']
+        },
+        series: [{
+            name: 'Total Net Pay',
+            data: netPay
+        },
+        {
+            name: 'Total Deduction',
+            data: tdeducs,
+            color: '#FF4500'
+
+        }, {
+            name: 'Total Hours',
+            data: thours,
+            color: '#4169E1'
+
+        }, {
+            name: 'Total Overtime',
+            data: tOvert,
+            color: '#FFAE42'
+        }],
+        
+        colors: columnChartColors,
+        xaxis: {
+            categories: cutoffDates
+        },
+        yaxis: {
+            title: {
+                
+                style: {
+                    fontWeight: '500',
+                },
+            }
+        },
+        grid: {
+            borderColor: '#f1f1f1',
+        },
+        fill: {
+            opacity: 1
+
+        },
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return parseFloat(val).toLocaleString(undefined, { minimumFractionDigits: 2 });
+                }
+            }
+        }
+    }
+
+    var chart = new ApexCharts(
+        document.querySelector("#column_chart"),
+        options
+    );
+
+    chart.render();
+}
+</script>
 @if (session('success'))
     <script>
         Swal.fire({

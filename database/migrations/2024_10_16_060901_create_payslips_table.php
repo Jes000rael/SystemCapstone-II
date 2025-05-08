@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('payslips', function (Blueprint $table) {
             $table->id('payslip_id');
+            $table->foreignId('company_id');
             $table->foreignId('employee_id');
             $table->foreignId('cutoff_id');
             $table->Double('hours_rendered');

@@ -16,16 +16,7 @@ class BreaktimeLog extends Seeder
     public function run(): void
     {
         DB::table('breaktime_logs')->insert([
-            [
-                
-                'Attendance_id'=> 1,
-    
-    'Total_hours'=>'1:00:00',
-    'Start_time'=> now(),
-    'End_time'=> now(),
-    'Field'=> 'Duty',
-               
-            ],
+           
          ]);
     }
 }

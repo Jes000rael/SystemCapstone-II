@@ -20,5 +20,9 @@ class Cutoff extends Model
 {
     return $this->hasMany(AttendanceRecord::class,  'cutoff_id');
 }
+public function payslip()
+{
+    return $this->hasMany(Payslip::class,  'cutoff_id');
+}
 
 }

@@ -16,17 +16,7 @@ class OvertimeLog extends Seeder
     public function run(): void
     {
         DB::table('overtime_logs')->insert([
-            [
-              'cutoff_id' => '1',
-              
-                'Attendance_id'=> '1',
-                'employee_id'=> '1',
-
-    'Start_time'=> now(),
-    'End_time'=> now(),
-    'Total_hours'=> '11','Field'=> 'sda',
-               
-            ],
+        
          ]);
     }
 }

@@ -16,13 +16,7 @@ class Handbooks extends Seeder
     public function run(): void
     {
         DB::table('handbooks')->insert([
-            [
-                'company_id'=> 1,
-                
-                'Description'=> 'sss',
-         'Link'=> 'https::','Date'=> now(),
-               
-            ],
+      
          ]);
     }
 }

@@ -27,6 +27,7 @@
 <!-- App Css-->
 <link href="{{ asset('assets/css/app.min.css') }}"  id="app-style" rel="stylesheet" type="text/css" />
 
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
     
@@ -108,7 +109,7 @@
     @livewireStyles
     
 </head>
-<body data-sidebar="dark" data-layout-mode="light" >
+<body data-sidebar="dark"  data-layout-mode=light>
 
 
   {{ $slot }}
@@ -154,6 +155,9 @@
 <!-- Datatable init js -->
 <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script> 
 
+
+<!-- apexcharts init -->
+<script src=" {{ asset('assets/js/pages/apexcharts.init.js') }} "></script>
 
 
 <script>

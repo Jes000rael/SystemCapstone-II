@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Payslip extends Model
 {
     use HasFactory;
-    protected $fillable = [ 'employee_id',
+    protected $fillable = [ 'company_id', 'employee_id',
     'cutoff_id',
     'hours_rendered',
-    'oT_rendered',
+    'ot_rendered',
     'total_deduction',
     'total_pay',];
 
@@ -22,12 +22,16 @@ class Payslip extends Model
 
 public function cutoff()
 {
-    return $this->hasmany(Cutoff::class, 'cutoff_id');
+    return $this->belongsTo(Cutoff::class, 'cutoff_id');
 } 
 
 public function employeeRec()
 {
     return $this->hasmany(EmployeeRecords::class, 'employee_id');
+} 
+public function company()
+{
+    return $this->belongsTo(Company::class, 'company_id');
 } 
     public $timestamps = false;
     protected $primaryKey = 'payslip_id';

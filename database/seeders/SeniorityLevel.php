@@ -17,7 +17,7 @@ class SeniorityLevel extends Seeder
     {
         DB::table('seniority_levels')->insert([
             [
-                'Description' => 'LvL 999',
+                'Description' => 'Senior Level',
                 'company_id'=> 1
                
             ],

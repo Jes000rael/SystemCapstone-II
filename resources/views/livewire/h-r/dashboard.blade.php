@@ -184,6 +184,57 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-4">
+                                        <div class="card mini-stats-wid">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div class="flex-grow-1">
+                                                        <p class="text-muted fw-medium">{{ $companyName}} HR</p>
+                                                        <h4 class="mb-0">{{ $employeeCountHR }}</h4>
+                                                    </div>
+
+                                                    <div class="flex-shrink-0 align-self-center">
+                                                        <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+                                                            <span class="avatar-title">
+                                                                <i class="bx bx-id-card font-size-24"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card mini-stats-wid">
+                                            <div class="card-body">
+                                                <div class="d-flex">
+                                                    <div class="flex-grow-1">
+                                                        <p class="text-muted fw-medium">{{ $companyName}} Employee</p>
+                                                        <h4 class="mb-0">{{ $employeeCountemp }}</h4>
+                                                    </div>
+
+                                                    <div class="flex-shrink-0 align-self-center">
+                                                        <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+                                                            <span class="avatar-title">
+                                                                <i class="bx bx-user font-size-24"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4">Attendance Chart</h4>
+                                        
+                                        <div  id="column_chart" data-colors='["--bs-success","--bs-primary", "--bs-danger"]' class="apex-charts text-black" dir="ltr"></div>                                      
+                                    </div>
+                                </div><!--end card-->
+                            </div>
                                     
                                 </div>
                                 <!-- end row -->
@@ -250,6 +301,110 @@
 
 
 @push('scripts')
+
+<script>
+    var cutoffDates = @json($cutoffs->map(function($cut) {
+        return \Carbon\Carbon::parse($cut->cutoff->date_start)->format('M d, Y') . ' - ' . \Carbon\Carbon::parse($cut->cutoff->date_end)->format('M d, Y');
+    }));
+    var netPay = @json($cutoffs->map(function($cut) {
+        return $cut->total_pay;
+    }));
+    var tOvert = @json($cutoffs->map(function($cut) {
+        return $cut->ot_rendered;
+    }));
+    var thours = @json($cutoffs->map(function($cut) {
+        return $cut->hours_rendered;
+    }));
+    var tdeducs = @json($cutoffs->map(function($cut) {
+        return $cut->total_deduction;
+    }));
+</script>
+
+
+
+<script>
+// column chart
+var columnChartColors = getChartColorsArray("column_chart");
+if (columnChartColors) {
+    var options = {
+        chart: {
+            height: 350,
+            type: 'bar',
+            toolbar: {
+                show: false,
+            }
+        },
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                columnWidth: '45%',
+                endingShape: 'rounded'
+            },
+        },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            show: true,
+            width: 2,
+            colors: ['transparent']
+        },
+        series: [{
+            name: 'Total Net Pay',
+            data: netPay
+        },
+        {
+            name: 'Total Deduction',
+            data: tdeducs,
+            color: '#FF4500'
+
+        }, {
+            name: 'Total Hours',
+            data: thours,
+            color: '#4169E1'
+
+        }, {
+            name: 'Total Overtime',
+            data: tOvert,
+            color: '#FFAE42'
+        }],
+        
+        colors: columnChartColors,
+        xaxis: {
+            categories: cutoffDates
+        },
+        yaxis: {
+            title: {
+                
+                style: {
+                    fontWeight: '500',
+                },
+            }
+        },
+        grid: {
+            borderColor: '#f1f1f1',
+        },
+        fill: {
+            opacity: 1
+
+        },
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return parseFloat(val).toLocaleString(undefined, { minimumFractionDigits: 2 });
+                }
+            }
+        }
+    }
+
+    var chart = new ApexCharts(
+        document.querySelector("#column_chart"),
+        options
+    );
+
+    chart.render();
+}
+</script>
 @if (session('success'))
     <script>
         Swal.fire({

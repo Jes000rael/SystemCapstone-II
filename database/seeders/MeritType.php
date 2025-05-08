@@ -16,10 +16,7 @@ class MeritType extends Seeder
     public function run(): void
     {
         DB::table('merit_types')->insert([
-            [
-                'description' => 'Life',
-               
-            ],
+          
          ]);
     }
 }

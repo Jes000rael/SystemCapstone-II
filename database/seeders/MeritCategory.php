@@ -15,10 +15,7 @@ class MeritCategory extends Seeder
     public function run(): void
     {
         DB::table('merit_categories')->insert([
-            [
-                'description' => 'sad',
-               
-            ],
+          
          ]);
     }
 }

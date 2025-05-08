@@ -9,6 +9,7 @@ use App\Models\BreaktimeLog;
 use App\Models\OvertimeLog;
 use App\Models\EmployeeRecords;
 use App\Models\Deductions;
+use App\Models\Payslip;
 use App\Models\RequestTimeAdjustments;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,7 @@ class PrintPayslip extends Component
     public $cutoff_id,$coverup,$onLeave;
    
     public $company_id;
+    public $hours_rendered;
     public $first_name;
     public $last_name;
     public $middle_name;
@@ -87,10 +89,9 @@ class PrintPayslip extends Component
  $totalHours = AttendanceRecord::where('employee_id', $decryptedEmpIDs)
     ->whereIn('cutoff_id', $decryptedcutOffs)
     ->whereNotNull('time_out')
-
     ->sum('total_hours');
 
-   
+   $this->hours_rendered = $totalHours;
     $onLeave = AttendanceRecord::where('employee_id', $decryptedEmpIDs)
     ->where('status_id', 3)
     ->whereIn('cutoff_id', $decryptedcutOffs)
@@ -140,18 +141,15 @@ class PrintPayslip extends Component
     ->whereIn('cutoff_id', $decryptedcutOffs)
     ->count();
 
-
     $totalnigtdiffhours = AttendanceRecord::where('employee_id', $decryptedEmpIDs)
     ->whereIn('cutoff_id', $decryptedcutOffs)
     ->where('has_night_diff', 1)
     ->whereNotNull('time_out')
 
     ->sum('total_hours');
-
 $totaldiff = $this->hourly_rate * 0.30;
 $totaldiffnight =  $totalnigtdiffhours * $totaldiff;
 $this->totalnigtdiffhours = $totalnigtdiffhours;
-
 
     $cutoffRate = Cutoff::where('cutoff_id', $decryptedcutOff)->first();
     $totalearneded = $totalHours + $totalOvertime - $overBreak;
@@ -192,16 +190,11 @@ foreach ($records as $record) {
 }
 
 
-
-
 $totalSalary = $totalEarned ;
 
 $ratetoCutoff = $cutoffRate ? ($totalSalary * $cutoffRate->conversion_rate) : 0;
 
 
-   
-  
-  
 
     if ($this->addDeductions) {
         $decryptedEmpIDs = [Crypt::decrypt($empID)];
@@ -219,13 +212,42 @@ $ratetoCutoff = $cutoffRate ? ($totalSalary * $cutoffRate->conversion_rate) : 0;
 
 
 
+    }            
+                
     }
 
+    public function printemp() 
+    {
 
 
+        
+        $existingSchedule = Payslip::where('employee_id',  $this->employee_id)
+        ->where('cutoff_id', $this->cutoff_id)
+        ->first();
+        if ($existingSchedule) { 
+          
+            $existingSchedule->update([
+                'company_id' => Auth::user()->company_id,
+                'cutoff_id' => $this->cutoff_id,
+                'employee_id' => $this->employee_id,
+                'hours_rendered' =>  $this->hours_rendered ,
+                'ot_rendered' => $this->totalOvertime,
+                'total_deduction' => $this->totalDeductions,
+                'total_pay' => $this->ratetoCutoff,
+            ]);
+        }else{
+            Payslip::create([
+             'company_id' => Auth::user()->company_id,
+             'cutoff_id' => $this->cutoff_id,
+                'employee_id' => $this->employee_id,
+                'hours_rendered' =>  $this->hours_rendered ,
+                'ot_rendered' => $this->totalOvertime,
+                'total_deduction' => $this->totalDeductions,
+                'total_pay' => $this->ratetoCutoff,
+            ]);
+        }
 
-                
-                
+
     }
 
     public function render()

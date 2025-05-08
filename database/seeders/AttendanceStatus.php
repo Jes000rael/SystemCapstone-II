@@ -15,25 +15,7 @@ class AttendanceStatus extends Seeder
     public function run(): void
     {
         DB::table('attendance_statuses')->insert([
-            [
-                
-                'description'=> 'Early Bird',
-               
-            ],
-            [
-                'description'=> 'Late',
-
-            ],
-            [
-                
-                'description'=> 'On Leave',
-
-            ],
-            [
-                
-                'description'=> 'Time Adjustment',
-
-            ],
+          
          ]);
     }
 }

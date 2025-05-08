@@ -21,13 +21,13 @@ class EmployeeRecords extends Seeder
             [
               
                 'company_id'=> 1,
-                'first_name'=> 'Jesrael',
-                'last_name'=> 'Escaran',
+                'first_name'=> 'Gani',
+                'last_name'=> 'Aloba',
                 'middle_name'=> 'D.',
                 'suffix'=> '',
                 'gender'=> 'Male',
                 'blood_type'=> 'A+',
-                'address'=> 'Atop-Atop,Bantayan,Cebu',
+                'address'=> 'Tamiao,Bantayan,Cebu',
                 'seniority_level_id'=> '1',
                 'employment_status_id'=> '1',
                 'job_title_id'=> '1',
@@ -49,7 +49,7 @@ class EmployeeRecords extends Seeder
                 'pagibig'=> 'jes2kim6@gmail.com',
                 'philhealth'=> 'jes2kim6@gmail.com',
                 'shift_id'=> 1,'Date_added'=> now(),
-                'email'=> 'jes2kim6@gmail',
+                'email'=> 'gani30@gamil.com',
                
             ],
             [

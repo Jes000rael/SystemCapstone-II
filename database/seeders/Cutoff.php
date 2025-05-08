@@ -16,13 +16,7 @@ class Cutoff extends Seeder
     public function run(): void
     {
         DB::table('cutoffs')->insert([
-            [
-              'company_id'=> 1,
-                'Date_start'=> now(),
-    'Date_end'=> now(),
-    'Conversion_rate'=> 100,
-               
-            ],
+           
          ]);
     }
 }
