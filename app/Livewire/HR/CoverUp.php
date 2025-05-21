@@ -66,7 +66,7 @@ class CoverUp extends Component
     public function loadDropdownData()
         {
             $this->timetype = RequestTimeType::get();
-            $this->attendanceStatus = AttendanceStatus:: whereNotIn('status_id', [1, 2])
+            $this->attendanceStatus = AttendanceStatus:: whereNotIn('status_id', [1, 2, 4, 3])
             ->get();
         }
 

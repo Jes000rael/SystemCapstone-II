@@ -153,7 +153,7 @@
                 </p>
                 <div class="no-print mb-4">
     <a href="/admin/employee_records" class="btn btn-danger float-end ms-2" onclick="window.close()">Close</a>
-   <button class="btn btn-primary float-end" onclick="window.print()" type="submit" wire:click="printemp">Print</button>
+   <button onclick="window.print()" class="btn btn-primary float-end"  type="submit" wire:click="printemp">Print</button>
 
 </div>
                 

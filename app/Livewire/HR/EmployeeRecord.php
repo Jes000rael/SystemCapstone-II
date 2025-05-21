@@ -156,7 +156,7 @@ class EmployeeRecord extends Component
             'duty_start' => $scheduleIn,
             'duty_end' => $scheduleOut,
             'time_in' => null,
-            'status_id' => 1, 
+            'status_id' => 4, 
             'has_night_diff' => 0,
         ]);
     

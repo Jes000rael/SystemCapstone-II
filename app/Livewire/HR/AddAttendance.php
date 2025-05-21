@@ -69,7 +69,7 @@ public $total_ot = null;
             ->where('company_id', Auth::user()->company_id)
             ->orderBy('date_start', 'desc')
             ->get();
-            $this->attendanceStatus = AttendanceStatus:: whereNotIn('status_id', [1, 2])
+            $this->attendanceStatus = AttendanceStatus:: whereNotIn('status_id', [1, 2,4])
             ->get();
     }
     

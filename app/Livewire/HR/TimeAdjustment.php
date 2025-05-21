@@ -16,8 +16,11 @@ class TimeAdjustment extends Component
     public $adjusttype;
     public function mount()
 {
-    $companyId = Auth::user()->company_id ; 
-    $this->adjusttype = RequestTimeAdjustments::where('company_id', $companyId)->get();
+  $companyId = Auth::user()->company_id;
+$this->adjusttype = RequestTimeAdjustments::with('attendance.employee')
+    ->where('company_id', $companyId)
+    ->whereHas('attendance.employee')
+    ->get();
 }
     public function render()
     {

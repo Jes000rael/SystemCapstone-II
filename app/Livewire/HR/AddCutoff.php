@@ -15,7 +15,7 @@ public $conversion_rate='';
     protected $rules = [
         'date_start' => 'required|date',
         'date_end' => 'required|date',
-        'conversion_rate' => 'required|numeric|regex:/^\d+(\.\d+)?$/',
+        'conversion_rate' => 'required|numeric|regex:/^\d+(\.\d+)?$/|min:1',
     ];
  public function add_Cutoff()
     {
