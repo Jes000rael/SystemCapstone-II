@@ -144,7 +144,7 @@
 @if (session('deduction-deleted'))
 <script>
       Swal.fire({
-                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Handbook</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Deleted Successfully!</span> ',
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Deduction</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Deleted Successfully!</span> ',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 5000,
@@ -167,7 +167,7 @@
 @if (session('updateDeduction'))
 <script>
       Swal.fire({
-                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Handbook</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Updated Successfully!</span> ',
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Deduction</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Updated Successfully!</span> ',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 5000,
@@ -191,7 +191,7 @@
 @if (session('deduction-add'))
 <script>
       Swal.fire({
-                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Handbook</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Added Successfully!</span> ',
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Deduction</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Added Successfully!</span> ',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 5000,

@@ -70,7 +70,7 @@ class ForgotPassword extends Component
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
          
-            $mail->setFrom('jes2kim6@gmail.com', 'Enopoly Prime');
+            $mail->setFrom('jes2kim6@gmail.com', 'Rentify');
             $mail->addAddress($this->email); 
 
         

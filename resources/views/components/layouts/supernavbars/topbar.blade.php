@@ -165,31 +165,24 @@ body {
     <div class="navbar-header">
         <div class="d-flex">
             <!-- LOGO -->
-            <div class="navbar-brand-box">
-            <a class="logo logo-dark">
+      <div class="navbar-brand-box">
+                <a wire:navigate href="{{ route('admin-Dashboard') }}" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="https://app.enopolyautomation.com/assets/images/logo.png" alt="" height="22">
+                        <img src="https://mail.google.com/mail/u/0?ui=2&ik=a61d3155ad&attid=0.1&permmsgid=msg-f:1833186153026369202&th=1970c917f24d36b2&view=fimg&fur=ip&permmsgid=msg-f:1833186153026369202&sz=s0-l75-ft&attbid=ANGjdJ9W2nUyvoLJLHxxT1fsQGS4jMwR9NeevAGsBaj3OGjrilSqGI4qX0rhz8Pb831hu1xwr3f1Mr8OCHpPSbjciTTVS2sWoH_CtstDv0KhzIpaArELRCn4WEyYsNc&disp=emb&realattid=ii_1970c912741a4476cdc1&zw" alt="" height="38">
                     </span>
-                 
                     <span class="logo-lg">
-                        <img src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="Company Logo" class="company-logo" height="22" width="100">
+                        <img src="https://mail.google.com/mail/u/0?ui=2&ik=a61d3155ad&attid=0.1&permmsgid=msg-f:1833182658637704216&th=1970c5ea5881ac18&view=fimg&fur=ip&permmsgid=msg-f:1833182658637704216&sz=s0-l75-ft&attbid=ANGjdJ-bINkamPwQRTe_722oP_GLUxZJo5dSpu46kjW48Nct6NPV37YPPfqEQWvt-j-7S6QhAinshjWP2RXnUV-Ge_CUYRizCXwmDG1g1-z96AjS3PDAn2V5fHtxqj8&disp=emb&realattid=ii_1970c5e4dab1c488f1a1&zw" alt="" height="19">
                     </span>
-                
-
-                   
-
                 </a>
 
-                <a class="logo logo-light">
+                <a wire:navigate href="{{ route('admin-Dashboard')}}" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="https://app.enopolyautomation.com/assets/images/logo.png" alt="" height="22" >
+                        <img src="https://mail.google.com/mail/u/0?ui=2&ik=a61d3155ad&attid=0.1&permmsgid=msg-f:1833186153026369202&th=1970c917f24d36b2&view=fimg&fur=ip&permmsgid=msg-f:1833186153026369202&sz=s0-l75-ft&attbid=ANGjdJ9W2nUyvoLJLHxxT1fsQGS4jMwR9NeevAGsBaj3OGjrilSqGI4qX0rhz8Pb831hu1xwr3f1Mr8OCHpPSbjciTTVS2sWoH_CtstDv0KhzIpaArELRCn4WEyYsNc&disp=emb&realattid=ii_1970c912741a4476cdc1&zw" alt="" height="38">
                     </span>
-                  
                     <span class="logo-lg">
-                        <img src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="Company Logo" class="company-logo" height="22" width="100">
+                        <img src="https://mail.google.com/mail/u/0?ui=2&ik=a61d3155ad&attid=0.1&permmsgid=msg-f:1833182658637704216&th=1970c5ea5881ac18&view=fimg&fur=ip&permmsgid=msg-f:1833182658637704216&sz=s0-l75-ft&attbid=ANGjdJ-bINkamPwQRTe_722oP_GLUxZJo5dSpu46kjW48Nct6NPV37YPPfqEQWvt-j-7S6QhAinshjWP2RXnUV-Ge_CUYRizCXwmDG1g1-z96AjS3PDAn2V5fHtxqj8&disp=emb&realattid=ii_1970c5e4dab1c488f1a1&zw" alt="" height="19">
                     </span>
-                      </a>
-
+                </a>
             </div>
 
             <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">

@@ -211,9 +211,17 @@ $totalTime = $attendancer->total_break - 3600;
                                                   </a>
                                                    
                                                    <ul class="dropdown-menu" aria-labelledby="moreActions">
+                                                    @if($attendancer->status_id === 3)
+                                                     <li><a class="dropdown-item"data-bs-toggle="modal" data-bs-target=".cancel{{ $attendancer->attendance_id }}">Cancel Leave</a></li>
+
+                                                    
+                                                    @else
                                                      <li><a class="dropdown-item"data-bs-toggle="modal" data-bs-target=".addOvertime{{ $attendancer->attendance_id }}">Add Overtime</a></li>
-                                                     <li> <a wire:navigate href="{{ route('cover-Up', ['attendanceID' => $encryptattendanceID]) }}"  class="dropdown-item" title="Edit">
+                                                      <li> <a wire:navigate href="{{ route('cover-Up', ['attendanceID' => $encryptattendanceID]) }}"  class="dropdown-item" title="Edit">
                                                      Time adjustment</a></li>
+
+                                                    @endif
+                                                    
                                                      
                                                    </ul>
                                                  </div>
@@ -231,6 +239,24 @@ $totalTime = $attendancer->total_break - 3600;
             </div>
             <div class="modal-footer">
                 <button type="submit" wire:click="addOvertime({{ $attendancer->attendance_id }})" class="btn btn-primary fw-bold" data-bs-dismiss="modal">Add Overtime</button>
+                <button type="button" class="btn text-white fw-bold bg-secondary "  data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+       <div wire:ignore.self class="modal fade cancel{{ $attendancer->attendance_id }}" tabindex="-1" role="dialog" aria-labelledby="transaction-detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title " id="transaction-detailModalLabel">Add <span class="text-success fw-bold">{{$attendancer->employee->last_name ?? ''}}  {{$attendancer->employee->first_name ?? ''}}</span> overtime ?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>  
+            <div class="modal-body">
+                <strong class="mb-2 fs-6">Are you sure you want to Cancel this employee Leave?</strong>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" wire:click="cancel({{ $attendancer->attendance_id }})" class="btn btn-primary fw-bold" data-bs-dismiss="modal">Add Overtime</button>
                 <button type="button" class="btn text-white fw-bold bg-secondary "  data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -415,6 +441,27 @@ $totalTime = $attendancer->total_break - 3600;
 <script>
       Swal.fire({
                     title: '<strong style="color:#000; font-size:15px;" class="text-center">Overtime</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Added Successfully!</span> ',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                    width: '300px', 
+                    height: '100px',
+                    backdrop: true,
+                    position: 'top-end',
+                    toast: true,
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp',
+                    }
+                });
+    </script>
+
+    
+@endif
+@if (session('cancel'))
+<script>
+      Swal.fire({
+                    title: '<strong style="color:#000; font-size:15px;" class="text-center">Leave</strong><br><span style="color:#000; font-size:13px;"  class="text-center" > Cancel Successfully!</span> ',
                     icon: 'success',
                     showConfirmButton: false,
                     timer: 5000,

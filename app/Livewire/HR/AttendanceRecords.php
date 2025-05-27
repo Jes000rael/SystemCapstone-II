@@ -88,6 +88,19 @@ class AttendanceRecords extends Component
     }
 }
 
+    public function cancel($cancelID)
+
+{
+    if ($cancelID) {
+        AttendanceRecord::find($cancelID)->delete();
+    
+   
+                return redirect()->intended('/admin/attendance')->with('cancel', 'Successfully');
+
+
+       
+    }
+}
 
 
 

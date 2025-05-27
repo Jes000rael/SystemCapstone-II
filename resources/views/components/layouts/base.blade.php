@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>  {{ ucfirst(str_replace('-', ' ', Route::currentRouteName())) }}  | Enopoly Commerce</title>
+    <title>  {{ ucfirst(str_replace('-', ' ', Route::currentRouteName())) }}  | Rentify</title>
 
 
     <link href="https://cdn.jsdelivr.net/npm/boxicons/css/boxicons.min.css" rel="stylesheet">
@@ -12,7 +12,7 @@
 
 
 <!-- App favicon -->
-<link rel="shortcut icon" href="https://app.enopolyautomation.com/assets/images/favicon.ico">
+<link rel="shortcut icon" href="https://mail.google.com/mail/u/0?ui=2&ik=a61d3155ad&attid=0.1&permmsgid=msg-f:1833186153026369202&th=1970c917f24d36b2&view=fimg&fur=ip&permmsgid=msg-f:1833186153026369202&sz=s0-l75-ft&attbid=ANGjdJ9W2nUyvoLJLHxxT1fsQGS4jMwR9NeevAGsBaj3OGjrilSqGI4qX0rhz8Pb831hu1xwr3f1Mr8OCHpPSbjciTTVS2sWoH_CtstDv0KhzIpaArELRCn4WEyYsNc&disp=emb&realattid=ii_1970c912741a4476cdc1&zw">
 <link href=" {{ asset('assets/libs/summernote/summernote-bs4.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />

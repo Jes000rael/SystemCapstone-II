@@ -17,7 +17,7 @@ class ContactUs extends Component
 {
 
     public $emailtext='' , $company;
-    public $emailSubject = 'Enopoly Login Account';
+    public $emailSubject = '';
     public $messageBody;
 
 
@@ -57,7 +57,7 @@ class ContactUs extends Component
     <div style='font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px;'>
     <div style='max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;'>
         <div style='background-color: #f0f0f0; text-align: center; padding: 20px;'>
-            <img src='https://app.enopolyautomation.com/assets/images/enopoly.png' alt='Enopoly Logo' style='height: 40px; width: 160px;'>
+            <img src='https://lh3.googleusercontent.com/pw/AP1GczPEURRrOEvr3bGOtTAFQbPYNz2lKwuSceJRO-nvI4zrgVlvghSzj-lH-z_RRZruaCgfh-heXbnJOJZNbcmdXGmRDJfj5EquHCMgBTiBLCPpPlR-xXLGR7MStlj-9b1S2zRMqe53V_SjLGcsRYmrBwEx=w913-h913-s-no-gm?authuser=0' alt='Rentify Logo' style='height: 80px; width: 160px;'>
         </div>
         <div style='padding: 20px;'>
             <p style='font-size: 22px; color: #333;'>" . ($this->company->description ?? 'Company not verify') . "</p>
@@ -70,7 +70,7 @@ class ContactUs extends Component
      
          
         <div style='background-color: #f0f0f0; text-align: center; padding: 10px; font-size: 12px; color: #888;'>
-            <p>&copy; 2024 Enopoly Automation. All rights reserved.</p>
+            <p>&copy; 2024 Rentify.web. All rights reserved.</p>
         </div>
     </div>
 </div>";

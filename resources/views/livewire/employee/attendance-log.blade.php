@@ -70,7 +70,7 @@
                     </div>
                 </div>
                   <!-- end-modal -->
-                                   
+                            
 
 
                                     <p class="fs-2 mt-3">Remaining Break Time: 
@@ -371,8 +371,8 @@ if ($totalTime && $totalTime->count() > 0) {
                                                 <td>
                                                 @if($attendancer['record'])
                                                 @if(optional($attendancer['record'])->attendance_id == $latest->attendance_id)
-
-<div class="text-center" style="max-width: 80%; margin: 0 auto;">
+                                                @if(!in_array($attendancer['record']->status_id, [3, 4, 5]))
+   <div class="text-center" style="max-width: 80%; margin: 0 auto;">
 
 
 
@@ -442,6 +442,9 @@ if ($totalTime && $totalTime->count() > 0) {
 
 
 </div>
+@endif
+
+
 @endif
 
             @else

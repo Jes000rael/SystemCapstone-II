@@ -73,8 +73,8 @@ input[type="text"] {
                                             <p>Sign in to continue to Skote.</p>
                                         </div>
                                     </div> -->
-                                    <div class="col-12 align-self-end py-3 px-5">
-                                        <img  src="https://app.enopolyautomation.com/assets/images/enopoly.png" alt="" class="img-fluid">
+                                    <div   class="col-12 align-self-end py-4 px-4">
+                                        <img style="padding-right:100px; padding-left:100px; width: 100%; height:100%;"  src="https://mail.google.com/mail/u/0?ui=2&ik=a61d3155ad&attid=0.1&permmsgid=msg-f:1833182658637704216&th=1970c5ea5881ac18&view=fimg&fur=ip&permmsgid=msg-f:1833182658637704216&sz=s0-l75-ft&attbid=ANGjdJ-bINkamPwQRTe_722oP_GLUxZJo5dSpu46kjW48Nct6NPV37YPPfqEQWvt-j-7S6QhAinshjWP2RXnUV-Ge_CUYRizCXwmDG1g1-z96AjS3PDAn2V5fHtxqj8&disp=emb&realattid=ii_1970c5e4dab1c488f1a1&zw" alt="" class="img-fluid" >
                                     </div>
                                 </div>
                             </div>
