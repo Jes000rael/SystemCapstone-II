@@ -14,7 +14,7 @@ use Carbon\Carbon;
 class UserAttendance extends Component
 {
     public $attendance, $cutoffs, $cut_off, $latest,$breaktime,$cut_attendance,$cutoffdate,$totalDays,$totalHours,$totalOvertime,$overBreak,$totalearned,$employeeRate,$employeePresent,$totalSalary,$ratetoCutoff;
-    public $timeShow,$onLeave,$coverup;
+    public $timeShow,$onLeave,$coverup,$absentemp;
     public $newTotalTime; 
 
 
@@ -80,6 +80,12 @@ $this->cut_attendance = AttendanceRecord::where('employee_id', $employee_id)
 
     $this->onLeave = $onLeave;
 
+      $absentDays = AttendanceRecord::where('employee_id', $employee_id)
+    ->whereIn('cutoff_id', $cutoffIds1)
+    ->whereIn('status_id', [4])
+    ->count();
+
+$this->absentemp = $absentDays;
 
     $coverup = RequestTimeAdjustments::whereHas('attendance', function ($query) use ($employee_id, $cutoffIds1) {
         $query->where('employee_id', $employee_id)

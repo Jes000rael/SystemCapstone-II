@@ -109,6 +109,7 @@
                                             <h6 class="font-weight-bold mb-2">EARNINGS</h6>
                                             <table class="table table-sm">
                                                 <tbody>
+                                                    <tr><td>Total Absent Days</td><td class="text-right">{{ number_format($absentemp) }} days</td></tr>
                                                     <tr><td>Total Regular Hours</td><td class="text-right">{{ number_format($totalHours, 2) }} hrs</td></tr>
                                                     <tr><td>Total Overtime Hours</td><td class="text-right">{{ number_format($totalOvertime, 2) }} hrs</td></tr>
                                                     <tr><td>Total OverBreak Hours</td><td class="text-right">{{ number_format($overBreak, 2) }} hrs</td></tr>

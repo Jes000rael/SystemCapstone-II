@@ -17,7 +17,7 @@ use Carbon\Carbon;
 class AttendanceLog extends Component
 {
     public $attendance, $cutoffs, $cut_off, $latest,$breaktime,$cut_attendance,$cutoffdate,$totalDays,$totalHours,$totalOvertime,$overBreak,$totalearned,$employeeRate,$employeePresent,$totalSalary,$ratetoCutoff;
-    public $timeShow,$onLeave,$coverup;
+    public $timeShow,$onLeave,$coverup,$absentemp;
     public $newTotalTime; 
 
 
@@ -52,13 +52,15 @@ $this->cut_attendance = AttendanceRecord::where('employee_id', $employee_id)
 
     
     if ($this->cut_attendance && $this->cut_attendance->cutoff) {
-        $startDate = \Carbon\Carbon::parse($this->cut_attendance->cutoff->date_start);
+         $startDate = \Carbon\Carbon::parse($this->cut_attendance->cutoff->date_start);
         $endDate = \Carbon\Carbon::parse($this->cut_attendance->cutoff->date_end);
     
         $this->cutoffdate = $startDate->format('D, M d Y') . ' - ' . $endDate->format('D, M d Y');
         
-        $totalDays1 = $startDate->diffInDays($endDate);
+        $totalDays1 = $startDate->diffInDays($endDate) + 1;
         $this->totalDays = $totalDays1;
+
+        
     } else {
         $this->cutoffdate = 'No cutoff available';
         $this->totalDays = 0;
@@ -82,6 +84,12 @@ $this->cut_attendance = AttendanceRecord::where('employee_id', $employee_id)
     ->sum('total_hours');
 
     $this->onLeave = $onLeave;
+     $absentDays = AttendanceRecord::where('employee_id', $employee_id)
+    ->whereIn('cutoff_id', $cutoffIds1)
+    ->whereIn('status_id', [4])
+    ->count();
+
+$this->absentemp = $absentDays;
 
 
     $coverup = RequestTimeAdjustments::whereHas('attendance', function ($query) use ($employee_id, $cutoffIds1) {

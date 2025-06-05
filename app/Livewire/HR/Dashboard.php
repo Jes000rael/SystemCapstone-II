@@ -4,12 +4,13 @@ namespace App\Livewire\HR;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use App\Models\AttendanceRecord;
 use App\Models\Company;
 use App\Models\Department;
 use App\Models\EmployeeRecords;
 use App\Models\Announcement;
 use App\Models\Payslip;
-
+use Carbon\Carbon;
 use App\Models\Cutoff;
 
 
@@ -27,16 +28,21 @@ class Dashboard extends Component
     public $last_name;
     public $middle_name;
     public $suffix ,$cutoffs;
-    public $cutoff_id;
+    public $cutoff_id,$employeeAbsent;
 
     public function mount()
     {
         
         $companyId = Auth::user()->company_id ;
+       $currentDate = Carbon::today();
 
         $company = Company::find($companyId);
 
         $this->companyName = $company ? $company->description : 'Company not found';
+        $this->employeeAbsent = AttendanceRecord::where('company_id', $companyId)
+    ->whereDate('date', $currentDate) 
+    ->whereIn('status_id', [4]) 
+    ->count();
 
         $this->employeeCount = EmployeeRecords::where('company_id', $companyId)
         ->whereNotIn('department_id', [1, 3])
@@ -48,6 +54,10 @@ class Dashboard extends Component
         $this->employeeCountHR = EmployeeRecords::where('company_id', $companyId)
         ->where('department_id', 2) 
         ->count();
+   
+
+
+        
        
       if (Auth::check()) {
                 $this->firstname = Auth::user();

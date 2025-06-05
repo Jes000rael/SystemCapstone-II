@@ -23,7 +23,7 @@ class PrintPayslip extends Component
 
     public $employee_id,$email,$contact_number,$hourly_rate,$department_id,$job_title_id,$shift_id,$address,$conversion_rate,$deductions,$totalDeductions,$totalnigtdiffhours;
     public $attendance, $cutoffs, $cut_off, $latest,$breaktime,$cut_attendance,$cutoffdate,$totalDays,$totalHours,$totalOvertime,$overBreak,$totalearned,$employeeRate,$employeePresent,$totalSalary,$ratetoCutoff,$totalSalarys;
-    public $cutoff_id,$coverup,$onLeave;
+    public $cutoff_id,$coverup,$onLeave,$absentemp;
    
     public $company_id;
     public $hours_rendered;
@@ -92,6 +92,14 @@ class PrintPayslip extends Component
     ->sum('total_hours');
 
    $this->hours_rendered = $totalHours;
+   $absentDays = AttendanceRecord::where('employee_id', $decryptedEmpIDs)
+    ->whereIn('cutoff_id', $decryptedcutOffs)
+    ->whereIn('status_id', [4])
+    ->count();
+
+$this->absentemp = $absentDays;
+
+   
     $onLeave = AttendanceRecord::where('employee_id', $decryptedEmpIDs)
     ->where('status_id', 3)
     ->whereIn('cutoff_id', $decryptedcutOffs)

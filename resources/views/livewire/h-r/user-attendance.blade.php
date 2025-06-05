@@ -45,6 +45,7 @@
                             <div class="container">
                             <div class="row row-col-12">
                                <div class="col-12 text-start mt-2  fs-5">  <pre class="font-size-18 my-2 text-dark"> Pay Period Days and Hours From [ {{ $cutoffdate }} ] : {{ $totalDays }} days </pre>  </div>
+                               <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Absent Days    :  {{ $absentemp }} days </pre>  </div>
                                <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Regular Hours    :  {{ $totalHours }} hrs </pre>  </div>
                                <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total Overtime Hours   :  {{ $totalOvertime }} hrs </pre>  </div>
                                <div class="col-12 text-start  fs-5">  <pre class="font-size-18 my-2 text-dark"> Total CoverUp Hours   :  {{ $coverup }} hrs </pre>  </div>
