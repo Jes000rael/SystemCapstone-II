@@ -237,7 +237,7 @@
                                                     <div class="flex-shrink-0 align-self-center">
                                                         <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
                                                             <span class="avatar-title">
-                                                                <i class="bx bx-user font-size-24"></i>
+                                                                <i class=" bx bx-user font-size-24"></i>
                                                             </span>
                                                         </div>
                                                     </div>
