@@ -46,12 +46,14 @@ class Addemployee extends Component
     public $shift_id='';
     public $gender='',$email='';
     public $employees,$companys,$senioritylevels,$employmentstatus,$jobtitle,$department=[],$depart=[],$shifts;
-
-    protected $rules = [
+ public function rules()
+{
+    return [
        
         'first_name' => 'required',
         'last_name' => 'required',
         'middle_name' => 'required',
+        'email' => 'required|email|unique:employee_records',
         'gender' => 'required|in:Male,Female',
         'blood_type' => 'required',
         'address' => 'required',
@@ -59,26 +61,29 @@ class Addemployee extends Component
         'employment_status_id'=> 'required',
         'job_title_id'=> 'required',
         'department_id'=> 'required',
-        'date_of_birth'=> 'required',
-        'date_hired'=> 'required',
-        'date_start'=> 'required',
+        'date_of_birth' => [
+            'required',
+            'date',
+            'before:' . now()->subYears(18)->toDateString(),  
+            'after:' . now()->subYears(65)->toDateString(),   
+        ],
+        'date_hired'=> 'required|date',
+        'date_start'=> 'required|date',
         'hourly_rate'=> 'required|numeric|regex:/^\d+(\.\d+)?$/',
         'has_night_diff'=> 'required|boolean',
         'username'=> 'required|unique:employee_records',
-        'password'=> 'required',
-        'contact_number'=> 'required',
-        'emergency_contact'=> 'required',
+        'password'=> 'required|min:8',
+        'contact_number'=> ['required', 'regex:/^09\d{9}$/'], 
+        'emergency_contact'=> ['required', 'regex:/^09\d{9}$/'],
         'emergency_person'=> 'required',
         'relationship'=> 'required',
-        'tin'=> 'required',
-        'sss'=> 'required',
-        'pagibig'=> 'required',
-        'philhealth'=> 'required',
-        'email' => 'required|email|unique:employee_records',
-
+        'tin'=> 'required|min:11|max:11',
+        'sss'=> 'required|min:11|max:11',
+        'pagibig'=> 'required|min:11|max:11',
+        'philhealth'=> 'required|min:11|max:11',
         'shift_id'=> 'required',
-   
     ];
+}
 
     public function mount()
     {

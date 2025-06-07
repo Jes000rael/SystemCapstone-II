@@ -12,10 +12,11 @@ class InsertCompany extends Component
 
     public $timezones = [];
 
+    
     protected $rules = [
-        'description' => 'required',
+      'description' => 'required|unique:companies,description',
+
         'timezone' => 'required',
-        
         
     ];
 

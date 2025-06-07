@@ -219,6 +219,10 @@
                     <!-- Personal Information Section -->
                     <h6 class="text-primary mt-3 fs-5">Personal Information</h6>
                     <div class="row gy-3">
+                           <div class="col-sm-6">
+                            <strong>Employee ID:</strong>
+                            <div class="border-bottom pb-1">{{ $employee->employee_id }} </div>
+                        </div>
                         <div class="col-sm-6">
                             <strong>Name:</strong>
                             <div class="border-bottom pb-1">{{ $employee->first_name }} {{ $employee->middle_name }} {{ $employee->last_name }} {{ $employee->suffix }}</div>

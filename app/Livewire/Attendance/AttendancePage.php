@@ -57,10 +57,13 @@ class AttendancePage extends Component
     
         $workStartTime = $workSchedule->{$weekday . '_in'};
         $workEndTime = $workSchedule->{$weekday . '_out'};
-    
+
+      
   
         if (!$workStartTime || !$workEndTime) {
-            $currentTime = Carbon::now();
+      
+            
+     $currentTime = Carbon::now();
 $currentDate = $currentTime->toDateString();
 $yesterdayDate = $currentTime->copy()->subDay()->toDateString();
 
@@ -71,7 +74,11 @@ $attendance = AttendanceRecord::where('employee_id', $this->employee_id)
     })
     ->latest('date')
     ->first();
-         
+         if (!$attendance) {
+    session()->flash('error', 'No work schedule for today.');
+    return;
+}
+
     if (!$attendance->time_out) {
         try {
             $dutyStart = Carbon::createFromFormat('Y-m-d H:i:s', $attendance->date . ' ' . $attendance->duty_start);
@@ -116,8 +123,7 @@ $attendance = AttendanceRecord::where('employee_id', $this->employee_id)
 
         if($attendance->duty_start > $attendance->duty_end)
         {
-        
-if ($attendance->time_in && $attendance->time_out) {
+     if ($attendance->time_in && $attendance->time_out) {
     $timeIn = Carbon::parse($attendance->time_in);
     $timeOut = Carbon::parse($attendance->time_out);
     $dutyStart = Carbon::parse($attendance->date . ' ' . $attendance->duty_start);
@@ -132,10 +138,10 @@ if ($attendance->time_in && $attendance->time_out) {
         $totalHours = $dutyStart->diffInMinutes($timeOut) / 60;
     } elseif ($timeIn->lessThan($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
         
-        $totalHours = $dutyStart->diffInMinutes($dutyEnd) / 60;
+       $totalHours = $dutyStart->diffInMinutes($dutyEnd) / 60;
     } else {
       
-        $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
+        $totalHours = $timeIn->diffInMinutes($dutyEnd) / 60;
     }
 
   
@@ -161,14 +167,17 @@ if ($attendance->time_in && $attendance->time_out) {
     $dutyStart = Carbon::parse($attendance->date . ' ' . $attendance->duty_start);
     $dutyEnd = Carbon::parse($attendance->date . ' ' . $attendance->duty_end);
 
-    if ($timeIn->greaterThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
+     if ($timeIn->greaterThan($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
+        
+        $totalHours = $timeIn->diffInMinutes($dutyEnd) / 60;
+    } elseif ($timeIn->greaterThan($dutyStart) && $timeOut->lessThanOrEqualTo($dutyEnd)) {
         
         $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
-    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
+    } elseif ($timeIn->lessThanOrEqualTo($dutyStart) && $timeOut->lessThanOrEqualTo($dutyEnd)) {
         
         $totalHours = $dutyStart->diffInMinutes($timeOut) / 60;
-    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
-       
+    } elseif ($timeIn->lessThanOrEqualTo($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
+        
         $totalHours = $dutyStart->diffInMinutes($dutyEnd) / 60;
     } else {
        
@@ -186,10 +195,10 @@ if ($attendance->time_in && $attendance->time_out) {
     ]);
    
 
- 
-}
-session()->flash('success', 'Time out recorded successfully!');
+ session()->flash('success', 'Time out recorded successfully!');
 return;
+}
+
 
         }
  
@@ -633,27 +642,18 @@ $attendance = AttendanceRecord::where('employee_id', $this->employee_id)
             session()->flash('error', 'You had been recorded in attendance today.');
             return;
         }
-        if ($timeWorkedInMinutes < 60) {
-            session()->flash('error', 'You must work at least 1 hour before timing out.');
-            return;
-        }
+   
 
        
         $attendance->update([
             'time_out' => $currentTime,
         ]);
 
-        //una
-       
-        //duha
 
         
-
-        if($attendance->duty_start > $attendance->duty_end)
-        {
-        
-if ($attendance->time_in && $attendance->time_out) {
-    $timeIn = Carbon::parse($attendance->time_in);
+if ($attendance->duty_start > $attendance->duty_end) {
+    if ($attendance->time_in && $attendance->time_out) {
+      $timeIn = Carbon::parse($attendance->time_in);
     $timeOut = Carbon::parse($attendance->time_out);
     $dutyStart = Carbon::parse($attendance->date . ' ' . $attendance->duty_start);
     $attendanceDate = Carbon::parse($attendance->date)->addDay();
@@ -661,13 +661,13 @@ if ($attendance->time_in && $attendance->time_out) {
 
     if ($timeIn->greaterThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
       
-        $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
+        $totalHours = $timeIn->diffInMinutes($dutyEnd) / 60;
     } elseif ($timeIn->lessThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
        
         $totalHours = $dutyStart->diffInMinutes($timeOut) / 60;
     } elseif ($timeIn->lessThan($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
         
-        $totalHours = $dutyStart->diffInMinutes($dutyEnd) / 60;
+        $totalHours = $dutyStart->diffInMinutes($timeOut) / 60;
     } else {
       
         $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
@@ -685,7 +685,9 @@ if ($attendance->time_in && $attendance->time_out) {
   
     session()->flash('success', 'Time out recorded successfully!');
     return;
-}
+    }
+
+
 
 
         }else{
@@ -696,14 +698,17 @@ if ($attendance->time_in && $attendance->time_out) {
     $dutyStart = Carbon::parse($attendance->date . ' ' . $attendance->duty_start);
     $dutyEnd = Carbon::parse($attendance->date . ' ' . $attendance->duty_end);
 
-    if ($timeIn->greaterThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
+     if ($timeIn->greaterThan($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
+        
+        $totalHours = $timeIn->diffInMinutes($dutyEnd) / 60;
+    } elseif ($timeIn->greaterThan($dutyStart) && $timeOut->lessThanOrEqualTo($dutyEnd)) {
         
         $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
-    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
+    } elseif ($timeIn->lessThanOrEqualTo($dutyStart) && $timeOut->lessThanOrEqualTo($dutyEnd)) {
         
         $totalHours = $dutyStart->diffInMinutes($timeOut) / 60;
-    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
-       
+    } elseif ($timeIn->lessThanOrEqualTo($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
+        
         $totalHours = $dutyStart->diffInMinutes($dutyEnd) / 60;
     } else {
        
@@ -721,10 +726,10 @@ if ($attendance->time_in && $attendance->time_out) {
     ]);
    
 
- 
-}
-session()->flash('success', 'Time out recorded successfully!');
+ session()->flash('success', 'Time out recorded successfully!');
 return;
+}
+
 
         }
  
@@ -825,16 +830,14 @@ $attendance = AttendanceRecord::where('employee_id', $this->employee_id)
         $attendance->update([
             'time_out' => $currentTime,
         ]);
-         //una
-        //duha
+
 
        
 
 
         if($attendance->duty_start > $attendance->duty_end)
         {
-          
-if ($attendance->time_in && $attendance->time_out) {
+     if ($attendance->time_in && $attendance->time_out) {
     $timeIn = Carbon::parse($attendance->time_in);
     $timeOut = Carbon::parse($attendance->time_out);
     $dutyStart = Carbon::parse($attendance->date . ' ' . $attendance->duty_start);
@@ -842,31 +845,32 @@ if ($attendance->time_in && $attendance->time_out) {
     $dutyEnd = Carbon::parse($attendanceDate->toDateString() . ' ' . $attendance->duty_end);
 
     if ($timeIn->greaterThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
-       
+      
         $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
     } elseif ($timeIn->lessThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
        
         $totalHours = $dutyStart->diffInMinutes($timeOut) / 60;
     } elseif ($timeIn->lessThan($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
-       
-        $totalHours = $dutyStart->diffInMinutes($dutyEnd) / 60;
+        
+       $totalHours = $dutyStart->diffInMinutes($dutyEnd) / 60;
     } else {
-       
-        $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
+      
+        $totalHours = $timeIn->diffInMinutes($dutyEnd) / 60;
     }
 
+  
     $totalHours = round($totalHours, 2);
 
 
 
-   
+    
     $attendance->update([
         'total_hours' => $totalHours,
     ]);
+  
     session()->flash('success', 'Time out recorded successfully!');
-return;
+    return;
 }
-
 
 
         }else{
@@ -877,31 +881,34 @@ if ($attendance->time_in && $attendance->time_out) {
     $dutyStart = Carbon::parse($attendance->date . ' ' . $attendance->duty_start);
     $dutyEnd = Carbon::parse($attendance->date . ' ' . $attendance->duty_end);
 
-    if ($timeIn->greaterThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
-       
-        $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
-    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
-       
-        $totalHours = $dutyStart->diffInMinutes($timeOut) / 60;
-    } elseif ($timeIn->lessThan($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
-        
-        $totalHours = $dutyStart->diffInMinutes($dutyEnd) / 60;
-    } else {
-       
-        $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
-    }
+    // Default to full actual time worked
+    $totalHours = $timeIn->diffInMinutes($timeOut) / 60;
 
+    // Case: Late and over time
+    if ($timeIn->greaterThan($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
+        // Only count from timeIn to dutyEnd
+        $totalHours = $timeIn->diffInMinutes($dutyEnd) / 60;
+    }
+    // Case: Early in, early out
+    elseif ($timeIn->lessThan($dutyStart) && $timeOut->lessThan($dutyEnd)) {
+        $totalHours = $dutyStart->diffInMinutes($timeOut) / 60;
+    }
+    // Case: Early in, over time
+    elseif ($timeIn->lessThan($dutyStart) && $timeOut->greaterThan($dutyEnd)) {
+        $totalHours = $dutyStart->diffInMinutes($dutyEnd) / 60;
+    }
+    // Case: On-time or within bounds → use actual worked time (already default)
 
     $totalHours = round($totalHours, 2);
 
-
-  
     $attendance->update([
         'total_hours' => $totalHours,
     ]);
+
     session()->flash('success', 'Time out recorded successfully!');
-return;
+    return;
 }
+
 
 
 

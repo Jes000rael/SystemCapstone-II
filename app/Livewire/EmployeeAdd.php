@@ -12,6 +12,7 @@ use App\Models\EmploymentStatus;
 use App\Models\JobTitle;
 use App\Models\Department;
 use App\Models\Shift;
+use Carbon\Carbon;
 
 class EmployeeAdd extends Component
 {
@@ -57,7 +58,9 @@ class EmployeeAdd extends Component
     public $department1 = [];
 
 
-    protected $rules = [
+   public function rules()
+{
+    return [
         'company_id' => 'required',
         'first_name' => 'required',
         'last_name' => 'required',
@@ -70,24 +73,30 @@ class EmployeeAdd extends Component
         'employment_status_id'=> 'required',
         'job_title_id'=> 'required',
         'department_id'=> 'required',
-        'date_of_birth'=> 'required|date',
+        'date_of_birth' => [
+            'required',
+            'date',
+            'before:' . now()->subYears(18)->toDateString(),  
+            'after:' . now()->subYears(65)->toDateString(),   
+        ],
         'date_hired'=> 'required|date',
         'date_start'=> 'required|date',
         'hourly_rate'=> 'required|numeric|regex:/^\d+(\.\d+)?$/',
         'has_night_diff'=> 'required|boolean',
         'username'=> 'required|unique:employee_records',
-        'password'=> 'required',
-        'contact_number'=> 'required',
-        'emergency_contact'=> 'required',
+        'password'=> 'required|min:8',
+        'contact_number'=> ['required', 'regex:/^09\d{9}$/'], 
+        'emergency_contact'=> ['required', 'regex:/^09\d{9}$/'],
         'emergency_person'=> 'required',
         'relationship'=> 'required',
-        'tin'=> 'required',
-        'sss'=> 'required',
-        'pagibig'=> 'required',
-        'philhealth'=> 'required',
+        'tin'=> 'required|min:11|max:11',
+        'sss'=> 'required|min:11|max:11',
+        'pagibig'=> 'required|min:11|max:11',
+        'philhealth'=> 'required|min:11|max:11',
         'shift_id'=> 'required',
-   
     ];
+}
+
 
     public function mount()
     {
